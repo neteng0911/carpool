@@ -1,0 +1,110 @@
+
+   form {
+
+      text-align: -webkit-center;
+      margin:10;
+      padding-top:0px;
+
+  }
+  #box {
+
+        border-radius:24px;
+        background: #f8f9fa;
+        border:1px solid #dfe1e5;
+        padding: 10px 0px 10px 28px;
+        margin: 0px -60px 0px 10px;
+        width : 582px;
+        font-size:16px;
+        height:30px;
+        display:flex;
+        box-shadow:none;
+        outline:none;
+
+
+  }
+p{
+
+margin-top: -20px;
+
+}
+  .adv
+  {
+  text-align: -webkit-left;
+margin-left: 0px;
+
+
+
+
+
+
+
+
+  #color: -internal-light-dark(black, white);
+  hover:background-color:black;
+  display:block;
+  clear:both;
+
+
+  }
+
+
+  .logo{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 15%;
+    margin-top:100px;
+
+
+  }
+
+
+  .subim{
+
+    display:block;
+    margin:auto;
+    position:relative;
+    top:40px;
+    border-radius:4px;
+    background: #f8f9fa;
+    border:1px solid #f8f9fa;
+
+
+
+  }
+
+.linksim{
+
+display:table-cell;
+vertical-align:top;
+position:absolute;
+right:0px;
+top:0px;
+
+
+}
+.magn{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 1.5%;
+  height:auto;
+  position: relative;
+  top:40px;
+  left:-250px;
+  padding:0px 13px 0px 0px;
+
+
+
+}
+  .subinp{
+    margin:auto;
+    position:relative;
+    left:20%;
+    top:10px;
+    border-radius:4px;
+    background: #f8f9fa;
+    border:1px solid #f8f9fa;
+    width:100%;
+
+}
