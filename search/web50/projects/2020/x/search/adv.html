@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Search</title>
+        <link rel="stylesheet" href="styles1.css">
+    </head>
+    <body>
+
+        <form class="adv" action="https://google.com/search" method ="GET">
+            <table>
+                <p>
+                <br>
+                    <tr><td style="font-size:13px;font-family:verdana"><h4>Find pages with...</h4></td>
+                        <td><h4> </h4></td>
+                    <td style="font-size:13px;color:#555"><h4>To do this in the search box</h4></td>
+                    </tr>
+            <tr>
+                <td align="left";> all these words:</td>
+                <td align="right"> <input type="text" name="q"></td>
+                <input type="hidden" name="as_qdr" value="all">
+                <input type="hidden" name="as_occt" value="any">
+                <td style="font-size:11px;color:#555">Type the important words: tri-colour rat terrier</td>
+            </tr>
+
+             <tr>
+                <td align="left"> these exact words of phrase:</td>
+                <td align="right"> <input type="text" name="q"></td>
+                <input type="hidden" name="as_occt" value="any">
+
+                <td style="font-size:11px;color:#555">Put exact words in quotes: "rat terrier"</td></tr>
+                <tr>
+                <td align="left"> any of these words:</td>
+                <td align="right"> <input type="text" name="as_oq"></td>
+                    <td style="font-size:11px;color:#555">Put a minus sign just before words that you don't want: -rodent, -"Jack Russell"</td>
+
+                </tr>
+                <tr>
+                <td align="left"> none of these words:</td>
+                <td align="right"> <input type="text" name="as_eq"></td>
+                <td style="font-size:11px;color:#555">Type OR between all the words you want: miniature OR standard"</td>
+                </tr>
+
+            </table>
+            </p>
+
+
+            <input id="butt" type="submit" value="Advanced Search">
+        </form>
+
+<div>  <a class="linkback" href="/MIT_CS50/MIT_CS50/search/index.html">Google Search</a> </div>
+    </body>
+</html>
