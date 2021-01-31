@@ -1,0 +1,50 @@
+ div {
+
+
+  }
+table {
+  border-collapse: separate;
+  border-spacing: 20px 0;
+  font-family: arial,sans-serif;
+  color:#333;
+}
+
+
+    input  {
+
+
+        color: #202124;
+
+        padding-top:10px;
+        #margin-top: 20px;
+
+        width : 250px;
+        #border: 0px;
+        font-size:15px;
+
+  }
+#butt{
+
+color:white;
+background-color:#4d90fe;
+width:150px;
+padding:0px 12px 1px 10px;
+margin:10px 0px 0px 360px;
+font-size:11px;
+height:30px;
+background-image: -webkit-linear-gradient(top,#4d90fe,#4787ed);
+border: 1px solid #3079ed;
+font-weight:750;
+font-family:Arial;
+border-radius: 2px;
+
+
+}
+.linkback{
+
+    color: blue;
+    border: 2px solid black;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+}
