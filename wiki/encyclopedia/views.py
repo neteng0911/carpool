@@ -7,10 +7,14 @@ def index(request):
     return render(request, "encyclopedia/index.html", {
         "entries": util.list_entries()
     })
-
-def create_new_page(request):
+#create_new_page
+def new(request):
     return render(request,'encyclopedia/new.html')
-
-def random_page(request):
+#random_page
+def random(request):
     return render(request,'encyclopedia/random.html')
+def entry(request,title):
+    context ={"title" : title}
+    return render(request, "encyclopedia/title.html", context,{"title":util.get_entry(title)})
+    
 
