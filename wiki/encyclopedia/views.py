@@ -14,7 +14,7 @@ def new(request):
 def random(request):
     return render(request,'encyclopedia/random.html')
 def entry(request,title):
-    context ={"title" : title}
-    return render(request, "encyclopedia/title.html", context,{"title":util.get_entry(title)})
+    #context ={"title" : title}
+    return render(request, "encyclopedia/entry.html", {"title":util.convert_md(title)})
     
 

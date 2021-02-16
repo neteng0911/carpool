@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 
 from . import views
 
@@ -7,6 +7,7 @@ urlpatterns = [
     path("new",views.new, name="new"),
     path("random",views.random, name="random"),
 
-    path('<str:title>',views.entry, name='entry')
+    path('<str:title>',views.entry, name='entry'),
+
 
 ]
