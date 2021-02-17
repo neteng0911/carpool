@@ -9,12 +9,14 @@ def index(request):
     })
 #create_new_page
 def new(request):
-    return render(request,'encyclopedia/new.html')
+    return render(request,'encyclopedia/new.html', {"title":util.get_entry(title)})
 #random_page
 def random(request):
     return render(request,'encyclopedia/random.html')
 def entry(request,title):
-    #context ={"title" : title}
-    return render(request, "encyclopedia/entry.html", {"title":util.convert_md(title)})
-    
+
+    return render(request, 'encyclopedia/entry.html', {"title":util.get_entry(title)})
+
+
+
 
