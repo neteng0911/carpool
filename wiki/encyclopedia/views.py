@@ -8,8 +8,8 @@ def index(request):
         "entries": util.list_entries()
     })
 #create_new_page
-def new(request):
-    return render(request,'encyclopedia/new.html', {"title":util.get_entry(title)})
+def new(request,title,content):
+    return render(request,'encyclopedia/new.html', {"title":util.save_entry(title,content)})
 #random_page
 def random(request):
     return render(request,'encyclopedia/random.html')
