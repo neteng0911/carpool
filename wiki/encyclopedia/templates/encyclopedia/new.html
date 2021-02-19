@@ -8,9 +8,14 @@
     <h1>Create New page</h1>
 
     <ul>
-        {% for entry in entries %}
-            <li>{{ entry }}</li>
-        {% endfor %}
+        <form action='{% url "new" %}' method ="POST">
+        {% crsf token %>
+        {{form}}
+        <input type="submit">
+
+
+        </form>
+        <a href="{% url "index" %}">Home</a>
     </ul>
 
 {% endblock %}
