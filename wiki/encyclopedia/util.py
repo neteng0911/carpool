@@ -3,7 +3,7 @@ import re
 from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
 import markdown2
-from pathlib import Path
+
 
 
 def list_entries():
@@ -34,7 +34,7 @@ def get_entry(title):
     """
     with open(f"entries/{title}.md",'r') as f:
         text=f.read()
-        html=markdown2.markdown(text)
+        html=markdown2.Markdown().convert(text)
     with open(f"entries/{title}.html",'w') as f:
         f.write(html)
     try:

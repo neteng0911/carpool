@@ -25,7 +25,7 @@ def random(request):
     return render(request,'encyclopedia/random.html')
 def entry(request,title):
 
-    return render(request, 'encyclopedia/entry.html', {"title":util.get_entry(title)})
+    return render(request, 'encyclopedia/entry.html', {"entry":util.get_entry(title)})
 
 
 
