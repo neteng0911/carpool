@@ -5,13 +5,14 @@
 {% endblock %}
 
 {% block body %}
-    <h1>Create New page</h1>
+    <h1>Create New Entry</h1>
 
     <ul>
         <form action='{% url "new" %}' method ="POST">
-        {% crsf token %>
+            {% csrf_token %}
         {{form}}
-        <input type="submit">
+        <input type="submit"/>
+
 
 
         </form>
