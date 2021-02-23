@@ -1,6 +1,7 @@
 body {
     margin: 0;
     background-color: white;
+    max-width:1200px;
 }
 
 code {
@@ -35,4 +36,14 @@ textarea {
 
 .sidebar h2 {
     margin-top: 5px;
+
+}
+.contentclass {
+    width: 50%;
+    height: 300px;
+    padding: 0px;
+
+
+
+
 }

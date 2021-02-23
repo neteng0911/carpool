@@ -3,7 +3,10 @@ from django import forms
 from . import util
 class AddNewEntryForm(forms.Form):
     title = forms.CharField(label="title")
-    content = forms.CharField(label="content")
+    content = forms.CharField(label="content", help_text="write your content here")
+
+    title.widget.attrs.update({'class': "titleclass"})
+    content.widget.attrs.update({'class': "contentclass"})
 
 def index(request):
     return render(request, "encyclopedia/index.html", {
