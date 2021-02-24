@@ -31,7 +31,7 @@ def entry(request,title):
     text=util.get_entry(title)
     html=markdown2.Markdown().convert(text)
 
-    return render(request, 'encyclopedia/entry.html', {"text":util.get_entry(title),"entry":html})
+    return render(request, 'encyclopedia/entry.html', {"entry":html})
 
 
 
