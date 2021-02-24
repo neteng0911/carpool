@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django import forms
 from . import util
+import markdown2
 class AddNewEntryForm(forms.Form):
     title = forms.CharField(label="title")
     content = forms.CharField(label="content", help_text="write your content here")
@@ -27,8 +28,10 @@ def new(request):
 def random(request):
     return render(request,'encyclopedia/random.html')
 def entry(request,title):
+    text=util.get_entry(title)
+    html=markdown2.Markdown().convert(text)
 
-    return render(request, 'encyclopedia/entry.html', {"entry":util.get_entry(title)})
+    return render(request, 'encyclopedia/entry.html', {"text":util.get_entry(title),"entry":html})
 
 
 

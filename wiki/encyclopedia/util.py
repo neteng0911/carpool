@@ -34,9 +34,9 @@ def get_entry(title):
     """
     with open(f"entries/{title}.md",'r') as f:
         text=f.read()
-        html=markdown2.Markdown().convert(text)
+
     with open(f"entries/{title}.html",'w') as f:
-        f.write(html)
+        f.write(text)
     try:
         f = default_storage.open(f"entries/{title}.md")
         return f.read().decode("utf-8")
