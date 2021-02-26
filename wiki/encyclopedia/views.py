@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from django import forms
+from django.urls import reverse
+from django.http import HttpResponseRedirect
 from . import util
 import markdown2
 class AddNewEntryForm(forms.Form):
@@ -22,6 +24,12 @@ def new(request):
             title=form.cleaned_data["title"]
             content=form.cleaned_data["content"]
             util.save_entry(title, content)
+            return entry(request,title)
+
+           
+        else:
+            #if the form is invalid
+            return render(request,"encyclopedia/new.html",{"form":form})
         
     return render(request,'encyclopedia/new.html',{"form":AddNewEntryForm()})
 #random_page

@@ -40,8 +40,9 @@ textarea {
 }
 .contentclass {
     width: 50%;
-    height: 300px;
-    padding: 0px;
+    height: 0px;
+    padding: 10px 0 400px 0;
+    text-align: left;
 
 
 
