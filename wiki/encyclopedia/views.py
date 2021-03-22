@@ -12,6 +12,7 @@ class AddNewEntryForm(forms.Form):
     content.widget.attrs.update({'class': "contentclass"})
 def search_results(request):
     # if request.method=="GET":
+
     query=request.GET.get("q")
     print(query)
     entries=util.list_entries()
@@ -20,17 +21,18 @@ def search_results(request):
         if s==i:
             print ('ok')
             return entry(request,s)
+        else:
 
-    #     for entry in entries:
-    #         if query==entry:
-    #             return entry(request,title)
-    #         else:
-    #             return HttpResponseRedirect ("encyclopedia/index")
-    return render(request,"encyclopedia/search_results.html")
+            reslst = [i for i in entries if s in i]
+            return render(request,"encyclopedia/search_results.html",{"reslst":reslst})
+    else:
+        return render(request,"encyclopedia/index.html")
+
 def index(request):
 
     return render(request, "encyclopedia/index.html", {
         "entries": util.list_entries()})
+
 #create_new_page
 def new(request):
     # check if method is POST

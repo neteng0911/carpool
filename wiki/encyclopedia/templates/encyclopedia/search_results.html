@@ -6,12 +6,13 @@
 
 {% block body %}
 
-
+<h1> Search Results</h1>
 
     <div>
-        <ul>{% for entry in object_list %)
+        <ul>{% for i in reslst %}
+<li><a href="{% url 'entry' i %}">{{i}}</a></li>
 
-            <li>{{entry}}</li>
+            {% endfor %}
 
         </ul>
     </div>
