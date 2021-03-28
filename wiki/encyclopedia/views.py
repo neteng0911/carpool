@@ -13,22 +13,25 @@ class AddNewEntryForm(forms.Form):
     title.widget.attrs.update({'class': "titleclass"})
     content.widget.attrs.update({'class': "contentclass"})
 def search_results(request):
-    # if request.method=="GET":
 
     query=request.GET.get("q")
-    print(query)
+    #print(query)
     entries=util.list_entries()
     s=str(query)
+
     for i in entries:
-        if s==i:
-            print ('ok')
+        if s.upper()==i or s.lower()==i:
             return entry(request,s)
         else:
 
-            reslst = [i for i in entries if s in i]
-            return render(request,"encyclopedia/search_results.html",{"reslst":reslst})
-    else:
-        return render(request,"encyclopedia/index.html")
+
+            reslst = [i for i in entries if s.upper() in i or s.lower() in i or s in i]
+            if reslst==[]:
+                return render(request,"encyclopedia/no_results.html")
+            else:
+                return render(request,"encyclopedia/search_results.html",{"reslst":reslst})
+
+    return render(request,"encyclopedia/search_results.html",{"reslst":reslst})
 
 def index(request):
 
@@ -59,8 +62,7 @@ def random_entry(request):
     num=len(entries)
     num1=random.randint(0,num-1)
     title=entries[num1]
-    #shuffled=random.shuffle(entries)
-    #title=shuffled[0]
+
 
     return entry(request,title)
 def entry(request,title):

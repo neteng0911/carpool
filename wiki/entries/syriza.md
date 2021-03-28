@@ -1,3 +1,0 @@
-SYRIZARA olehfhfhfh
-a sjkw dl
-,x q
