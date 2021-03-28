@@ -2,11 +2,7 @@ import re
 
 from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
-<<<<<<< HEAD
 import markdown2
-=======
-
->>>>>>> main
 
 
 
@@ -38,15 +34,9 @@ def get_entry(title):
     """
     with open(f"entries/{title}.md",'r') as f:
         text=f.read()
-<<<<<<< HEAD
         html=markdown2.Markdown().convert(text)
     with open(f"entries/{title}.html",'w') as f:
         f.write(html)
-=======
-
-    with open(f"entries/{title}.html",'w') as f:
-        f.write(text)
->>>>>>> main
     try:
         f = default_storage.open(f"entries/{title}.md")
         return f.read().decode("utf-8")

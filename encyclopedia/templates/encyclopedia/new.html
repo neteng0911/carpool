@@ -5,45 +5,19 @@
 {% endblock %}
 
 {% block body %}
-<<<<<<< HEAD
 <style>action{width:100% ;height:200px}</style>
-=======
-
->>>>>>> main
     <h1>Create New Entry</h1>
 
     <ul>
         <form action='{% url "new" %}' method ="POST">
             {% csrf_token %}
-<<<<<<< HEAD
         {{form}}
         <input type="submit"/>
-=======
-
-
-            <br>
-            <strong>Title</strong>
-            <p>{{form.title}}</br></p>
-
-            <strong>Content</strong>
-            <p>
-            {{form.content}}
-            {{form.errors}}
-            <br></p>
-
-
-        <input type="submit"/>
-            </br>
->>>>>>> main
 
 
 
         </form>
-<<<<<<< HEAD
         <a href="{% url "index" %}">Home</a>
-=======
-
->>>>>>> main
     </ul>
 
 {% endblock %}

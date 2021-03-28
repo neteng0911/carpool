@@ -6,9 +6,18 @@
 
 {% block body %}
 
+<<<<<<< HEAD
+=======
+<h1> {{title}} </h1>
+>>>>>>> main
 
 
     <div>{{entry|safe}}
     </div>
 
+<<<<<<< HEAD
 {% endblock %}
+=======
+<a href="{% url 'edit_entry' title %}">Edit {{title}} Entry</a>
+{% endblock %}
+>>>>>>> main

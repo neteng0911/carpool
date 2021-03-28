@@ -1,0 +1,50 @@
+body {
+    margin: 0;
+    background-color: white;
+    max-width:1200px;
+}
+
+code {
+    white-space: pre;
+}
+
+h1 {
+    margin-top: 0px;
+    padding-top: 20px;
+}
+
+textarea {
+    height: 30vh;
+    width: 80%;
+}
+
+.main {
+    padding: 10px;
+}
+
+.search {
+    width: 100%;
+    font-size: 15px;
+    line-height: 15px;
+}
+
+.sidebar {
+    background-color: #f0f0f0;
+    height: 100vh;
+    padding: 20px;
+}
+
+.sidebar h2 {
+    margin-top: 5px;
+
+}
+.contentclass {
+    width: 50%;
+    height: 0px;
+    padding: 10px 0 400px 0;
+    text-align: left;
+
+
+
+
+}
