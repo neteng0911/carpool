@@ -1,17 +1,4 @@
-<<<<<<< HEAD
-from django.shortcuts import render
-from django import forms
-from . import util
-class AddNewEntryForm(forms.Form):
-    title = forms.CharField(label="title")
-    content = forms.CharField(label="content")
-
-def index(request):
-    return render(request, "encyclopedia/index.html", {
-        "entries": util.list_entries()
-    })
-=======
-#git completed
+#git check
 from django.shortcuts import render
 from django import forms
 from django.urls import reverse
@@ -51,30 +38,16 @@ def index(request):
     return render(request, "encyclopedia/index.html", {
         "entries": util.list_entries()})
 
->>>>>>> main
 #create_new_page
 def new(request):
     # check if method is POST
     if request.method=="POST":
-<<<<<<< HEAD
-=======
 
->>>>>>> main
         form=AddNewEntryForm(request.POST)
         if form.is_valid():
             title=form.cleaned_data["title"]
             content=form.cleaned_data["content"]
             util.save_entry(title, content)
-<<<<<<< HEAD
-        
-    return render(request,'encyclopedia/new.html',{"form":AddNewEntryForm()})
-#random_page
-def random(request):
-    return render(request,'encyclopedia/random.html')
-def entry(request,title):
-
-    return render(request, 'encyclopedia/entry.html', {"entry":util.get_entry(title)})
-=======
             return entry(request,title)
 
            
@@ -113,7 +86,6 @@ def edit_entry(request,title):
 
     return render(request, "encyclopedia/edit_entry.html")
 
->>>>>>> main
 
 
 
