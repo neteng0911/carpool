@@ -11,7 +11,7 @@
     <ul>
         <form action='{% url "edit_entry" title %}' method ="POST">
             {% csrf_token %}
-            <br><textarea name="content" rows="4" cols="20">{{content}}</textarea></br>
+            <br><textarea name="content" rows="2" cols="10">{{content}}</textarea></br>
 
             <br>
 

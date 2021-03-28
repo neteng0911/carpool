@@ -57,9 +57,7 @@ def new(request):
 def random_entry(request):
     entries=util.list_entries()
     num=len(entries)
-    print(num)
     num1=random.randint(0,num-1)
-    print(num1)
     title=entries[num1]
     #shuffled=random.shuffle(entries)
     #title=shuffled[0]
@@ -69,17 +67,18 @@ def entry(request,title):
     text=util.get_entry(title)
     html=markdown2.Markdown().convert(text)
 
-    return render(request, 'encyclopedia/entry.html', {"entry":html})
+    return render(request, 'encyclopedia/entry.html', {"entry":html,"title":title})
 
 def edit_entry(request,title):
     if request.method=="GET":
-        entry=util.get_entry(title)
-        return render(request, "encyclopedia/edit_entry.html", {"content": entry,"title":title})
+        text=util.get_entry(title)
+        return render(request, "encyclopedia/edit_entry.html", {"content": text,"title":title})
 
     if request.method=="POST":
-        content=request.POST["content"]
+        new_content=request.POST["content"]
 
-        util.save_entry(content,title)
+
+        util.save_entry(title,new_content)
 
         return entry(request,title)
 
