@@ -58,18 +58,21 @@ def new(request):
     return render(request,'encyclopedia/new.html',{"form":AddNewEntryForm()})
 #random_page
 def random_entry(request):
-    entries=util.list_entries()
-    num=len(entries)
-    num1=random.randint(0,num-1)
-    title=entries[num1]
+    choice=random.choice(util.list_entries())
+
+    return entry(request,choice)
 
 
-    return entry(request,title)
 def entry(request,title):
-    text=util.get_entry(title)
-    html=markdown2.Markdown().convert(text)
+    text = util.get_entry(title)
+    if text is None:
+        return render(request, "encyclopedia/entry.html", {"entry": 'ERROR', "title": title})
 
-    return render(request, 'encyclopedia/entry.html', {"entry":html,"title":title})
+
+    else:
+        html=markdown2.Markdown().convert(text)
+    return render(request, 'encyclopedia/entry.html', {"entry": html, "title": title})
+
 
 def edit_entry(request,title):
     if request.method=="GET":
