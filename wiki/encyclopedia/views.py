@@ -2,6 +2,7 @@
 from django.shortcuts import render
 from django import forms
 from django.urls import reverse
+from django.shortcuts import redirect
 from django.http import HttpResponseRedirect
 from . import util
 import random
@@ -17,16 +18,17 @@ def search_results(request):
     query=request.GET.get("q","")
 
     entries=util.list_entries()
+
     s=str(query)
+
     reslst = [i for i in entries if s.upper() in i or s.lower() in i or s in i]
 
     for i in entries:
 
         if s:
+            if s.upper()==i or s.lower()==i or s==i:
 
-            if s.upper() == i or s.lower() == i or s == i:
-                return entry(request, s)
-
+                return entry(request,s)
             else:
 
                 if reslst:
@@ -35,7 +37,7 @@ def search_results(request):
                 else:
                     return render(request,"encyclopedia/search_results.html",{"reslst":reslst, "message": 'Sorry no results please try again'})
 
-        return render(request,"encyclopedia/search_results.html",{"reslst":reslst})
+    return render(request,"encyclopedia/search_results.html",{"reslst":reslst})
 
 def index(request):
 
@@ -71,7 +73,7 @@ def entry(request,title):
     text = util.get_entry(title)
 
     if text is None:
-        return render(request, "encyclopedia/entry.html", {"Edit": 'Create',"entry": 'ERROR_entry not found', "title": title})
+        return render(request, "encyclopedia/no_results.html")
 
 
     else:
@@ -82,7 +84,7 @@ def entry(request,title):
 def edit_entry(request,title):
     if request.method=="GET":
         text=util.get_entry(title)
-        return render(request, "encyclopedia/edit_entry.html", {"Edit": 'Edit',"content": text,"title":title})
+        return render(request, "encyclopedia/edit_entry.html", {"content": text,"title":title})
 
     if request.method=="POST":
         new_content=request.POST["content"]
