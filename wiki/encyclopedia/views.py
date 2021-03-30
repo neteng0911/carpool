@@ -15,12 +15,12 @@ class AddNewEntryForm(forms.Form):
 def search_results(request):
 
     query=request.GET.get("q")
-    #print(query)
+
     entries=util.list_entries()
     s=str(query)
 
     for i in entries:
-        if s.upper()==i or s.lower()==i:
+        if s.upper()==i or s.lower()==i or s==i:
             return entry(request,s)
         else:
 
@@ -65,7 +65,7 @@ def random_entry(request):
 
 def entry(request,title):
     text = util.get_entry(title)
-    print(text)
+
     if text is None:
         return render(request, "encyclopedia/entry.html", {"Edit": 'Create',"entry": 'ERROR_entry not found', "title": title})
 
