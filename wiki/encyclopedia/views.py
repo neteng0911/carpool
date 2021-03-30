@@ -14,24 +14,28 @@ class AddNewEntryForm(forms.Form):
     content.widget.attrs.update({'class': "contentclass"})
 def search_results(request):
 
-    query=request.GET.get("q")
+    query=request.GET.get("q","")
 
     entries=util.list_entries()
     s=str(query)
+    reslst = [i for i in entries if s.upper() in i or s.lower() in i or s in i]
 
     for i in entries:
-        if s.upper()==i or s.lower()==i or s==i:
-            return entry(request,s)
-        else:
 
+        if s:
 
-            reslst = [i for i in entries if s.upper() in i or s.lower() in i or s in i]
-            if reslst==[]:
-                return render(request,"encyclopedia/no_results.html")
+            if s.upper() == i or s.lower() == i or s == i:
+                return entry(request, s)
+
             else:
-                return render(request,"encyclopedia/search_results.html",{"reslst":reslst})
 
-    return render(request,"encyclopedia/search_results.html",{"reslst":reslst})
+                if reslst:
+
+                    return render(request,"encyclopedia/search_results.html",{"reslst":reslst})
+                else:
+                    return render(request,"encyclopedia/search_results.html",{"reslst":reslst, "message": 'Sorry no results please try again'})
+
+        return render(request,"encyclopedia/search_results.html",{"reslst":reslst})
 
 def index(request):
 
