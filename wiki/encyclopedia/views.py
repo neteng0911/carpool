@@ -67,7 +67,7 @@ def entry(request,title):
     text = util.get_entry(title)
     print(text)
     if text is None:
-        return render(request, "encyclopedia/entry.html", {"entry": 'ERROR_entry not found', "title": title})
+        return render(request, "encyclopedia/entry.html", {"Edit": 'Create',"entry": 'ERROR_entry not found', "title": title})
 
 
     else:
@@ -78,7 +78,7 @@ def entry(request,title):
 def edit_entry(request,title):
     if request.method=="GET":
         text=util.get_entry(title)
-        return render(request, "encyclopedia/edit_entry.html", {"content": text,"title":title})
+        return render(request, "encyclopedia/edit_entry.html", {"Edit": 'Edit',"content": text,"title":title})
 
     if request.method=="POST":
         new_content=request.POST["content"]
