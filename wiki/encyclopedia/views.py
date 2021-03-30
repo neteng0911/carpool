@@ -65,6 +65,7 @@ def random_entry(request):
 
 def entry(request,title):
     text = util.get_entry(title)
+    print(text)
     if text is None:
         return render(request, "encyclopedia/entry.html", {"entry": 'ERROR', "title": title})
 
