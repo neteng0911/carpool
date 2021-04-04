@@ -8,8 +8,8 @@ from .models import User, Listing, Bid
 
 
 def index(request):
-    return render(request, "auctions/index.html")
-    #return render(request, "auctions/index.html",{"listings":Listing.objects.all()})
+    #return render(request, "auctions/index.html")
+    return render(request, "auctions/index.html",{"listings":Listing.objects.all()})
 
 
 def login_view(request):
@@ -62,3 +62,9 @@ def register(request):
         return HttpResponseRedirect(reverse("index"))
     else:
         return render(request, "auctions/register.html")
+def listing(request,listing_id):
+    listing=Listing.objects.get(id=listing_id)
+    return render(request, "auctions/listings/listing.html",{"listing":listing})
+
+def create_listing(request):
+    pass

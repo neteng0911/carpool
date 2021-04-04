@@ -1,3 +1,16 @@
 body {
     padding: 10px;
 }
+.menu {
+  width: 45%;
+  float: left;
+  padding: 15px;
+  border: 1px solid grey;
+}
+
+.main {
+  width: 55%;
+  float: left;
+  padding: 15px;
+  border: 1px solid grey;
+}
