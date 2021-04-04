@@ -72,8 +72,9 @@ def create_listing(request):
 
         title=request.POST["title"]
         description=request.POST["description"]
-        listing = Listing.objects.create_listing(title,description)
+        picture_url=request.POST["picture_url"]
+        listing = Listing.objects.create_listing(title,description,picture_url)
         listing.save()
         return listing(listing.id)
     else:
-        return render(request, "auctions/create_listings.html")
+        return render(request, "auctions/create_listing.html")
