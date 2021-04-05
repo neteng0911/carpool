@@ -5,6 +5,7 @@ from django.shortcuts import render
 from django.urls import reverse
 
 from .models import User, Listing, Bid
+from datetime import date
 
 
 def index(request):
@@ -63,6 +64,7 @@ def register(request):
     else:
         return render(request, "auctions/register.html")
 def listing(request,listing_id):
+
     listing=Listing.objects.get(id=listing_id)
     return render(request, "auctions/listings/listing.html",{"listing":listing})
 
@@ -73,7 +75,11 @@ def create_listing(request):
         title=request.POST["title"]
         description=request.POST["description"]
         picture_url=request.POST["picture_url"]
-        listing = Listing.objects.create_listing(title,description,picture_url)
+        start_bid = request.POST["start_bid"]
+        #created_date=date.today()
+
+        #print(created_date)
+        listing = Listing.objects.create_listing(title,description,picture_url,start_bid,created_date,category)
         listing.save()
         return listing(listing.id)
     else:
