@@ -63,24 +63,23 @@ def register(request):
         return HttpResponseRedirect(reverse("index"))
     else:
         return render(request, "auctions/register.html")
-def listing(request,listing_id):
+def flisting(request,listing_id):
 
     listing=Listing.objects.get(id=listing_id)
-    return render(request, "auctions/listings/listing.html",{"listing":listing})
+    return render(request, "auctions/listings/flisting.html",{"listing":listing})
 
 def create_listing(request):
     # check if method is POST
+    created_date = date.today()
     if request.method=="POST":
 
         title=request.POST["title"]
         description=request.POST["description"]
         picture_url=request.POST["picture_url"]
         start_bid = request.POST["start_bid"]
-        #created_date=date.today()
-
-        #print(created_date)
-        listing = Listing.objects.create_listing(title,description,picture_url,start_bid,created_date,category)
+        category = request.POST["category"]
+        listing = Listing.objects.create_listing(title,description,start_bid,picture_url,category,created_date)
         listing.save()
-        return listing(listing.id)
+        return render(request, "auctions/listings/flisting.html",{"listing":listing})
     else:
-        return render(request, "auctions/create_listing.html")
+        return render(request, "auctions/create_listing.html",{"created_date":created_date})

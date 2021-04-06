@@ -13,6 +13,9 @@
         <div class="form-group">
             <input class="form-control" autofocus type="text" name="title" placeholder="Title">
         </div>
+                <div class="form-group">
+            <input class="form-control" type="text" name="category" placeholder="Category">
+        </div>
         <div class="form-group">
             <input class="form-control" type="text" name="description" placeholder="Description">
         </div>
@@ -21,6 +24,9 @@
         </div>
                 <div class="form-group">
             <input class="form-control" type="number" step="0.01" min="0" name="start_bid" placeholder="Start Bid">
+        </div>
+        <div class="form-group">
+            <input class="form-control" type="hidden"  name="created_date" value={{created_date}}>
         </div>
             <input class="btn btn-primary" type="submit" value="Save">
     </form>
