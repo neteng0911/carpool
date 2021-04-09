@@ -7,11 +7,10 @@
        <div class ="menu"> <img src={{listing.picture_url}} width="200" height="300"></div>
         <div class="main"> <p style="font-size:20px"><strong>{{listing.title}}</strong> </p>, {{listing.description}},
             <p><strong> Price: {{listing.start_bid}}&euro;</strong></p>
+            <p style= "color:grey; font-size:15px;"> created: {{listing.created_date}} <strong> by {{user}}</strong></p>
         </div>
-        <p class="subnote">created: {{listing.created_date}} <strong> by {{user}}</strong></p>
-       <div>
-       <a href="{% url 'index' %}">All Listings</a>
-        </div>
+        {#***NOT RENDERED <div class="subnote">created: {{listing.created_date}} <strong> by {{user}}</strong> </div>#}
+
 {% comment %} this is a comment {% endcomment %}
 
 {# this won't be rendered #}

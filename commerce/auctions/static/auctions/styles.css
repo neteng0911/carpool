@@ -3,6 +3,7 @@ body {
 }
 .menu {
   width: 35%;
+  height:350px;
   float: left;
   padding: 15px;
   border: 1px solid grey;
@@ -10,14 +11,21 @@ body {
 
 .main {
   width: 65%;
+  height: 350px;
   float: left;
   padding: 15px;
   border: 1px solid grey;
   box-sizing: border-box;
+  margin-top:0px;
 }
 
 .subnote{
+  width: 65%;
+  height: 350px;
+  float: left;
+  padding: 15px;
     color: grey;
     font-size: 15px;
+    margin-left:300px;
 
 }
