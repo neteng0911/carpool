@@ -3,6 +3,7 @@ from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
+from django.utils import timezone
 
 from .models import User, Listing, Bid
 from datetime import date
@@ -64,13 +65,13 @@ def register(request):
     else:
         return render(request, "auctions/register.html")
 def flisting(request,listing_id):
-
+    user = request.user
     listing=Listing.objects.get(id=listing_id)
-    return render(request, "auctions/listings/flisting.html",{"listing":listing})
+    return render(request, "auctions/listings/flisting.html",{"listing":listing,"user":user})
 
 def create_listing(request):
     # check if method is POST
-    created_date = date.today()
+    created_date = timezone.now()
     if request.method=="POST":
 
         title=request.POST["title"]
@@ -78,7 +79,8 @@ def create_listing(request):
         picture_url=request.POST["picture_url"]
         start_bid = request.POST["start_bid"]
         category = request.POST["category"]
-        listing = Listing.objects.create_listing(title,description,start_bid,picture_url,category,created_date)
+        listing_owner=request.user
+        listing = Listing.objects.create_listing(title,description,start_bid,picture_url,category,created_date,listing_owner)
         listing.save()
         return render(request, "auctions/listings/flisting.html",{"listing":listing})
     else:

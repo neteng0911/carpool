@@ -2,15 +2,22 @@ body {
     padding: 10px;
 }
 .menu {
-  width: 45%;
+  width: 35%;
   float: left;
   padding: 15px;
   border: 1px solid grey;
 }
 
 .main {
-  width: 55%;
+  width: 65%;
   float: left;
   padding: 15px;
   border: 1px solid grey;
+  box-sizing: border-box;
+}
+
+.subnote{
+    color: grey;
+    font-size: 15px;
+
 }
