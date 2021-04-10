@@ -65,9 +65,18 @@ def register(request):
     else:
         return render(request, "auctions/register.html")
 def flisting(request,listing_id):
-    user = request.user
+
     listing=Listing.objects.get(id=listing_id)
-    return render(request, "auctions/listings/flisting.html",{"listing":listing,"user":user})
+    if request.method=="POST":
+        bid_val = request.POST["bid"]
+        bidder=request.user
+        listing_bid = listing_id
+        bid = Bid.Objects.place_bid(bid_val,bidder,listing_bid)
+        if bid_val>bid.val:
+            bid.save()
+        else:
+            message="bid is "
+    return render(request, "auctions/listings/flisting.html",{"listing":listing})
 
 def create_listing(request):
     # check if method is POST
@@ -85,3 +94,10 @@ def create_listing(request):
         return render(request, "auctions/listings/flisting.html",{"listing":listing})
     else:
         return render(request, "auctions/create_listing.html",{"created_date":created_date})
+
+def my_listings(request):
+    my_listings=Listing.objects.get(listing_owner=request.user)
+    return render(request, "auctions/my_listings.html", {"my_listings": my_listings})
+
+def watchlist(request):
+    pass

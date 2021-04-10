@@ -30,9 +30,17 @@ class Listing(models.Model):
     def __str__(self):
         return f"Listing id:{self.id},{self.title}"
 
+class BidManager(models.Manager):
+
+    def place_bid(self,val,bidder,listing_bid):
+        bid=self.create(val=val,bidder=bidder,listing_bid=listing_bid)
+        return bid
+
 
 class Bid(models.Model):
     val=models.FloatField()
+    bidder=models.ForeignKey(User, on_delete=models.CASCADE)
+    listing_bid=models.ForeignKey(Listing, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"{self.val} "
+        return f"{self.val},{self.bidder} "
