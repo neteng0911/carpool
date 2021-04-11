@@ -12,7 +12,7 @@
         <div style = "font-size:22px; color:green;">{{ message }}</div>
     {% endif %}
 
-
+<p style= "font-size:15px;"> Category: {{listing.category}}
     <form action="{% url 'flisting' listing.id %}" method="post">
         {% csrf_token %}
            <div class="form-group">
@@ -21,7 +21,7 @@
 
             <input class="btn btn-primary" type="submit" value="Place Bid">
     </form>
-            <p style= "font-size:15px;"> Category: {{listing.category}}
+
 
 
             <p style= "color:grey; font-size:15px;"> created: {{listing.created_date}} <strong> by {{listing.listing_owner}}</strong></p>

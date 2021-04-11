@@ -103,8 +103,9 @@ def create_listing(request):
         return render(request, "auctions/create_listing.html",{"created_date":created_date})
 @login_required
 def my_listings(request):
-    listings = Listing.objects.all()
-    my_listings=listings.users.all()
+
+    my_listings = Listing.objects.filter(listing_owner=request.user)
+    #my_listings=listings.users.all()
     #my_listings=Listing.objects.get(listing_owner=request.user)
     return render(request, "auctions/my_listings.html", {"my_listings": my_listings})
 @login_required

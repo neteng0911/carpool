@@ -27,7 +27,7 @@ class Listing(models.Model):
     category=models.CharField(max_length=150, default="no category")
     created_date=models.DateTimeField(default=now, editable=False)
     listing_owner=models.ForeignKey(User, on_delete=models.CASCADE, null="TRUE", blank="TRUE")
-    users = models.ManyToManyField(User, blank="TRUE", related_name="listings")
+    #users = models.ManyToManyField(User, blank="TRUE", related_name="listings")
     objects = ListingManager()
     def __str__(self):
         return f"Listing id:{self.id},{self.title}"
