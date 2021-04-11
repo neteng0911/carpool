@@ -9,10 +9,9 @@ from django.contrib.auth.decorators import login_required
 from .models import User, Listing, Bid
 
 
-
 def index(request):
-    #return render(request, "auctions/index.html")
-    return render(request, "auctions/index.html",{"listings":Listing.objects.all()})
+    # return render(request, "auctions/index.html")
+    return render(request, "auctions/index.html", {"listings": Listing.objects.all()})
 
 
 def login_view(request):
@@ -67,47 +66,56 @@ def register(request):
         return render(request, "auctions/register.html")
 
 
-def flisting(request,listing_id):
+def flisting(request, listing_id):
 
-    listing=Listing.objects.get(id=listing_id)
-    if request.method=="POST":
+    listing = Listing.objects.get(id=listing_id)
+
+
+    if request.method == "POST":
         bid_val = request.POST["bid_val"]
-        bidder=request.user
+        bidder = request.user
         listing_bid = listing
-        bid = Bid.objects.place_bid(bid_val,bidder,listing_bid)
-
+        bid = Bid.objects.place_bid(bid_val, bidder, listing_bid)
         bid.save()
-        listing.price=bid_val
+        listing.price = bid_val
         listing.save()
-        return render(request, "auctions/listings/flisting.html", {"listing": listing, "message":"bid placed succesfully"})
 
-    return render(request, "auctions/listings/flisting.html",{"listing":listing})
+        return render(request, "auctions/listings/flisting.html",
+                      {"listing": listing, "message": "bid placed succesfully"})
+    else:
+
+        return render(request, "auctions/listings/flisting.html", {"listing": listing})
 
 
 @login_required
 def create_listing(request):
     # check if method is POST
     created_date = timezone.now()
-    if request.method=="POST":
+    if request.method == "POST":
 
-        title=request.POST["title"]
-        description=request.POST["description"]
-        picture_url=request.POST["picture_url"]
+        title = request.POST["title"]
+        description = request.POST["description"]
+        picture_url = request.POST["picture_url"]
         price = request.POST["price"]
         category = request.POST["category"]
-        listing_owner=request.user
-        listing = Listing.objects.create_listing(title,description,price,picture_url,category,created_date,listing_owner)
+        listing_owner = request.user
+        listing = Listing.objects.create_listing(title, description, price, picture_url, category, created_date,
+                                                 listing_owner)
         listing.save()
-        return render(request, "auctions/listings/flisting.html",{"listing":listing})
+
+        return render(request, "auctions/listings/flisting.html", {"listing": listing})
     else:
-        return render(request, "auctions/create_listing.html",{"created_date":created_date})
+        return render(request, "auctions/create_listing.html", {"created_date": created_date})
+
+
 @login_required
 def my_listings(request):
-
     my_listings = Listing.objects.filter(listing_owner=request.user)
-    #my_listings=listings.users.all()
-    #my_listings=Listing.objects.get(listing_owner=request.user)
+    # my_listings=listings.users.all()
+    # my_listings=Listing.objects.get(listing_owner=request.user)
     return render(request, "auctions/my_listings.html", {"my_listings": my_listings})
+
+
 @login_required
 def watchlist(request):
     pass

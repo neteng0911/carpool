@@ -39,6 +39,8 @@ class BidManager(models.Manager):
         return bid
 
 
+
+
 class Bid(models.Model):
     val=models.FloatField()
     bidder=models.ForeignKey(User, on_delete=models.CASCADE, null="TRUE", blank="TRUE")
