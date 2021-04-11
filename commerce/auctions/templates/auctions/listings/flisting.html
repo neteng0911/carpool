@@ -6,19 +6,23 @@
 
        <div class ="menu"> <img src={{listing.picture_url}} width="200" height="300">
            <p style="font-size:20px; padding:15px;">{#<strong>{{listing.title}}</strong>#} </p>{{listing.description}}
-            <p style= "padding-top:15px; font-size:20px"><strong> Price: {{listing.start_bid}}&euro;</strong></p>
-    <form action="{% url 'create_listing' %}" method="post">
+            <p style= "padding-top:15px; font-size:20px"><strong> Price: {{listing.price}}&euro;</strong></p>
+
+               {% if message %}
+        <div style = "font-size:22px; color:green;">{{ message }}</div>
+    {% endif %}
+
+
+    <form action="{% url 'flisting' listing.id %}" method="post">
         {% csrf_token %}
            <div class="form-group">
-            <input class="form-control" type="number" step="1" min={{listing.start_bid}} name="bid" placeholder="Bid">
+            <input class="form-control" type="number" step="1" min={{listing.price}} name="bid_val" placeholder="Bid">
         </div>
-    </form>
-            <input class="btn btn-primary" type="submit" value="Place Bid">
 
+            <input class="btn btn-primary" type="submit" value="Place Bid">
+    </form>
             <p style= "font-size:15px;"> Category: {{listing.category}}
-               {% if message %}
-        <div>{{ message }}</div>
-    {% endif %}
+
 
             <p style= "color:grey; font-size:15px;"> created: {{listing.created_date}} <strong> by {{listing.listing_owner}}</strong></p>
         </div>
