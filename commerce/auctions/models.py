@@ -48,4 +48,21 @@ class Bid(models.Model):
     objects=BidManager()
 
     def __str__(self):
-        return f"{self.val},{self.bidder} "
+        return f"{self.val},{self.bidder}"
+
+
+
+class CommentManager(models.Manager):
+
+    def create_comment(self,comment_txt,listing_comment,created_date,comment_author):
+        comment=self.create(comment_txt=comment_txt, listing_comment=listing_comment,created_date=created_date, comment_author=comment_author)
+        return comment
+
+class Comment(models.Model):
+    comment_txt=models.CharField(max_length=150, blank="True")
+    listing_comment=models.ForeignKey(Listing, on_delete=models.CASCADE, null="TRUE", blank="TRUE")
+    created_date=models.DateTimeField(default=now, editable=False)
+    comment_author = models.ForeignKey(User, on_delete=models.CASCADE, null="TRUE", blank="TRUE")
+    objects = CommentManager()
+    def __str__(self):
+        return f"{self.comment_txt}"
