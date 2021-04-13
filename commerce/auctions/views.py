@@ -6,7 +6,7 @@ from django.urls import reverse
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 
-from .models import User, Listing, Bid
+from .models import User, Listing, Bid, Comment
 
 
 def index(request):
@@ -69,11 +69,11 @@ def register(request):
 def flisting(request, listing_id):
 
     listing = Listing.objects.get(id=listing_id)
-
-
-    if request.POST["action"]=="Place Bid":
+    created_date = timezone.now()
+    current_user=request.user
+    if request.method=="POST" and "place_bid" in request.POST:
         bid_val = request.POST["bid_val"]
-        bidder = request.user
+        bidder = current_user
         listing_bid = listing
         bid = Bid.objects.place_bid(bid_val, bidder, listing_bid)
         bid.save()
@@ -82,10 +82,11 @@ def flisting(request, listing_id):
 
         return render(request, "auctions/listings/flisting.html",
                       {"listing": listing, "message": "bid placed succesfully"})
-    if request.POST["action"]=="Submit Comment":
+    if request.method=="POST" and "submit_comment" in request.POST:
         comment_txt=request.POST["comment_input"]
-        comment_author=request.user
-        comment=Comment.objects.create_comment(comment_txt,comment_author,created_date)
+        comment_author=current_user
+        listing_comment=listing
+        comment = Comment.objects.create_comment(comment_txt,comment_author,created_date,listing_comment)
         comment.save()
         return render(request, "auctions/listings/flisting.html", {"comm_created_date": comment.created_date,
                                                                    "comment":comment.comment_txt,"comment_author":comment.comment_author})
@@ -98,7 +99,7 @@ def flisting(request, listing_id):
 def create_listing(request):
     # check if method is POST
     created_date = timezone.now()
-    #if request.method == "POST":
+
     if request.method=="POST":
         title = request.POST["title"]
         description = request.POST["description"]

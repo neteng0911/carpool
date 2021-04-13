@@ -26,7 +26,7 @@
         </div>
 
 
-            <input class="btn btn-primary" type="submit" name="action" value="Place Bid">
+            <input class="btn btn-primary" type="submit" name="place_bid" value="Place Bid">
     </form>
 {% endifnotequal %}
 
@@ -37,12 +37,12 @@
 {% endifequal %}
 
 
-    <form>
+    <form action="{% url 'flisting' listing.id %}" method="post">
         {% csrf_token %}
      <div class="form-comm">
             <input class="form-control" type="text" name="comment_input" placeholder="comment">
      </div>
-        <input class="btn btn-primary" type="submit" name="action" value="Submit Comment">
+        <input class="btn btn-primary" type="submit" name="submit_comment" value="Submit Comment">
 
     </form>
 
