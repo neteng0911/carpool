@@ -46,11 +46,12 @@
 
     </form>
 
-
-    <ul> {% for comm in comment.comment_txt %}
-        <p style= "color:grey; font-size:15px;"> Comments: {{comment.comment_txt}} by user {{comment.author}}</p>
+<h1> Comments: </h1>
+{% for comm in comms %}
+    <ul>
+        <p style= "color:grey; font-size:15px;"> <strong>{{comm}} </strong> by user {{comm.comment_author}} {{comm.created_date}}</p>
     </ul>
-      {% endfor %}
+{% endfor %}
 
 
 

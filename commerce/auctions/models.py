@@ -63,6 +63,8 @@ class Comment(models.Model):
     listing_comment=models.ForeignKey(Listing, on_delete=models.CASCADE, null="TRUE", blank="TRUE")
     created_date=models.DateTimeField(default=now, editable=False)
     comment_author = models.ForeignKey(User, on_delete=models.CASCADE, null="TRUE", blank="TRUE")
+    #lists = models.ManyToManyField(Listing, blank="TRUE", related_name="comms")
+    lists = models.ForeignKey(Listing, on_delete=models.CASCADE,null="TRUE", blank="TRUE", related_name="comms")
     objects = CommentManager()
     def __str__(self):
         return f"{self.comment_txt}"

@@ -71,6 +71,8 @@ def flisting(request, listing_id):
     listing = Listing.objects.get(id=listing_id)
     created_date = timezone.now()
     current_user=request.user
+    comms = listing.comms.all()
+    print(comms)
     if request.method=="POST" and "place_bid" in request.POST:
         bid_val = request.POST["bid_val"]
         bidder = current_user
@@ -81,18 +83,23 @@ def flisting(request, listing_id):
         listing.save()
 
         return render(request, "auctions/listings/flisting.html",
-                      {"listing": listing, "message": "bid placed succesfully"})
+                      {"listing": listing, "message": "bid placed succesfully","comms":comms})
     if request.method=="POST" and "submit_comment" in request.POST:
         comment_txt=request.POST["comment_input"]
         comment_author=current_user
         listing_comment=listing
-        comment = Comment.objects.create_comment(comment_txt,comment_author,created_date,listing_comment)
+        comment = Comment.objects.create_comment(
+            comment_txt=comment_txt,
+            comment_author=comment_author,
+            created_date=created_date,
+            listing_comment=listing_comment,
+        )
         comment.save()
-        return render(request, "auctions/listings/flisting.html", {"comm_created_date": comment.created_date,
-                                                                   "comment":comment.comment_txt,"comment_author":comment.comment_author})
+
+        return render(request, "auctions/listings/flisting.html", {"listing": listing, "comms":comms})
     else:
 
-        return render(request, "auctions/listings/flisting.html", {"listing": listing})
+        return render(request, "auctions/listings/flisting.html", {"listing": listing,"comms":comms})
 
 
 @login_required
