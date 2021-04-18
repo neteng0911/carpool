@@ -16,7 +16,7 @@ class ListingManager(models.Manager):
     def create_listing(self, title,description,price,picture_url,category,created_date,listing_owner):
         listing=self.create(title=title, description=description,price=price,picture_url=picture_url,
                             category=category,created_date=created_date, listing_owner=listing_owner,closed_auction=closed_auction,
-                            listing_message=listing_message)
+                            listing_message=listing_message, watching=watching)
         return listing
 
 
@@ -31,6 +31,7 @@ class Listing(models.Model):
     listing_owner=models.ForeignKey(User, on_delete=models.CASCADE, null="TRUE", blank="TRUE")
     closed_auction=models.CharField(max_length=5, default="False")
     listing_message=models.CharField(max_length=100, blank="TRUE")
+    watching=models.ManyToManyField(User, blank="TRUE", related_name="watchlist")
     objects = ListingManager()
     def __str__(self):
         return f"Listing id:{self.id},{self.title}"
@@ -63,11 +64,10 @@ class CommentManager(models.Manager):
 
 class Comment(models.Model):
     comment_txt=models.CharField(max_length=150, blank="True")
-    listing_comment=models.ForeignKey(Listing, on_delete=models.CASCADE, null="TRUE", blank="TRUE")
+    listing_comment=models.ForeignKey(Listing, on_delete=models.CASCADE, null="TRUE", blank="TRUE") #this field might be unneeded. Check it out
     created_date=models.DateTimeField(default=now, editable=False)
     comment_author = models.ForeignKey(User, on_delete=models.CASCADE, null="TRUE", blank="TRUE")
-    lists = models.ManyToManyField(Listing, blank="TRUE", related_name="comms")
-    #lists = models.ForeignKey(Listing, on_delete=models.CASCADE,null="TRUE", blank="TRUE", related_name="comms")
+    lists = models.ManyToManyField(Listing, blank="TRUE", related_name="comms") #listing_comment
     objects = CommentManager()
     def __str__(self):
         return f"{self.comment_txt}"

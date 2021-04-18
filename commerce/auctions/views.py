@@ -6,12 +6,15 @@ from django.urls import reverse
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.db.models import Max
+from django.core.exceptions import ObjectDoesNotExist
 
 from .models import User, Listing, Bid, Comment
 
 
 def index(request):
     # return render(request, "auctions/index.html")
+    all_listings=Listing.objects.all()
+    active_listings=
     return render(request, "auctions/index.html", {"listings": Listing.objects.all()})
 
 
@@ -73,15 +76,23 @@ def flisting(request, listing_id):
     created_date = timezone.now()
     current_user=request.user
     comms = listing.comms.all()
+
+
     bids=Bid.objects.filter(listing_bid=listing_id)
     print(bids)
-    max_bid = bids.aggregate(Max("val"))
-    the_max_bid=max_bid["val__max"]
-    print(max_bid)
-    print(the_max_bid)
-    highest_bid=bids.get(val=the_max_bid)
-    highest_bidder=highest_bid.bidder
-    print(highest_bidder)
+    try:
+        max_bid = bids.aggregate(Max("val"))
+        the_max_bid=max_bid["val__max"]
+        print(max_bid)
+        print(the_max_bid)
+        highest_bid=bids.get(val=the_max_bid)
+        highest_bidder=highest_bid.bidder
+        print(highest_bidder)
+
+    except ObjectDoesNotExist:
+        highest_bid=listing.price
+        highest_bidder =""
+
     if request.method=="POST" and "place_bid" in request.POST:
         bid_val = request.POST["bid_val"]
         bidder = current_user
@@ -89,7 +100,9 @@ def flisting(request, listing_id):
         bid = Bid.objects.place_bid(bid_val, bidder, listing_bid)
         bid.save()
         listing.price = bid_val
+        listing.watching.add(current_user)
         listing.save()
+
 
         return render(request, "auctions/listings/flisting.html",
                       {"listing": listing, "message": "bid placed succesfully","comms":comms,"highest_bidder": highest_bidder})
@@ -164,11 +177,13 @@ def create_listing(request):
 @login_required
 def my_listings(request):
     my_listings = Listing.objects.filter(listing_owner=request.user)
-    # my_listings=listings.users.all()
-    # my_listings=Listing.objects.get(listing_owner=request.user)
+
     return render(request, "auctions/my_listings.html", {"my_listings": my_listings})
 
 
 @login_required
-def watchlist(request):
-    pass
+def my_watchlist(request):
+    user=request.user
+    my_watchlist=user.watchlist.all()
+
+    return render(request, "auctions/my_watchlist.html", {"my_watchlist": my_watchlist})

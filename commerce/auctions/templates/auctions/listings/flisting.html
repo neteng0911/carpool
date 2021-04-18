@@ -10,6 +10,15 @@
 {% endifequal %}
 
 
+{% ifequal listing.closed_auction "True" %}
+{% ifequal request.user highest_bidder %}
+<h2>Congratulations You have won this auction</h2>
+{% endifequal %}
+{% endifequal %}
+
+    {% if message %}
+        <div style = "font-size:22px; color:green;">{{ message}}</div>
+    {% endif %}
        <div class ="menu"> <img src={{listing.picture_url}} width="200" height="300">
            <p style="font-size:20px; padding-bottom:25px;">{#<strong>{{listing.title}}</strong>#} </p>{{listing.description}}
             <p style= "padding-top:15px; font-size:20px"><strong> Price: {{listing.price}}&euro;</strong></p>
