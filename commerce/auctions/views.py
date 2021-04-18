@@ -95,7 +95,7 @@ def flisting(request, listing_id):
             listing_comment=listing_comment,
         )
         comment.save()
-
+        comment.lists.add(listing)
         return render(request, "auctions/listings/flisting.html", {"listing": listing, "comms":comms})
     else:
 
