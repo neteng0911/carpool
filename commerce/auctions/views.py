@@ -123,7 +123,18 @@ def flisting(request, listing_id):
 
         return render(request, "auctions/listings/flisting.html", {"listing": listing,"comms":comms,"highest_bidder": highest_bidder,
                                                                    "the_max_bid":the_max_bid})
+def categories(request):
+    categories=Listing.objects.values("category").distinct()
+    cat_list=[]
+    for i in categories:
+        cat= (i["category"])
+        cat_list.append(cat)
+    for i in cat_list:
+        listing=Listing.objects.filter(category=i)
+        print(listing)
 
+
+    return render(request, "auctions/categories.html",{"categories":cat_list})
 
 @login_required
 def create_listing(request):

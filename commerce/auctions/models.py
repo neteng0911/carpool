@@ -31,7 +31,6 @@ class Listing(models.Model):
     listing_owner=models.ForeignKey(User, on_delete=models.CASCADE, null="TRUE", blank="TRUE")
     closed_auction=models.CharField(max_length=5, default="False")
     listing_message=models.CharField(max_length=100, blank="TRUE")
-    #users = models.ManyToManyField(User, blank="TRUE", related_name="listings")
     objects = ListingManager()
     def __str__(self):
         return f"Listing id:{self.id},{self.title}"
