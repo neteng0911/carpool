@@ -97,6 +97,13 @@ def flisting(request, listing_id):
         comment.save()
         comment.lists.add(listing)
         return render(request, "auctions/listings/flisting.html", {"listing": listing, "comms":comms})
+    if request.method == "POST" and "close_auction" in request.POST:
+
+        listing.closed_auction=True
+        listing.message="This auction is closed"
+        listing.save()
+        return render(request, "auctions/listings/flisting.html", {"listing": listing, "comms": comms,
+                                                                   "message": "This Auction is closed"})
     else:
 
         return render(request, "auctions/listings/flisting.html", {"listing": listing,"comms":comms})

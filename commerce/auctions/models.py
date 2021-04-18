@@ -14,7 +14,9 @@ class User(AbstractUser):
 
 class ListingManager(models.Manager):
     def create_listing(self, title,description,price,picture_url,category,created_date,listing_owner):
-        listing=self.create(title=title, description=description,price=price,picture_url=picture_url,category=category,created_date=created_date, listing_owner=listing_owner)
+        listing=self.create(title=title, description=description,price=price,picture_url=picture_url,
+                            category=category,created_date=created_date, listing_owner=listing_owner,closed_auction=closed_auction,
+                            listing_message=listing_message)
         return listing
 
 
@@ -27,6 +29,8 @@ class Listing(models.Model):
     category=models.CharField(max_length=150, default="no category")
     created_date=models.DateTimeField(default=now, editable=False)
     listing_owner=models.ForeignKey(User, on_delete=models.CASCADE, null="TRUE", blank="TRUE")
+    closed_auction=models.CharField(max_length=5, default="False")
+    listing_message=models.CharField(max_length=100, blank="TRUE")
     #users = models.ManyToManyField(User, blank="TRUE", related_name="listings")
     objects = ListingManager()
     def __str__(self):

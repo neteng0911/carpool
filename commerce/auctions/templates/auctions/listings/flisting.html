@@ -16,7 +16,7 @@
         <div>
             <p style= "color:grey; font-size:15px;"> created: {{listing.created_date}} <strong> by {{listing.listing_owner}}</strong></p>
         </div>
-
+{% ifequal listing.closed_auction "False" %}
 {% ifnotequal  request.user listing.listing_owner %}
 
     <form action="{% url 'flisting' listing.id %}" method="post">
@@ -29,13 +29,17 @@
             <input class="btn btn-primary" type="submit" name="place_bid" value="Place Bid">
     </form>
 {% endifnotequal %}
-
-{% ifequal request.user listing.listing_owner %}
-    <form action="{% url 'flisting' listing.id %}" method="post">
-   <input class="btn btn-primary" type="submit" value="Close Auction">
-    </form>
 {% endifequal %}
 
+{% ifequal listing.closed_auction "False" %}
+{% ifequal request.user listing.listing_owner %}
+
+    <form action="{% url 'flisting' listing.id %}" method="post">
+        {% csrf_token %}
+   <input class="btn btn-primary" type="submit"   name="close_auction" value="Close Auction">
+    </form>
+{% endifequal %}
+{% endifequal %}
 
     <form action="{% url 'flisting' listing.id %}" method="post">
         {% csrf_token %}
