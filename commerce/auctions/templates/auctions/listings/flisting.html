@@ -3,6 +3,12 @@
 {% block body %}
     <h2>Item: {{listing.title}}</h2>
 
+{% ifequal listing.closed_auction "True" %}
+<p style= "color:black; font-size:35px;"><strong> {{listing_message}}</strong></p>
+<p style= "color:blue; font-size:25px;"><strong> Highest Bidder is {{highest_bidder}} and the Highest Bid is {{the_max_bid}}&euro;</strong></p>
+
+{% endifequal %}
+
 
        <div class ="menu"> <img src={{listing.picture_url}} width="200" height="300">
            <p style="font-size:20px; padding-bottom:25px;">{#<strong>{{listing.title}}</strong>#} </p>{{listing.description}}
@@ -16,6 +22,10 @@
         <div>
             <p style= "color:grey; font-size:15px;"> created: {{listing.created_date}} <strong> by {{listing.listing_owner}}</strong></p>
         </div>
+
+
+
+
 {% ifequal listing.closed_auction "False" %}
 {% ifnotequal  request.user listing.listing_owner %}
 
@@ -49,6 +59,10 @@
         <input class="btn btn-primary" type="submit" name="submit_comment" value="Submit Comment">
 
     </form>
+
+
+
+
 
 <h1> Comments: </h1>
 {% for comm in comms %}

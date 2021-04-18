@@ -5,6 +5,7 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
+from django.db.models import Max
 
 from .models import User, Listing, Bid, Comment
 
@@ -72,7 +73,15 @@ def flisting(request, listing_id):
     created_date = timezone.now()
     current_user=request.user
     comms = listing.comms.all()
-    print(comms)
+    bids=Bid.objects.filter(listing_bid=listing_id)
+    print(bids)
+    max_bid = bids.aggregate(Max("val"))
+    the_max_bid=max_bid["val__max"]
+    print(max_bid)
+    print(the_max_bid)
+    highest_bid=bids.get(val=the_max_bid)
+    highest_bidder=highest_bid.bidder
+    print(highest_bidder)
     if request.method=="POST" and "place_bid" in request.POST:
         bid_val = request.POST["bid_val"]
         bidder = current_user
@@ -83,7 +92,7 @@ def flisting(request, listing_id):
         listing.save()
 
         return render(request, "auctions/listings/flisting.html",
-                      {"listing": listing, "message": "bid placed succesfully","comms":comms})
+                      {"listing": listing, "message": "bid placed succesfully","comms":comms,"highest_bidder": highest_bidder})
     if request.method=="POST" and "submit_comment" in request.POST:
         comment_txt=request.POST["comment_input"]
         comment_author=current_user
@@ -96,17 +105,24 @@ def flisting(request, listing_id):
         )
         comment.save()
         comment.lists.add(listing)
-        return render(request, "auctions/listings/flisting.html", {"listing": listing, "comms":comms})
+        return render(request, "auctions/listings/flisting.html", {"listing": listing, "comms":comms,"highest_bidder": highest_bidder,
+                                                                   "the_max_bid":the_max_bid})
     if request.method == "POST" and "close_auction" in request.POST:
 
         listing.closed_auction=True
+        listing.winner=bid.bidder
         listing.message="This auction is closed"
         listing.save()
+
+
+
         return render(request, "auctions/listings/flisting.html", {"listing": listing, "comms": comms,
-                                                                   "message": "This Auction is closed"})
+                                                                   "highest_bidder": highest_bidder,
+                                                                   "the_max_bid":the_max_bid})
     else:
 
-        return render(request, "auctions/listings/flisting.html", {"listing": listing,"comms":comms})
+        return render(request, "auctions/listings/flisting.html", {"listing": listing,"comms":comms,"highest_bidder": highest_bidder,
+                                                                   "the_max_bid":the_max_bid})
 
 
 @login_required

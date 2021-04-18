@@ -47,8 +47,8 @@ class BidManager(models.Manager):
 
 class Bid(models.Model):
     val=models.FloatField()
-    bidder=models.ForeignKey(User, on_delete=models.CASCADE, null="TRUE", blank="TRUE")
-    listing_bid=models.ForeignKey(Listing, on_delete=models.CASCADE, null="TRUE", blank="TRUE")
+    bidder=models.ForeignKey(User, on_delete=models.CASCADE, null="TRUE", blank="TRUE",related_name="bidders")
+    listing_bid=models.ForeignKey(Listing, on_delete=models.CASCADE, null="TRUE", blank="TRUE", related_name="listings_bidded")
     objects=BidManager()
 
     def __str__(self):
