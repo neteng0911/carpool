@@ -14,8 +14,8 @@ from .models import User, Listing, Bid, Comment
 def index(request):
     # return render(request, "auctions/index.html")
     all_listings=Listing.objects.all()
-    active_listings=
-    return render(request, "auctions/index.html", {"listings": Listing.objects.all()})
+    active_listings=Listing.objects.filter(closed_auction="False")
+    return render(request, "auctions/index.html", {"listings": active_listings})
 
 
 def login_view(request):
