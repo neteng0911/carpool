@@ -108,33 +108,36 @@ def flisting(request, listing_id):
         return render(request, "auctions/listings/flisting.html", {"listing": listing, "comms":comms,"highest_bidder": highest_bidder,
                                                                    "the_max_bid":the_max_bid})
     if request.method == "POST" and "close_auction" in request.POST:
-
         listing.closed_auction=True
-        listing.winner=bid.bidder
-        listing.message="This auction is closed"
+        message_cl="Press here to see the winner"
+        listing.listing_message="Auction closed!"
         listing.save()
-
-
-
         return render(request, "auctions/listings/flisting.html", {"listing": listing, "comms": comms,
                                                                    "highest_bidder": highest_bidder,
-                                                                   "the_max_bid":the_max_bid})
+                                                                   "the_max_bid":the_max_bid,
+                                                                   "message_cl":message_cl})
     else:
 
         return render(request, "auctions/listings/flisting.html", {"listing": listing,"comms":comms,"highest_bidder": highest_bidder,
                                                                    "the_max_bid":the_max_bid})
-def categories(request):
+def categories(request,cat=""):
     categories=Listing.objects.values("category").distinct()
     cat_list=[]
-    for i in categories:
-        cat= (i["category"])
-        cat_list.append(cat)
-    for i in cat_list:
-        listing=Listing.objects.filter(category=i)
-        print(listing)
+    if cat=="":
+        for i in categories:
+            cat= (i["category"])
+            cat_list.append(cat)
+        for i in cat_list:
+            listing=Listing.objects.filter(category=i)
+            print(listing)
+
+        return render(request, "auctions/categories.html", {"categories": cat_list})
+    if cat!="":
+        listings = Listing.objects.filter(category=cat)
+
+        return render(request, "auctions/categories/catgs.html", {"listings": listings, "cat":cat})
 
 
-    return render(request, "auctions/categories.html",{"categories":cat_list})
 
 @login_required
 def create_listing(request):

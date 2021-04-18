@@ -10,5 +10,7 @@ urlpatterns = [
     path("listings/<int:listing_id>", views.flisting, name="flisting"),
     path("create_listing", views.create_listing, name="create_listing"),
     path("my_listings", views.my_listings, name="my_listings"),
-    path("categories", views.categories, name="categories")
+    path("categories/", views.categories, name="categories"),
+    path("categories/<str:cat>", views.categories, name="category")
 ]
+

@@ -2,9 +2,9 @@
 
 {% block body %}
     <h2>Item: {{listing.title}}</h2>
-
+<p style= "color:black; font-size:35px;"><strong> {{listing.listing_message}}</strong></p>
 {% ifequal listing.closed_auction "True" %}
-<p style= "color:black; font-size:35px;"><strong> {{listing_message}}</strong></p>
+
 <p style= "color:blue; font-size:25px;"><strong> Highest Bidder is {{highest_bidder}} and the Highest Bid is {{the_max_bid}}&euro;</strong></p>
 
 {% endifequal %}
@@ -14,8 +14,8 @@
            <p style="font-size:20px; padding-bottom:25px;">{#<strong>{{listing.title}}</strong>#} </p>{{listing.description}}
             <p style= "padding-top:15px; font-size:20px"><strong> Price: {{listing.price}}&euro;</strong></p>
 
-               {% if message %}
-        <div style = "font-size:22px; color:green;">{{ message }}</div>
+               {% if message_cl %}
+        <div style = "font-size:22px; color:green;">{{ message_cl}}</div>
     {% endif %}
 
 <p style= "font-size:15px;"> Category: {{listing.category}}
@@ -48,6 +48,7 @@
         {% csrf_token %}
    <input class="btn btn-primary" type="submit"   name="close_auction" value="Close Auction">
     </form>
+
 {% endifequal %}
 {% endifequal %}
 
