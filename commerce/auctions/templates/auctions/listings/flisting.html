@@ -31,9 +31,17 @@
         <div>
             <p style= "color:grey; font-size:15px;"> created: {{listing.created_date}} <strong> by {{listing.listing_owner}}</strong></p>
         </div>
+{% if listing in request.user.watching %}
+    {% ifequal watchlist_ind "False" %}
 
 
+    <form action="{% url 'flisting' listing.id %}" method="post">
+        {% csrf_token %}
+   <input class="btn btn-primary" type="submit"   name="add_to_watchlist" value="Add to My Watchlist">
+    </form>
 
+    {% endifequal %}
+{% endif %}
 
 {% ifequal listing.closed_auction "False" %}
 {% ifnotequal  request.user listing.listing_owner %}

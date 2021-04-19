@@ -1,11 +1,14 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils.timezone import now
+from django.utils import timezone
 
 
 
 class User(AbstractUser):
     email=models.EmailField(max_length=254)
+    date_joined = models.DateTimeField(default=timezone.now)
+    watching = models.ManyToManyField("Listing", blank="TRUE", related_name="watchlist")
 
 
     def __str__(self):
@@ -13,10 +16,10 @@ class User(AbstractUser):
         #return f"{self.username}, {self.email}"
 
 class ListingManager(models.Manager):
-    def create_listing(self, title,description,price,picture_url,category,created_date,listing_owner):
+    def create_listing(self, title,description,price,picture_url,category,created_date,listing_owner,closed_auction,listing_message):
         listing=self.create(title=title, description=description,price=price,picture_url=picture_url,
                             category=category,created_date=created_date, listing_owner=listing_owner,closed_auction=closed_auction,
-                            listing_message=listing_message, watching=watching)
+                            listing_message=listing_message)
         return listing
 
 
@@ -31,7 +34,7 @@ class Listing(models.Model):
     listing_owner=models.ForeignKey(User, on_delete=models.CASCADE, null="TRUE", blank="TRUE")
     closed_auction=models.CharField(max_length=5, default="False")
     listing_message=models.CharField(max_length=100, blank="TRUE")
-    watching=models.ManyToManyField(User, blank="TRUE", related_name="watchlist")
+    #watching=models.ManyToManyField(User, blank="TRUE", related_name="watchlist")
     objects = ListingManager()
     def __str__(self):
         return f"Listing id:{self.id},{self.title}"
