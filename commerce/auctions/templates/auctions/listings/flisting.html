@@ -1,6 +1,7 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
+
     <h2>Item: {{listing.title}}</h2>
 <p style= "color:black; font-size:35px;"><strong> {{listing.listing_message}}</strong></p>
 {% ifequal listing.closed_auction "True" %}
@@ -30,9 +31,10 @@
 <p style= "font-size:15px;"> Category: {{listing.category}}
         <div>
             <p style= "color:grey; font-size:15px;"> created: {{listing.created_date}} <strong> by {{listing.listing_owner}}</strong></p>
+           <p style= "color:grey; font-size:15px;"> No of Bids: {{number_of_bids}}</p>
         </div>
-{% if listing in request.user.watching %}
-    {% ifequal watchlist_ind "False" %}
+<p>
+{% if not watchlist_ind %}
 
 
     <form action="{% url 'flisting' listing.id %}" method="post">
@@ -40,9 +42,9 @@
    <input class="btn btn-primary" type="submit"   name="add_to_watchlist" value="Add to My Watchlist">
     </form>
 
-    {% endifequal %}
 {% endif %}
 
+</p>
 {% ifequal listing.closed_auction "False" %}
 {% ifnotequal  request.user listing.listing_owner %}
 

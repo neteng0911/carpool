@@ -74,8 +74,8 @@ def flisting(request, listing_id):
 
     watchlist_ind=False
     listing = Listing.objects.get(id=listing_id)
-    if listing in request.user.watching.all():
-        print("it is in watchlist")
+    if listing in request.user.watching.all() or listing in Listing.objects.filter(listing_owner=request.user):
+        print("it is in watchlist or it's my listing")
         print(watchlist_ind)
         watchlist_ind = True
 
@@ -94,10 +94,13 @@ def flisting(request, listing_id):
         highest_bid=bids.get(val=the_max_bid)
         highest_bidder=highest_bid.bidder
         print(highest_bidder)
+        number_of_bids=len(bids)
+        print(number_of_bids)
 
     except ObjectDoesNotExist:
         highest_bid=listing.price
         highest_bidder =""
+        number_of_bids="No bids yet"
 
 
     if request.method=="POST" and "add_to_watchlist" in request.POST:
@@ -106,7 +109,7 @@ def flisting(request, listing_id):
 
         return render(request, "auctions/listings/flisting.html",
                       {"listing": listing, "comms": comms, "highest_bidder": highest_bidder,
-                       "the_max_bid": the_max_bid,"watchlist_ind":watchlist_ind})
+                       "the_max_bid": the_max_bid,"watchlist_ind":watchlist_ind,"number_of_bids":number_of_bids})
 
 
 
@@ -124,7 +127,7 @@ def flisting(request, listing_id):
 
         return render(request, "auctions/listings/flisting.html",
                       {"listing": listing, "message": "bid placed succesfully",
-                       "comms":comms,"highest_bidder": highest_bidder,"watchlist_ind":watchlist_ind})
+                       "comms":comms,"highest_bidder": highest_bidder,"watchlist_ind":watchlist_ind,"number_of_bids":number_of_bids})
 
     if request.method=="POST" and "submit_comment" in request.POST:
         comment_txt=request.POST["comment_input"]
@@ -139,7 +142,7 @@ def flisting(request, listing_id):
         comment.save()
         comment.lists.add(listing)
         return render(request, "auctions/listings/flisting.html", {"listing": listing, "comms":comms,"highest_bidder": highest_bidder,
-                                                                   "the_max_bid":the_max_bid,"watchlist_ind":watchlist_ind})
+                                                                   "the_max_bid":the_max_bid,"watchlist_ind":watchlist_ind,"number_of_bids":number_of_bids})
     if request.method == "POST" and "close_auction" in request.POST:
         listing.closed_auction=True
         message_cl="Press here to see the winner"
@@ -148,11 +151,11 @@ def flisting(request, listing_id):
         return render(request, "auctions/listings/flisting.html", {"listing": listing, "comms": comms,
                                                                    "highest_bidder": highest_bidder,
                                                                    "the_max_bid":the_max_bid,
-                                                                   "message_cl":message_cl,"watchlist_ind":watchlist_ind})
+                                                                   "message_cl":message_cl,"watchlist_ind":watchlist_ind,"number_of_bids":number_of_bids})
     else:
 
         return render(request, "auctions/listings/flisting.html", {"listing": listing,"comms":comms,"highest_bidder": highest_bidder,
-                                                                   "the_max_bid":the_max_bid,"watchlist_ind":watchlist_ind})
+                                                                   "the_max_bid":the_max_bid,"watchlist_ind":watchlist_ind,"number_of_bids":number_of_bids})
 def categories(request,cat=""):
     categories=Listing.objects.values("category").distinct()
     cat_list=[]
