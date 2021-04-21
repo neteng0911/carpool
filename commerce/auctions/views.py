@@ -112,22 +112,44 @@ def flisting(request, listing_id):
                        "the_max_bid": the_max_bid,"watchlist_ind":watchlist_ind,"number_of_bids":number_of_bids})
 
 
+    if request.method=="POST" and "rem_from_watchlist" in request.POST:
+        current_user.watching.remove(listing)
+        watchlist_ind = False
+
+        return render(request, "auctions/listings/flisting.html",
+                      {"listing": listing, "comms": comms, "highest_bidder": highest_bidder,
+                       "the_max_bid": the_max_bid,"watchlist_ind":watchlist_ind,"number_of_bids":number_of_bids})
+
+
 
     if request.method=="POST" and "place_bid" in request.POST:
         watchlist_ind = True
         bid_val = request.POST["bid_val"]
         bidder = current_user
         listing_bid = listing
-        bid = Bid.objects.place_bid(bid_val, bidder, listing_bid)
-        bid.save()
-        listing.price = bid_val
-        current_user.watching.add(listing)
-        listing.save()
+        max_bid = bids.aggregate(Max("val"))
+        the_max_bid=max_bid["val__max"]
+        if the_max_bid == None:
+            the_max_bid=listing.price
+        if float(bid_val) > the_max_bid:
+
+            bid = Bid.objects.place_bid(bid_val, bidder, listing_bid)
+            bid.save()
+            listing.price = bid_val
+            current_user.watching.add(listing)
+            listing.save()
 
 
-        return render(request, "auctions/listings/flisting.html",
-                      {"listing": listing, "message": "bid placed succesfully",
-                       "comms":comms,"highest_bidder": highest_bidder,"watchlist_ind":watchlist_ind,"number_of_bids":number_of_bids})
+            return render(request, "auctions/listings/flisting.html",
+                          {"listing": listing, "message": "bid placed succesfully",
+                           "comms":comms,"highest_bidder": highest_bidder,"watchlist_ind":watchlist_ind,"number_of_bids":number_of_bids})
+
+        else:
+            return render(request, "auctions/listings/flisting.html",
+                          {"listing": listing, "message": "Please make a valid bid greater than current",
+                           "comms": comms, "highest_bidder": highest_bidder, "watchlist_ind": watchlist_ind,
+                           "number_of_bids": number_of_bids})
+
 
     if request.method=="POST" and "submit_comment" in request.POST:
         comment_txt=request.POST["comment_input"]

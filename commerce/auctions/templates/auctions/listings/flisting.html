@@ -25,7 +25,8 @@
             <p style= "padding-top:15px; font-size:20px"><strong> Price: {{listing.price}}&euro;</strong></p>
 
                {% if message_cl %}
-        <div style = "font-size:22px; color:green;">{{ message_cl}}</div>
+
+          <p> <a style = "font-size:22px; color:green;" href="{% url "flisting" listing.id %}"> {{ message_cl}}</a> </div></p>
     {% endif %}
 
 <p style= "font-size:15px;"> Category: {{listing.category}}
@@ -33,6 +34,7 @@
             <p style= "color:grey; font-size:15px;"> created: {{listing.created_date}} <strong> by {{listing.listing_owner}}</strong></p>
            <p style= "color:grey; font-size:15px;"> No of Bids: {{number_of_bids}}</p>
         </div>
+
 <p>
 {% if not watchlist_ind %}
 
@@ -43,6 +45,21 @@
     </form>
 
 {% endif %}
+
+</p>
+
+<p>
+{% if  watchlist_ind %}
+
+
+    <form action="{% url 'flisting' listing.id %}" method="post">
+        {% csrf_token %}
+   <input class="btn btn-primary" type="submit"   name="rem_from_watchlist" value="Remove from My Watchlist">
+    </form>
+
+{% endif %}
+
+
 
 </p>
 {% ifequal listing.closed_auction "False" %}
