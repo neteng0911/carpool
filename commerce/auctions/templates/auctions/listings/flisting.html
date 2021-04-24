@@ -29,7 +29,7 @@
           <p> <a style = "font-size:22px; color:green;" href="{% url "flisting" listing.id %}"> {{ message_cl}}</a> </div></p>
     {% endif %}
 
-<p style= "font-size:15px;"> Category: {{listing.category}}
+Category: <a href="{% url "category" listing.category %}"> <style= "font-size:15px;"> {{listing.category}} </a>
         <div>
             <p style= "color:grey; font-size:15px;"> created: {{listing.created_date}} <strong> by {{listing.listing_owner}}</strong></p>
            <p style= "color:grey; font-size:15px;"> No of Bids: {{number_of_bids}}</p>

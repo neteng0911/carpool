@@ -2,6 +2,7 @@
 
 {% block body %}
     <h2>Category {{cat}}</h2>
+    <p style="font-size:19px">Only active listings are presented</p>
 
    <ul> {% for listing in listings %}
 
@@ -13,6 +14,7 @@
 
             <p style= "color:grey; font-size:15px;"> created: {{listing.created_date}} <strong> by {{listing.listing_owner}}</strong></p>
         </div>
+
 {% endfor %}
 
 {% endblock %}

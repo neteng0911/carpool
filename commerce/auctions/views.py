@@ -179,19 +179,21 @@ def flisting(request, listing_id):
         return render(request, "auctions/listings/flisting.html", {"listing": listing,"comms":comms,"highest_bidder": highest_bidder,
                                                                    "the_max_bid":the_max_bid,"watchlist_ind":watchlist_ind,"number_of_bids":number_of_bids})
 def categories(request,cat=""):
-    categories=Listing.objects.values("category").distinct()
+    active_lis=Listing.objects.filter(closed_auction="False")
+    categories=active_lis.values("category").distinct()
     cat_list=[]
+
     if cat=="":
         for i in categories:
             cat= (i["category"])
             cat_list.append(cat)
         for i in cat_list:
-            listing=Listing.objects.filter(category=i)
+            listing=Listing.objects.filter(category=i,closed_auction="False")
             print(listing)
 
         return render(request, "auctions/categories.html", {"categories": cat_list})
     if cat!="":
-        listings = Listing.objects.filter(category=cat)
+        listings = Listing.objects.filter(category=cat,closed_auction="False")
 
         return render(request, "auctions/categories/catgs.html", {"listings": listings, "cat":cat})
 
