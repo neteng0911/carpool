@@ -72,12 +72,15 @@ def register(request):
 
 def flisting(request, listing_id):
 
-    watchlist_ind=False
+
     listing = Listing.objects.get(id=listing_id)
-    if listing in request.user.watching.all() or listing in Listing.objects.filter(listing_owner=request.user):
+    watchlist=listing.watchlist.all()
+    print("**********")
+    print( watchlist)
+
+    if request.user in watchlist: #or listing in Listing.objects.filter(listing_owner=request.user):
         print("it is in watchlist or it's my listing")
-        print(watchlist_ind)
-        watchlist_ind = True
+
 
     created_date = timezone.now()
     current_user=request.user
@@ -105,51 +108,71 @@ def flisting(request, listing_id):
 
     if request.method=="POST" and "add_to_watchlist" in request.POST:
         current_user.watching.add(listing)
-        watchlist_ind = True
+
+
 
         return render(request, "auctions/listings/flisting.html",
                       {"listing": listing, "comms": comms, "highest_bidder": highest_bidder,
-                       "the_max_bid": the_max_bid,"watchlist_ind":watchlist_ind,"number_of_bids":number_of_bids})
+                       "the_max_bid": the_max_bid,"number_of_bids":number_of_bids,"watchlist":watchlist})
 
 
     if request.method=="POST" and "rem_from_watchlist" in request.POST:
         current_user.watching.remove(listing)
-        watchlist_ind = False
+
 
         return render(request, "auctions/listings/flisting.html",
                       {"listing": listing, "comms": comms, "highest_bidder": highest_bidder,
-                       "the_max_bid": the_max_bid,"watchlist_ind":watchlist_ind,"number_of_bids":number_of_bids})
+                       "the_max_bid": the_max_bid,"number_of_bids":number_of_bids,"watchlist":watchlist})
 
 
 
     if request.method=="POST" and "place_bid" in request.POST:
-        watchlist_ind = True
+
         bid_val = request.POST["bid_val"]
         bidder = current_user
         listing_bid = listing
         max_bid = bids.aggregate(Max("val"))
         the_max_bid=max_bid["val__max"]
+        print("the max bid"+str(the_max_bid))
         if the_max_bid == None:
             the_max_bid=listing.price
-        if float(bid_val) > the_max_bid:
+            if float(bid_val) >= the_max_bid:
 
-            bid = Bid.objects.place_bid(bid_val, bidder, listing_bid)
-            bid.save()
-            listing.price = bid_val
-            current_user.watching.add(listing)
-            listing.save()
+                bid = Bid.objects.place_bid(bid_val, bidder, listing_bid)
+                bid.save()
+                listing.price = bid_val
+                current_user.watching.add(listing)
+                listing.save()
 
 
-            return render(request, "auctions/listings/flisting.html",
-                          {"listing": listing, "message": "bid placed succesfully",
-                           "comms":comms,"highest_bidder": highest_bidder,"watchlist_ind":watchlist_ind,"number_of_bids":number_of_bids})
+                return render(request, "auctions/listings/flisting.html",
+                              {"listing": listing, "message": "bid placed succesfully",
+                               "comms":comms,"highest_bidder": highest_bidder,"number_of_bids":number_of_bids,"watchlist":watchlist})
 
+            else:
+                return render(request, "auctions/listings/flisting.html",
+                              {"listing": listing, "message": "Please make a valid bid greater than current",
+                               "comms": comms, "highest_bidder": highest_bidder,
+                               "number_of_bids": number_of_bids,"watchlist":watchlist})
         else:
-            return render(request, "auctions/listings/flisting.html",
-                          {"listing": listing, "message": "Please make a valid bid greater than current",
-                           "comms": comms, "highest_bidder": highest_bidder, "watchlist_ind": watchlist_ind,
-                           "number_of_bids": number_of_bids})
+            if float(bid_val) > the_max_bid:
 
+
+                bid = Bid.objects.place_bid(bid_val, bidder, listing_bid)
+                bid.save()
+                listing.price = bid_val
+                current_user.watching.add(listing)
+                listing.save()
+
+                return render(request, "auctions/listings/flisting.html",
+                              {"listing": listing, "message": "bid placed succesfully",
+                               "comms": comms, "highest_bidder": highest_bidder, "number_of_bids": number_of_bids,
+                               "watchlist": watchlist})
+            else:
+                return render(request, "auctions/listings/flisting.html",
+                              {"listing": listing, "message": "Please make a valid bid greater than current",
+                               "comms": comms, "highest_bidder": highest_bidder,
+                               "number_of_bids": number_of_bids, "watchlist": watchlist})
 
     if request.method=="POST" and "submit_comment" in request.POST:
         comment_txt=request.POST["comment_input"]
@@ -173,11 +196,11 @@ def flisting(request, listing_id):
         return render(request, "auctions/listings/flisting.html", {"listing": listing, "comms": comms,
                                                                    "highest_bidder": highest_bidder,
                                                                    "the_max_bid":the_max_bid,
-                                                                   "message_cl":message_cl,"watchlist_ind":watchlist_ind,"number_of_bids":number_of_bids})
+                                                                   "message_cl":message_cl,"number_of_bids":number_of_bids})
     else:
 
         return render(request, "auctions/listings/flisting.html", {"listing": listing,"comms":comms,"highest_bidder": highest_bidder,
-                                                                   "the_max_bid":the_max_bid,"watchlist_ind":watchlist_ind,"number_of_bids":number_of_bids})
+                                                                   "the_max_bid":the_max_bid,"number_of_bids":number_of_bids})
 def categories(request,cat=""):
     active_lis=Listing.objects.filter(closed_auction="False")
     categories=active_lis.values("category").distinct()
@@ -218,7 +241,7 @@ def create_listing(request):
                             category=category,created_date=created_date, listing_owner=listing_owner,closed_auction=closed_auction,
                             listing_message=listing_message)
 
-        request.user.watching.add(listing)
+
         return render(request, "auctions/listings/flisting.html", {"listing": listing})
 
     else:
@@ -234,7 +257,8 @@ def my_listings(request):
 
 @login_required
 def my_watchlist(request):
-    user=request.user
-    my_watchlist=user.watching.all()
+
+
+    my_watchlist=request.user.watching.all()
 
     return render(request, "auctions/my_watchlist.html", {"my_watchlist": my_watchlist})

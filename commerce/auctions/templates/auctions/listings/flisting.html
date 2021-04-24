@@ -20,7 +20,7 @@
     {% if message %}
         <div style = "font-size:22px; color:green;">{{ message}}</div>
     {% endif %}
-       <div class ="menu"> <img src={{listing.picture_url}} width="200" height="300">
+       <div class ="menu"> <img src={{listing.picture_url}} width="400" height="250">
            <p style="font-size:20px; padding-bottom:25px;">{#<strong>{{listing.title}}</strong>#} </p>{{listing.description}}
             <p style= "padding-top:15px; font-size:20px"><strong> Price: {{listing.price}}&euro;</strong></p>
 
@@ -36,7 +36,8 @@ Category: <a href="{% url "category" listing.category %}"> <style= "font-size:15
         </div>
 
 <p>
-{% if not watchlist_ind %}
+{% ifnotequal request.user listing.listing_owner %}
+{% if not request.user in listing.watchlist.all %}
 
 
     <form action="{% url 'flisting' listing.id %}" method="post">
@@ -45,11 +46,12 @@ Category: <a href="{% url "category" listing.category %}"> <style= "font-size:15
     </form>
 
 {% endif %}
+{% endifnotequal %}
 
 </p>
 
 <p>
-{% if  watchlist_ind %}
+{% if request.user in listing.watchlist.all %}
 
 
     <form action="{% url 'flisting' listing.id %}" method="post">
