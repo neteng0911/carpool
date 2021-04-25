@@ -5,10 +5,11 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
-from django.db.models import Max
+from django.db.models import Max,Count
 from django.core.exceptions import ObjectDoesNotExist
 
 from .models import User, Listing, Bid, Comment
+
 
 
 def index(request):
@@ -71,7 +72,7 @@ def register(request):
 
 
 def flisting(request, listing_id):
-
+    bids = Bid.objects.filter(listing_bid=listing_id)
 
     listing = Listing.objects.get(id=listing_id)
     watchlist=listing.watchlist.all()
@@ -87,9 +88,10 @@ def flisting(request, listing_id):
     comms = listing.comms.all()
 
 
-    bids=Bid.objects.filter(listing_bid=listing_id)
+
     print(bids)
     try:
+        number_of_bids = bids.count()
         max_bid = bids.aggregate(Max("val"))
         the_max_bid=max_bid["val__max"]
         print(max_bid)
@@ -97,8 +99,10 @@ def flisting(request, listing_id):
         highest_bid=bids.get(val=the_max_bid)
         highest_bidder=highest_bid.bidder
         print(highest_bidder)
-        number_of_bids=len(bids)
-        print(number_of_bids)
+
+
+
+        #print(number_of_bids)
 
     except ObjectDoesNotExist:
         highest_bid=listing.price
@@ -131,6 +135,7 @@ def flisting(request, listing_id):
         bid_val = request.POST["bid_val"]
         bidder = current_user
         listing_bid = listing
+
         max_bid = bids.aggregate(Max("val"))
         the_max_bid=max_bid["val__max"]
         print("the max bid"+str(the_max_bid))
@@ -142,7 +147,8 @@ def flisting(request, listing_id):
                 bid.save()
                 listing.price = bid_val
                 current_user.watching.add(listing)
-                listing.save()
+                number_of_bids = bids.count()
+
 
 
                 return render(request, "auctions/listings/flisting.html",
@@ -160,6 +166,7 @@ def flisting(request, listing_id):
 
                 bid = Bid.objects.place_bid(bid_val, bidder, listing_bid)
                 bid.save()
+                number_of_bids = bids.count()
                 listing.price = bid_val
                 current_user.watching.add(listing)
                 listing.save()
@@ -187,7 +194,7 @@ def flisting(request, listing_id):
         comment.save()
         comment.lists.add(listing)
         return render(request, "auctions/listings/flisting.html", {"listing": listing, "comms":comms,"highest_bidder": highest_bidder,
-                                                                   "the_max_bid":the_max_bid,"watchlist_ind":watchlist_ind,"number_of_bids":number_of_bids})
+                                                                   "the_max_bid":the_max_bid,"number_of_bids":number_of_bids})
     if request.method == "POST" and "close_auction" in request.POST:
         listing.closed_auction=True
         message_cl="Press here to see the winner"
@@ -252,6 +259,8 @@ def create_listing(request):
 def my_listings(request):
     my_listings = Listing.objects.filter(listing_owner=request.user)
 
+
+
     return render(request, "auctions/my_listings.html", {"my_listings": my_listings})
 
 
@@ -262,3 +271,4 @@ def my_watchlist(request):
     my_watchlist=request.user.watching.all()
 
     return render(request, "auctions/my_watchlist.html", {"my_watchlist": my_watchlist})
+

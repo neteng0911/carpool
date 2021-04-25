@@ -7,10 +7,11 @@
 
        <div class ="menu"> <a href="{% url "flisting" listings.id %}"> <img src={{listings.picture_url}} width="400" height="250"></div>
 
-        <div class="main"> <p style="font-size:20px"><strong>{{listings.title}} {{listing.listing_message}}</strong> </p>{{listings.description}}
+    <div class="main"> <p style="font-size:20px"><strong>{{listings.title}} </strong> <div style="color:red">{{listings.listing_message}} </div></p>{{listings.description}}
             <p><strong> Price: {{listings.price}}&euro;</strong></p>
 
-            <p style= "color:grey; font-size:15px;"> created: {{listings.created_date}} <strong> by {{listings.listing_owner}}</strong></p>
+            <p style= "color:grey; font-size:15px;"> created: {{listings.created_date}} <strong> by {{listings.listing_owner}} </strong></p>
+
         </div>
 
 {% endfor %}
