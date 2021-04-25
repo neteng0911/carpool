@@ -96,11 +96,11 @@
 
 {% endifequal %}
 {% endifequal %}
-<div style="margin-top:10px">
+<div style="margin-top:60px">
     <form action="{% url 'flisting' listing.id %}" method="post">
         {% csrf_token %}
      <div class="form-comm">
-            <input class="form-control" type="text" name="comment_input" placeholder="comment">
+            <input class="form-control"  type="text" name="comment_input" placeholder="comment">
      </div>
         <input class="btn btn-primary" type="submit" name="submit_comment" value="Submit Comment">
 
@@ -113,7 +113,7 @@
 <h1> Comments: </h1>
 {% for comm in comms %}
     <ul>
-        <p style= "margin-top: 40px; color:grey; font-size:15px;"> <strong>{{comm}} </strong> by user {{comm.comment_author}} {{comm.created_date}}</p>
+        <p style= "margin-top: 20px; color:grey; font-size:15px;"> <strong>{{comm}} </strong> by user {{comm.comment_author}} {{comm.created_date}}</p>
     </ul>
 {% endfor %}
 
