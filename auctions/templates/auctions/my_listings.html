@@ -1,0 +1,23 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>My Listings</h2>
+
+<ul> {% for listings in my_listings %}
+
+       <div class ="menu"> <a href="{% url "flisting" listings.id %}"> <img src={{listings.picture_url}} width="400" height="250"></div>
+
+    <div class="main"> <p style="font-size:20px"><strong>{{listings.title}} </strong> <div style="color:red">{{listings.listing_message}} </div></p>{{listings.description}}
+            <p><strong> Price: {{listings.price}}&euro;</strong></p>
+
+            <p style= "color:grey; font-size:15px;"> created: {{listings.created_date}} <strong> by {{listings.listing_owner}} </strong></p>
+
+        </div>
+
+{% endfor %}
+        {#***NOT RENDERED <div class="subnote">created: {{listing.created_date}} <strong> by {{user}}</strong> </div>#}
+
+{% comment %} this is a comment {% endcomment %}
+
+{# this won't be rendered #}
+{% endblock %}
