@@ -9,42 +9,6 @@ document.addEventListener('DOMContentLoaded', function() {
   // By default, load the inbox
   load_mailbox('inbox');
 });
-function getCookie(name) {
-    let cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        const cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; i++) {
-            const cookie = cookies[i].trim();
-            // Does this cookie string begin with the name we want?
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
-}
-function send_mail() {
-
-
-fetch('/emails', {
-  method: 'POST',
-  credentials: 'include',
-  headers: {'X-CSRFToken': getCookie("csrftoken")},
-  mode: "same-origin",
-  body: JSON.stringify({
-      recipients: document.querySelector("#compose-recipients"),
-      subject: document.querySelector("#compose-subject"),
-      body: document.querySelector('#compose-body'),
-      //csrfmiddlewaretoken:'{{csrf_token}}'
-  })
-})
-.then(response => response.json())
-.then(result => {
-    // Print result
-    console.log(result);
-});
-}
 
 function compose_email() {
 
@@ -66,19 +30,4 @@ function load_mailbox(mailbox) {
 
   // Show the mailbox name
   document.querySelector('#emails-view').innerHTML = `<h3>${mailbox.charAt(0).toUpperCase() + mailbox.slice(1)}</h3>`;
-
-  fetch('/emails/${mailbox}')
-  .then(response => response.json())
-  .then(emails => {
-    // Print emails
-  console.log(emails);
-   
-
-    // ... do something else with emails ...
-
-
-
-
-
 }
-
