@@ -9,45 +9,6 @@ document.addEventListener('DOMContentLoaded', function() {
   // By default, load the inbox
   load_mailbox('inbox');
 });
-<<<<<<< HEAD
-function getCookie(name) {
-    let cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        const cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; i++) {
-            const cookie = cookies[i].trim();
-            // Does this cookie string begin with the name we want?
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
-}
-function send_mail() {
-
-
-fetch('/emails', {
-  method: 'POST',
-  credentials: 'include',
-  headers: {'X-CSRFToken': getCookie("csrftoken")},
-  mode: "same-origin",
-  body: JSON.stringify({
-      recipients: document.querySelector("#compose-recipients"),
-      subject: document.querySelector("#compose-subject"),
-      body: document.querySelector('#compose-body'),
-      //csrfmiddlewaretoken:'{{csrf_token}}'
-  })
-})
-.then(response => response.json())
-.then(result => {
-    // Print result
-    console.log(result);
-});
-}
-=======
->>>>>>> 36880e89163c829a122deec44f8cbb01be0d86c9
 
 function compose_email() {
 
@@ -62,70 +23,33 @@ function compose_email() {
 }
 
 function load_mailbox(mailbox) {
-<<<<<<< HEAD
   
-=======
-
->>>>>>> 36880e89163c829a122deec44f8cbb01be0d86c9
   // Show the mailbox and hide other views
   document.querySelector('#emails-view').style.display = 'block';
   document.querySelector('#compose-view').style.display = 'none';
 
   // Show the mailbox name
   document.querySelector('#emails-view').innerHTML = `<h3>${mailbox.charAt(0).toUpperCase() + mailbox.slice(1)}</h3>`;
-<<<<<<< HEAD
-
-  fetch('/emails/${mailbox}')
-  .then(response => response.json())
-  .then(emails => {
-    // Print emails
-  console.log(emails);
-   
-
-    // ... do something else with emails ...
-
-
-
-
-
-}
-
-=======
 }
 
 function send_mail() {
-/*
-
-fetch('/emails', {
-  method: 'POST',
-  credentials: 'include',
-  headers: {'X-CSRFToken': getCookie("csrftoken")},
-  mode: "same-origin",
-  body: JSON.stringify({
-      recipients: document.querySelector("#compose-recipients"),
-      subject: document.querySelector("#compose-subject"),
-      body: document.querySelector('#compose-body'),
-      //csrfmiddlewaretoken:'{{csrf_token}}'
-  })
-})
-.then(response => response.json())
-.then(result => {
-    // Print result
-    console.log(result);*/
-//
-//});
+event.preventDefault();
+const recipients= document.querySelector('#compose-recipients').value;
+const subject= document.querySelector('#compose-subject').value;
+const body= document.querySelector('#compose-body').value;
 
 fetch('/emails', {
   method: 'POST',
   body: JSON.stringify({
-      recipients: document.querySelector("#compose-recipients"),
-      subject: document.querySelector("#compose-subject"),
-      body: document.querySelector('#compose-body')'
+      recipients: recipients,
+      subject: subject,
+      body: body,
+  }),
   })
-})
-.then(response => response.json())
-.then(result => {
-    // Print result
-    console.log(result);
-});
->>>>>>> 36880e89163c829a122deec44f8cbb01be0d86c9
+    // Take the return data and parse it in JSON format.
+    .then((response) => response.json())
+    .then((result) => {
+      load_mailbox("sent", result);
+    })
+    .catch((error) => console.log(error));
+}
