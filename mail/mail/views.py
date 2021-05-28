@@ -75,10 +75,6 @@ def compose(request):
 @login_required
 def mailbox(request, mailbox):
 
-
-
-
-
     # Filter emails returned based on mailbox
     if mailbox == "inbox":
         emails = Email.objects.filter(
@@ -97,6 +93,7 @@ def mailbox(request, mailbox):
 
     # Return emails in reverse chronologial order
     emails = emails.order_by("-timestamp").all()
+
     return JsonResponse([email.serialize() for email in emails], safe=False)
 
 

@@ -34,9 +34,18 @@ function load_mailbox(mailbox) {
 
   fetch('/emails/${mailbox}')
 .then(response => response.json())
-.then(emails => {
+.then(emails => {emails.forEach((email)=>{
+    const_sub=emails.subject;
+    const element = document.createElement('div');
+    element.innerHTML = const_sub;
+
+})
+
+
+
+
     // Print emails
-    console.log(emails);
+    //console.log(emails);
 
     // ... do something else with emails ...
 });
