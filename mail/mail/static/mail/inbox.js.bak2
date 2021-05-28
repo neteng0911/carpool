@@ -125,7 +125,30 @@ function load_mailbox(mailbox) {
 
     // ... do something else with emails ...
 
+});
+}
+function send_mail() {
 
+
+fetch('/emails', {
+  method: 'POST',
+  credentials: 'include',
+  headers: {'X-CSRFToken': getCookie("csrftoken")},
+  mode: "same-origin",
+  body: JSON.stringify({
+      recipients: document.querySelector("#compose-recipients"),
+      subject: document.querySelector("#compose-subject"),
+      body: document.querySelector('#compose-body'),
+      //csrfmiddlewaretoken:'{{csrf_token}}'
+  })
+})
+.then(response => response.json())
+.then(result => {
+    // Print result
+    console.log(result);
+
+});
+}
 
 
 

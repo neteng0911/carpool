@@ -30,20 +30,10 @@ function load_mailbox(mailbox) {
 
   // Show the mailbox name
   document.querySelector('#emails-view').innerHTML = `<h3>${mailbox.charAt(0).toUpperCase() + mailbox.slice(1)}</h3>`;
-
-  fetch('/emails/${mailbox}')
-  .then(response => response.json())
-  .then(emails => {
-    // Print emails
-  console.log(emails);
-
-
-    // ... do something else with emails ...
-
-});
 }
-function send_mail() {
 
+function send_mail() {
+/*
 
 fetch('/emails', {
   method: 'POST',
@@ -60,7 +50,20 @@ fetch('/emails', {
 .then(response => response.json())
 .then(result => {
     // Print result
-    console.log(result);
+    console.log(result);*/
+//
+//});
 
+fetch('/emails', {
+  method: 'POST',
+  body: JSON.stringify({
+      recipients: document.querySelector("#compose-recipients"),
+      subject: document.querySelector("#compose-subject"),
+      body: document.querySelector('#compose-body')'
+  })
+})
+.then(response => response.json())
+.then(result => {
+    // Print result
+    console.log(result);
 });
-}
