@@ -23,7 +23,7 @@ function compose_email() {
   document.querySelector('#compose-body').value = '';
 }
 
-function load_mailbox(mailbox) {
+function load_mailbox(inbox) {
   
   // Show the mailbox and hide other views
   document.querySelector('#emails-view').style.display = 'block';
@@ -33,13 +33,38 @@ function load_mailbox(mailbox) {
   document.querySelector('#emails-view').innerHTML = `<h3>${mailbox.charAt(0).toUpperCase() + mailbox.slice(1)}</h3>`;
 
   fetch('/emails/${mailbox}')
-.then(response => response.json())
-.then(emails => {emails.forEach((email)=>{
-    const_sub=emails.subject;
-    const element = document.createElement('div');
-    element.innerHTML = const_sub;
+    .then(response => response.json())
+    .then(emails => {
 
-})
+        if (emails.length==0) {
+
+            const element = document.createElement('div');
+            element.innerHTML="Nothing to see";
+            console.log('empty list');
+
+
+
+        }
+        else {
+            for (email in emails)
+                {
+
+                const sub=document.createElement('div');
+                sub.innerHTML=email.subject;
+                const recip=document.createElement('p');
+                recip.innerHTML=email.recipients;
+
+
+
+                }
+        }
+
+    }
+    )}
+
+
+
+
 
 
 
@@ -48,10 +73,10 @@ function load_mailbox(mailbox) {
     //console.log(emails);
 
     // ... do something else with emails ...
-});
 
 
-}
+
+
 
 function send_email() {
 event.preventDefault();
@@ -73,10 +98,12 @@ fetch('/emails', {
       load_mailbox("sent", result);
     })
     .catch((error) => console.log(error));
-}
+};
+
+
 function load_emails(mailbox,id) {
 
 
 
 
-}
+};
