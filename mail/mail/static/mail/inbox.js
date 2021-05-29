@@ -23,7 +23,7 @@ function compose_email() {
   document.querySelector('#compose-body').value = '';
 }
 
-function load_mailbox(inbox) {
+function load_mailbox(mailbox) {
   
   // Show the mailbox and hide other views
   document.querySelector('#emails-view').style.display = 'block';
@@ -50,9 +50,9 @@ function load_mailbox(inbox) {
                 {
 
                 const sub=document.createElement('div');
-                sub.innerHTML=email.subject;
+                sub.innerHTML='${email.subject}';
                 const recip=document.createElement('p');
-                recip.innerHTML=email.recipients;
+                recip.innerHTML='${email.recipients}';
 
 
 
