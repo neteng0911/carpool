@@ -108,8 +108,21 @@ function load_mailbox(mailbox) {
 
         h_mail.appendChild(h_time);
 
+          /*const trt=document.getElementsByTagName('p')[0];
 
+          trt.style.color="red";
+          trt.addEventListener('click', () => over());
+          trt.addEventListener('mousover', () => out());
 
+          function over(){
+          trt.style.color='blue'
+
+          }
+          function out(){
+          trt.style.color='black'
+}
+*/
+ //NOT WORKING
   //GET request
   fetch(`/emails/${mailbox}`)
     .then(response => response.json())
@@ -177,6 +190,9 @@ function load_mailbox(mailbox) {
           mail.appendChild(time);
           //mail.appendChild(id);
           mail.appendChild(rec);
+
+
+
 
           //what happens when a user clicks on an email in the mailbox
           mail.addEventListener('click', () => load_email());
