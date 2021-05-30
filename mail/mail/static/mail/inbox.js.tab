@@ -27,21 +27,9 @@ fetch('/emails', {
     // Take the return data and parse it in JSON format.
     .then((response) => response.json())
     .then((result) => {
-
-
-        if (result.error) {
-            console.log(result.error);
-            alert(result.error)
-
-        }
-
-
-
-
       load_mailbox("sent", result);
     })
-
-
+    .catch((error) => console.log(error));
 };
 
 function compose_email() {
@@ -54,14 +42,12 @@ function compose_email() {
   document.querySelector('#compose-recipients').value = '';
   document.querySelector('#compose-subject').value = '';
   document.querySelector('#compose-body').value = '';
-
-
 }
 
 
 function load_mailbox(mailbox) {
 
-  const email_view = document.querySelector('#emails-view')
+  let email_view = document.querySelector('#emails-view')
   document.querySelector('#emails-view').style.display = 'none';
   document.querySelector('#compose-view').style.display = 'none';
   // Show the mailbox and hide other views
@@ -71,45 +57,20 @@ function load_mailbox(mailbox) {
   // Show the mailbox name
   email_view.innerHTML = '';
   email_view.innerHTML = `<h3>${mailbox.charAt(0).toUpperCase() + mailbox.slice(1)}</h3>`;
-// create headers for the rows
+// Find a <table> element with id="myTable":
+var table = document.getElementById("myTable");
 
-        const h_mail = document.createElement("div");
-        h_mail.style.backgroundColor = 'gray';
-        email_view.appendChild(h_mail);
-        h_mail.style.borderStyle = 'solid';
-        h_mail.style.borderColor = 'black';
-        h_mail.style.borderWidth = '0.1rem';
-        h_mail.style.marginBottom = '0.2rem';
+// Create an empty <thead> element and add it to the table:
+var header = table.createTHead();
 
-        const h_sender = document.createElement('h5');
-        h_sender.innerHTML='sender'
-        h_sender.style.display = 'inline-block';
-        h_sender.style.marginLeft = '5rem';
+// Create an empty <tr> element and add it to the first position of <thead>:
+var row = header.insertRow(0);
 
-        const h_rec=document.createElement('h5');
-        h_rec.innerHTML='recipients'
-        h_rec.style.display = 'inline-block';
-        h_rec.style.marginLeft = '10rem';
+// Insert a new cell (<td>) at the first position of the "new" <tr> element:
+var cell = row.insertCell(0);
 
-        const h_sub = document.createElement('h5');
-        h_sub.innerHTML='subject'
-        h_sub.style.display = 'inline-block';
-        h_sub.style.marginLeft = '10rem';
-
-        const h_time = document.createElement('h5');
-        h_time.innerHTML='date'
-        h_time.style.display = 'inline-block';
-        h_time.style.margin = '0.5rem';
-        h_time.style.float="right";
-
-        h_mail.appendChild(h_sender);
-        h_mail.appendChild(h_sub);
-        h_mail.appendChild(h_rec);
-
-        h_mail.appendChild(h_time);
-
-
-
+// Add some bold text in the new cell:
+cell.innerHTML = "<b>This is a table header</b>";
   //GET request
   fetch(`/emails/${mailbox}`)
     .then(response => response.json())
@@ -155,19 +116,19 @@ function load_mailbox(mailbox) {
           mail.classList.add('mail');
 
           sender.style.display = 'inline-block';
-          sender.style.marginLeft = '0.5rem';
+          sender.style.margin = '0.5rem';
 
 
           rec.style.display = 'inline-block';
-          rec.style.paddingLeft = '5rem';
+          rec.style.margin = '1rem';
           rec.style.color='green';
 
           sub.style.display = 'inline-block';
-          sub.style.marginLeft= '5rem';
+          sub.style.margin = '0.5rem';
 
 
           time.style.display = 'inline-block';
-          time.style.marginLeft = '0.5rem';
+          time.style.margin = '1rem';
           time.style.float = 'right';
           time.style.color = 'blue';
 
