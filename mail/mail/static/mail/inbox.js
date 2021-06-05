@@ -108,11 +108,11 @@ function load_mailbox(mailbox) {
 
         h_mail.appendChild(h_time);
 
-          /*const trt=document.getElementsByTagName('p')[0];
+          const trt=document.getElementById('emails-view');
 
-          trt.style.color="red";
-          trt.addEventListener('click', () => over());
-          trt.addEventListener('mousover', () => out());
+          
+          trt.addEventListener('mouseenter', () => over());
+          trt.addEventListener('mouseleave', () => out());
 
           function over(){
           trt.style.color='blue'
@@ -121,7 +121,7 @@ function load_mailbox(mailbox) {
           function out(){
           trt.style.color='black'
 }
-*/
+
  //NOT WORKING
   //GET request
   fetch(`/emails/${mailbox}`)
