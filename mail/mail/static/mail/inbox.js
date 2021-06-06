@@ -220,5 +220,37 @@ function load_mailbox(mailbox) {
 
 }
 
+function load_email(email_id){
+
+  fetch(`/email/<int:email_id>`, {
+        method: "GET"}),
+
+    .then(response => response.json())
+    .then(email => {
+
+        const h_mail = document.createElement("div");
+        h_mail.style.backgroundColor = 'gray';
+        email_view.appendChild(h_mail);
+        h_mail.style.borderStyle = 'solid';
+        h_mail.style.borderColor = 'black';
+        h_mail.style.borderWidth = '0.1rem';
+        h_mail.style.marginBottom = '0.2rem';
+
+          const mail = document.createElement("div");
+          const sender = document.createElement('h5');
+          const rec=document.createElement('p');
+          const sub = document.createElement('p');
+          const time = document.createElement('p');
+
+
+
+    email_view.innerHTML = '<p style = "font-size: large; font-weight: bold;">${mail.subject}</p>';
+
+
+
+    })
+
+};
+
 
 
