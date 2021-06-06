@@ -86,6 +86,7 @@ function load_mailbox(mailbox) {
         h_sender.style.display = 'inline-block';
         h_sender.style.marginLeft = '5rem';
 
+
         const h_rec=document.createElement('h5');
         h_rec.innerHTML='recipients'
         h_rec.style.display = 'inline-block';
@@ -108,28 +109,15 @@ function load_mailbox(mailbox) {
 
         h_mail.appendChild(h_time);
 
-          const trt=document.getElementById('emails-view');
+          //const trt=document.getElementById('emails-view');
+          //const trt=document.getElementsByTagName('p')
 
-          
-          trt.addEventListener('mouseenter', () => over());
-          trt.addEventListener('mouseleave', () => out());
-
-          function over(){
-          trt.style.color='blue'
-
-          }
-          function out(){
-          trt.style.color='black'
-}
-
- //NOT WORKING
-  //GET request
   fetch(`/emails/${mailbox}`)
     .then(response => response.json())
     .then(emails => {
 
       if (emails.length == 0) {
-        email_view.innerHTML = '<p style = "font-size: large; font-weight: bold;">Nothing to see here :(</p>';
+        email_view.innerHTML = '<p style = "font-size: large; font-weight: bold;">Empty!</p>';
       }
       else {
         for (email in emails) {
@@ -169,6 +157,7 @@ function load_mailbox(mailbox) {
 
           sender.style.display = 'inline-block';
           sender.style.marginLeft = '0.5rem';
+          sender.id="send"
 
 
           rec.style.display = 'inline-block';
@@ -191,6 +180,22 @@ function load_mailbox(mailbox) {
           //mail.appendChild(id);
           mail.appendChild(rec);
 
+          mail.addEventListener('mouseenter',over,false);
+          mail.addEventListener('mouseleave',out,false);
+
+         function over (event){
+
+                event.target.style.color="blue";
+                event.target.style.cursor='pointer';
+
+          }
+
+         function out (event){
+
+                event.target.style.color="black";
+                event.target.style.cursor='default';
+
+          }
 
 
 
@@ -200,6 +205,10 @@ function load_mailbox(mailbox) {
           time.addEventListener('click', () => load_email());
           sender.addEventListener('click', () => load_email());
         }
+
+
+
+
       }
     }
 
