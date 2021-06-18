@@ -127,7 +127,7 @@ function load_mailbox(mailbox) {
           const rec=document.createElement('p');
           const sub = document.createElement('p');
           const time = document.createElement('p');
-          //const id = document.createElement('p');
+          const id = document.createElement('p');
 
 
           rec.innerHTML=emails[email].recipients;
@@ -201,7 +201,7 @@ function load_mailbox(mailbox) {
 
           //what happens when a user clicks on an email in the mailbox
           mail.addEventListener('click', () => load_email());
-          sub.addEventListener('click', () => load_email());
+          sub.addEventListener('click', () => load_email();
           time.addEventListener('click', () => load_email());
           sender.addEventListener('click', () => load_email());
         }
@@ -220,37 +220,34 @@ function load_mailbox(mailbox) {
 
 }
 
-function load_email(email_id){
+/*function load_email(email_id){
 
-  fetch(`/email/<int:email_id>`, {
-        method: "GET"}),
+  fetch(`/emails/<int:email_id>`)
 
     .then(response => response.json())
-    .then(email => {
+    .then(email =>{
 
-        const h_mail = document.createElement("div");
+*//*        const h_mail = document.createElement("div");
+        const h_sender=document.createElement('div');
         h_mail.style.backgroundColor = 'gray';
-        email_view.appendChild(h_mail);
+        //email_view.appendChild(h_mail);
         h_mail.style.borderStyle = 'solid';
         h_mail.style.borderColor = 'black';
         h_mail.style.borderWidth = '0.1rem';
-        h_mail.style.marginBottom = '0.2rem';
+        h_mail.style.marginBottom = '0.2rem';*//*
 
-          const mail = document.createElement("div");
-          const sender = document.createElement('h5');
-          const rec=document.createElement('p');
-          const sub = document.createElement('p');
-          const time = document.createElement('p');
+
+         h_mail.innerHTML=email.sender;
 
 
 
-    email_view.innerHTML = '<p style = "font-size: large; font-weight: bold;">${mail.subject}</p>';
+    //email_view.innerHTML = '<p style = "font-size: large; font-weight: bold;">${mail.subject}</p>';
 
 
 
     })
 
-};
+};*/
 
 
 
