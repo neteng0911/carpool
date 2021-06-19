@@ -127,21 +127,19 @@ function load_mailbox(mailbox) {
           const rec=document.createElement('p');
           const sub = document.createElement('p');
           const time = document.createElement('p');
-          //const id = document.createElement('p');
+          const id = document.createElement('p');
 
-          
-/*          //what happens when a user clicks on an email in the mailbox
 
-          const parent_element = document.createElement("div");
-          mail.addEventListener('click', () => load_email(emails[email].id));
-          parent_element.addEventListener('click', () => load_email(emails[email].id));
-          sub.addEventListener('click', () => load_email(emails[email].id));
-          time.addEventListener('click', () => load_email());
-          sender.addEventListener('click', () => load_email());*/
+
+
+         //what happens when a user clicks on an email in the mailbox
+
 
           rec.innerHTML=emails[email].recipients;
-
           sender.innerHTML = emails[email].sender;
+          id.innerHTML=emails[email].id;
+          mail.addEventListener('click', () => load_email(id.innerHTML));
+
           if (emails[email].subject == '') {
             sub.innerHTML = 'No Subject';
             sub.style.color = 'red';
@@ -166,7 +164,7 @@ function load_mailbox(mailbox) {
 
           sender.style.display = 'inline-block';
           sender.style.marginLeft = '0.5rem';
-          sender.id="send"
+          //sender.id="send"     this I have excluded
 
 
           rec.style.display = 'inline-block';
@@ -175,6 +173,9 @@ function load_mailbox(mailbox) {
 
           sub.style.display = 'inline-block';
           sub.style.marginLeft= '5rem';
+
+          id.style.display = 'inline-block';
+          id.style.marginLeft= '5rem';
 
 
           time.style.display = 'inline-block';
@@ -186,7 +187,7 @@ function load_mailbox(mailbox) {
           mail.appendChild(sender);
           mail.appendChild(sub);
           mail.appendChild(time);
-          //mail.appendChild(id);
+          mail.appendChild(id);
           mail.appendChild(rec);
 
           mail.addEventListener('mouseenter',over,false);
@@ -230,7 +231,7 @@ function load_email(email_id){
   fetch(`/emails/<int:email_id>`)
 
     .then(response => response.json())
-    .then(email => {
+    .then(email => {alert('opening email'+ email_id);
 
         const h_mail = document.createElement("div");
         h_mail.style.backgroundColor = 'gray';
