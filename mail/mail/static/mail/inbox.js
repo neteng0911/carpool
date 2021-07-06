@@ -49,6 +49,7 @@ function compose_email() {
   // Show compose view and hide other views
   document.querySelector('#emails-view').style.display = 'none';
   document.querySelector('#compose-view').style.display = 'block';
+  document.querySelector('#email-view').style.display = 'none';
 
   // Clear out composition fields
   document.querySelector('#compose-recipients').value = '';
@@ -67,6 +68,7 @@ function load_mailbox(mailbox) {
   // Show the mailbox and hide other views
   email_view.style.display = 'block';
   document.querySelector('#compose-view').style.display = 'none';
+  document.querySelector('#email-view').style.display = 'none';
 
   // Show the mailbox name
   email_view.innerHTML = '';
@@ -174,8 +176,8 @@ function load_mailbox(mailbox) {
           sub.style.display = 'inline-block';
           sub.style.marginLeft= '5rem';
 
-          id.style.display = 'inline-block';
-          id.style.marginLeft= '5rem';
+          id.style.display = 'none';
+          //id.style.marginLeft= '5rem';
 
 
           time.style.display = 'inline-block';
@@ -227,32 +229,31 @@ function load_mailbox(mailbox) {
 }
 
 function load_email(email_id){
+//alert('opening email '+ email_id);
+  fetch(`/emails/${email_id}`)
 
-  fetch(`/emails/<int:email_id>`)
+
+
 
     .then(response => response.json())
-    .then(email => {alert('opening email'+ email_id);
+    .then(email => {
+// show email and hide other views
+    document.querySelector('#emails-view').style.display = 'none';
+    document.querySelector('#compose-view').style.display = 'none';
+    document.querySelector('#email-view').style.display = 'block';
 
-        const h_mail = document.createElement("div");
-        h_mail.style.backgroundColor = 'gray';
-        email_view.appendChild(h_mail);
-        h_mail.style.borderStyle = 'solid';
-        h_mail.style.borderColor = 'black';
-        h_mail.style.borderWidth = '0.1rem';
-        h_mail.style.marginBottom = '0.2rem';
+    // display email
+    const view = document.querySelector('#email-view');
+    view.innerHTML = `
+      <ul>
+        <li><b>From:</b> <span>${email['sender']}</span></li>
+        <li><b>To: </b><span>${email['recipients']}</span></li>
+        <li><b>Subject:</b> <span>${email['subject']}</span</li>
+        <li><b>Time:</b> <span>${email['timestamp']}</span></li>
+      </ul>
+      <p>${email['body']}</p>
+    `;
 
-          const mail = document.createElement("div");
-          const sender = document.createElement('h5');
-          const rec=document.createElement('p');
-          const sub = document.createElement('p');
-          const time = document.createElement('p');
-
-          sender.innerHTML='email.sender';
-          rec.innerHTML='${email["rec"]}';
-
-
-
-    sub.innerHTML = '<p style = "font-size: large; font-weight: bold;">${email.subject}</p>';
 
 
 
