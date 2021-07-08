@@ -223,12 +223,10 @@ function load_mailbox(mailbox) {
     );
 
 
-
-
-
 }
 
 function load_email(email_id){
+
 //alert('opening email '+ email_id);
   fetch(`/emails/${email_id}`)
 
@@ -252,14 +250,68 @@ function load_email(email_id){
         <li><b>Time:</b> <span>${email['timestamp']}</span></li>
       </ul>
       <p>${email['body']}</p>
-    `;
 
+
+
+        <button class="but" id="archive">Archive</button>
+        <button class="but" id="unarchive">Unarchive</button>
+        <button class="but" id="reply">Reply</button>
+        <button class="but" id="unread">Mark unread</button>
+    `;
+    //document.getElementById("#archive").onclick = archive_email(email_id);
+    document.getElementById("#unarchive").onclick = unarchive_email(email_id);
+//document.getElementById('#archive').addEventListener('click', archive_email(email_id));
+/*document.querySelector('#unarchive').addEventListener('click', unarchive_email(email_id));
+document.querySelector('#unread').addEventListener('click', unread_email(email_id));*/
 
 
 
     })
 
+fetch(`/emails/${email_id}`,{
+  method: 'PUT',
+  body: JSON.stringify({
+      read: true})
+      })
+
+
 };
 
 
 
+function archive_email(email_id){
+fetch(`/emails/${email_id}`,{
+  method: 'PUT',
+  body: JSON.stringify({
+      archived: true
+
+})
+
+})
+load_mailbox('archive');
+};
+
+function unarchive_email(email_id){
+fetch(`/emails/${email_id}`,{
+  method: 'PUT',
+  body: JSON.stringify({
+      archived: false
+
+})
+
+})
+//load_mailbox('inbox');
+};
+
+
+function unread_email(email_id){
+fetch(`/emails/${email_id}`,{
+  method: 'PUT',
+  body: JSON.stringify({
+      read: false
+
+})
+
+})
+load_mailbox('inbox');
+};
