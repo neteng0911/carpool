@@ -73,7 +73,7 @@ function load_mailbox(mailbox) {
   // Show the mailbox name
   email_view.innerHTML = '';
   email_view.innerHTML = `<h3>${mailbox.charAt(0).toUpperCase() + mailbox.slice(1)}</h3>`;
-// create headers for the rows
+// creating headers for the rows
 
         const h_mail = document.createElement("div");
         h_mail.style.backgroundColor = 'gray';
@@ -229,16 +229,22 @@ function load_email(email_id){
 
 //alert('opening email '+ email_id);
   fetch(`/emails/${email_id}`)
-
-
-
-
     .then(response => response.json())
     .then(email => {
 // show email and hide other views
     document.querySelector('#emails-view').style.display = 'none';
     document.querySelector('#compose-view').style.display = 'none';
     document.querySelector('#email-view').style.display = 'block';
+    const archive_button = document.createElement("button");
+    const unarchive_button = document.createElement("button");
+    const reply_button = document.createElement("button");
+    var archive=email["archived"];
+
+    archive_button.InnerText="Archive";
+    unarchive_button.InnerText="Unarchive";
+
+
+
 
     // display email
     const view = document.querySelector('#email-view');
@@ -250,19 +256,18 @@ function load_email(email_id){
         <li><b>Time:</b> <span>${email['timestamp']}</span></li>
       </ul>
       <p>${email['body']}</p>
-
-
-
-        <button class="but" id="archive">Archive</button>
-        <button class="but" id="unarchive">Unarchive</button>
-        <button class="but" id="reply">Reply</button>
-        <button class="but" id="unread">Mark unread</button>
     `;
-    //document.getElementById("#archive").onclick = archive_email(email_id);
-    document.getElementById("#unarchive").onclick = unarchive_email(email_id);
-//document.getElementById('#archive').addEventListener('click', archive_email(email_id));
-/*document.querySelector('#unarchive').addEventListener('click', unarchive_email(email_id));
-document.querySelector('#unread').addEventListener('click', unread_email(email_id));*/
+archive_button.InnerHTML="<strong>Archive</strong>";
+archive_button.className= "buttoncl";
+unarchive_button.InnerHTML="<strong>Unarchive</strong>";
+//archive_button.addEventListener("click",archive_email(email_id));
+
+//document.querySelector('#unarchive').addEventListener('click', unarchive_email(email_id));
+
+view.appendChild(archive_button)
+view.appendChild(unarchive_button)
+archive_button.addEventListener('click', () => archive_email(email_id));
+unarchive_button.addEventListener('click', () => unarchive_email(email_id));
 
 
 
@@ -275,11 +280,18 @@ fetch(`/emails/${email_id}`,{
       })
 
 
+/*
+        document.getElementById("bunarchive").onclick = unarchive_email(email_id);
+        document.getElementById("barchive").onclick = archive_email(email_id);*/
+/*document.querySelector('#barchive').addEventListener('click', archive_email(email_id));
+document.querySelector('#bunarchive').addEventListener('click', unarchive_email(email_id));
+document.querySelector('#unread').addEventListener('click', unread_email(email_id));*/
 };
 
 
 
 function archive_email(email_id){
+
 fetch(`/emails/${email_id}`,{
   method: 'PUT',
   body: JSON.stringify({
@@ -292,6 +304,7 @@ load_mailbox('archive');
 };
 
 function unarchive_email(email_id){
+
 fetch(`/emails/${email_id}`,{
   method: 'PUT',
   body: JSON.stringify({
@@ -300,8 +313,10 @@ fetch(`/emails/${email_id}`,{
 })
 
 })
-//load_mailbox('inbox');
+load_mailbox('inbox');
 };
+
+
 
 
 function unread_email(email_id){
