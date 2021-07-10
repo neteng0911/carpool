@@ -36,11 +36,8 @@ fetch('/emails', {
         }
 
 
-
-
       load_mailbox("sent", result);
     })
-
 
 };
 
@@ -132,7 +129,7 @@ if (email_view.innerHTML != ''){
 
 
 
-         //what happens when a user clicks on an email in the mailbox
+         //click on email (div)
 
 
           rec.innerHTML=emails[email].recipients;
@@ -189,7 +186,7 @@ if (email_view.innerHTML != ''){
           mail.appendChild(time);
           mail.appendChild(id);
           mail.appendChild(rec);
-
+// mousing over div
           mail.addEventListener('mouseenter',over,false);
           mail.addEventListener('mouseleave',out,false);
 
@@ -225,13 +222,18 @@ function load_email(email_id){
     document.querySelector('#emails-view').style.display = 'none';
     document.querySelector('#compose-view').style.display = 'none';
     document.querySelector('#email-view').style.display = 'block';
+
+    // creating the buttons inside the email
+
     const archive_button = document.createElement("button");
     const unarchive_button = document.createElement("button");
     const reply_button = document.createElement("button");
     const unread_button = document.createElement("button");
+
+
     var archive=email["archived"];
     var read=email["read"];
-
+// naming the buttons
     archive_button.innerText="Archive";
     unarchive_button.innerText="Unarchive";
     unread_button.innerText="Mark Unread";
@@ -240,7 +242,7 @@ function load_email(email_id){
 
 
 
-    // display email
+    // display email (instead of writing in inbox.html)
     const view = document.querySelector('#email-view');
     view.innerHTML = `
       <ul>
@@ -256,8 +258,11 @@ archive_button.className= "buttoncl";
 archive_button.id= "archbtn";
 unarchive_button.className= "buttoncl";
 unread_button.className= "buttoncl";
+//add buttons to the DOM
+
 view.appendChild(reply_button);
 reply_button.className= "buttoncl";
+// toggle between archive and unarchive and unread buttons
 if (archive){
 view.appendChild(unarchive_button);
 }
@@ -270,6 +275,7 @@ if (read){
 view.appendChild(unread_button);
 
 }
+// add the eventlisteners to the buttons
 archive_button.addEventListener('click', () => archive_email(email_id));
 unarchive_button.addEventListener('click', () => unarchive_email(email_id));
 unread_button.addEventListener('click', () => unread_email(email_id));
