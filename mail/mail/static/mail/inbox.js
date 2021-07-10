@@ -104,15 +104,13 @@ function load_mailbox(mailbox) {
         h_time.style.display = 'inline-block';
         h_time.style.margin = '0.5rem';
         h_time.style.float="right";
-
+if (email_view.innerHTML != ''){
         h_mail.appendChild(h_sender);
         h_mail.appendChild(h_sub);
         h_mail.appendChild(h_rec);
 
         h_mail.appendChild(h_time);
-
-          //const trt=document.getElementById('emails-view');
-          //const trt=document.getElementsByTagName('p')
+}
 
   fetch(`/emails/${mailbox}`)
     .then(response => response.json())
@@ -238,10 +236,13 @@ function load_email(email_id){
     const archive_button = document.createElement("button");
     const unarchive_button = document.createElement("button");
     const reply_button = document.createElement("button");
+    const unread_button = document.createElement("button");
     var archive=email["archived"];
+    var read=email["read"];
 
     archive_button.innerText="Archive";
     unarchive_button.innerText="Unarchive";
+    unread_button.innerText="Mark Unread";
 
 
 
@@ -259,7 +260,9 @@ function load_email(email_id){
     `;
 
 archive_button.className= "buttoncl";
+archive_button.id= "archbtn";
 unarchive_button.className= "buttoncl";
+unread_button.className= "buttoncl";
 
 if (archive){
 view.appendChild(unarchive_button);
@@ -269,13 +272,17 @@ view.appendChild(archive_button);
 
 }
 
+if (read){
+view.appendChild(unread_button);
 
+}
 archive_button.addEventListener('click', () => archive_email(email_id));
 unarchive_button.addEventListener('click', () => unarchive_email(email_id));
+unread_button.addEventListener('click', () => unread_email(email_id));
 
 
 
-    })
+})
 
 fetch(`/emails/${email_id}`,{
   method: 'PUT',
@@ -297,8 +304,9 @@ fetch(`/emails/${email_id}`,{
 })
 
 })
-load_mailbox('archive');
-};
+
+.then( () => load_mailbox("archive"));
+}
 
 function unarchive_email(email_id){
 
@@ -310,13 +318,17 @@ fetch(`/emails/${email_id}`,{
 })
 
 })
-load_mailbox('inbox');
-};
+.then( () => load_mailbox("inbox"));
+
+}
 
 
 
 
 function unread_email(email_id){
+
+
+
 fetch(`/emails/${email_id}`,{
   method: 'PUT',
   body: JSON.stringify({
@@ -325,5 +337,32 @@ fetch(`/emails/${email_id}`,{
 })
 
 })
-load_mailbox('inbox');
-};
+
+.then( () => {
+
+fetch(`/emails/${email_id}`)
+    .then(response => response.json())
+    .then(email => {
+if (email.archived){
+
+const current_mailbox="archive"
+
+load_mailbox(current_mailbox);
+console.log("this is "+current_mailbox);
+}
+else{
+const current_mailbox="inbox"
+load_mailbox(current_mailbox);
+console.log("this is "+current_mailbox);
+}
+
+})
+
+
+
+})
+
+
+}
+
+
