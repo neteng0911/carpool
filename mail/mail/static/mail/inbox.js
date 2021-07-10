@@ -206,20 +206,12 @@ if (email_view.innerHTML != ''){
                 event.target.style.cursor='default';
 
           }
-
-
-
-
         }
-
-
-
 
       }
     }
 
     );
-
 
 }
 
@@ -243,6 +235,7 @@ function load_email(email_id){
     archive_button.innerText="Archive";
     unarchive_button.innerText="Unarchive";
     unread_button.innerText="Mark Unread";
+    reply_button.innerText='Reply';
 
 
 
@@ -263,7 +256,8 @@ archive_button.className= "buttoncl";
 archive_button.id= "archbtn";
 unarchive_button.className= "buttoncl";
 unread_button.className= "buttoncl";
-
+view.appendChild(reply_button);
+reply_button.className= "buttoncl";
 if (archive){
 view.appendChild(unarchive_button);
 }
@@ -279,6 +273,7 @@ view.appendChild(unread_button);
 archive_button.addEventListener('click', () => archive_email(email_id));
 unarchive_button.addEventListener('click', () => unarchive_email(email_id));
 unread_button.addEventListener('click', () => unread_email(email_id));
+reply_button.addEventListener('click',  () => reply_email(email_id));
 
 
 
@@ -292,7 +287,19 @@ fetch(`/emails/${email_id}`,{
 
 };
 
+function reply_email(email_id){
+fetch(`/emails/${email_id}`)
+    .then(response => response.json())
+    .then(email => {
+compose_email()
+  document.querySelector('#compose-recipients').value = email["sender"];
+  document.querySelector('#compose-subject').value = '';
+  document.querySelector('#compose-body').value = '';
 
+
+
+}
+)}
 
 function archive_email(email_id){
 
