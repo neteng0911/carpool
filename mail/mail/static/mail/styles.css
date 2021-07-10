@@ -3,7 +3,8 @@ textarea {
 }
 .buttoncl{
 
-min-height: 50px;
+min-height: 20px;
+min-width: 50px;
 
 
 }

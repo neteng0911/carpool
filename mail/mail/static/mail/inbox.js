@@ -240,8 +240,8 @@ function load_email(email_id){
     const reply_button = document.createElement("button");
     var archive=email["archived"];
 
-    archive_button.InnerText="Archive";
-    unarchive_button.InnerText="Unarchive";
+    archive_button.innerText="Archive";
+    unarchive_button.innerText="Unarchive";
 
 
 
@@ -257,12 +257,9 @@ function load_email(email_id){
       </ul>
       <p>${email['body']}</p>
     `;
-archive_button.InnerHTML="<strong>Archive</strong>";
-archive_button.className= "buttoncl";
-unarchive_button.InnerHTML="<strong>Unarchive</strong>";
-//archive_button.addEventListener("click",archive_email(email_id));
 
-//document.querySelector('#unarchive').addEventListener('click', unarchive_email(email_id));
+archive_button.className= "buttoncl";
+
 
 view.appendChild(archive_button)
 view.appendChild(unarchive_button)
@@ -279,13 +276,6 @@ fetch(`/emails/${email_id}`,{
       read: true})
       })
 
-
-/*
-        document.getElementById("bunarchive").onclick = unarchive_email(email_id);
-        document.getElementById("barchive").onclick = archive_email(email_id);*/
-/*document.querySelector('#barchive').addEventListener('click', archive_email(email_id));
-document.querySelector('#bunarchive').addEventListener('click', unarchive_email(email_id));
-document.querySelector('#unread').addEventListener('click', unread_email(email_id));*/
 };
 
 
