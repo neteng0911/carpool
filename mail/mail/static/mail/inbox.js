@@ -259,10 +259,17 @@ function load_email(email_id){
     `;
 
 archive_button.className= "buttoncl";
+unarchive_button.className= "buttoncl";
+
+if (archive){
+view.appendChild(unarchive_button);
+}
+else {
+view.appendChild(archive_button);
+
+}
 
 
-view.appendChild(archive_button)
-view.appendChild(unarchive_button)
 archive_button.addEventListener('click', () => archive_email(email_id));
 unarchive_button.addEventListener('click', () => unarchive_email(email_id));
 
