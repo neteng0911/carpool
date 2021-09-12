@@ -1,6 +1,71 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
+from django.utils.timezone import now
+
+
 
 class User(AbstractUser):
-    pass
+    email=models.EmailField(max_length=254)
+    picture_url=models.TextField(null=True)
+    #followers=
+
+
+    def __str__(self):
+        return f"{self.username}"
+        #return f"{self.username}, {self.email}"
+
+class PostManager(models.Manager):
+    def create_post(self, title,description,price,picture_url,category,created_date,post_owner):
+        post=self.create(title=title, description=description,price=price,picture_url=picture_url,category=category,created_date=created_date, post_owner=post_owner)
+        return post
+
+
+class Post(models.Model):
+
+    title=models.CharField(max_length=100)
+    description=models.CharField(max_length=300)
+    price=models.FloatField()
+    picture_url=models.TextField(null=True)
+    category=models.CharField(max_length=150, default="no category")
+    created_date=models.DateTimeField(default=now, editable=False)
+    post_owner=models.ForeignKey(User, on_delete=models.CASCADE, null="TRUE", blank="TRUE")
+    #users = models.ManyToManyField(User, blank="TRUE", related_name="listings")
+    objects = PostManager()
+    def __str__(self):
+        return f"Post id:{self.id},{self.title}"
+
+# class BidManager(models.Manager):
+#
+#     def place_bid(self,val,bidder,listing_bid):
+#         bid=self.create(val=val,bidder=bidder,listing_bid=listing_bid)
+#         return bid
+
+
+
+
+# class Bid(models.Model):
+#     val=models.FloatField()
+#     bidder=models.ForeignKey(User, on_delete=models.CASCADE, null="TRUE", blank="TRUE")
+#     listing_bid=models.ForeignKey(Listing, on_delete=models.CASCADE, null="TRUE", blank="TRUE")
+#     objects=BidManager()
+#
+#     def __str__(self):
+#         return f"{self.val},{self.bidder}"
+
+
+
+class CommentManager(models.Manager):
+
+    def create_comment(self,comment_txt,post_comment,created_date,comment_author):
+        comment=self.create(comment_txt=comment_txt, listing_comment=post_comment,created_date=created_date, comment_author=comment_author)
+        return comment
+
+class Comment(models.Model):
+    comment_txt=models.CharField(max_length=150, blank="True")
+    post_comment=models.ForeignKey(Post, on_delete=models.CASCADE, null="TRUE", blank="TRUE")
+    created_date=models.DateTimeField(default=now, editable=False)
+    comment_author = models.ForeignKey(User, on_delete=models.CASCADE, null="TRUE", blank="TRUE")
+    objects = CommentManager()
+    def __str__(self):
+        return f"{self.comment_txt}"
