@@ -7,7 +7,7 @@ from django.utils.timezone import now
 
 class User(AbstractUser):
     email=models.EmailField(max_length=254)
-    picture_url=models.TextField(null=True)
+    #picture_url=models.TextField(null=True)
     #followers=
 
 
@@ -16,18 +16,14 @@ class User(AbstractUser):
         #return f"{self.username}, {self.email}"
 
 class PostManager(models.Manager):
-    def create_post(self, title,description,price,picture_url,category,created_date,post_owner):
-        post=self.create(title=title, description=description,price=price,picture_url=picture_url,category=category,created_date=created_date, post_owner=post_owner)
+    def create_post(self, description,created_date,post_owner):
+        post=self.create(description=description,created_date=created_date, post_owner=post_owner)
         return post
 
 
 class Post(models.Model):
 
-    title=models.CharField(max_length=100)
     description=models.CharField(max_length=300)
-    price=models.FloatField()
-    picture_url=models.TextField(null=True)
-    category=models.CharField(max_length=150, default="no category")
     created_date=models.DateTimeField(default=now, editable=False)
     post_owner=models.ForeignKey(User, on_delete=models.CASCADE, null="TRUE", blank="TRUE")
     #users = models.ManyToManyField(User, blank="TRUE", related_name="listings")
