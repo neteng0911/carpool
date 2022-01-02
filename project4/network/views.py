@@ -8,15 +8,13 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Max,Count
 from django.core.exceptions import ObjectDoesNotExist
 
-from .models import User, Post
+from .models import User, Mypost
 
 
 
 def index(request):
-    # return render(request, "auctions/index.html")
-    all_posts=Post.objects.all()
-    #active_listings=Listing.objects.filter(closed_auction="False")
-    return render(request, "network/index.html", {"posts": all_posts}) # to set following posts not all posts later
+    all_posts=Mypost.objects.all()
+    return render(request, "network/index.html", {"all_posts": all_posts}) # to set following posts not all posts later
 
 
 
@@ -82,14 +80,14 @@ def create_post(request):
 
         description = request.POST["description"]
 
-        post_owner = request.user
+        owner = request.user
 
 
-        post = Post.objects.create_post(description=description,created_date=created_date, post_owner=post_owner)
+        mypost = Mypost.objects.create_post(description=description,created_date=created_date, owner=owner)
 
 
 
-        return render(request, "network/index.html", {"post": post})
+        return render(request, "network/index.html", {"post": mypost})
 
     else:
         return render(request, "network/create_post.html", {"created_date": created_date})

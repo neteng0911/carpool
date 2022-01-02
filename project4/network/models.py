@@ -15,19 +15,19 @@ class User(AbstractUser):
         return f"{self.username}"
         #return f"{self.username}, {self.email}"
 
-class PostManager(models.Manager):
-    def create_post(self, description,created_date,post_owner):
-        post=self.create(description=description,created_date=created_date, post_owner=post_owner)
-        return post
+class MypostManager(models.Manager):
+    def create_post(self, description,created_date,owner):
+        mypost=self.create(description=description,created_date=created_date, owner=owner)
+        return mypost
 
 
-class Post(models.Model):
+class Mypost(models.Model):
 
     description=models.CharField(max_length=300)
     created_date=models.DateTimeField(default=now, editable=False)
-    post_owner=models.ForeignKey(User, on_delete=models.CASCADE, null="TRUE", blank="TRUE")
+    owner=models.ForeignKey(User, on_delete=models.CASCADE, null="TRUE", blank="TRUE")
     #users = models.ManyToManyField(User, blank="TRUE", related_name="listings")
-    objects = PostManager()
+    objects = MypostManager()
     def __str__(self):
         return f"Post id:{self.id},{self.title}"
 
@@ -59,7 +59,7 @@ class CommentManager(models.Manager):
 
 class Comment(models.Model):
     comment_txt=models.CharField(max_length=150, blank="True")
-    post_comment=models.ForeignKey(Post, on_delete=models.CASCADE, null="TRUE", blank="TRUE")
+    mypost_comment=models.ForeignKey(Mypost, on_delete=models.CASCADE, null="TRUE", blank="TRUE")
     created_date=models.DateTimeField(default=now, editable=False)
     comment_author = models.ForeignKey(User, on_delete=models.CASCADE, null="TRUE", blank="TRUE")
     objects = CommentManager()
