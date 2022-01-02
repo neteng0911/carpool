@@ -85,7 +85,7 @@ def create_post(request):
 
 
 
-        return render(request, "network/create_post.html", {"post": post})
+        return render(request, "network/index.html", {"post": post})
 
     else:
         return render(request, "network/create_post.html", {"created_date": created_date})

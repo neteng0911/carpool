@@ -1,5 +1,17 @@
 {% extends "network/layout.html" %}
 
 {% block body %}
-    TODO
+<ul> {% for posts in f_posts %}
+
+       <div class ="menu"> <a href="{% url "posts" post.id %}"> <img src={{posts.picture_url}} width="400" height="250"></div>
+
+    <div class="main"> <p style="font-size:20px"><strong>{{posts.title}} </strong> </p>{{posts.description}}
+
+
+            <p style= "color:grey; font-size:15px;"> created: {{posts.created_date}} <strong> by {{post.listing_owner}} </strong></p>
+         <p style= "color:blue; font-size:19px;"> replies: {{posts.created_date}} <strong>
+
+        </div>
+
+{% endfor %}
 {% endblock %}
