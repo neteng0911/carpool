@@ -83,6 +83,7 @@ def create_post(request):
         owner = request.user
 
 
+
         mypost = Mypost.objects.create_post(description=description,created_date=created_date, owner=owner)
 
 
@@ -94,22 +95,29 @@ def create_post(request):
 
 
 @login_required
-def reply(request, mypost_id):
+def reply(request):
     # check if method is POST
+
     created_date = timezone.now()
 
     if request.method == "POST":
 
         reply_txt = request.POST["reply_txt"]
-
+        mypost_reply=request.POST["post.pk"]#AYTO DEN DOULEVEI ΨΑΧΝΩ ΤΟ ID ΤΟΥ ΠΟΣΤ ΠΟΥ ΘΑ ΚΑΝΩ REPLY
+        mypost = Mypost.objects.get(id=mypost_reply)
         owner = request.user
+        replies = mypost.replies.all()
 
 
-        mypost_reply=Mypost.objects.get(id=mypost_id)     #AYTO DEN DOULEVEI ΨΑΧΝΩ ΤΟ ID ΤΟΥ ΠΟΣΤ ΠΟΥ ΘΑ ΚΑΝΩ REPLY
 
-        reply = Reply.objects.create_reply(reply_txt=reply_txt, created_date=created_date, owner=owner, mypost_reply=my_post_reply)
+        reply = Reply.objects.create_reply(reply_txt=reply_txt, created_date=created_date, owner=owner, mypost_reply=mypost_reply)
+        reply.save()
+        reply.lists.add(mypost)
+        print(owner,"replied on post number",mypost_reply)
 
         return render(request, "network/index.html", {"reply": reply})
 
     else:
         return render(request, "network/index.html", {"created_date": created_date})
+
+

@@ -53,7 +53,7 @@ class Mypost(models.Model):
 
 class ReplyManager(models.Manager):
 
-    def create_reply(self,reply_txt,post_reply,created_date,owner):
+    def create_reply(self,reply_txt,mypost_reply,created_date,owner,):
         reply=self.create(reply_txt=reply_txt, mypost_reply=mypost_reply,created_date=created_date, owner=owner)
         return reply
 
@@ -61,6 +61,7 @@ class Reply(models.Model):
     reply_txt=models.CharField(max_length=150, blank="True")
     mypost_reply=models.ForeignKey(Mypost, on_delete=models.CASCADE, null="TRUE", blank="TRUE")
     created_date=models.DateTimeField(default=now, editable=False)
+    lists = models.ManyToManyField(Mypost, blank="TRUE", related_name="replies")  # post_reply
     owner = models.ForeignKey(User, on_delete=models.CASCADE, null="TRUE", blank="TRUE")
     objects = ReplyManager()
     def __str__(self):
