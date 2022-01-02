@@ -9,7 +9,20 @@
 
 
             <p style= "color:grey; font-size:12px;"> <strong>{{post.owner}} </strong>wrote on: {{post.created_date}} </p>
-         <p style= "color:blue; font-size:10px;"> replies: {{post.comment}}
+         <p style= "color:blue; font-size:10px;"> replies: {{post.reply}}
+
+
+
+
+        <form action="{% url 'reply' %}" method="post">
+        {% csrf_token %}
+
+
+        <div class="form-group">
+            <input class="form-control" style="margin-top:30px"; type="text" name="reply_txt" placeholder="reply">
+        </div>
+    <input class="btn btn-primary" type="submit" value="Save">
+</form>
 
         </div>
 

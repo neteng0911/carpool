@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Max,Count
 from django.core.exceptions import ObjectDoesNotExist
 
-from .models import User, Mypost
+from .models import User, Mypost, Reply
 
 
 
@@ -91,3 +91,25 @@ def create_post(request):
 
     else:
         return render(request, "network/create_post.html", {"created_date": created_date})
+
+
+@login_required
+def reply(request, mypost_id):
+    # check if method is POST
+    created_date = timezone.now()
+
+    if request.method == "POST":
+
+        reply_txt = request.POST["reply_txt"]
+
+        owner = request.user
+
+
+        mypost_reply=Mypost.objects.get(id=mypost_id)     #AYTO DEN DOULEVEI ΨΑΧΝΩ ΤΟ ID ΤΟΥ ΠΟΣΤ ΠΟΥ ΘΑ ΚΑΝΩ REPLY
+
+        reply = Reply.objects.create_reply(reply_txt=reply_txt, created_date=created_date, owner=owner, mypost_reply=my_post_reply)
+
+        return render(request, "network/index.html", {"reply": reply})
+
+    else:
+        return render(request, "network/index.html", {"created_date": created_date})
