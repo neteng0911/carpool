@@ -1,7 +1,7 @@
 {% extends "network/layout.html" %}
 
 {% block body %}
-<ul> {% for posts in f_posts %}
+<ul> {% for posts in all_posts %}
 
        <div class ="menu"> <a href="{% url "posts" post.id %}"> <img src={{posts.picture_url}} width="400" height="250"></div>
 

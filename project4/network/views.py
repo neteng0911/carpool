@@ -13,7 +13,11 @@ from .models import User, Post
 
 
 def index(request):
-    return render(request, "network/index.html")
+    # return render(request, "auctions/index.html")
+    all_posts=Post.objects.all()
+    #active_listings=Listing.objects.filter(closed_auction="False")
+    return render(request, "network/index.html", {"posts": all_posts}) # to set following posts not all posts later
+
 
 
 def login_view(request):
