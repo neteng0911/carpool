@@ -14,7 +14,8 @@ from .models import User, Mypost, Reply
 
 def index(request):
     all_posts=Mypost.objects.all()
-    return render(request, "network/index.html", {"all_posts": all_posts}) # to set following posts not all posts later
+    return render(request, "network/index.html", {"all_posts": all_posts,"my_post_replies": my_post_replies, "replies":replies}) # to set following posts not all posts later
+#edo provlhma  exei na kanei me ta render index kai reply
 
 
 
@@ -103,19 +104,25 @@ def reply(request):
     if request.method == "POST":
 
         reply_txt = request.POST["reply_txt"]
-        mypost_reply=request.POST["post.pk"]#AYTO DEN DOULEVEI ΨΑΧΝΩ ΤΟ ID ΤΟΥ ΠΟΣΤ ΠΟΥ ΘΑ ΚΑΝΩ REPLY
+        mypost_reply=request.POST.get("post_id")#AYTO DEN DOULEVEI ΨΑΧΝΩ ΤΟ ID ΤΟΥ ΠΟΣΤ ΠΟΥ ΘΑ ΚΑΝΩ REPLY
+
         mypost = Mypost.objects.get(id=mypost_reply)
         owner = request.user
-        replies = mypost.replies.all()
+
+        replies = Reply.objects.all()
+        my_post_replies = Reply.objects.filter(mypost_reply=mypost_reply)
+        print(my_post_replies)
 
 
 
-        reply = Reply.objects.create_reply(reply_txt=reply_txt, created_date=created_date, owner=owner, mypost_reply=mypost_reply)
+
+        reply = Reply.objects.create_reply(reply_txt=reply_txt, created_date=created_date, owner=owner, mypost_reply=mypost)
         reply.save()
+        print(reply)
         reply.lists.add(mypost)
         print(owner,"replied on post number",mypost_reply)
-
-        return render(request, "network/index.html", {"reply": reply})
+        #return HttpResponseRedirect("/",{"replies":replies,"my_post_replies":my_post_replies, "range":range(10)})
+        return render(request, "network/index.html", {"my_post_replies": my_post_replies, "replies":replies,"range":range(10)})
 
     else:
         return render(request, "network/index.html", {"created_date": created_date})

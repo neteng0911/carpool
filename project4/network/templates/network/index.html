@@ -6,6 +6,8 @@
 
     <h1>{{post.pk}}</h1>
 
+
+
     <div class="post"> </p>{{post.description}}
 
 
@@ -22,12 +24,31 @@
 
         <div class="form-group">
             <input class="form-control" style="margin-top:30px"; type="text" name="reply_txt" placeholder="reply">
-            <input type="hidden"  name="{post.pk}">
+            <input type="hidden"  name="post_id" value="{{post.pk}}">
         </div>
     <input class="btn btn-primary" type="submit" value="Save">
+
+
+</ul>
+
 </form>
 
-        </div>
+</div>
+
+<h1> Comments:</h1>
+
 
 {% endfor %}
+    <ul>
+{% for rep in replies %}
+
+{{i}}
+
+        <p style= "margin-top: 20px; color:grey; font-size:15px;"> <strong>{{rep}} </strong> by user {{rep.owner}} {{rep.created_date}}</p>
+
+{% endfor %}
+
+
+
+   </ul>
 {% endblock %}
