@@ -22,18 +22,18 @@
         <form action="{% url 'index' %}" method="post">
         {% csrf_token %}
 
-
+{% if user.is_authenticated %}
         <div class="form-group">
             <input class="form-control" style="margin-top:30px"; type="text" name="reply_txt" placeholder="reply">
             <input type="hidden"  name="post_id" value="{{post.pk}}">
         </div>
-    <input class="btn btn-primary" type="submit" value="Save">
+    <input class="btn btn-primary" type="submit" value="Post">
             <p></p>
             <p></p>
 
             <p style= "color:grey; font-size:12px;"> replies: {{reply_txt}}</p>
 </div>
-
+{% endif %}
 </ul>
 
 </form>

@@ -13,14 +13,14 @@ from .models import User, Mypost, Reply
 
 
 def index(request):
-    all_posts=Mypost.objects.all()
+    all_posts=Mypost.objects.order_by('-created_date')
     # check if method is POST
     created_date = timezone.now()
 
 
     owner = request.user.id
 
-    replies = Reply.objects.all()
+    replies = Reply.objects.order_by('-created_date')
 
 
 
@@ -114,7 +114,7 @@ def create_post(request):
 
 
 
-        return render(request, "network/index.html", {"post": mypost})
+        return HttpResponseRedirect(reverse("index"))
 
     else:
         return render(request, "network/create_post.html", {"created_date": created_date})
