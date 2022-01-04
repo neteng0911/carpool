@@ -28,8 +28,9 @@ def index(request):
         reply_txt = request.POST["reply_txt"]
         mypost_reply = request.POST.get("post_id")
         mypost = Mypost.objects.get(id=mypost_reply)
-        #print(my_post_replies)
+
         my_post_replies = Reply.objects.filter(mypost_reply=mypost_reply)
+        print(my_post_replies)
         reply = Reply.objects.create_reply(reply_txt=reply_txt, created_date=created_date, owner=owner,
                                            mypost_reply=mypost)
         reply.save()

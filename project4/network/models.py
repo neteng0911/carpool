@@ -29,7 +29,7 @@ class Mypost(models.Model):
     #users = models.ManyToManyField(User, blank="TRUE", related_name="listings")
     objects = MypostManager()
     def __str__(self):
-        return f"Post id:{self.id},{self.title}"
+        return f"Post id:{self.id},{self.description}"
 
 # class BidManager(models.Manager):
 #
@@ -64,5 +64,9 @@ class Reply(models.Model):
     lists = models.ManyToManyField(Mypost, blank="TRUE", related_name="replies")  # post_reply
     owner = models.ForeignKey(User, on_delete=models.CASCADE, null="TRUE", blank="TRUE")
     objects = ReplyManager()
+
+    class Meta:
+        ordering = ['-created_date']
+
     def __str__(self):
         return f"{self.reply_txt}"
