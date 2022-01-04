@@ -18,7 +18,7 @@ def index(request):
     created_date = timezone.now()
 
 
-    owner = request.user.id
+    owner = request.user
 
     replies = Reply.objects.order_by('-created_date')
 
@@ -35,7 +35,7 @@ def index(request):
         reply.save()
         print(reply)
         reply.lists.add(mypost)
-        print(owner, "replied on post number", mypost_reply)
+        print(owner, "replied on post number", mypost_reply, "and said:",reply)
         return render(request, "network/index.html", {"all_posts": all_posts, "replies":replies}) # to set following posts not all posts later my_post_replies": my_post_replies,
     else:
         return render(request, "network/index.html", {"all_posts": all_posts,"replies":replies})
