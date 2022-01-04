@@ -2,13 +2,34 @@
 {border: 3px solid grey;
 background-color: lightgrey;
 font-size: 16px;
-height: 200px;
+height: 230px;
 width: 20%;
-padding: 5px;
-margin-bottom:5px;
+padding: 2px;
+margin-bottom:20px;
 position: relative;
 
 left: 30%;
+
+
+
+
+}
+.replies
+{border: 3px solid #adad85;
+background-color: #ccccb3;
+font-size: 14px;
+min-height: 10px;
+width: 20.5%;
+padding: 5px;
+margin-bottom:20px;
+position: relative;
+overflow: visible;
+left: 28.5%;
+
+
+
+
+
 
 
 
