@@ -4,7 +4,7 @@
 <ul> {% for post in all_posts %}
 
 
-    <h1>{{post.pk}}</h1>
+
 
 
 
@@ -18,7 +18,7 @@
 
 
 
-        <form action="{% url 'reply' %}" method="post">
+        <form action="{% url 'index' %}" method="post">
         {% csrf_token %}
 
 
@@ -32,13 +32,6 @@
 </ul>
 
 </form>
-
-</div>
-
-<h1> Comments:</h1>
-
-
-{% endfor %}
     <ul>
 {% for rep in replies %}
 
@@ -51,4 +44,11 @@
 
 
    </ul>
+</div>
+
+
+
+
+{% endfor %}
+
 {% endblock %}
