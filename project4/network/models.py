@@ -3,12 +3,12 @@ from django.db import models
 
 from django.utils.timezone import now
 
-
+from django.utils import timezone
 
 class User(AbstractUser):
     email=models.EmailField(max_length=254)
-    #picture_url=models.TextField(null=True)
-    #followers=
+    date_joined = models.DateTimeField(default=timezone.now)
+    following = models.ManyToManyField("User", blank="TRUE", related_name="followlist")
 
 
     def __str__(self):

@@ -121,36 +121,38 @@ def create_post(request):
         return render(request, "network/create_post.html", {"created_date": created_date})
 
 
-# @login_required
-# def reply(request):
-#     # check if method is POST
-#
-#     created_date = timezone.now()
-#
-#     if request.method == "POST":
-#
-#         reply_txt = request.POST["reply_txt"]
-#         mypost_reply=request.POST.get("post_id")#AYTO DEN DOULEVEI ΨΑΧΝΩ ΤΟ ID ΤΟΥ ΠΟΣΤ ΠΟΥ ΘΑ ΚΑΝΩ REPLY
-#
-#         mypost = Mypost.objects.get(id=mypost_reply)
-#         owner = request.user
-#
-#         replies = Reply.objects.all()
-#         my_post_replies = Reply.objects.filter(mypost_reply=mypost_reply)
-#         print(my_post_replies)
-#
-#
-#
-#
-#         reply = Reply.objects.create_reply(reply_txt=reply_txt, created_date=created_date, owner=owner, mypost_reply=mypost)
-#         reply.save()
-#         print(reply)
-#         reply.lists.add(mypost)
-#         print(owner,"replied on post number",mypost_reply)
-#         #return HttpResponseRedirect("/",{"replies":replies,"my_post_replies":my_post_replies, "range":range(10)})
-#         return render(request, "network/index.html", {"my_post_replies": my_post_replies, "replies":replies,"range":range(10)})
-#
-#     else:
-#         return render(request, "network/index.html", {"created_date": created_date})
-#
+
+@login_required
+def profile(request, user_id):
+
+    user = User.get(id=user_id)
+
+    followlist=user.followlist.all()
+    print(user.username)
+    print(followlist)
+
+    if request.user in followlist: #or listing in Listing.objects.filter(listing_owner=request.user):
+        print("you are following this user")
+
+
+    created_date = timezone.now()
+    current_user=request.user
+    #comms = listing.comms.all()
+
+
+    if request.method=="POST" and "follow" in request.POST:
+        current_user.following.add(user_id)
+
+        return render(request, "profile.html", {"user": user, "followlist": followlist})
+
+
+    if request.method=="POST" and "unfolow user" in request.POST:
+        current_user.following.remove(user_id)
+
+
+        return render(request, "profile.html", {"user": user,"followlist":followlist})
+
+
+
+
 

@@ -1,8 +1,22 @@
-{% extends "auctions/layout.html" %}
+{% extends "network/layout.html" %}
 
 {% block body %}
+    <h2>Item: {{user.username}}</h2>
+<p style= "color:black; font-size:35px;"><strong> {{user.email}}</strong></p>
+
+<p>
+{% ifnotequal request.user user_id %}
+{% if not request.user in user.followlist.all %}
 
 
+    <form action="{% url 'profile' user.id %}" method="post">
+        {% csrf_token %}
+   <input class="btn btn-primary" type="submit"   name="follow" value="Follow">
+    </form>
 
+{% endif %}
+{% endifnotequal %}
+
+</p>
 
 {% endblock %}

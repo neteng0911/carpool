@@ -7,7 +7,7 @@
 <ul>
 <div class="post">{{post.description}}
 
-    <p style= "color:grey; font-size:12px;"> <strong>{{post.owner}} </strong>wrote on: {{post.created_date}} </p>
+    <p style= "color:grey; font-size:12px;"> <strong><a href="{% url "profile" post.owner_id %}" > {{post.owner}} </strong></a> wrote on: {{post.created_date}} </p>
 
 
 {% if user.is_authenticated %}
