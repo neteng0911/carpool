@@ -10,7 +10,7 @@
     <p style= "color:grey; font-size:12px;"> <strong>{{post.owner}} </strong>wrote on: {{post.created_date}} </p>
 
 
-
+{% if user.is_authenticated %}
         <form action="{% url 'index' %}" method="post">
         {% csrf_token %}
 
@@ -19,12 +19,12 @@
             <input class="form-control" style="margin-top:30px"; type="text" name="reply_txt" placeholder="reply">
             <input type="hidden"  name="post_id" value={{post.pk}}>{{post.pk}}
 
-        </div>{% if user.is_authenticated %}
+        </div>
     <input class="btn btn-primary" type="submit" value="Post">
             <p></p>
             <p></p>
 {% endif %}
-            <p style= "color:grey; font-size:12px;"> replies: </p>
+            <p style= "color:grey; font-size:12px;"></p>
 
 
 </div>
