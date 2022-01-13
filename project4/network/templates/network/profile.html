@@ -5,14 +5,21 @@
 <p style= "color:black; font-size:35px;"><strong> {{user.email}}</strong></p>
 
 <p>
-{% ifnotequal request.user user_id %}
-{% if not request.user in user.followlist.all %}
+{% ifnotequal request.user user %}
+
 
 
     <form action="{% url 'profile' user.id %}" method="post">
         {% csrf_token %}
    <input class="btn btn-primary" type="submit"   name="follow" value="Follow">
     </form>
+{% if request.user in user.followlist.all %}
+    <form action="{% url 'profile' user.id %}" method="post">
+        {% csrf_token %}
+   <input class="btn btn-primary" type="submit"   name="unfollow" value="Unfollow">
+    </form>
+
+
 
 {% endif %}
 {% endifnotequal %}

@@ -41,7 +41,7 @@
 
 
 
-        <div class="replies" ><p style= "color:blue; font-size:10px;">{{rep.owner}} replied on {{rep.created_date}}</p> <strong>{{rep}} </strong> </div>
+        <div class="replies" ><p style= "color:blue; font-size:10px;"><a href="{% url "profile" rep.owner_id %}">{{rep.owner}}</a>  replied on {{rep.created_date}}</p> <strong>{{rep}} </strong> </div>
 </ul>
 {% endfor %}
 </form>

@@ -125,7 +125,7 @@ def create_post(request):
 @login_required
 def profile(request, user_id):
 
-    user = User.get(id=user_id)
+    user = User.objects.get(id=user_id)
 
     followlist=user.followlist.all()
     print(user.username)
@@ -143,14 +143,18 @@ def profile(request, user_id):
     if request.method=="POST" and "follow" in request.POST:
         current_user.following.add(user_id)
 
-        return render(request, "profile.html", {"user": user, "followlist": followlist})
+        return render(request, "network/profile.html", {"user": user, "followlist": followlist})
 
 
     if request.method=="POST" and "unfolow user" in request.POST:
         current_user.following.remove(user_id)
 
 
-        return render(request, "profile.html", {"user": user,"followlist":followlist})
+        return render(request, "network/profile.html", {"user": user,"followlist":followlist})
+
+    else:
+        return render(request, "network/profile.html", {"user": user, "followlist": followlist})
+
 
 
 
