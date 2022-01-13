@@ -1,29 +1,49 @@
 {% extends "network/layout.html" %}
 
 {% block body %}
-    <h2>Item: {{user.username}}</h2>
-<p style= "color:black; font-size:35px;"><strong> {{user.email}}</strong></p>
+{% ifnotequal request.user targ_user %}
+    <h2>You are viewing user:{{targ_user.username}}</h2>
+<div class= "prof"><strong> user's email address : {{targ_user.email}}</strong></p>
+<strong> {{targ_user.username}} is member since {{ targ_user.date_joined }}</strong>
+    <p>Total posts:<strong>{{user_posts_count}}</strong></p>
+</div>
 
-<p>
-{% ifnotequal request.user user %}
 
 
+{% if not targ_user in request.user.followlist.all %}
 
-    <form action="{% url 'profile' user.id %}" method="post">
+    <form action="{% url 'profile' targ_user.id %}" method="post">
         {% csrf_token %}
    <input class="btn btn-primary" type="submit"   name="follow" value="Follow">
     </form>
-{% if request.user in user.followlist.all %}
-    <form action="{% url 'profile' user.id %}" method="post">
+{% endif %}
+
+    <form action="{% url 'profile' targ_user.id %}" method="post">
         {% csrf_token %}
    <input class="btn btn-primary" type="submit"   name="unfollow" value="Unfollow">
     </form>
 
-
-
-{% endif %}
 {% endifnotequal %}
 
 </p>
+{% ifequal request.user targ_user %}
+ <h2>You are currenty logged in as :{{user.username}}</h2>
+<div class= "prof"><strong> {{user.email}}</strong>
+    <p><strong> You are member since {{user.date_joined}}</strong></p>
+Total posts:<strong>{{user_posts_count}}</strong>
+</div>
 
+
+<p>
+    {% endifequal %}
+
+{% for user_post in user_posts %}
+
+<ul>
+<div class="post">{{user_post.description}}
+
+    <p style= "color:grey; font-size:12px;"> <strong><a href="{% url 'profile' targ_user.id %}" > {{targ_user.username}} </strong></a> wrote on: {{user_post.created_date}} </p>
+</div>
+</ul>
+{% endfor %}
 {% endblock %}

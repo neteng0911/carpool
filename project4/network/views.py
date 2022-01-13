@@ -124,36 +124,41 @@ def create_post(request):
 
 @login_required
 def profile(request, user_id):
+    current_user = request.user
+    targ_user = User.objects.get(id=user_id)
+    user_posts=Mypost.objects.filter(owner_id=user_id)
+    user_posts_count=user_posts.count()
 
-    user = User.objects.get(id=user_id)
-
-    followlist=user.followlist.all()
-    print(user.username)
+    followlist=current_user.followlist.all()
+    print(current_user.username)
     print(followlist)
 
-    if request.user in followlist: #or listing in Listing.objects.filter(listing_owner=request.user):
-        print("you are following this user")
+    if targ_user in followlist: #or listing in Listing.objects.filter(listing_owner=request.user):
+        print(request.user,"you are following user", targ_user)
 
 
     created_date = timezone.now()
-    current_user=request.user
+
     #comms = listing.comms.all()
 
 
     if request.method=="POST" and "follow" in request.POST:
-        current_user.following.add(user_id)
-
-        return render(request, "network/profile.html", {"user": user, "followlist": followlist})
-
-
-    if request.method=="POST" and "unfolow user" in request.POST:
-        current_user.following.remove(user_id)
+        targ_user.following.add(current_user)
+        print(followlist)
+        return render(request, "network/profile.html", {"targ_user": targ_user, "followlist": followlist,
+                                                        "user_posts":user_posts,"user_posts_count":user_posts_count})
 
 
-        return render(request, "network/profile.html", {"user": user,"followlist":followlist})
+    if request.method=="POST" and "unfollow" in request.POST:
+        targ_user.following.remove(current_user)
+
+        print(followlist)
+        return render(request, "network/profile.html", {"targ_user": targ_user,"followlist":followlist,
+                                                        "user_posts":user_posts,"user_posts_count":user_posts_count})
 
     else:
-        return render(request, "network/profile.html", {"user": user, "followlist": followlist})
+        return render(request, "network/profile.html", {"targ_user": targ_user, "followlist": followlist,
+                                                        "user_posts":user_posts,"user_posts_count":user_posts_count})
 
 
 

@@ -10,9 +10,6 @@ position: relative;
 
 left: 30%;
 
-
-
-
 }
 .replies
 {border: 3px solid #adad85;
@@ -26,12 +23,18 @@ position: relative;
 overflow: visible;
 left: 30%;
 
+}
 
-
-
-
-
-
-
+.prof
+{border: 5px solid #90bbbb;
+background-color: #eff5f5;
+font-size: 14px;
+min-height: 10px;
+width: 25%;
+padding: 5px;
+margin-bottom:20px;
+position: relative;
+overflow: visible;
+left: 0%;
 
 }

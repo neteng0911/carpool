@@ -31,25 +31,6 @@ class Mypost(models.Model):
     def __str__(self):
         return f"Post id:{self.id},{self.description}"
 
-# class BidManager(models.Manager):
-#
-#     def place_bid(self,val,bidder,listing_bid):
-#         bid=self.create(val=val,bidder=bidder,listing_bid=listing_bid)
-#         return bid
-
-
-
-
-# class Bid(models.Model):
-#     val=models.FloatField()
-#     bidder=models.ForeignKey(User, on_delete=models.CASCADE, null="TRUE", blank="TRUE")
-#     listing_bid=models.ForeignKey(Listing, on_delete=models.CASCADE, null="TRUE", blank="TRUE")
-#     objects=BidManager()
-#
-#     def __str__(self):
-#         return f"{self.val},{self.bidder}"
-
-
 
 class ReplyManager(models.Manager):
 
