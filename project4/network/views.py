@@ -24,7 +24,7 @@ def index(request):
 
 
 
-    if request.method == "POST":
+    if request.method == "POST" and "post_reply" in request.POST:
         reply_txt = request.POST["reply_txt"]
         mypost_reply = request.POST.get("post_id")
         mypost = Mypost.objects.get(id=mypost_reply)
@@ -38,10 +38,19 @@ def index(request):
         reply.lists.add(mypost)
         print(owner, "replied on post number", mypost_reply, "and said:",reply)
         return render(request, "network/index.html", {"all_posts": all_posts, "replies":replies}) # to set following posts not all posts later my_post_replies": my_post_replies,
+
+    if request.method == "POST" and "edit_post" in request.POST:
+
+        post_to_edit_id = request.POST.get("post_to_edit_id")
+        post_to_edit = Mypost.objects.get(pk=post_to_edit_id)
+        print(post_to_edit_id)
+
+        return render(request, "network/post.html",{"post_to_edit":post_to_edit})
+
     else:
         return render(request, "network/index.html", {"all_posts": all_posts,"replies":replies})
 
-#edo provlhma  exei na kanei me ta render index kai reply
+
 
 
 
@@ -120,6 +129,28 @@ def create_post(request):
     else:
         return render(request, "network/create_post.html", {"created_date": created_date})
 
+
+
+def edit_post(request,post_id):
+    # check if method is POST
+    edited_date = timezone.now()
+    post_to_edit = Mypost.objects.get(pk=post_id)
+
+    if request.method=="POST":
+
+        edit_txt = request.POST["edit_txt"]
+        #to_edit_post_id = request.POST.get("post_id")
+        post_to_edit = Mypost.objects.get(pk=post_id).update(description=edit_txt)
+        post_to_edit.save()
+
+
+
+
+
+        return render(request, "network/post.html",{"post_to_edit":post_to_edit})
+
+    else:
+        return render(request, "network/post.html",{"post_to_edit":post_to_edit})
 
 
 @login_required

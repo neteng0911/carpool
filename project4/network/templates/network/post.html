@@ -1,0 +1,13 @@
+{% extends "network/layout.html" %}
+
+{% block body %}
+
+<div class="post">{{post_to_edit.description}}
+
+   <p style= "color:grey; font-size:12px;"> <strong><a href="{% url 'profile' post_to_edit.owner_id %}" >
+
+      {{ post_to_edit.owner}} </strong></a> wrote on: {{ post_to_edit.created_date}} </p>
+
+
+
+{% endblock %}
