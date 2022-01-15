@@ -6,10 +6,26 @@
 <div class= "prof"><strong> user's email address : {{targ_user.email}}</strong></p>
 <strong> {{targ_user.username}} is member since {{ targ_user.date_joined }}</strong>
     <p>Total posts:<strong>{{user_posts_count}}</strong></p>
-    <p>No of followers:<strong>xxxxxx</strong></p>
 
 
+<p></p>
+       {{targ_user.username}} is following <strong>{{no_of_following}} </strong> users:
 
+        {% for fol in followinglist %}
+
+            <strong> <a href="{% url 'profile' fol.id %}" > {{fol.username}} </strong></a>,</strong>
+
+        {% endfor %}
+    <p></p>
+          {{targ_user.username}} has  <strong>{{no_of_followers}} </strong> followers:
+
+        {% for fol in followerslist %}
+
+      <strong> {{fol.username}},</strong>
+
+        {% endfor %}
+
+</div>
 
 
 
@@ -20,7 +36,7 @@
 
 
 
-{% if not targ_user in request.user.followinglist.all %}
+{% if not targ_user in followerslist %}
 
     <form action="{% url 'profile' targ_user.id %}" method="post">
         {% csrf_token %}
@@ -46,7 +62,7 @@ Total posts:<strong>{{user_posts_count}}</strong>
 
         {% for fol in followinglist %}
 
-            <strong> {{fol.username}},</strong>
+            <strong> <a href="{% url 'profile' fol.id %}" > {{fol.username}} </strong></a>,</strong>
 
         {% endfor %}
     <p></p>

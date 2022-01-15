@@ -168,14 +168,14 @@ def profile(request, user_id):
     user_posts=Mypost.objects.filter(owner_id=user_id)
     user_posts_count=user_posts.count()
 
-    followinglist=current_user.followlist.all()
-    followerslist=User.objects.filter(followlist=current_user)
+    followerslist=current_user.followlist.filter(followlist=current_user)
+    followinglist=User.objects.filter(followlist=current_user)
     no_of_followers=len(followerslist)
     no_of_following=len(followinglist)
-    print("Your followers are", followerslist)
+    print( targ_user,"Your followers are", followerslist)
 
     print(current_user.username)
-    print("You r foollowing",followinglist)
+    print("You r following",followinglist)
 
     if targ_user in followinglist: #or listing in Listing.objects.filter(listing_owner=request.user):
         print(request.user,"you are following user", targ_user)
@@ -187,7 +187,7 @@ def profile(request, user_id):
 
 
     if request.method=="POST" and "follow" in request.POST:
-        targ_user.following.add(current_user)
+        current_user.following.add(targ_user)
         print(followinglist)
         return render(request, "network/profile.html", {"targ_user": targ_user, "followinglist": followinglist,
                                                         "user_posts":user_posts,"user_posts_count":user_posts_count,
@@ -196,7 +196,7 @@ def profile(request, user_id):
 
 
     if request.method=="POST" and "unfollow" in request.POST:
-        targ_user.following.remove(current_user)
+        current_user.following.remove(targ_user)
 
         print(followinglist)
         return render(request, "network/profile.html", {"targ_user": targ_user, "followinglist": followinglist,
