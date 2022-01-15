@@ -37,15 +37,20 @@ def index(request):
         print(reply)
         reply.lists.add(mypost)
         print(owner, "replied on post number", mypost_reply, "and said:",reply)
-        return render(request, "network/index.html", {"all_posts": all_posts, "replies":replies}) # to set following posts not all posts later my_post_replies": my_post_replies,
+        return render(request, "network/index.html", {"all_posts": all_posts, "replies":replies})
 
-    if request.method == "POST" and "edit_post" in request.POST:
 
-        post_to_edit_id = request.POST.get("post_to_edit_id")
-        post_to_edit = Mypost.objects.get(pk=post_to_edit_id)
-        print(post_to_edit_id)
 
-        return render(request, "network/post.html",{"post_to_edit":post_to_edit})
+
+        #here first loads the post in different page before editing it BUT i display it as edit post on the page for the user
+    if request.method == "POST" and "load_post" in request.POST:
+
+        post_to_load_id = request.POST.get("post_to_load_id")
+        post_to_load = Mypost.objects.get(pk=post_to_load_id)
+
+        #load_post(post_to_load_id)
+
+        return render(request, "network/post.html", {"post_to_load": post_to_load})
 
     else:
         return render(request, "network/index.html", {"all_posts": all_posts,"replies":replies})
@@ -128,29 +133,32 @@ def create_post(request):
 
     else:
         return render(request, "network/create_post.html", {"created_date": created_date})
+#mporei na mhn xreiazetai check!!!!
+def load_post(request, post_id):
+    pass
+    # post_to_load = Mypost.objects.get(pk=post_id)
+    # print("loading post no",post_id)
+    # return render(request, "network/post.html", {"post_to_load": post_to_load})
+
+#mporei na mhn xreiazetai check!!!!
 
 
+def edit_post(request, post_id):
 
-def edit_post(request,post_id):
-    # check if method is POST
-    edited_date = timezone.now()
-    post_to_edit = Mypost.objects.get(pk=post_id)
-
-    if request.method=="POST":
+    post_to_load = Mypost.objects.get(pk=post_id)
+    if request.method =="POST" and "edit_post" in request.POST:
 
         edit_txt = request.POST["edit_txt"]
-        #to_edit_post_id = request.POST.get("post_id")
-        post_to_edit = Mypost.objects.get(pk=post_id).update(description=edit_txt)
-        post_to_edit.save()
+        post_to_load.description=edit_txt
+        post_to_load.save()
 
-
-
-
-
-        return render(request, "network/post.html",{"post_to_edit":post_to_edit})
+        return HttpResponseRedirect(reverse("index"))
+    if request.method == "POST" and "del_post" in request.POST:
+        post_to_load.delete()
+        return HttpResponseRedirect(reverse("index"))
 
     else:
-        return render(request, "network/post.html",{"post_to_edit":post_to_edit})
+        return render(request, "network/post.html",{"post_to_load":post_to_load})
 
 
 @login_required
@@ -170,7 +178,7 @@ def profile(request, user_id):
 
     created_date = timezone.now()
 
-    #comms = listing.comms.all()
+
 
 
     if request.method=="POST" and "follow" in request.POST:

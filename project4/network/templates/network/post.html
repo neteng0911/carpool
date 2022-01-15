@@ -2,12 +2,27 @@
 
 {% block body %}
 
-<div class="post">{{post_to_edit.description}}
+<div class="post">{{post_to_load.description}}
 
-   <p style= "color:grey; font-size:12px;"> <strong><a href="{% url 'profile' post_to_edit.owner_id %}" >
+   <p style= "color:grey; font-size:12px;"> <strong><a href="{% url 'profile' post_to_load.owner_id %}" >
 
-      {{ post_to_edit.owner}} </strong></a> wrote on: {{ post_to_edit.created_date}} </p>
+      {{ post_to_load.owner}} </strong></a> wrote on: {{ post_to_load.created_date}} </p>
+
+<form action="{% url 'edit_post' post_to_load.pk %}" method="post">
+        {% csrf_token %}
 
 
+        <div class="form-group">
+            <input class="form-control" autofocus style="margin-top:30px" type="text" name="edit_txt"  value="{{post_to_load.description}}">
+        </div>
+    <input class="btn btn-primary" name="edit_post" type="submit" value="Save">
+</form>
+
+
+<form action="{% url 'edit_post' post_to_load.pk %}" method="post">
+    {% csrf_token %}
+     <input class="btn btn-primary" name="del_post" type="submit" value="Delete post" >
+     <input type="hidden"  name="post_to_load_id" value={{post.pk}}>
+ </form>
 
 {% endblock %}
