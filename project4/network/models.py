@@ -11,6 +11,7 @@ class User(AbstractUser):
     following = models.ManyToManyField("User", blank="TRUE", related_name="followlist")
 
 
+
     def __str__(self):
         return f"{self.username}"
         #return f"{self.username}, {self.email}"

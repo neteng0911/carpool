@@ -168,11 +168,16 @@ def profile(request, user_id):
     user_posts=Mypost.objects.filter(owner_id=user_id)
     user_posts_count=user_posts.count()
 
-    followlist=current_user.followlist.all()
-    print(current_user.username)
-    print(followlist)
+    followinglist=current_user.followlist.all()
+    followerslist=User.objects.filter(followlist=current_user)
+    no_of_followers=len(followerslist)
+    no_of_following=len(followinglist)
+    print("Your followers are", followerslist)
 
-    if targ_user in followlist: #or listing in Listing.objects.filter(listing_owner=request.user):
+    print(current_user.username)
+    print("You r foollowing",followinglist)
+
+    if targ_user in followinglist: #or listing in Listing.objects.filter(listing_owner=request.user):
         print(request.user,"you are following user", targ_user)
 
 
@@ -183,21 +188,28 @@ def profile(request, user_id):
 
     if request.method=="POST" and "follow" in request.POST:
         targ_user.following.add(current_user)
-        print(followlist)
-        return render(request, "network/profile.html", {"targ_user": targ_user, "followlist": followlist,
-                                                        "user_posts":user_posts,"user_posts_count":user_posts_count})
+        print(followinglist)
+        return render(request, "network/profile.html", {"targ_user": targ_user, "followinglist": followinglist,
+                                                        "user_posts":user_posts,"user_posts_count":user_posts_count,
+                                                        "no_of_following":no_of_following,"followerslist": followerslist,
+                                                        "no_of_followers":no_of_followers})
 
 
     if request.method=="POST" and "unfollow" in request.POST:
         targ_user.following.remove(current_user)
 
-        print(followlist)
-        return render(request, "network/profile.html", {"targ_user": targ_user,"followlist":followlist,
-                                                        "user_posts":user_posts,"user_posts_count":user_posts_count})
+        print(followinglist)
+        return render(request, "network/profile.html", {"targ_user": targ_user, "followinglist": followinglist,
+                                                        "user_posts":user_posts,"user_posts_count":user_posts_count,
+                                                        "no_of_following":no_of_following,"followerslist": followerslist,
+                                                        "no_of_followers":no_of_followers})
+
 
     else:
-        return render(request, "network/profile.html", {"targ_user": targ_user, "followlist": followlist,
-                                                        "user_posts":user_posts,"user_posts_count":user_posts_count})
+        return render(request, "network/profile.html", {"targ_user": targ_user, "followinglist": followinglist,
+                                                        "user_posts":user_posts,"user_posts_count":user_posts_count,
+                                                        "no_of_following":no_of_following,"followerslist": followerslist,
+                                                        "no_of_followers":no_of_followers})
 
 
 

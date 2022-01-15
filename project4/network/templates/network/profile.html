@@ -6,23 +6,33 @@
 <div class= "prof"><strong> user's email address : {{targ_user.email}}</strong></p>
 <strong> {{targ_user.username}} is member since {{ targ_user.date_joined }}</strong>
     <p>Total posts:<strong>{{user_posts_count}}</strong></p>
+    <p>No of followers:<strong>xxxxxx</strong></p>
+
+
+
+
+
+
+
+
+
 </div>
 
 
 
-{% if not targ_user in request.user.followlist.all %}
+{% if not targ_user in request.user.followinglist.all %}
 
     <form action="{% url 'profile' targ_user.id %}" method="post">
         {% csrf_token %}
    <input class="btn btn-primary" type="submit"   name="follow" value="Follow">
     </form>
-{% endif %}
+{% else %}
 
     <form action="{% url 'profile' targ_user.id %}" method="post">
         {% csrf_token %}
    <input class="btn btn-primary" type="submit"   name="unfollow" value="Unfollow">
     </form>
-
+{% endif %}
 {% endifnotequal %}
 
 </p>
@@ -31,6 +41,23 @@
 <div class= "prof"><strong> {{user.email}}</strong>
     <p><strong> You are member since {{user.date_joined}}</strong></p>
 Total posts:<strong>{{user_posts_count}}</strong>
+<p></p>
+       You are following <strong>{{no_of_following}} </strong> users:
+
+        {% for fol in followinglist %}
+
+            <strong> {{fol.username}},</strong>
+
+        {% endfor %}
+    <p></p>
+          You have  <strong>{{no_of_followers}} </strong> followers:
+
+        {% for fol in followerslist %}
+
+      <strong> {{fol.username}},</strong>
+
+        {% endfor %}
+
 </div>
 
 
