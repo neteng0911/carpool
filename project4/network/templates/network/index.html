@@ -1,5 +1,5 @@
 {% extends "network/layout.html" %}
-
+{% load static %}
 {% block body %}
 {% for post in all_posts %}
 
@@ -26,7 +26,7 @@
 
 
     {% ifequal  user post.owner %}
-            <script src="edit_post.js"></script>
+
 
        <button onclick="myFunction()"> edit post</button>
             <div id="divedit">
@@ -83,6 +83,8 @@
 
 
 
-
+{% endblock %}
+{% block script %}
+    <script src="{% static 'network/edit_post.js' %}"></script>
 
 {% endblock %}
