@@ -8,7 +8,7 @@ from django.utils import timezone
 class User(AbstractUser):
     email=models.EmailField(max_length=254)
     date_joined = models.DateTimeField(default=timezone.now)
-    following = models.ManyToManyField("User", blank="TRUE", related_name="followlist")
+    following = models.ManyToManyField("User", blank="TRUE", related_name="followers")
 
 
 

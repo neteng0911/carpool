@@ -168,16 +168,16 @@ def profile(request, user_id):
     user_posts=Mypost.objects.filter(owner_id=user_id)
     user_posts_count=user_posts.count()
 
-    followinglist=current_user.followlist.all()
-    followerslist=User.objects.filter(followlist=current_user)
+    followinglist=current_user.followers.all()
+    followerslist=User.objects.filter(followers=current_user)
     no_of_followers=len(followerslist)
     no_of_following=len(followinglist)
     print("Your followers are", followerslist)
 
-    print(current_user.username)
-    print("You r foollowing",followinglist)
 
-    if targ_user in followinglist: #or listing in Listing.objects.filter(listing_owner=request.user):
+    print(current_user,"You r following",followinglist)
+
+    if targ_user in followinglist:
         print(request.user,"you are following user", targ_user)
 
 
