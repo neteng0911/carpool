@@ -7,13 +7,15 @@
 <strong> {{targ_user.username}} is member since {{ targ_user.date_joined }}</strong>
     <p>Total posts:<strong>{{user_posts_count}}</strong></p>
 
+    {% if targ_user in myfollowinglist %}
+    <p><strong> You are following {{targ_user.username}}</strong></p>
+    {% endif %}
 
+         {{targ_user.username}} is following <strong>{{no_of_following}} </strong> users:
 
-       {{targ_user.username}} is following <strong>{{no_of_following}} </strong> users:
+        {% for fol in followinglist %}
 
-        {% for fol in myfollowinglist %}
-
-            <strong> <a href="{% url 'profile' fol.id %}" > {{fol.username}}</a></strong>
+            <strong> <a href="{% url 'profile' fol.id %}" > {{fol.username}} </a></strong>
 
         {% endfor %}
     <p></p>
@@ -21,14 +23,16 @@
 
         {% for fol in followerslist %}
 
-      <strong> {{fol.username}},</strong>
+      <strong> <a href="{% url 'profile' fol.id %}" > {{fol.username}} </a></strong>
 
         {% endfor %}
+
 </div>
 
 
 
-{% if not targ_user in followinglist %}
+
+{% if not targ_user in myfollowinglist %}
 
     <form action="{% url 'profile' targ_user.id %}" method="post">
         {% csrf_token %}
@@ -48,13 +52,18 @@
  <h2>You are currenty logged in as :{{user.username}}</h2>
 <div class= "prof"><strong> {{user.email}}</strong>
     <p><strong> You are member since {{user.date_joined}}</strong></p>
+
+
+
+
+
 Total posts:<strong>{{user_posts_count}}</strong>
 <p></p>
        You are following <strong>{{no_of_following}} </strong> users:
 
         {% for fol in followinglist %}
 
-            <strong> {{fol.username}},</strong>
+            <strong> <a href="{% url 'profile' fol.id %}" > {{fol.username}} </a></strong>
 
         {% endfor %}
     <p></p>
@@ -62,7 +71,7 @@ Total posts:<strong>{{user_posts_count}}</strong>
 
         {% for fol in followerslist %}
 
-      <strong> {{fol.username}},</strong>
+      <strong> <a href="{% url 'profile' fol.id %}" > {{fol.username}} </a></strong>
 
         {% endfor %}
 

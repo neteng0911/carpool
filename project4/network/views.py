@@ -1,7 +1,7 @@
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.urls import reverse
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
@@ -170,13 +170,13 @@ def profile(request, user_id):
 
     myfollowinglist = current_user.followers.all()
     followinglist=targ_user.followers.all()
-    followerslist=User.objects.filter(followers=current_user)
+    followerslist=User.objects.filter(followers=user_id)
     no_of_followers=len(followerslist)
     no_of_following=len(followinglist)
     print(current_user,"Your followers are", followerslist)
 
 
-    print(current_user,"You r following",followinglist)
+    print(current_user,"You r following",myfollowinglist)
 
     if targ_user in followinglist:
         print(request.user,"you are following user", targ_user)
@@ -189,7 +189,10 @@ def profile(request, user_id):
 
     if request.method=="POST" and "follow" in request.POST:
         targ_user.following.add(current_user)
-        print(followinglist)
+        followerslist = User.objects.filter(followers=user_id)
+        no_of_followers = len(followerslist)
+        print(current_user,"Now you are following", myfollowinglist)
+        print(targ_user, "has these followers", followerslist)
         return render(request, "network/profile.html", {"targ_user": targ_user, "followinglist": followinglist,
                                                         "user_posts":user_posts,"user_posts_count":user_posts_count,
                                                         "no_of_following":no_of_following,"followerslist": followerslist,
@@ -198,8 +201,11 @@ def profile(request, user_id):
 
     if request.method=="POST" and "unfollow" in request.POST:
         targ_user.following.remove(current_user)
+        followerslist = User.objects.filter(followers=user_id)
+        no_of_followers = len(followerslist)
 
-        print(followinglist)
+        print(current_user,"Now you are following", myfollowinglist)
+        print(targ_user, "has these followers", followerslist)
         return render(request, "network/profile.html", {"targ_user": targ_user, "followinglist": followinglist,
                                                         "user_posts":user_posts,"user_posts_count":user_posts_count,
                                                         "no_of_following":no_of_following,"followerslist": followerslist,
