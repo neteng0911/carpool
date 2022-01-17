@@ -6,7 +6,7 @@
 <div class= "prof"><strong> user's email address : {{targ_user.email}}</strong></p>
 <strong> {{targ_user.username}} is member since {{ targ_user.date_joined }}</strong>
     <p>Total posts:<strong>{{user_posts_count}}</strong></p>
-
+{{  message  }}
 
 <p></p>
        {{targ_user.username}} is following <strong>{{no_of_following}} </strong> users:
@@ -36,14 +36,14 @@
 
 
 
-{% if not targ_user in followerslist %}
+{% if not targ_user in myfollowinglist %}
 
     <form action="{% url 'profile' targ_user.id %}" method="post">
         {% csrf_token %}
    <input class="btn btn-primary" type="submit"   name="follow" value="Follow">
     </form>
 {% else %}
-
+<div class= "prof">You are following {{targ_user}}</div>
     <form action="{% url 'profile' targ_user.id %}" method="post">
         {% csrf_token %}
    <input class="btn btn-primary" type="submit"   name="unfollow" value="Unfollow">
