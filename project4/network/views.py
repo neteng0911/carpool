@@ -17,12 +17,32 @@ def index(request):
     # check if method is POST
     created_date = timezone.now()
 
-
     owner = request.user
 
     replies = Reply.objects.order_by('-created_date')
 
+    if request.method == "POST" and "like" in request.POST:
 
+        mypost_like_id = request.POST.get("post_to_like_id")
+        mypost = Mypost.objects.get(id=mypost_like_id)
+        mypost.likes.add(request.user)
+        like_list=mypost.likes.all()
+        no_of_likes=len(like_list)
+        print(mypost.id, "is liked by", like_list)
+        print(mypost.id, "is liked by", no_of_likes)
+        return render(request, "network/index.html", {"all_posts": all_posts, "replies": replies,"no_of_likes":no_of_likes, "like_list":like_list})
+
+
+
+    if request.method == "POST" and "unlike" in request.POST:
+
+        mypost_to_unlike_id = request.POST.get("post_to_unlike_id")
+        mypost = Mypost.objects.get(id=mypost_to_unlike_id)
+        mypost.likes.remove(request.user)
+        like_list=mypost.likes.all()
+        no_of_likes=len(like_list)
+        print(mypost.id, "is liked by", like_list)
+        return render(request, "network/index.html", {"all_posts": all_posts, "replies": replies,"no_of_likes":no_of_likes, "like_list":like_list})
 
     if request.method == "POST" and "post_reply" in request.POST:
         reply_txt = request.POST["reply_txt"]
@@ -36,8 +56,7 @@ def index(request):
         reply.save()
         print(reply)
         reply.lists.add(mypost)
-        print(owner, "replied on post number", mypost_reply, "and said:",reply)
-        return render(request, "network/index.html", {"all_posts": all_posts, "replies":replies})
+        return render(request, "network/index.html", {"all_posts": all_posts, "replies": replies,"no_of_likes":no_of_likes, "like_list":like_list})
 
 
 
@@ -50,10 +69,11 @@ def index(request):
 
         #load_post(post_to_load_id)
 
-        return render(request, "network/post.html", {"post_to_load": post_to_load})
+        return render(request, "network/post.html", {"post_to_load": post_to_load, "like_list":like_list})
 
     else:
-        return render(request, "network/index.html", {"all_posts": all_posts,"replies":replies})
+        return render(request, "network/index.html",
+                      {"all_posts": all_posts, "replies": replies})
 
 
 

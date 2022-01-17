@@ -27,7 +27,7 @@ class Mypost(models.Model):
     description=models.CharField(max_length=300)
     created_date=models.DateTimeField(default=now, editable=False)
     owner=models.ForeignKey(User, on_delete=models.CASCADE, null="TRUE", blank="TRUE")
-    #users = models.ManyToManyField(User, blank="TRUE", related_name="listings")
+    likes = models.ManyToManyField(User, blank="TRUE", related_name="likers")
     objects = MypostManager()
     def __str__(self):
         return f"Post id:{self.id},{self.description}"
