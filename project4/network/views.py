@@ -39,10 +39,9 @@ def index(request):
         mypost_to_unlike_id = request.POST.get("post_to_unlike_id")
         mypost = Mypost.objects.get(id=mypost_to_unlike_id)
         mypost.likes.remove(request.user)
-        like_list=mypost.likes.all()
-        no_of_likes=len(like_list)
-        print(mypost.id, "is liked by", like_list)
-        return render(request, "network/index.html", {"all_posts": all_posts, "replies": replies,"no_of_likes":no_of_likes, "like_list":like_list})
+
+
+        return render(request, "network/index.html", {"all_posts": all_posts, "replies": replies})
 
     if request.method == "POST" and "post_reply" in request.POST:
         reply_txt = request.POST["reply_txt"]
@@ -56,7 +55,7 @@ def index(request):
         reply.save()
         print(reply)
         reply.lists.add(mypost)
-        return render(request, "network/index.html", {"all_posts": all_posts, "replies": replies,"no_of_likes":no_of_likes, "like_list":like_list})
+        return render(request, "network/index.html", {"all_posts": all_posts, "replies": replies})
 
 
 
@@ -69,7 +68,7 @@ def index(request):
 
         #load_post(post_to_load_id)
 
-        return render(request, "network/post.html", {"post_to_load": post_to_load, "like_list":like_list})
+        return render(request, "network/post.html", {"post_to_load": post_to_load})
 
     else:
         return render(request, "network/index.html",
@@ -130,7 +129,14 @@ def register(request):
     else:
         return render(request, "network/register.html")
 
+@login_required
+def following(request):
+    myfollowinglist = request.user.followers.all()
+    all_posts = Mypost.objects.filter(owner__in=myfollowinglist).order_by('-created_date')
 
+
+    return render(request, "network/following.html",
+                  {"all_posts": all_posts})
 
 @login_required
 def create_post(request):

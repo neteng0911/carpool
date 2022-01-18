@@ -38,3 +38,23 @@ overflow: visible;
 left: 0%;
 
 }
+.btn-primary,
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:visited,
+.btn-primary:focus
+
+
+{
+
+color: #212529;
+background-color: #7cc;
+border-color: #5bc2c2;
+min-height: 5px;
+min-width: 2%;
+padding: 1px;
+position: relative;
+
+
+
+}

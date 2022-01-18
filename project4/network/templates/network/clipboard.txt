@@ -17,3 +17,15 @@ def edit_post(request, post_id):
 
     else:
         return render(request, "network/post.html",{"post_to_load":post_to_load})
+
+        class Entry(models.Model):
+    blog = models.ForeignKey(Blog, on_delete=models.CASCADE)
+    headline = models.CharField(max_length=255)
+    body_text = models.TextField()
+    pub_date = models.DateField()
+    mod_date = models.DateField(default=date.today)
+    authors = models.ManyToManyField(Author)
+
+
+    e = Entry.objects.get(id=3)
+e.authors.all() # Returns all Author objects for this Entry.

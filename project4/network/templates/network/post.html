@@ -1,5 +1,5 @@
 {% extends "network/layout.html" %}
-
+{% load static %}
 {% block body %}
 
 <div class="post">{{post_to_load.description}}
@@ -7,7 +7,7 @@
    <p style= "color:grey; font-size:12px;"> <strong><a href="{% url 'profile' post_to_load.owner_id %}" >
 
       {{ post_to_load.owner}} </strong></a> wrote on: {{ post_to_load.created_date}} </p>
-    <p style="color:grey; font-size:12px;"> <strong>No of likes:{{ no_of_likes }}
+    <p id="likes" style= "color:grey; font-size:12px;mix-blend-mode: multiply;"><img src="{% static  'network/images/like1.jpg' %}" alt="like image"> <strong>{{post.likes.all.count}}</strong>
 
 <form action="{% url 'edit_post' post_to_load.pk %}" method="post">
         {% csrf_token %}
