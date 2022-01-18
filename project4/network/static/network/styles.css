@@ -55,6 +55,31 @@ min-width: 2%;
 padding: 1px;
 position: relative;
 
+}
+.page
+{border: 3px solid grey;
+background-color: lightgrey;
+font-size: 14px;
+min-height: 20px;
+max-width: 60px;
+padding: 2px;
+margin-bottom:10px;
+position: relative;
 
+left: 40%;
+
+}
+
+.page-links
+{border: 3px solid grey;
+background-color: lightgrey;
+font-size: 14px;
+min-height: 20px;
+min-width: 30px;
+padding: 2px;
+margin-bottom:10px;
+position: relative;
+display: inline-block;
+left: 40%;
 
 }

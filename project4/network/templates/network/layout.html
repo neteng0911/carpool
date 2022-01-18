@@ -43,10 +43,23 @@
               </ul>
             </div>
           </nav>
-        
+
         <div class="body">
             {% block body %}
+
             {% endblock %}
+        </div>
+            <h2 class="page"> Page: {{ page.number }}</h2>
+        <div class="page-links">
+
+            {% if page.has_previous %}
+            <a href="{% url 'index' %}?page={{page.previous_page_number }}">Previous</a>
+
+            {% endif %}
+            {% if page.has_next %}
+            <a href="{% url 'index' %}?page={{page.next_page_number }}">Next</a>
+            {% endif %}
+
         </div>
     </body>
 </html>

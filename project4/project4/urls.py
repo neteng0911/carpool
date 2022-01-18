@@ -20,3 +20,5 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("network.urls")),
 ]
+handler404 = 'network.views.custom_page_not_found_view'
+handler500 = 'network.views.custom_error_view'

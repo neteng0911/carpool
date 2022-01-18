@@ -5,7 +5,8 @@ from django.shortcuts import render,redirect
 from django.urls import reverse
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
-from django.db.models import Max,Count
+from django.core.paginator import Paginator
+
 from django.core.exceptions import ObjectDoesNotExist
 
 from .models import User, Mypost, Reply
@@ -15,6 +16,15 @@ from .models import User, Mypost, Reply
 def index(request):
     all_posts=Mypost.objects.order_by('-created_date')
     # check if method is POST
+
+    # creating pages
+    post_paginator=Paginator(all_posts,5)
+
+    page_num = request.GET.get("page")
+    page=post_paginator.get_page(page_num)
+
+
+
     created_date = timezone.now()
 
     owner = request.user
@@ -30,7 +40,8 @@ def index(request):
         no_of_likes=len(like_list)
         print(mypost.id, "is liked by", like_list)
         print(mypost.id, "is liked by", no_of_likes)
-        return render(request, "network/index.html", {"all_posts": all_posts, "replies": replies,"no_of_likes":no_of_likes, "like_list":like_list})
+        return render(request, "network/index.html", {"all_posts": all_posts, "replies": replies,
+                                                      "no_of_likes":no_of_likes, "like_list":like_list,"count":post_paginator.count,"page":page})
 
 
 
@@ -41,7 +52,7 @@ def index(request):
         mypost.likes.remove(request.user)
 
 
-        return render(request, "network/index.html", {"all_posts": all_posts, "replies": replies})
+        return render(request, "network/index.html", {"all_posts": all_posts, "replies": replies,"count":post_paginator.count,"page":page})
 
     if request.method == "POST" and "post_reply" in request.POST:
         reply_txt = request.POST["reply_txt"]
@@ -55,7 +66,7 @@ def index(request):
         reply.save()
         print(reply)
         reply.lists.add(mypost)
-        return render(request, "network/index.html", {"all_posts": all_posts, "replies": replies})
+        return render(request, "network/index.html", {"all_posts": all_posts, "replies": replies,"count":post_paginator.count,"page":page})
 
 
 
@@ -72,7 +83,7 @@ def index(request):
 
     else:
         return render(request, "network/index.html",
-                      {"all_posts": all_posts, "replies": replies})
+                      {"all_posts": all_posts, "replies": replies,"count":post_paginator.count,"page":page})
 
 
 
@@ -245,7 +256,9 @@ def profile(request, user_id):
                                                         "no_of_followers":no_of_followers, "myfollowinglist":myfollowinglist})
 
 
+def custom_page_not_found_view(request, exception):
+    return render(request, "errors/404.html", {})
 
-
-
+def custom_error_view(request, exception=None):
+    return render(request, "errors/500.html", {})
 

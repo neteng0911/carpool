@@ -1,6 +1,7 @@
 {% extends "network/layout.html" %}
 
 {% block body %}
+
 {% ifnotequal request.user targ_user %}
     <h2>You are viewing user:{{targ_user.username}}</h2>
 <div class= "prof"><strong> user's email address : {{targ_user.email}}</strong></p>
@@ -90,4 +91,6 @@ Total posts:<strong>{{user_posts_count}}</strong>
 </div>
 </ul>
 {% endfor %}
+
 {% endblock %}
+{% endif %}
