@@ -18,10 +18,12 @@ def index(request):
     # check if method is POST
 
     # creating pages
-    post_paginator=Paginator(all_posts,5)
+    page=paging(request,all_posts)
 
-    page_num = request.GET.get("page")
-    page=post_paginator.get_page(page_num)
+    # post_paginator=Paginator(all_posts,5)
+    #
+    # page_num = request.GET.get("page")
+    # page=post_paginator.get_page(page_num)
 
 
 
@@ -41,7 +43,7 @@ def index(request):
         print(mypost.id, "is liked by", like_list)
         print(mypost.id, "is liked by", no_of_likes)
         return render(request, "network/index.html", {"all_posts": all_posts, "replies": replies,
-                                                      "no_of_likes":no_of_likes, "like_list":like_list,"count":post_paginator.count,"page":page})
+                                                      "no_of_likes":no_of_likes, "like_list":like_list,"count":page.count,"page":page})
 
 
 
@@ -52,7 +54,7 @@ def index(request):
         mypost.likes.remove(request.user)
 
 
-        return render(request, "network/index.html", {"all_posts": all_posts, "replies": replies,"count":post_paginator.count,"page":page})
+        return render(request, "network/index.html", {"all_posts": all_posts, "replies": replies,"count":page.count,"page":page})
 
     if request.method == "POST" and "post_reply" in request.POST:
         reply_txt = request.POST["reply_txt"]
@@ -66,7 +68,7 @@ def index(request):
         reply.save()
         print(reply)
         reply.lists.add(mypost)
-        return render(request, "network/index.html", {"all_posts": all_posts, "replies": replies,"count":post_paginator.count,"page":page})
+        return render(request, "network/index.html", {"all_posts": all_posts, "replies": replies,"count":page.count,"page":page})
 
 
 
@@ -83,7 +85,7 @@ def index(request):
 
     else:
         return render(request, "network/index.html",
-                      {"all_posts": all_posts, "replies": replies,"count":post_paginator.count,"page":page})
+                      {"all_posts": all_posts, "replies": replies,"count":page.count,"page":page})
 
 
 
@@ -144,10 +146,11 @@ def register(request):
 def following(request):
     myfollowinglist = request.user.followers.all()
     all_posts = Mypost.objects.filter(owner__in=myfollowinglist).order_by('-created_date')
-
+    # creating pages
+    page = paging(request, all_posts)
 
     return render(request, "network/following.html",
-                  {"all_posts": all_posts})
+                  {"all_posts": all_posts,"count":page.count,"page":page})
 
 @login_required
 def create_post(request):
@@ -221,8 +224,8 @@ def profile(request, user_id):
 
     created_date = timezone.now()
 
-
-
+    # creating pages
+    page = paging(request, user_posts)
 
     if request.method=="POST" and "follow" in request.POST:
         targ_user.following.add(current_user)
@@ -233,7 +236,7 @@ def profile(request, user_id):
         return render(request, "network/profile.html", {"targ_user": targ_user, "followinglist": followinglist,
                                                         "user_posts":user_posts,"user_posts_count":user_posts_count,
                                                         "no_of_following":no_of_following,"followerslist": followerslist,
-                                                        "no_of_followers":no_of_followers, "myfollowinglist":myfollowinglist})
+                                                        "no_of_followers":no_of_followers, "myfollowinglist":myfollowinglist,"count":page.count,"page":page})
 
 
     if request.method=="POST" and "unfollow" in request.POST:
@@ -246,14 +249,14 @@ def profile(request, user_id):
         return render(request, "network/profile.html", {"targ_user": targ_user, "followinglist": followinglist,
                                                         "user_posts":user_posts,"user_posts_count":user_posts_count,
                                                         "no_of_following":no_of_following,"followerslist": followerslist,
-                                                        "no_of_followers":no_of_followers, "myfollowinglist":myfollowinglist})
+                                                        "no_of_followers":no_of_followers, "myfollowinglist":myfollowinglist,"count":page.count,"page":page})
 
 
     else:
         return render(request, "network/profile.html", {"targ_user": targ_user, "followinglist": followinglist,
                                                         "user_posts":user_posts,"user_posts_count":user_posts_count,
                                                         "no_of_following":no_of_following,"followerslist": followerslist,
-                                                        "no_of_followers":no_of_followers, "myfollowinglist":myfollowinglist})
+                                                        "no_of_followers":no_of_followers, "myfollowinglist":myfollowinglist,"count":page.count,"page":page})
 
 
 def custom_page_not_found_view(request, exception):
@@ -261,4 +264,11 @@ def custom_page_not_found_view(request, exception):
 
 def custom_error_view(request, exception=None):
     return render(request, "errors/500.html", {})
+
+def paging(request,the_posts):
+    # creating pages
+    post_paginator=Paginator(the_posts,5)
+
+    page_num = request.GET.get("page")
+    return post_paginator.get_page(page_num)
 
