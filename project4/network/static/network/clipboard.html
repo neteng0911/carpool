@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+div class="likes">
+                    {% if user.is_authenticated %}
+                        {% if request.user in post.likes.all %}
+                        <i class="likeunlike" data-id="{{post.id}}" title="UNLIKE" style="color: #fd8f00;"></i>
+                        {% else %}
+                        <i class="likeunlike" data-id="{{post.id}}" title="LIKE"></i>
+                        {% endif %}
+                    {% endif %}
+                    <span><span id="likes_{{post.id}}">{{ post.likes.all.count }}</span> Likes</span>
+                </div>
+            </div>
+</body>
+</html>

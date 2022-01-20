@@ -23,17 +23,16 @@
     <input class="btn btn-primary" type="submit" name="post_reply" value="Post Reply">
 
 {% if  not user in post.likes.all %}
- <div class="likes">
-                    {% if user.is_authenticated %}
-                        {% if request.user in post.likes.all %}
-                        <i class="fa fa-thumbs-up" data-id="{{post.id}}" title="UNLIKE" style="color: #fd8f00;"></i>
-                        {% else %}
-                        <i class="fa fa-thumbs-up" data-id="{{post.id}}" title="LIKE"></i>
-                        {% endif %}
-                    {% endif %}
-                    <span><span id="likes_{{post.id}}">{{ post.likes.all.count }}</span> Likes</span>
-                </div>
-            </div>
+ <form action="{% url 'index' %}" method="post">
+     {% csrf_token %}
+     <input class="likeunlike" name="like" type="submit" value="like" >
+     <input type="hidden"  name="post_to_like_id" value={{post.pk}}>
+
+{% else %}
+  <form action="{% url 'index' %}" method="post">
+      {% csrf_token %}
+     <input class="likeunlike" name="unlike" type="submit" value="unlike" >
+     <input type="hidden"  name="post_to_unlike_id" value={{post.pk}}>
 
 
 {% endif%}

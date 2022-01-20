@@ -1,6 +1,7 @@
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
+from django.http import JsonResponse
 from django.shortcuts import render,redirect
 from django.urls import reverse
 from django.utils import timezone
@@ -40,10 +41,6 @@ def index(request):
         like(request,mypost_like_id)
 
 
-        return render(request, "network/index.html", {"all_posts": all_posts, "replies": replies,
-                                                      "count":page.count,"page":page})
-
-
 
     if request.method == "POST" and "unlike" in request.POST:
 
@@ -51,22 +48,11 @@ def index(request):
         unlike(request, mypost_to_unlike_id)
 
 
-        return render(request, "network/index.html", {"all_posts": all_posts,
-                                                      "replies": replies,"count":page.count,"page":page})
-
     if request.method == "POST" and "post_reply" in request.POST:
         reply_txt = request.POST["reply_txt"]
         mypost_reply = request.POST.get("post_id")
         reply(request,reply_txt,mypost_reply)
-        # mypost = Mypost.objects.get(id=mypost_reply)
-        # like_list = mypost.likes.all()
-        # my_post_replies = Reply.objects.filter(mypost_reply=mypost_reply)
-        # print(my_post_replies)
-        # reply = Reply.objects.create_reply(reply_txt=reply_txt, created_date=created_date, owner=owner,
-        #                                    mypost_reply=mypost)
-        # reply.save()
-        # print(reply)
-        # reply.lists.add(mypost)
+
         return render(request, "network/index.html", {"all_posts": all_posts, "replies": replies,"count":page.count,"page":page})
 
 
@@ -293,14 +279,16 @@ def like(request,post_id):
 
         mypost = Mypost.objects.get(id=post_id)
         mypost.likes.add(request.user)
-
+        return JsonResponse({"message": "Post liked successfully."}, status=201)
+    return JsonResponse({"error": "POST request required."}, status=400)
 def unlike(request,post_id):
     if request.method == "POST" and "unlike" in request.POST:
 
 
         mypost = Mypost.objects.get(id=post_id)
         mypost.likes.remove(request.user)
-
+        return JsonResponse({"message": "Post liked successfully."}, status=201)
+    return JsonResponse({"error": "POST request required."}, status=400)
 def reply(request,reply_txt,post_id):
 
     mypost = Mypost.objects.get(id=post_id)

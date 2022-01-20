@@ -83,3 +83,21 @@ display: inline-block;
 left: 40%;
 
 }
+.likeunlike,
+.likeunlike:hover,
+.likeunlike:active,
+.likeunlike:visited,
+.likeunlike:focus
+
+
+{
+
+color: #312529;
+background-color: #8cc;
+border-color: #5bc2c2;
+min-height: 5px;
+min-width: 2%;
+padding: 1px;
+position: relative;
+
+}
