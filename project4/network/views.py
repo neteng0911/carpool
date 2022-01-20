@@ -24,8 +24,12 @@ def index(request):
     #
     # page_num = request.GET.get("page")
     # page=post_paginator.get_page(page_num)
+    for post in all_posts:
 
-
+        print(post.likes.all().count())
+        print("Post number", post.id,"is liked by",post.likes.all())
+        if request.user in post.likes.all():
+            print(request.user,"likes post no",post.id)
 
     created_date = timezone.now()
 
@@ -52,22 +56,23 @@ def index(request):
         mypost_to_unlike_id = request.POST.get("post_to_unlike_id")
         mypost = Mypost.objects.get(id=mypost_to_unlike_id)
         mypost.likes.remove(request.user)
+        like_list = mypost.likes.all()
 
-
-        return render(request, "network/index.html", {"all_posts": all_posts, "replies": replies,"count":page.count,"page":page})
+        return render(request, "network/index.html", {"all_posts": all_posts, "replies": replies,"count":page.count,"page":page, "like_list":like_list})
 
     if request.method == "POST" and "post_reply" in request.POST:
         reply_txt = request.POST["reply_txt"]
         mypost_reply = request.POST.get("post_id")
-        mypost = Mypost.objects.get(id=mypost_reply)
-
-        my_post_replies = Reply.objects.filter(mypost_reply=mypost_reply)
-        print(my_post_replies)
-        reply = Reply.objects.create_reply(reply_txt=reply_txt, created_date=created_date, owner=owner,
-                                           mypost_reply=mypost)
-        reply.save()
-        print(reply)
-        reply.lists.add(mypost)
+        reply(request,reply_txt,mypost_reply)
+        # mypost = Mypost.objects.get(id=mypost_reply)
+        # like_list = mypost.likes.all()
+        # my_post_replies = Reply.objects.filter(mypost_reply=mypost_reply)
+        # print(my_post_replies)
+        # reply = Reply.objects.create_reply(reply_txt=reply_txt, created_date=created_date, owner=owner,
+        #                                    mypost_reply=mypost)
+        # reply.save()
+        # print(reply)
+        # reply.lists.add(mypost)
         return render(request, "network/index.html", {"all_posts": all_posts, "replies": replies,"count":page.count,"page":page})
 
 
@@ -78,10 +83,10 @@ def index(request):
 
         post_to_load_id = request.POST.get("post_to_load_id")
         post_to_load = Mypost.objects.get(pk=post_to_load_id)
-
+        like_list = post_to_load.likes.all()
         #load_post(post_to_load_id)
 
-        return render(request, "network/post.html", {"post_to_load": post_to_load})
+        return render(request, "network/post.html", {"post_to_load": post_to_load, "like_list":like_list})
 
     else:
         return render(request, "network/index.html",
@@ -148,6 +153,10 @@ def following(request):
     all_posts = Mypost.objects.filter(owner__in=myfollowinglist).order_by('-created_date')
     # creating pages
     page = paging(request, all_posts)
+    if request.method == "POST" and "post_reply" in request.POST:
+        reply_txt = request.POST["reply_txt"]
+        mypost_reply = request.POST.get("post_id")
+        reply(request, reply_txt, mypost_reply)
 
     return render(request, "network/following.html",
                   {"all_posts": all_posts,"count":page.count,"page":page})
@@ -203,20 +212,24 @@ def edit_post(request, post_id):
 
 @login_required
 def profile(request, user_id):
+
     current_user = request.user
     targ_user = User.objects.get(id=user_id)
     user_posts=Mypost.objects.filter(owner_id=user_id)
     user_posts_count=user_posts.count()
-
+    page = paging(request, user_posts)
     myfollowinglist = current_user.followers.all()
     followinglist=targ_user.followers.all()
     followerslist=User.objects.filter(followers=user_id)
     no_of_followers=len(followerslist)
     no_of_following=len(followinglist)
     print(current_user,"Your followers are", followerslist)
-
-
     print(current_user,"You r following",myfollowinglist)
+    if request.method == "POST" and "post_reply" in request.POST:
+        reply_txt = request.POST["reply_txt"]
+        mypost_reply = request.POST.get("post_id")
+        reply(request, reply_txt, mypost_reply)
+        return render(request, "network/profile.html", {"targ_user": targ_user,"count":page.count,"page":page})
 
     if targ_user in followinglist:
         print(request.user,"you are following user", targ_user)
@@ -236,7 +249,8 @@ def profile(request, user_id):
         return render(request, "network/profile.html", {"targ_user": targ_user, "followinglist": followinglist,
                                                         "user_posts":user_posts,"user_posts_count":user_posts_count,
                                                         "no_of_following":no_of_following,"followerslist": followerslist,
-                                                        "no_of_followers":no_of_followers, "myfollowinglist":myfollowinglist,"count":page.count,"page":page})
+                                                        "no_of_followers":no_of_followers,
+                                                        "myfollowinglist":myfollowinglist,"count":page.count,"page":page})
 
 
     if request.method=="POST" and "unfollow" in request.POST:
@@ -258,6 +272,22 @@ def profile(request, user_id):
                                                         "no_of_following":no_of_following,"followerslist": followerslist,
                                                         "no_of_followers":no_of_followers, "myfollowinglist":myfollowinglist,"count":page.count,"page":page})
 
+
+
+def reply(request,reply_txt,post_id):
+
+    mypost = Mypost.objects.get(id=post_id)
+    created_date = timezone.now()
+    owner = request.user
+
+    my_post_replies = Reply.objects.filter(mypost_reply=mypost)
+    print(my_post_replies)
+    reply = Reply.objects.create_reply(reply_txt=reply_txt, created_date=created_date, owner=owner,
+                                       mypost_reply=mypost)
+    reply.save()
+    print(reply)
+    reply.lists.add(mypost)
+    return HttpResponseRedirect(reverse("index"))
 
 def custom_page_not_found_view(request, exception):
     return render(request, "errors/404.html", {})

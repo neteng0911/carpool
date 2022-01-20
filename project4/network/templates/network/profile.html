@@ -89,18 +89,60 @@ Total posts:<strong>{{user_posts_count}}</strong>
 <div class="post">{{user_post.description}}
 
     <p style= "color:grey; font-size:12px;"> <strong><a href="{% url 'profile' targ_user.id %}" > {{targ_user.username}} </strong></a> wrote on: {{user_post.created_date}} </p>
+<form action="{% url 'profile' targ_user.id %}" method="post">
+        {% csrf_token %}
+
+
+        <div class="form-group">
+            <input class="form-control" autofocus style="margin-top:30px" type="text" name="reply_txt" placeholder="reply">
+            <input type="hidden"  name="post_id" value={{user_post.pk}}>
+
+        </div>
+    <input class="btn btn-primary" type="submit" name="post_reply" value="Post Reply">
+{% if  not user in post.likes.all %}
+ <form action="{% url 'index' %}" method="post">
+     {% csrf_token %}
+     <input class="btn btn-primary" name="like" type="submit" value="like" >
+     <input type="hidden"  name="post_to_like_id" value={{post.pk}}>
+
+{% else %}
+  <form action="{% url 'index' %}" method="post">
+      {% csrf_token %}
+     <input class="btn btn-primary" name="unlike" type="submit" value="unlike" >
+     <input type="hidden"  name="post_to_unlike_id" value={{post.pk}}>
+
+
+{% endif%}
 </div>
 </ul>
+
+
+
+
+{% for rep in user_post.replies.all %}
+ <ul>
+
+
+
+        <div class="replies" ><p style= "color:blue; font-size:10px;"><a href="{% url "profile" rep.owner_id %}">{{rep.owner}}</a>
+            replied on {{rep.created_date}}</p> <strong>{{rep}} </strong> </div>
+</ul>
+{% endfor %}
+</form>
+    </div>
+
+
+
 {% endfor %}
 <h2 class="page"> Page: {{ page.number }}</h2>
         <div class="page-links">
 
             {% if page.has_previous %}
-            <a href="{% url 'profile' targ_user.id %}?page={{page.previous_page_number }}">Previous</a>
+            <a href="{% url 'following' %}?page={{page.previous_page_number }}">Previous</a>
 
             {% endif %}
             {% if page.has_next %}
-            <a href="{% url 'profile' targ_user.id %}?page={{page.next_page_number }}">Next</a>
+            <a href="{% url 'following' %}?page={{page.next_page_number }}">Next</a>
             {% endif %}
 
         </div>

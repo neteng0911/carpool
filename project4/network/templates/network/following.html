@@ -11,7 +11,7 @@
 
     <p id="likes" style= "color:grey; font-size:12px;mix-blend-mode: multiply;"><img src="{% static  'network/images/like1.jpg' %}" alt="like image"> <strong>{{post.likes.all.count}}</strong>
 {% if user.is_authenticated %}
-        <form action="{% url 'index' %}" method="post">
+        <form action="{% url 'following' %}" method="post">
         {% csrf_token %}
 
 
@@ -48,6 +48,21 @@
 
 
    {% endifequal %}
+
+{% if  not user in post.likes.all %}
+ <form action="{% url 'index' %}" method="post">
+     {% csrf_token %}
+     <input class="btn btn-primary" name="like" type="submit" value="like" >
+     <input type="hidden"  name="post_to_like_id" value={{post.pk}}>
+
+{% else %}
+  <form action="{% url 'index' %}" method="post">
+      {% csrf_token %}
+     <input class="btn btn-primary" name="unlike" type="submit" value="unlike" >
+     <input type="hidden"  name="post_to_unlike_id" value={{post.pk}}>
+
+
+{% endif%}
 {% endif %}
             <p style= "color:grey; font-size:12px;"></p>
 
