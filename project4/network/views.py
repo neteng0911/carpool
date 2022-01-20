@@ -267,7 +267,7 @@ def custom_error_view(request, exception=None):
 
 def paging(request,the_posts):
     # creating pages
-    post_paginator=Paginator(the_posts,5)
+    post_paginator=Paginator(the_posts,10)
 
     page_num = request.GET.get("page")
     return post_paginator.get_page(page_num)

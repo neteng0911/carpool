@@ -1,31 +1,23 @@
-'load_post' post.id'
+
+@csrf_exempt
+@login_required
+def like(request, post_id):
+    if request.method == 'POST':
+        post = Post.objects.get(id=post_id)
+        user = User.objects.get(username=request.user)
+        post.likes.add(user)
+        return JsonResponse({"message": "Post liked successfully."}, status=201)
+    return JsonResponse({"error": "POST request required."}, status=400)
 
 
-def edit_post(request, post_id):
-
-    post_to_load = Mypost.objects.get(pk=post_id)
-    if request.method =="POST" and "edit_post" in request.POST:
-
-        edit_txt = request.POST["edit_txt"]
-        post_to_load.description=edit_txt
-        post_to_load.save()
-
-        return HttpResponseRedirect(reverse("index"))
-    if request.method == "POST" and "del_post" in request.POST:
-        post_to_load.delete()
-        return HttpResponseRedirect(reverse("index"))
-
-    else:
-        return render(request, "network/post.html",{"post_to_load":post_to_load})
-
-        class Entry(models.Model):
-    blog = models.ForeignKey(Blog, on_delete=models.CASCADE)
-    headline = models.CharField(max_length=255)
-    body_text = models.TextField()
-    pub_date = models.DateField()
-    mod_date = models.DateField(default=date.today)
-    authors = models.ManyToManyField(Author)
-
-
-    e = Entry.objects.get(id=3)
-e.authors.all() # Returns all Author objects for this Entry.
+                <div class="likes">
+                    {% if user.is_authenticated %}
+                        {% if request.user in post.likes.all %}
+                        <i class="fa fa-thumbs-up" data-id="{{post.id}}" title="UNLIKE" style="color: #fd8f00;"></i>
+                        {% else %}
+                        <i class="fa fa-thumbs-up" data-id="{{post.id}}" title="LIKE"></i>
+                        {% endif %}
+                    {% endif %}
+                    <span><span id="likes_{{post.id}}">{{ post.likes.all.count }}</span> Likes</span>
+                </div>
+            </div>
