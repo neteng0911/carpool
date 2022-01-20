@@ -15,21 +15,18 @@ from .models import User, Mypost, Reply
 
 def index(request):
     all_posts=Mypost.objects.order_by('-created_date')
-    # check if method is POST
+
 
     # creating pages
     page=paging(request,all_posts)
 
-    # post_paginator=Paginator(all_posts,5)
-    #
-    # page_num = request.GET.get("page")
-    # page=post_paginator.get_page(page_num)
-    for post in all_posts:
 
-        print(post.likes.all().count())
-        print("Post number", post.id,"is liked by",post.likes.all())
-        if request.user in post.likes.all():
-            print(request.user,"likes post no",post.id)
+    # for post in all_posts:
+    #
+    #     print(post.likes.all().count())
+    #     print("Post number", post.id,"is liked by",post.likes.all())
+    #     if request.user in post.likes.all():
+    #         print(request.user,"likes post no",post.id)
 
     created_date = timezone.now()
 
@@ -40,25 +37,22 @@ def index(request):
     if request.method == "POST" and "like" in request.POST:
 
         mypost_like_id = request.POST.get("post_to_like_id")
-        mypost = Mypost.objects.get(id=mypost_like_id)
-        mypost.likes.add(request.user)
-        like_list=mypost.likes.all()
-        no_of_likes=len(like_list)
-        print(mypost.id, "is liked by", like_list)
-        print(mypost.id, "is liked by", no_of_likes)
+        like(request,mypost_like_id)
+
+
         return render(request, "network/index.html", {"all_posts": all_posts, "replies": replies,
-                                                      "no_of_likes":no_of_likes, "like_list":like_list,"count":page.count,"page":page})
+                                                      "count":page.count,"page":page})
 
 
 
     if request.method == "POST" and "unlike" in request.POST:
 
         mypost_to_unlike_id = request.POST.get("post_to_unlike_id")
-        mypost = Mypost.objects.get(id=mypost_to_unlike_id)
-        mypost.likes.remove(request.user)
-        like_list = mypost.likes.all()
+        unlike(request, mypost_to_unlike_id)
 
-        return render(request, "network/index.html", {"all_posts": all_posts, "replies": replies,"count":page.count,"page":page, "like_list":like_list})
+
+        return render(request, "network/index.html", {"all_posts": all_posts,
+                                                      "replies": replies,"count":page.count,"page":page})
 
     if request.method == "POST" and "post_reply" in request.POST:
         reply_txt = request.POST["reply_txt"]
@@ -82,11 +76,12 @@ def index(request):
     if request.method == "POST" and "load_post" in request.POST:
 
         post_to_load_id = request.POST.get("post_to_load_id")
+        edit_post(request,post_to_load_id)
         post_to_load = Mypost.objects.get(pk=post_to_load_id)
-        like_list = post_to_load.likes.all()
-        #load_post(post_to_load_id)
 
-        return render(request, "network/post.html", {"post_to_load": post_to_load, "like_list":like_list})
+
+
+        return render(request, "network/post.html", {"post_to_load": post_to_load})
 
     else:
         return render(request, "network/index.html",
@@ -158,9 +153,18 @@ def following(request):
         mypost_reply = request.POST.get("post_id")
         reply(request, reply_txt, mypost_reply)
 
+
+    if request.method == "POST" and "like" in request.POST:
+
+        mypost_like_id = request.POST.get("post_to_like_id")
+        like(request,mypost_like_id)
+
+    if request.method == "POST" and "unlike" in request.POST:
+
+        mypost_to_unlike_id = request.POST.get("post_to_unlike_id")
+        unlike(request, mypost_to_unlike_id)
     return render(request, "network/following.html",
                   {"all_posts": all_posts,"count":page.count,"page":page})
-
 @login_required
 def create_post(request):
     # check if method is POST
@@ -230,6 +234,15 @@ def profile(request, user_id):
         mypost_reply = request.POST.get("post_id")
         reply(request, reply_txt, mypost_reply)
         return render(request, "network/profile.html", {"targ_user": targ_user,"count":page.count,"page":page})
+    if request.method == "POST" and "like" in request.POST:
+
+        mypost_like_id = request.POST.get("post_to_like_id")
+        like(request,mypost_like_id)
+
+    if request.method == "POST" and "unlike" in request.POST:
+
+        mypost_to_unlike_id = request.POST.get("post_to_unlike_id")
+        unlike(request, mypost_to_unlike_id)
 
     if targ_user in followinglist:
         print(request.user,"you are following user", targ_user)
@@ -273,6 +286,20 @@ def profile(request, user_id):
                                                         "no_of_followers":no_of_followers, "myfollowinglist":myfollowinglist,"count":page.count,"page":page})
 
 
+
+def like(request,post_id):
+    if request.method == "POST" and "like" in request.POST:
+
+
+        mypost = Mypost.objects.get(id=post_id)
+        mypost.likes.add(request.user)
+
+def unlike(request,post_id):
+    if request.method == "POST" and "unlike" in request.POST:
+
+
+        mypost = Mypost.objects.get(id=post_id)
+        mypost.likes.remove(request.user)
 
 def reply(request,reply_txt,post_id):
 
