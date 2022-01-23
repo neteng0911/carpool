@@ -59,9 +59,9 @@ def index(request):
 
 
         #here first loads the post in different page before editing it BUT i display it as edit post on the page for the user
-    if request.method == "POST" and "edit_post" in request.POST:
+    if request.method == "POST" and "load_post" in request.POST:
 
-        post_to_edit_id = request.POST.get("post_to_edit_id")
+        post_to_edit_id = request.POST.get("post_to_load_id")
         edit_post(request,post_to_edit_id)
         post_to_edit = Mypost.objects.get(pk=post_to_edit_id)
 

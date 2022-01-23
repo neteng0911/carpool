@@ -10,7 +10,15 @@
     <p style= "color:grey; font-size:12px;"> <strong><a href="{% url 'profile' post.owner_id %}" > {{post.owner}} </strong></a> wrote on: {{post.created_date}} </p>
 
     <p id="likes_{{post.id}}" style= "color:grey; font-size:12px;mix-blend-mode: multiply;"><img src="{% static  'network/images/like1.jpg' %}" alt="like image"> <strong>{{post.likes.all.count}}</strong>
-{% if user.is_authenticated %}
+        {% for rep in post.replies.all %}
+
+ </div>
+
+        <div class="replies" ><p style= "color:blue; font-size:10px;"><a href="{% url 'profile' rep.owner_id %}">{{rep.owner}}</a>
+            replied on {{rep.created_date}}</p> <strong>{{rep}} </strong> </div>
+</ul>
+{% endfor %}
+        {% if user.is_authenticated %}
         <form action="{% url 'index' %}" method="post">
         {% csrf_token %}
 
@@ -21,16 +29,17 @@
 
         </div>
     <input class="btn btn-primary" type="submit" name="post_reply" value="Post Reply">
+     <form action="{% url 'edit_post' post.pk  %}" method="post">
+     {% csrf_token %}
+     <input class="btn btn-primary" name="load_post" type="submit" value="Edit post" >
+     <input type="hidden"  name="post_to_load_id" value={{post.pk}}>
+
+ </form>
 
     {% ifequal  user post.owner %}
 
 
- <form action="{% url 'edit_post' post.pk  %}" method="post">
-     {% csrf_token %}
-     <input class="btn btn-primary" name="load_post" type="submit" value="Edit post" >
-     <input type="hidden"  name="post_to_edit_id" value={{post.pk}}>
 
- </form>
 
 
 
@@ -41,15 +50,7 @@
 
 {% endifequal %}
 
-{% for rep in post.replies.all %}
- <ul>
 
-
-
-        <div class="replies" ><p style= "color:blue; font-size:10px;"><a href="{% url "profile" rep.owner_id %}">{{rep.owner}}</a>
-            replied on {{rep.created_date}}</p> <strong>{{rep}} </strong> </div>
-</ul>
-{% endfor %}
 {% endif %}
 {% endfor %}
 
@@ -74,3 +75,6 @@
 
 
 {% endblock %}
+
+
+
