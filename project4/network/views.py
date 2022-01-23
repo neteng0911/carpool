@@ -81,7 +81,7 @@ def index(request):
 
         #load_post(post_to_load_id)
 
-        return render(request, "network/post.html", {"post_to_load": post_to_load})
+        return render(request, "network/edit_post.html", {"post_to_load": post_to_load})
 
     else:
         return render(request, "network/index.html",
