@@ -5,7 +5,7 @@
 
 
 <ul>
-<div class="post">{{post.description}}
+<div class="post">{{post.description}},{{post.id}}
 
     <p style= "color:grey; font-size:12px;"> <strong><a href="{% url 'profile' post.owner_id %}" > {{post.owner}} </strong></a> wrote on: {{post.created_date}} </p>
 
@@ -22,46 +22,24 @@
         </div>
     <input class="btn btn-primary" type="submit" name="post_reply" value="Post Reply">
 
-{% if  not user in post.likes.all %}
- <div class="likes">
-                    {% if user.is_authenticated %}
-                        {% if request.user in post.likes.all %}
-                        <i class="fa fa-thumbs-up" data-id="{{post.id}}" title="UNLIKE" style="color: #fd8f00;"></i>
-                        {% else %}
-                        <i class="fa fa-thumbs-up" data-id="{{post.id}}" title="LIKE"></i>
-                        {% endif %}
-                    {% endif %}
-                    <span><span id="likes_{{post.id}}">{{ post.likes.all.count }}</span> Likes</span>
-                </div>
-            </div>
-
-
-{% endif%}
-
     {% ifequal  user post.owner %}
 
 
- <form action="{% url 'index'  %}" method="post">
+ <form action="{% url 'edit_post' post.pk  %}" method="post">
      {% csrf_token %}
      <input class="btn btn-primary" name="load_post" type="submit" value="Edit post" >
-     <input type="hidden"  name="post_to_load_id" value={{post.pk}}>
+     <input type="hidden"  name="post_to_edit_id" value={{post.pk}}>
+
  </form>
 
 
 
-   {% endifequal %}
-{% endif %}
-            <p style= "color:grey; font-size:12px;"></p>
 
 
-</div>
 
 </ul>
 
-
-
-
-
+{% endifequal %}
 
 {% for rep in post.replies.all %}
  <ul>
@@ -72,12 +50,10 @@
             replied on {{rep.created_date}}</p> <strong>{{rep}} </strong> </div>
 </ul>
 {% endfor %}
-</form>
-    </div>
-
-
-
+{% endif %}
 {% endfor %}
+
+
 <h2 class="page"> Page: {{ page.number }}</h2>
         <div class="page-links">
 
@@ -94,4 +70,7 @@
     <script src="{% static 'network/likes.js' %}"></script>
 
 {% endblock script %}
+
+
+
 {% endblock %}

@@ -22,31 +22,31 @@ def index(request):
     page=paging(request,all_posts)
 
 
-    # for post in all_posts:
-    #
-    #     print(post.likes.all().count())
-    #     print("Post number", post.id,"is liked by",post.likes.all())
-    #     if request.user in post.likes.all():
-    #         print(request.user,"likes post no",post.id)
+    for post in all_posts:
+
+        print(post.likes.all().count())
+        print("Post number", post.id,"is liked by",post.likes.all())
+        if request.user in post.likes.all():
+            print(request.user,"likes post no",post.id)
 
     created_date = timezone.now()
 
     owner = request.user
 
     replies = Reply.objects.order_by('-created_date')
-
-    if request.method == "POST" and "like" in request.POST:
-
-        mypost_like_id = request.POST.get("post_to_like_id")
-        like(request,mypost_like_id)
-
-
-
-    if request.method == "POST" and "unlike" in request.POST:
-
-        mypost_to_unlike_id = request.POST.get("post_to_unlike_id")
-        unlike(request, mypost_to_unlike_id)
-
+    #
+    # if request.method == "POST" and "like" in request.POST:
+    #
+    #     mypost_like_id = request.POST.get("post_to_like_id")
+    #     like(request,mypost_like_id)
+    #
+    #
+    #
+    # if request.method == "POST" and "unlike" in request.POST:
+    #
+    #     mypost_to_unlike_id = request.POST.get("post_to_unlike_id")
+    #     unlike(request, mypost_to_unlike_id)
+    #
 
     if request.method == "POST" and "post_reply" in request.POST:
         reply_txt = request.POST["reply_txt"]
@@ -59,15 +59,15 @@ def index(request):
 
 
         #here first loads the post in different page before editing it BUT i display it as edit post on the page for the user
-    if request.method == "POST" and "load_post" in request.POST:
+    if request.method == "POST" and "edit_post" in request.POST:
 
-        post_to_load_id = request.POST.get("post_to_load_id")
-        edit_post(request,post_to_load_id)
-        post_to_load = Mypost.objects.get(pk=post_to_load_id)
+        post_to_edit_id = request.POST.get("post_to_edit_id")
+        edit_post(request,post_to_edit_id)
+        post_to_edit = Mypost.objects.get(pk=post_to_edit_id)
 
 
 
-        return render(request, "network/post.html", {"post_to_load": post_to_load})
+        return render(request, "network/edit_post.html", {"post_to_edit": post_to_edit})
 
     else:
         return render(request, "network/index.html",
@@ -173,13 +173,11 @@ def create_post(request):
     else:
         return render(request, "network/create_post.html", {"created_date": created_date})
 #mporei na mhn xreiazetai check!!!!
-def load_post(request, post_id):
-    pass
-    # post_to_load = Mypost.objects.get(pk=post_id)
-    # print("loading post no",post_id)
-    # return render(request, "network/post.html", {"post_to_load": post_to_load})
-
-#mporei na mhn xreiazetai check!!!!
+# def load_post(request, post_id):
+#     post_to_load=Mypost.objects.get(id=post_id)
+#
+#
+#     return render(request, "network/post.html",{"post_to_load":post_to_load})
 
 
 def edit_post(request, post_id):
@@ -197,7 +195,8 @@ def edit_post(request, post_id):
         return HttpResponseRedirect(reverse("index"))
 
     else:
-        return render(request, "network/post.html",{"post_to_load":post_to_load})
+
+        return render(request, "network/edit_post.html",{"post_to_load":post_to_load})
 
 
 @login_required
@@ -273,22 +272,46 @@ def profile(request, user_id):
 
 
 
+
+#@csrf_exempt
+@login_required
 def like(request,post_id):
-    if request.method == "POST" and "like" in request.POST:
 
+    # Query for requested post
+    try:
+        mypost = Mypost.objects.get(id=post_id)
+    except Mypost.DoesNotExist:
+        return JsonResponse({"error": "Post not found."}, status=404)
 
+    # Return post contents
+    if request.method == "POST":
         mypost = Mypost.objects.get(id=post_id)
         mypost.likes.add(request.user)
+
         return JsonResponse({"message": "Post liked successfully."}, status=201)
+
+
     return JsonResponse({"error": "POST request required."}, status=400)
+
+
 def unlike(request,post_id):
-    if request.method == "POST" and "unlike" in request.POST:
+    # Query for requested post
+    try:
+        mypost = Mypost.objects.get(id=post_id)
+    except Mypost.DoesNotExist:
+        return JsonResponse({"error": "Post not found."}, status=404)
 
-
+    # Return post contents
+    if request.method == "POST":
         mypost = Mypost.objects.get(id=post_id)
         mypost.likes.remove(request.user)
-        return JsonResponse({"message": "Post liked successfully."}, status=201)
+        print(mypost.likes.all())
+
+        return JsonResponse({"message": "Post unliked successfully."}, status=201)
+
     return JsonResponse({"error": "POST request required."}, status=400)
+
+
 def reply(request,reply_txt,post_id):
 
     mypost = Mypost.objects.get(id=post_id)
