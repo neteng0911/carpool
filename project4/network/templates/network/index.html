@@ -24,11 +24,11 @@
                 <div class="likes">
                         {% if request.user in post.likes.all %}
 
-                        <button id="unlikebtn" class="likeunlike" data-id={{post.id}} onclick="return false" title="UNLIKE" >Unlike</button>
+                        <p id="unlikebtn" class="likeunlike" data-id="{{post.id}}" onclick="return false" title="UNLIKE" >Unlike</p>
                         {% else %}
-                        <button id="likebtn" class="likeunlike" data-id={{post.id}} onclick="return false"  title="LIKE">Like</button>
+                        <p id="likebtn" class="likeunlike" data-id="{{post.id}}" onclick="return false"  title="LIKE">Like</p>
                         {% endif %}
-                    <span><span id="likes_counter">{{ post.likes.all.count }}</span> Likes</span>
+                    <span><span id="{{post.id}}_likescounter">{{ post.likes.all.count }}</span> Likes</span>
                 </div>
 
 

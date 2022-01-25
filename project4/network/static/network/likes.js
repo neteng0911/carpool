@@ -1,19 +1,27 @@
 
-   document.querySelectorAll('.likes').forEach((button) => {
+   document.querySelectorAll('.likeunlike').forEach((button) => {
         button.onclick = () => {
-        console.log(button)
+
+
+
             var post_id = button.dataset.id;
+
+
+            console.log(post_id)
             if(button.title == "LIKE")
             {
-                document.querySelector(`#like_counter`).innerHTML++;
+                document.querySelector(`#${post_id}_likescounter`).innerHTML++;
 
                 button.style.color = "#fd8f00";
+                button.style.title="UNLIKE"
+                button.value="Unlike"
                 like(post_id);
             }
             else if (button.title == "UNLIKE")
             {   console.log(button)
-                document.querySelector(`#likes_counter`).innerHTML--;
-                alert("Hello! I am an alert box!!");
+                document.querySelector(`#${post_id}_likescounter`).innerHTML--;
+                button.style.title="LIKE"
+                button.value="Like"
                 button.style.color = "";
                 unlike(post_id);
             }
