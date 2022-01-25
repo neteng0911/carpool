@@ -87,7 +87,7 @@ left: 40%;
   border: 1px solid #90bbbb;
   color: #7cc;
   padding: 1px 2px;
-  text-align: center;
+  text-align: right;
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
@@ -95,3 +95,4 @@ left: 40%;
   cursor: pointer;
   left: 40%;
 }
+
