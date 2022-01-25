@@ -1,6 +1,6 @@
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render,redirect
 from django.urls import reverse
 from django.utils import timezone
@@ -81,7 +81,7 @@ def index(request):
 
 
 
-        return render(request, "network/post.html", {"post_to_load": post_to_load})
+        return render(request, "network/edit_post.html", {"post_to_load": post_to_load})
 
     else:
         return render(request, "network/index.html",
@@ -191,7 +191,7 @@ def load_post(request, post_id):
     pass
     # post_to_load = Mypost.objects.get(pk=post_id)
     # print("loading post no",post_id)
-    # return render(request, "network/post.html", {"post_to_load": post_to_load})
+    # return render(request, "network/edit_post.html", {"post_to_load": post_to_load})
 
 #mporei na mhn xreiazetai check!!!!
 
@@ -211,7 +211,7 @@ def edit_post(request, post_id):
         return HttpResponseRedirect(reverse("index"))
 
     else:
-        return render(request, "network/post.html",{"post_to_load":post_to_load})
+        return render(request, "network/edit_post.html",{"post_to_load":post_to_load})
 
 
 @login_required
@@ -286,20 +286,47 @@ def profile(request, user_id):
                                                         "no_of_followers":no_of_followers, "myfollowinglist":myfollowinglist,"count":page.count,"page":page})
 
 
+#@csrf_exempt
+@login_required
+def like_post(request,post_id):
 
-def like(request,post_id):
-    if request.method == "POST" and "like" in request.POST:
+    # Query for requested post
+    try:
+        mypost = Mypost.objects.get(id=post_id)
+    except Mypost.DoesNotExist:
+        return JsonResponse({"error": "Post not found."}, status=404)
 
-
+    # Return post contents
+    if request.method == "POST":
         mypost = Mypost.objects.get(id=post_id)
         mypost.likes.add(request.user)
+        print("liked post no ", mypost.id)
 
-def unlike(request,post_id):
-    if request.method == "POST" and "unlike" in request.POST:
+        return JsonResponse({"message": "Post liked successfully."}, status=201)
 
 
+    return JsonResponse({"error": "POST request required."}, status=400)
+
+#@csrf_exempt
+@login_required
+def unlike_post(request,post_id):
+
+    # Query for requested post
+    try:
+        mypost = Mypost.objects.get(id=post_id)
+    except Mypost.DoesNotExist:
+        return JsonResponse({"error": "Post not found."}, status=404)
+
+    # Return post contents
+    if request.method == "POST":
         mypost = Mypost.objects.get(id=post_id)
         mypost.likes.remove(request.user)
+        print("unliked post no ",mypost.id)
+
+        return JsonResponse({"message": "Post unliked successfully."}, status=201)
+
+
+    return JsonResponse({"error": "POST request required."}, status=400)
 
 def reply(request,reply_txt,post_id):
 

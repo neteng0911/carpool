@@ -21,16 +21,14 @@
 
         </div>
     <input class="btn btn-primary" type="submit" name="post_reply" value="Post Reply">
-
+                <div class="likes">
                         {% if request.user in post.likes.all %}
-                        <div class="likes">
 
-
-                        <button id="unlikebtn" class="likeunlike" data-id="{{post.id}}" title="UNLIKE" ></button>
+                        <button id="unlikebtn" class="likeunlike" data-id={{post.id}} onclick="return false" title="UNLIKE" >Unlike</button>
                         {% else %}
-                        <button id="likebtn" class="likeunlike" data-id="{{post.id}}" title="LIKE"></button>
+                        <button id="likebtn" class="likeunlike" data-id={{post.id}} onclick="return false"  title="LIKE">Like</button>
                         {% endif %}
-                    <span><span id="likes_{{post.id}}">{{ post.likes.all.count }}</span> Likes</span>
+                    <span><span id="likes_counter">{{ post.likes.all.count }}</span> Likes</span>
                 </div>
 
 
