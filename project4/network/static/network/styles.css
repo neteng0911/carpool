@@ -83,3 +83,14 @@ display: inline-block;
 left: 40%;
 
 }
+.likeunlike {
+  border: 5px solid #90bbbb;
+  color: #7cc;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
