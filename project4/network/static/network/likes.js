@@ -1,25 +1,36 @@
-document.addEventListener('DOMContentLoaded', function() {
 
-  // Use buttons to like unlike
+   document.querySelectorAll('.likeunlike').forEach((like_button) => {
+        button.onclick = () => {
+            post_id = this.dataset.id;
+            if(like_button.title == "like_button")
+            {
+                document.querySelector(`#likes1`).innerHTML++;
 
-  document.querySelector('#like').addEventListener('click', like_post);
-  document.querySelector('#unlike').addEventListener('click', unlike_post);
+                like_button.style.color = "#fd8f00";
+                like(post_id);
+            }
+            else
+            {
+                document.querySelector(`#likes1`).innerHTML--;
 
-});
-
-function like_post(post_id){
-
-fetch(`/post/${post_id}`,{
-  method: 'PUT',
-  body: JSON.stringify({
-      archived: true
-        mypost_like_id = request.POST.get("post_to_like_id")
-        mypost = Mypost.objects.get(id=mypost_like_id)
-        mypost.likes.add(request.user)
-        like_list=mypost.likes.all()
-})
-
-})
-
-.then( () => load_mailbox("archive"));
+                like_button.style.color = "";
+                unlike(post_id);
+            }
+        }
+    });
+ function like(post_id)
+{
+    fetch(`post/${post_id}`, {
+        method: "POST"
+    })
+    .then(response => response.json())
+    .then(data => console.log(data));
 }
+function unlike(post_id)
+{
+    fetch(`post/${post_id}`, {
+        method: "POST"
+    })
+    .then(response => response.json())
+    .then(data => console.log(data));
+    }

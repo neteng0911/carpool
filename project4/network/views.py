@@ -34,25 +34,25 @@ def index(request):
 
     replies = Reply.objects.order_by('-created_date')
 
-    if request.method == "POST" and "like" in request.POST:
-
-        mypost_like_id = request.POST.get("post_to_like_id")
-        like(request,mypost_like_id)
-
-
-        return render(request, "network/index.html", {"all_posts": all_posts, "replies": replies,
-                                                      "count":page.count,"page":page})
-
-
-
-    if request.method == "POST" and "unlike" in request.POST:
-
-        mypost_to_unlike_id = request.POST.get("post_to_unlike_id")
-        unlike(request, mypost_to_unlike_id)
-
-
-        return render(request, "network/index.html", {"all_posts": all_posts,
-                                                      "replies": replies,"count":page.count,"page":page})
+    # if request.method == "POST" and "like" in request.POST:
+    #
+    #     mypost_like_id = request.POST.get("post_to_like_id")
+    #     like(request,mypost_like_id)
+    #
+    #
+    #     return render(request, "network/index.html", {"all_posts": all_posts, "replies": replies,
+    #                                                   "count":page.count,"page":page})
+    #
+    #
+    #
+    # if request.method == "POST" and "unlike" in request.POST:
+    #
+    #     mypost_to_unlike_id = request.POST.get("post_to_unlike_id")
+    #     unlike(request, mypost_to_unlike_id)
+    #
+    #
+    #     return render(request, "network/index.html", {"all_posts": all_posts,
+    #                                                   "replies": replies,"count":page.count,"page":page})
 
     if request.method == "POST" and "post_reply" in request.POST:
         reply_txt = request.POST["reply_txt"]
@@ -81,7 +81,7 @@ def index(request):
 
 
 
-        return render(request, "network/edit/post.html", {"post_to_load": post_to_load})
+        return render(request, "network/post.html", {"post_to_load": post_to_load})
 
     else:
         return render(request, "network/index.html",
