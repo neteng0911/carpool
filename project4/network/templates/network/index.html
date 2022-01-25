@@ -9,7 +9,8 @@
 
     <p style= "color:grey; font-size:12px;"> <strong><a href="{% url 'profile' post.owner_id %}" > {{post.owner}} </strong></a> wrote on: {{post.created_date}} </p>
 
-    <p id="likes" style= "color:grey; font-size:12px;mix-blend-mode: multiply;"><img src="{% static  'network/images/like1.jpg' %}" alt="like image"> <strong>{{post.likes.all.count}}</strong>
+    <p id="likes" style= "color:grey; font-size:12px;mix-blend-mode: multiply;"><img src="{% static  'network/images/like1.jpg' %}" alt="like image">
+        <span><strong id="likescounter_{{post.id}}">{{ post.likes.all.count }}</strong></span>
 {% if user.is_authenticated %}
         <form action="{% url 'index' %}" method="post">
         {% csrf_token %}
@@ -24,11 +25,11 @@
                 <div class="likes">
                         {% if request.user in post.likes.all %}
 
-                        <p id="unlikebtn" class="likeunlike" data-id="{{post.id}}" onclick="return false" title="UNLIKE" >Unlike</p>
+                        <span id="unlikebtn" class="likeunlike" data-id="{{post.id}}" onclick="return false" title="UNLIKE" >Unlike</span>
                         {% else %}
-                        <p id="likebtn" class="likeunlike" data-id="{{post.id}}" onclick="return false"  title="LIKE">Like</p>
+                        <span id="likebtn" class="likeunlike" data-id="{{post.id}}" onclick="return false"  title="LIKE">Like</span>
                         {% endif %}
-                    <span><span id="{{post.id}}_likescounter">{{ post.likes.all.count }}</span> Likes</span>
+
                 </div>
 
 
