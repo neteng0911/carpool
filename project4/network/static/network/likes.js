@@ -12,7 +12,8 @@
             {
 
 
-                element.style.color = "#fd8f00";
+                element.style.color = "#B22222";
+                element.style.border = "1px solid #B22222";
                 element.title="UNLIKE"
                 element.innerHTML="Unlike"
                 document.querySelector(`#likescounter_${post_id}`).innerHTML++;
@@ -23,7 +24,8 @@
 
                 element.title="LIKE"
                 element.innerHTML="Like"
-                element.style.color = "";
+                element.style.color = "#228B22";
+                element.style.border = "1px solid  #228B22";
                 document.querySelector(`#likescounter_${post_id}`).innerHTML--;
                 unlike(post_id);
             }

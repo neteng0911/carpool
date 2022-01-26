@@ -84,15 +84,46 @@ left: 40%;
 
 }
 .likeunlike {
-  border: 1px solid #90bbbb;
-  color: #7cc;
+  border: 1px solid #228B22;
+  color: #228B22;
   padding: 1px 2px;
   text-align: right;
   text-decoration: none;
-  display: inline-block;
+  display: inline;
   font-size: 16px;
   margin: 1px 2px;
   cursor: pointer;
   left: 40%;
+
+  border-radius: 5px;
 }
 
+#section {
+  display: block;
+  width: 1000px;
+  height: 100px;
+  background: red;
+}
+
+.likes {
+  display: inline;
+  width: 10%;
+  height: 10%;
+  margin: 5%;
+  padding: 5%;
+
+
+}
+#unlikebtn {
+
+  border: 1px solid #B22222;
+  color: #B22222;
+
+}
+
+#likebtn {
+
+  border: 1px solid #228B22;
+  color: #228B22;
+
+}

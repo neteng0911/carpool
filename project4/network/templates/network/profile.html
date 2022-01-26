@@ -88,8 +88,10 @@ Total posts:<strong>{{user_posts_count}}</strong>
 <p>
     {% endifequal %}
 
-{% for user_post in  page.object_list %}
 
+
+{% for user_post in  page.object_list %}
+<section>
 <ul>
 <div class="post">{{user_post.description}}
 
@@ -126,7 +128,7 @@ Total posts:<strong>{{user_posts_count}}</strong>
 
 </div>
 </ul>
-
+</section>
 
 {% for rep in user_post.replies.all %}
  <ul>
