@@ -94,7 +94,9 @@ Total posts:<strong>{{user_posts_count}}</strong>
 <div class="post">{{user_post.description}}
 
     <p style= "color:grey; font-size:12px;"> <strong><a href="{% url 'profile' targ_user.id %}" > {{targ_user.username}} </strong></a> wrote on: {{user_post.created_date}} </p>
-<p id="likes" style= "color:grey; font-size:12px;mix-blend-mode: multiply;"><img src="{% static  'network/images/like1.jpg' %}" alt="like image"> <strong>{{user_post.likes.all.count}}</strong>
+
+    <p id="likes" style= "color:grey; font-size:12px;mix-blend-mode: multiply;"><img src="{% static  'network/images/like1.jpg' %}" alt="like image">
+        <span><strong id="likescounter_{{post.id}}">{{ post.likes.all.count }}</strong></span>
 <form action="{% url 'profile' targ_user.id %}" method="post">
         {% csrf_token %}
 
@@ -105,30 +107,25 @@ Total posts:<strong>{{user_posts_count}}</strong>
 
         </div>
     <input class="btn btn-primary" type="submit" name="post_reply" value="Post Reply">
-{% if  not user in user_post.likes.all %}
- <form action="{% url 'profile' targ_user.id %}" method="post">
-     {% csrf_token %}
-     <input class="btn btn-primary" name="like" type="submit" value="like" >
-     <input type="hidden"  name="post_to_like_id" value={{user_post.pk}}>
+                <div class="likes">
+                        {% if request.user in post.likes.all %}
 
-{% else %}
-  <form action="{% url 'profile' targ_user.id %}" method="post">
-      {% csrf_token %}
-     <input class="btn btn-primary" name="unlike" type="submit" value="unlike" >
-     <input type="hidden"  name="post_to_unlike_id" value={{user_post.pk}}>
+                        <span id="unlikebtn" class="likeunlike" data-id="{{post.id}}" onclick="return false" title="UNLIKE" >Unlike</span>
+                        {% else %}
+                        <span id="likebtn" class="likeunlike" data-id="{{post.id}}" onclick="return false"  title="LIKE">Like</span>
+                        {% endif %}
 
+                </div>
 
-
- </form>
-{% endif%}
+    {% ifequal user user_post.owner %}
      <form action="{% url 'edit_post' user_post.pk %}" method="post">
      {% csrf_token %}
      <input class="btn btn-primary" name="load_post" type="submit" value="Edit post" >
      <input type="hidden"  name="post_to_load_id" value={{user_post.pk}}>
+    {%endifequal %}
+
 </div>
 </ul>
-
-
 
 
 {% for rep in user_post.replies.all %}
@@ -136,7 +133,7 @@ Total posts:<strong>{{user_posts_count}}</strong>
 
 
 
-        <div class="replies" ><p style= "color:blue; font-size:10px;"><a href="{% url "profile" rep.owner_id %}">{{rep.owner}}</a>
+        <div class="replies" ><p style= "color:blue; font-size:10px;"><a href="{% url 'profile' rep.owner_id %}">{{rep.owner}}</a>
             replied on {{rep.created_date}}</p> <strong>{{rep}} </strong> </div>
 </ul>
 {% endfor %}
@@ -158,4 +155,9 @@ Total posts:<strong>{{user_posts_count}}</strong>
             {% endif %}
 
         </div>
+
+{% block script %}
+    <script src="{% static 'network/likes.js' %}"></script>
+
+{% endblock script %}
 {% endblock %}

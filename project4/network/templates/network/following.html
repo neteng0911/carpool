@@ -9,7 +9,8 @@
 
     <p style= "color:grey; font-size:12px;"> <strong><a href="{% url 'profile' post.owner_id %}" > {{post.owner}} </strong></a> wrote on: {{post.created_date}} </p>
 
-    <p id="likes" style= "color:grey; font-size:12px;mix-blend-mode: multiply;"><img src="{% static  'network/images/like1.jpg' %}" alt="like image"> <strong>{{post.likes.all.count}}</strong>
+   <p id="likes" style= "color:grey; font-size:12px;mix-blend-mode: multiply;"><img src="{% static  'network/images/like1.jpg' %}" alt="like image">
+        <span><strong id="likescounter_{{post.id}}">{{ post.likes.all.count }}</strong></span>
 {% if user.is_authenticated %}
         <form action="{% url 'following' %}" method="post">
         {% csrf_token %}
@@ -35,20 +36,15 @@
 
    {% endifequal %}
 
-{% if  not user in post.likes.all %}
- <form action="{% url 'following' %}" method="post">
-     {% csrf_token %}
-     <input class="btn btn-primary" name="like" type="submit" value="like" >
-     <input type="hidden"  name="post_to_like_id" value={{post.pk}}>
+                <div class="likes">
+                        {% if request.user in post.likes.all %}
 
-{% else %}
-  <form action="{% url 'following' %}" method="post">
-      {% csrf_token %}
-     <input class="btn btn-primary" name="unlike" type="submit" value="unlike" >
-     <input type="hidden"  name="post_to_unlike_id" value={{post.pk}}>
+                        <span id="unlikebtn" class="likeunlike" data-id="{{post.id}}" onclick="return false" title="UNLIKE" >Unlike</span>
+                        {% else %}
+                        <span id="likebtn" class="likeunlike" data-id="{{post.id}}" onclick="return false"  title="LIKE">Like</span>
+                        {% endif %}
 
-
-{% endif%}
+                </div>
 {% endif %}
             <p style= "color:grey; font-size:12px;"></p>
 
@@ -89,4 +85,11 @@
             {% endif %}
 
         </div>
+
+
+
+{% block script %}
+    <script src="{% static 'network/likes.js' %}"></script>
+
+{% endblock script %}
 {% endblock %}
