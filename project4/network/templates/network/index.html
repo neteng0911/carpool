@@ -8,9 +8,14 @@
 <div class="post">{{post.description}}
 
     <p style= "color:grey; font-size:12px;"> <strong><a href="{% url 'profile' post.owner_id %}" > {{post.owner}} </strong></a> wrote on: {{post.created_date}} </p>
-
+        {% if post.likes.all.count != 0 %}
     <p id="likes" style= "color:grey; font-size:12px;mix-blend-mode: multiply;"><img src="{% static  'network/images/like1.jpg' %}" alt="like image">
         <span><strong id="likescounter_{{post.id}}">{{ post.likes.all.count }}</strong></span>
+
+        {% else %}
+    <p id="likes" style= "color:grey; font-size:12px;mix-blend-mode: multiply;"><img src="{% static  'network/images/like1.jpg' %}" alt="like image">
+        <span><strong id="likescounter_{{post.id}}">0</strong></span>
+        {% endif %}
 {% if user.is_authenticated %}
         <form action="{% url 'index' %}" method="post">
         {% csrf_token %}

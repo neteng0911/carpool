@@ -97,8 +97,14 @@ Total posts:<strong>{{user_posts_count}}</strong>
 
     <p style= "color:grey; font-size:12px;"> <strong><a href="{% url 'profile' targ_user.id %}" > {{targ_user.username}} </strong></a> wrote on: {{user_post.created_date}} </p>
 
+        {% if user_post.likes.all.count != 0 %}
     <p id="likes" style= "color:grey; font-size:12px;mix-blend-mode: multiply;"><img src="{% static  'network/images/like1.jpg' %}" alt="like image">
-        <span><strong id="likescounter_{{post.id}}">{{ post.likes.all.count }}</strong></span>
+        <span><strong id="likescounter_{{post.id}}">{{ user_post.likes.all.count }}</strong></span>
+
+        {% else %}
+    <p id="likes" style= "color:grey; font-size:12px;mix-blend-mode: multiply;"><img src="{% static  'network/images/like1.jpg' %}" alt="like image">
+        <span><strong id="likescounter_{{post.id}}">0</strong></span>
+        {% endif %}
 <form action="{% url 'profile' targ_user.id %}" method="post">
         {% csrf_token %}
 

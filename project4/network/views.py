@@ -222,7 +222,7 @@ def profile(request, user_id):
 
     current_user = request.user
     targ_user = User.objects.get(id=user_id)
-    user_posts=Mypost.objects.filter(owner_id=user_id)
+    user_posts=Mypost.objects.filter(owner_id=user_id).order_by('-created_date')
     user_posts_count=user_posts.count()
     page = paging(request, user_posts)
     myfollowinglist = current_user.followers.all()
