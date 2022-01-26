@@ -35,39 +35,13 @@ def index(request):
 
     replies = Reply.objects.order_by('-created_date')
 
-    # if request.method == "POST" and "like" in request.POST:
-    #
-    #     mypost_like_id = request.POST.get("post_to_like_id")
-    #     like(request,mypost_like_id)
-    #
-    #
-    #     return render(request, "network/index.html", {"all_posts": all_posts, "replies": replies,
-    #                                                   "count":page.count,"page":page})
-    #
-    #
-    #
-    # if request.method == "POST" and "unlike" in request.POST:
-    #
-    #     mypost_to_unlike_id = request.POST.get("post_to_unlike_id")
-    #     unlike(request, mypost_to_unlike_id)
-    #
-    #
-    #     return render(request, "network/index.html", {"all_posts": all_posts,
-    #                                                   "replies": replies,"count":page.count,"page":page})
+
 
     if request.method == "POST" and "post_reply" in request.POST:
         reply_txt = request.POST["reply_txt"]
         mypost_reply = request.POST.get("post_id")
         reply(request,reply_txt,mypost_reply)
-        # mypost = Mypost.objects.get(id=mypost_reply)
-        # like_list = mypost.likes.all()
-        # my_post_replies = Reply.objects.filter(mypost_reply=mypost_reply)
-        # print(my_post_replies)
-        # reply = Reply.objects.create_reply(reply_txt=reply_txt, created_date=created_date, owner=owner,
-        #                                    mypost_reply=mypost)
-        # reply.save()
-        # print(reply)
-        # reply.lists.add(mypost)
+
         return render(request, "network/index.html", {"all_posts": all_posts, "replies": replies,"count":page.count,"page":page})
 
 
@@ -155,15 +129,7 @@ def following(request):
         reply(request, reply_txt, mypost_reply)
 
 
-    if request.method == "POST" and "like" in request.POST:
 
-        mypost_like_id = request.POST.get("post_to_like_id")
-        like(request,mypost_like_id)
-
-    if request.method == "POST" and "unlike" in request.POST:
-
-        mypost_to_unlike_id = request.POST.get("post_to_unlike_id")
-        unlike(request, mypost_to_unlike_id)
     return render(request, "network/following.html",
                   {"all_posts": all_posts,"count":page.count,"page":page})
 @login_required
@@ -187,14 +153,7 @@ def create_post(request):
 
     else:
         return render(request, "network/create_post.html", {"created_date": created_date})
-#mporei na mhn xreiazetai check!!!!
-def load_post(request, post_id):
-    pass
-    # post_to_load = Mypost.objects.get(pk=post_id)
-    # print("loading post no",post_id)
-    # return render(request, "network/edit_post.html", {"post_to_load": post_to_load})
 
-#mporei na mhn xreiazetai check!!!!
 
 
 def edit_post(request, post_id):
@@ -237,16 +196,16 @@ def profile(request, user_id):
         mypost_reply = request.POST.get("post_id")
         reply(request, reply_txt, mypost_reply)
         return render(request, "network/profile.html", {"targ_user": targ_user,"count":page.count,"page":page})
-    if request.method == "POST" and "like" in request.POST:
 
-        mypost_like_id = request.POST.get("post_to_like_id")
-        like(request,mypost_like_id)
+    if request.method == "POST" and "load_post" in request.POST:
 
-    if request.method == "POST" and "unlike" in request.POST:
+        post_to_load_id = request.POST.get("post_to_load_id")
+        edit_post(request,post_to_load_id)
+        post_to_load = Mypost.objects.get(pk=post_to_load_id)
 
-        mypost_to_unlike_id = request.POST.get("post_to_unlike_id")
-        unlike(request, mypost_to_unlike_id)
 
+
+        return render(request, "network/edit_post.html", {"post_to_load": post_to_load})
     if targ_user in followinglist:
         print(request.user,"you are following user", targ_user)
 
