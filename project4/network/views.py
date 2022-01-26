@@ -200,20 +200,22 @@ def load_post(request, post_id):
 def edit_post(request, post_id):
 
     post_to_load = Mypost.objects.get(pk=post_id)
-    if request.method =="POST" and "edit_post" in request.POST:
+    if request.user == post_to_load.owner:
+        if request.method =="POST" and "edit_post" in request.POST:
 
-        edit_txt = request.POST["edit_txt"]
-        post_to_load.description=edit_txt
-        post_to_load.save()
+            edit_txt = request.POST["edit_txt"]
+            post_to_load.description=edit_txt
+            post_to_load.save()
 
-        return HttpResponseRedirect(reverse("index"))
-    if request.method == "POST" and "del_post" in request.POST:
-        post_to_load.delete()
-        return HttpResponseRedirect(reverse("index"))
+            return HttpResponseRedirect(reverse("index"))
+        if request.method == "POST" and "del_post" in request.POST:
+            post_to_load.delete()
+            return HttpResponseRedirect(reverse("index"))
 
+        else:
+            return render(request, "network/edit_post.html",{"post_to_load":post_to_load})
     else:
-        return render(request, "network/edit_post.html",{"post_to_load":post_to_load})
-
+        return render(request, "network/errors/invalid.html")
 
 @login_required
 def profile(request, user_id):
