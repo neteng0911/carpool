@@ -20,14 +20,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '0(s-k-ev!pm3fm9zn^kl=xz9p%!i#g_s#ww*bb$n@vel2evpi('
+SECRET_KEY = '0ojqdbyo10t&ep51dq&fmbl@$(b9c2%v$30lxnt&v6fn)jmahz'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
 
-AUTH_USER_MODEL = "Capstone.User"
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -70,7 +70,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'project5.wsgi.application'
 
-
+AUTH_USER_MODEL = "Capstone.User"
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 

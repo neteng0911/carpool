@@ -1,19 +1,9 @@
+from django.shortcuts import render
 
-from django.contrib.auth import authenticate, login, logout
-from django.db import IntegrityError
-from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
-from django.shortcuts import render,redirect
-from django.urls import reverse
-from django.utils import timezone
-from django.contrib.auth.decorators import login_required
-from django.views.decorators.csrf import csrf_exempt
-from django.core.paginator import Paginator
+# Create your views here.
 
-from django.core.exceptions import ObjectDoesNotExist
-
-from .models import User
 def index(request):
-    return render(request,"Capstone/index")
+    return render(request, 'Capstone/index.html')
 
 
 def login_view(request):
@@ -29,7 +19,7 @@ def login_view(request):
             login(request, user)
             return HttpResponseRedirect(reverse("index"))
         else:
-            return render(request, "Capstone/login.html", {
+            return render(request, "auctions/login.html", {
                 "message": "Invalid username and/or password."
             })
     else:
@@ -50,7 +40,7 @@ def register(request):
         password = request.POST["password"]
         confirmation = request.POST["confirmation"]
         if password != confirmation:
-            return render(request, "Capstone/register.html", {
+            return render(request, "auctions/register.html", {
                 "message": "Passwords must match."
             })
 
@@ -59,10 +49,11 @@ def register(request):
             user = User.objects.create_user(username, email, password)
             user.save()
         except IntegrityError:
-            return render(request, "Capstone/register.html", {
+            return render(request, "auctions/register.html", {
                 "message": "Username already taken."
             })
         login(request, user)
         return HttpResponseRedirect(reverse("index"))
     else:
         return render(request, "Capstone/register.html")
+
