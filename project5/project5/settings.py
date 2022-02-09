@@ -27,10 +27,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
+AUTH_USER_MODEL = "Capstone.User"
 # Application definition
 
 INSTALLED_APPS = [
+    'Capstone',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
