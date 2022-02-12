@@ -3,42 +3,47 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>{% block title %}Social Network{% endblock %}</title>
+        <title>{% block title %}CarPooling{% endblock %}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-        <link href="{% static 'network/styles.css' %}" rel="stylesheet">
+        <link href="{% static 'Capstone/styles.css' %}" rel="stylesheet">
     </head>
+
+<style type="text/css">
+   body { background: black !important; } /* Adding !important forces the browser to overwrite the default style applied by Bootstrap */
+</style>
+
     <body>
 
-        <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
-            <a class="navbar-brand" href="{% url 'index' %}">Network</a>
-          
+        <nav class="navbar navbar-expand-lg navbar-light bg-dark sticky-top">
+            <a class="navbar-brand text-warning" href="{% url 'index' %}">CarPooling</a>
+
             <div>
-              <ul class="navbar-nav mr-auto">
+              <ul class="navbar-nav mr-auto ">
                 {% if user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'profile' user.id %}" ><strong>{{ user.username }}</strong></a>
-                    </li>
+                    <li class="nav-item"></li>
+
+
                 {% endif %}
-                <li class="nav-item">
-                  <a class="nav-link" href="{% url 'index' %}">All Posts</a>
+                <li class="nav-item ">
+                  <a class="nav-link text-warning" href="{% url 'index' %}">All Posts</a>
                 </li>
                 {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="/following">Following</a>
+                        <a class="nav-link text-warning" href="/following">Following</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
+                        <a class="nav-link text-warning" href="{% url 'logout' %}">Log Out</a>
                     </li>
                   <li class="nav-item">
-                        <a class="nav-link" href="{% url 'create_post' %}">Create Post</a>
+                        <a class="nav-link text-warning" href="#">Create Post</a>
                     </li>
                 {% else %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'login' %}">Log In</a>
+                        <a class="nav-link text-warning" href="{% url 'login' %}">Log In</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'register' %}">Register</a>
+                        <a class="nav-link text-warning" href="{% url 'register' %}">Register</a>
                     </li>
                 {% endif %}
               </ul>

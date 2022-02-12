@@ -1,7 +1,14 @@
+from django.contrib.auth import authenticate, login, logout
+from django.db import IntegrityError
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
-
-# Create your views here.
-
+from django.urls import reverse
+from django.utils import timezone
+from django.contrib.auth.decorators import login_required
+from django.db.models import Max,Count
+from django.core.exceptions import ObjectDoesNotExist
+from .forms import NameForm
+from .models import User
 def index(request):
     return render(request, 'Capstone/index.html')
 
@@ -19,7 +26,7 @@ def login_view(request):
             login(request, user)
             return HttpResponseRedirect(reverse("index"))
         else:
-            return render(request, "auctions/login.html", {
+            return render(request, "Capstone/login.html", {
                 "message": "Invalid username and/or password."
             })
     else:
@@ -40,7 +47,7 @@ def register(request):
         password = request.POST["password"]
         confirmation = request.POST["confirmation"]
         if password != confirmation:
-            return render(request, "auctions/register.html", {
+            return render(request, "Capstone/register.html", {
                 "message": "Passwords must match."
             })
 
@@ -56,4 +63,24 @@ def register(request):
         return HttpResponseRedirect(reverse("index"))
     else:
         return render(request, "Capstone/register.html")
+
+def passenger(request):
+    return render(request, "Capstone/passenger.html")
+def driver(request):
+    # if this is a POST request we need to process the form data
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = NameForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+            # ...
+            # redirect to a new URL:
+            return HttpResponseRedirect('driver')
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = NameForm()
+
+    return render(request, 'Capstone/driver.html', {'form': form})
 
