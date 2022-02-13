@@ -7,7 +7,7 @@ from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.db.models import Max,Count
 from django.core.exceptions import ObjectDoesNotExist
-from .forms import NameForm
+from .forms import RouteForm
 from .models import User
 def index(request):
     return render(request, 'Capstone/index.html')
@@ -80,7 +80,9 @@ def driver(request):
 
     # if a GET (or any other method) we'll create a blank form
     else:
-        form = NameForm()
+        form = RouteForm()
 
     return render(request, 'Capstone/driver.html', {'form': form})
 
+def bing(request):
+    return render(request, "Capstone/bing.html")

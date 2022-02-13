@@ -1,26 +1,27 @@
 {% extends "Capstone/layout.html" %}
 {% load static %}
 {% block body %}
+<div class="container mt-3" >
+
+  <div class="d-flex p-1 bg-secondary text-white ">
+    <div class="bg-info col-sm-3 mx-5 pr-5 shadow-lg ">
 
 
-<div class="container">
-<div class="row">
-  <div class="col-md-6">
-     <div class="col-md-12 bg-secondary">
-        <form action="{% url 'driver' %}" method="post">
+     <form  action="{% url 'driver' %}" method="post">
     {% csrf_token %}
     {{ form }}
     <input type="submit" value="Submit">
-</form>
-     </div>
-  </div>
-  <div class="col-md-6">
-     <div class="col-md-12 bg-secondary">
-        Some Second Content..
-     </div>
+    </form>
+    </div>
+
+
+    <div class="p-2 bg-warning mx-5">Flex item 2</div>
+    <div class="p-2 bg-primary">Flex item 3</div>
   </div>
 </div>
-<div class="mt-5 p-4 bg-dark text-white text-center">
+
+
+<div class="mt-4 p-2 bg-dark text-white text-center">
   <p>Footer</p>
 </div>
 

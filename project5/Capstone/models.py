@@ -18,3 +18,14 @@ class User(AbstractUser):
     def __str__(self):
         return f"{self.username}"
         #return f"{self.username}, {self.email}"
+
+
+class Route(models.Model):
+    origin = models.CharField(max_length=64)
+    destination = models.CharField(max_length=64)
+    no_passengers = models.IntegerField()
+    date_orig=models.DateTimeField
+    date_dep=models.DateTimeField
+
+    def __str__(self):
+        return f"{self.id}: {self.origin} to {self.destination}"

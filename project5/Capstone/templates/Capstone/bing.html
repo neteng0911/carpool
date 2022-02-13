@@ -1,0 +1,59 @@
+{% extends "Capstone/layout.html" %}
+{% load static %}
+{% block body %}
+
+
+<div class="container">
+<div class="row">
+  <div class="col-md-6">
+     <div class="col-md-12 bg-secondary">
+        <form action="{% url 'driver' %}" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Submit">
+</form>
+     </div>
+  </div>
+  <div class="col-md-6">
+     <div class="col-md-12 bg-secondary">
+        <!-- <script>
+        let data = fetch('http://dev.virtualearth.net/REST/v1/Locations/1%20Microsoft%20Way%20Redmond%20WA%2098052?o=json&key=Ak1lcrrpdMdej2d1w_shmItLOBhpEmeQpVz6g6FsRwa7CkamEDl4sgkw00XlEPbF')
+         .then(response => console.log("res: ", response))
+         .catch(err => console.log("err: ", err));
+         console.log(data)
+         </script>-->
+     </div>
+  </div>
+</div>
+
+
+
+   <div class="col-md-6">
+     <div class="col-md-12 bg-secondary">
+         <script>
+         document.addEventListener('DOMContentLoaded',function repl(){
+         let key='Ak1lcrrpdMdej2d1w_shmItLOBhpEmeQpVz6g6FsRwa7CkamEDl4sgkw00XlEPbF'
+         let mp='https://dev.virtualearth.net/REST/V1/Imagery/Map/Road/Ymhttou%20Athens?mapLayer=TrafficFlow&o=json&key='+key
+        let data = fetch(mp)
+         .then(response => console.log("res: ", response))
+         .catch(err => console.log("err: ", err));
+         console.log(data)
+        document.getElementById("map").src = 'https://dev.virtualearth.net/REST/V1/Imagery/Map/Road/Ymhttou%20Athens?mapLayer=TrafficFlow&o=json&key=Ak1lcrrpdMdej2d1w_shmItLOBhpEmeQpVz6g6FsRwa7CkamEDl4sgkw00XlEPbF'
+        })
+
+         </script>
+         <div> <img id="map" src='#'>
+     </div>
+     </div>
+  </div>
+
+<div class="mt-5 p-4 bg-dark text-white text-center">
+  <p>Footer</p>
+</div>
+
+{% block script %}
+    <script src="{% static 'Capstone/likes.js' %}"></script>
+
+
+{% endblock script %}
+{% endblock %}
