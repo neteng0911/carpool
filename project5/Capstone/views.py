@@ -63,18 +63,27 @@ def register(request):
         return HttpResponseRedirect(reverse("index"))
     else:
         return render(request, "Capstone/register.html")
-
+@login_required
 def passenger(request):
     return render(request, "Capstone/passenger.html")
+
+@login_required
 def driver(request):
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
-        form = NameForm(request.POST)
+        form = RouteForm(request.POST)
         # check whether it's valid:
         if form.is_valid():
             # process the data in form.cleaned_data as required
-            # ...
+            origin=request.POST["origin"]
+            destination = request.POST["destination"]
+            date_orig = request.POST["date_orig"]
+            time_orig = request.POST["time_orig"]
+            time_dep = request.POST["time_dep"]
+            num_pass = request.POST["num_pass"]
+            cost= request.POST["cost"]
+            create_route(origin,destination,date_orig,time_orig,time_dep,num_pass,cost)
             # redirect to a new URL:
             return HttpResponseRedirect('driver')
 
@@ -86,3 +95,26 @@ def driver(request):
 
 def bing(request):
     return render(request, "Capstone/bing.html")
+
+
+@login_required
+def create_route(request,origin,destination,date_orig,time_orig,time_dep,num_pass,cost):
+
+    created_date = timezone.now()
+
+
+
+    description = request.POST["description"]
+
+    driver = request.user
+
+
+
+    myroute = Route.objects.create_post(description=description,created_date=created_date, owner=owner)
+
+
+
+        return HttpResponseRedirect(reverse("index"))
+
+    else:
+        return render(reques
