@@ -9,9 +9,11 @@ from django.utils.timezone import now
 from django.utils import timezone
 
 class User(AbstractUser):
+    name = models.CharField(max_length=64)
+    surname = models.CharField(max_length=64)
     email=models.EmailField(max_length=254)
     date_joined = models.DateTimeField(default=timezone.now)
-    routes = models.ManyToManyField(Route, blank=True, related_name="passengers")
+
 
 
 
@@ -23,8 +25,8 @@ class User(AbstractUser):
 
 
 class RouteManager(models.Manager):
-    def create_route(self, origin,destination,no_passengers,date_orig,date_dep,driver):
-        route=self.create(origin=origin,created_date=created_date, owner=owner)
+    def create_route(self, origin,destination,no_pass,date_orig,time_orig,time_dep,cost,thedriver,thepassenger):
+        route=self.create(origin=origin,destination=destination,date_orig=date_orig,time_orig=time_orig,time_dep=time_dep,no_pass=no_pass,cost=cost,thedriver=thedriver,thepassenger=thepassenger)
         return route
 
 
@@ -35,12 +37,13 @@ class RouteManager(models.Manager):
 class Route(models.Model):
     origin = models.CharField(max_length=64)
     destination = models.CharField(max_length=64)
-    no_passengers = models.IntegerField()
     date_orig=models.DateTimeField
-    date_dep=models.DateTimeField
+    time_orig=models.TimeField
+    time_dep=models.TimeField
+    no_pass = models.IntegerField()
     cost=models.FloatField()
-    driver=models.ForeignKey(User, on_delete=models.CASCADE, null="TRUE", blank="TRUE")
-    passenger=models.ForeignKey(User, null="TRUE", blank="TRUE")
+    thedriver=models.ForeignKey(User, on_delete=models.CASCADE, null="FALSE", blank="FALSE")
+    thepassenger=models.ForeignKey(User, on_delete=models.CASCADE, null="TRUE", blank="TRUE", related_name="passengers")
 
     def __str__(self):
         return f"{self.id}: {self.origin} to {self.destination} with {self.no_passengers} at {self.cost} per passenger"

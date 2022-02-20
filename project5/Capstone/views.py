@@ -5,10 +5,11 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
+
 from django.db.models import Max,Count
 from django.core.exceptions import ObjectDoesNotExist
 from .forms import RouteForm
-from .models import User
+from .models import User, Route
 def index(request):
     return render(request, 'Capstone/index.html')
 
@@ -40,6 +41,8 @@ def logout_view(request):
 
 def register(request):
     if request.method == "POST":
+        name = request.POST["name"]
+        surname = request.POST["surname"]
         username = request.POST["username"]
         email = request.POST["email"]
 
@@ -69,6 +72,7 @@ def passenger(request):
 
 @login_required
 def driver(request):
+    form = RouteForm()
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
@@ -81,40 +85,35 @@ def driver(request):
             date_orig = request.POST["date_orig"]
             time_orig = request.POST["time_orig"]
             time_dep = request.POST["time_dep"]
-            num_pass = request.POST["num_pass"]
+            no_pass = request.POST["no_pass"]
             cost= request.POST["cost"]
-            create_route(origin,destination,date_orig,time_orig,time_dep,num_pass,cost)
+
+
+            create_route(origin,destination,date_orig,time_orig,time_dep,cost,no_pass)
+
+
             # redirect to a new URL:
-            return HttpResponseRedirect('driver')
+            return HttpResponseRedirect(reverse("driver"))
 
     # if a GET (or any other method) we'll create a blank form
-    else:
-        form = RouteForm()
+        else:
+            form = RouteForm()
 
-    return render(request, 'Capstone/driver.html', {'form': form})
-
+        return render(request, 'Capstone/driver.html', {'form': form})
+    return render(request, 'Capstone/driver.html',{'form': form})
 def bing(request):
     return render(request, "Capstone/bing.html")
 
 
 @login_required
-def create_route(request,origin,destination,date_orig,time_orig,time_dep,num_pass,cost):
-
+def create_route(request,origin,destination,no_pass,date_orig,time_orig,time_dep,cost):
+    thedriver=request.user
     created_date = timezone.now()
 
 
 
-    description = request.POST["description"]
-
-    driver = request.user
 
 
+    myroute = Route.objects.create_route(origin=origin,destination=destination, no_pass=no_pass,date_orig=date_orig,time_orig=time_orig,time_dep=time_dep,cost=cost,thedriver=thedriver,thepassenger=thepassenger)
 
-    myroute = Route.objects.create_post(description=description,created_date=created_date, owner=owner)
-
-
-
-        return HttpResponseRedirect(reverse("index"))
-
-    else:
-        return render(reques
+    return HttpResponseRedirect(reverse("index"))
