@@ -3,6 +3,7 @@ from django.db import models
 # Create your models here.
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from datetime import date
 
 from django.utils.timezone import now
 
@@ -25,8 +26,8 @@ class User(AbstractUser):
 
 
 class RouteManager(models.Manager):
-    def create_route(self, origin,destination,no_pass,date_orig,time_orig,time_dep,cost,thedriver,thepassenger):
-        route=self.create(origin=origin,destination=destination,date_orig=date_orig,time_orig=time_orig,time_dep=time_dep,no_pass=no_pass,cost=cost,thedriver=thedriver,thepassenger=thepassenger)
+    def create_route(self, origin,destination,date_orig,time_orig,time_dep,cost,no_pass,thedriver):
+        route=self.create(origin=origin,destination=destination,date_orig=date_orig,time_orig=time_orig,time_dep=time_dep,cost=cost,no_pass=no_pass,thedriver=thedriver)
         return route
 
 
@@ -37,13 +38,14 @@ class RouteManager(models.Manager):
 class Route(models.Model):
     origin = models.CharField(max_length=64)
     destination = models.CharField(max_length=64)
-    date_orig=models.DateTimeField
-    time_orig=models.TimeField
-    time_dep=models.TimeField
+    date_orig=models.DateTimeField("date orig", default=date.today())
+    time_orig=models.TimeField("time orig",default=timezone.now())
+    time_dep=models.TimeField("time dep",default=timezone.now())
     no_pass = models.IntegerField()
     cost=models.FloatField()
     thedriver=models.ForeignKey(User, on_delete=models.CASCADE, null="FALSE", blank="FALSE")
-    thepassenger=models.ForeignKey(User, on_delete=models.CASCADE, null="TRUE", blank="TRUE", related_name="passengers")
+
+    objects = RouteManager()
 
     def __str__(self):
         return f"{self.id}: {self.origin} to {self.destination} with {self.no_passengers} at {self.cost} per passenger"

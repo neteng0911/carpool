@@ -8,5 +8,6 @@ class RouteForm(forms.Form):
     date_orig=forms.DateTimeField(widget=forms.DateTimeInput(attrs={'type': 'date'}))
     time_orig=forms.TimeField(widget=forms.TimeInput(attrs={'type': 'time'}))
     time_dep=forms.TimeField(widget=forms.TimeInput(attrs={'type': 'time'}))
-    no_pass=forms.IntegerField()
+
     cost=forms.FloatField()
+    no_pass = forms.IntegerField()

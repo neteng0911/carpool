@@ -73,6 +73,7 @@ def passenger(request):
 @login_required
 def driver(request):
     form = RouteForm()
+
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
@@ -85,11 +86,12 @@ def driver(request):
             date_orig = request.POST["date_orig"]
             time_orig = request.POST["time_orig"]
             time_dep = request.POST["time_dep"]
-            no_pass = request.POST["no_pass"]
             cost= request.POST["cost"]
+            no_pass = request.POST["no_pass"]
 
 
-            create_route(origin,destination,date_orig,time_orig,time_dep,cost,no_pass)
+
+            create_route(request,origin,destination,date_orig,time_orig,time_dep,cost,no_pass)
 
 
             # redirect to a new URL:
@@ -105,8 +107,8 @@ def bing(request):
     return render(request, "Capstone/bing.html")
 
 
-@login_required
-def create_route(request,origin,destination,no_pass,date_orig,time_orig,time_dep,cost):
+
+def create_route(request,origin,destination,date_orig,time_orig,time_dep,cost,no_pass):
     thedriver=request.user
     created_date = timezone.now()
 
@@ -114,6 +116,6 @@ def create_route(request,origin,destination,no_pass,date_orig,time_orig,time_dep
 
 
 
-    myroute = Route.objects.create_route(origin=origin,destination=destination, no_pass=no_pass,date_orig=date_orig,time_orig=time_orig,time_dep=time_dep,cost=cost,thedriver=thedriver,thepassenger=thepassenger)
+    myroute = Route.objects.create_route(origin=origin,destination=destination,date_orig=date_orig,time_orig=time_orig,time_dep=time_dep,cost=cost, no_pass=no_pass,thedriver=thedriver)
 
     return HttpResponseRedirect(reverse("index"))
