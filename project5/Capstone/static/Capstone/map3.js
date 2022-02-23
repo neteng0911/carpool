@@ -1,10 +1,8 @@
- document.addEventListener('DOMContentLoaded', function() {
-    document.querySelector('form').onsubmit=function() {
 
+   document.querySelectorAll('#subbtn').forEach((element) => {
+        element.onclick = () => {
 
-
-
-
+        alert("Hello! I am an alert box!!");
          let start='Ymhttou%2072%20Athens'
          let end='Skoufa%202%20Athens'
          'https://dev.virtualearth.net/REST/v1/Imagery/Map/imagerySet/centerPoint/zoomLevel/Routes/\
@@ -25,5 +23,5 @@
          .catch(err => console.log("err: ", err));
          console.log(data)
         document.getElementById("map").src = mp;
-        alert("Hello! I am an alert box!!");
         }})
+
