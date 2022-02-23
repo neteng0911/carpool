@@ -1,9 +1,8 @@
-
-   document.addEventListener('DOMContentLoaded', function() {
+ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('form').onsubmit=function() {
         element.onclick = () => {
 
-alert("Hello! I am an alert box!!");
+            alert("Hello! I am an alert box!!");
          let start='Ymhttou%2072%20Athens'
          let end='Skoufa%202%20Athens'
          'https://dev.virtualearth.net/REST/v1/Imagery/Map/imagerySet/centerPoint/zoomLevel/Routes/\
@@ -25,4 +24,3 @@ alert("Hello! I am an alert box!!");
          console.log(data)
         document.getElementById("map").src = mp;
         }}})
-
