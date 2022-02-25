@@ -12,12 +12,22 @@
   </div>
   <div class="col-md-6">
      <div class="col-md-12 bg-secondary">
-        <!-- <script>
-        let data = fetch('http://dev.virtualearth.net/REST/v1/Locations/1%20Microsoft%20Way%20Redmond%20WA%2098052?o=json&key=Ak1lcrrpdMdej2d1w_shmItLOBhpEmeQpVz6g6FsRwa7CkamEDl4sgkw00XlEPbF')
-         .then(response => console.log("res: ", response))
-         .catch(err => console.log("err: ", err));
-         console.log(data)
-         </script>-->
+
+<form id="adresses">
+<div>
+<label for="input start">Departure Address</label>
+  <input type="text" class="form-control" id="dep">
+
+</div>
+<div>
+  <label for="input finish">Destination Address</label>
+  <input type="text" class="form-control" id="dest">
+
+<p>
+
+    <input id ="sear" class="btn-info" type="button" value="Search"></p>
+</p>
+
      </div>
   </div>
 </div>
