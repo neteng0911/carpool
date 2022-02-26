@@ -4,11 +4,16 @@
 
 
          const form=document.getElementById("adresses");
-         const start=form.elements["dep"]
-         const end=form.elements["dest"]
+         const start=form.elements["dep"];
+         const end=form.elements["dest"];
          if (start.value.trim() === "" || end.value.trim() === "" ){
-         alert("please fill in the blanks")
-         }
+         alert("please fill in the blanks");
+
+
+
+         }  else    {
+
+
          <!--'Ymhttou%2072%20Athens'-->
          <!--'Skoufa%202%20Athens'-->
 
@@ -44,4 +49,7 @@
 
         document.getElementById("map").src = mp;
 
-        }})
+        }
+        }
+        }
+        )
