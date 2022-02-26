@@ -1,23 +1,27 @@
- document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function() {
 
-     document.querySelectorAll('#sear').forEach((element) => {
         document.querySelector('#sub_route').style.display = 'none';
         document.querySelector('#map').style.display = 'none';
         document.querySelector('#map_pl').style.display = 'none';
+        document.querySelectorAll('#sear').forEach((element) => {
         element.onclick = () => search_route();
 
-
-})});
-
-
+})
+})
 function search_route(){
          const form=document.getElementById("adresses");
          const start=form.elements["dep"];
          const end=form.elements["dest"];
          if (start.value.trim() === "" || end.value.trim() === "" ){
          alert("please fill in the blanks");
+
+
+
          }  else    {
 
+
+         <!--'Ymhttou%2072%20Athens'-->
+         <!--'Skoufa%202%20Athens'-->
 
          'https://dev.virtualearth.net/REST/v1/Imagery/Map/imagerySet/centerPoint/zoomLevel/Routes/\
          travelMode?waypoint.1={routeWaypoint1}&waypoint.2={routeWaypoint2}\
@@ -32,31 +36,39 @@ function search_route(){
 
          let test=`https://dev.virtualearth.net/REST/V1/Imagery/Map/Road/${place}?mapLayer=TrafficFlow&o=json&key=`
          let mp=route+key
-         let data = fetch(mp)
 
-         .then(response=> response.json())
-         .then(response=>{
-         console.log(data)
-           if (response.status!==200) {
-           console.log("res: ", response)
-         document.querySelector('#map_pl').style.display = 'none';
-         document.querySelector('#map').style.display = 'none';
-         document.querySelector('#sub_route').style.display = 'none';
-
+        let data = fetch(mp)
+          .then(response=> response.json())
+           .then(response=>{
+           if (response.status!==200){
          alert("address not found");
-
-
-         }else{        document.querySelector('#map').style.display = 'block';
-        document.querySelector('#map_pl').style.display = 'block';
+         }
+         else{
         document.querySelector('#sub_route').style.display = 'block';
+        document.querySelector('#map').style.display = 'block';
+        document.querySelector('#map_pl').style.display = 'block';
+        document.getElementById("map").src = mp;
+         alert("test");
 
-        document.getElementById("map").src = mp;}
 
-         })
+         }})
+         .then(response => console.log("res: ", response))
 
 
 
-}};
+
+
+         .catch(err => console.log("err: ", err));
+
+         console.log(data)
+
+
+        }
+        }
+
+
+
+
 function subm_route(){
 
 
