@@ -31,7 +31,7 @@
     </div>
 
 
-    <div class="bg-info col-sm-3 mx-5 pr-5 shadow-lg">
+    <div class="bg-info col-sm-3 mx-5 pr-5 shadow-lg" id="sub_route">
       <form  action="{% url 'driver' %}" method="post">
     {% csrf_token %}
     {{ form }}
@@ -40,8 +40,8 @@
     </form>
 
     </div>
-    <div class="p-2 bg-primary">Flex item 3</div>
-      <img id="map" src='#'
+    <div class="p-2 bg-primary" id="map_pl">Flex item 3</div>
+      <img id="map" src='#'>
   </div>
 </div>
 

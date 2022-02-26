@@ -2,30 +2,21 @@
 
      document.querySelectorAll('#sear').forEach((element) => {
 
-        element.onclick = () => {
+        element.onclick = () => search_route();
+        document.querySelector('#sub_route').style.display = 'none';
+        document.querySelector('#map').style.display = 'none';
+        document.querySelector('#map_pl').style.display = 'none';
+
+})});
 
 
+function search_route(){
          const form=document.getElementById("adresses");
          const start=form.elements["dep"];
          const end=form.elements["dest"];
          if (start.value.trim() === "" || end.value.trim() === "" ){
          alert("please fill in the blanks");
-
-
-
          }  else    {
-
-
-
-
-
-
-
-
-
-
-
-
 
 
          'https://dev.virtualearth.net/REST/v1/Imagery/Map/imagerySet/centerPoint/zoomLevel/Routes/\
@@ -41,26 +32,38 @@
 
          let test=`https://dev.virtualearth.net/REST/V1/Imagery/Map/Road/${place}?mapLayer=TrafficFlow&o=json&key=`
          let mp=route+key
-        let data = fetch(mp)
+                let data = fetch(mp)
           .then(response=> response.json())
            .then(response=>{
            if (response.status!==200){
-         alert("address not found")
+         alert("address not found");
+         document.querySelector('#map_pl').style.display = 'none';
+         document.querySelector('#map').style.display = 'none';
          }})
          .then(response => console.log("res: ", response))
+
+
+
+
+
          .catch(err => console.log("err: ", err));
 
          console.log(data)
 
+        document.querySelector('#map').style.display = 'block';
+        document.querySelector('#map_pl').style.display = 'block';
+        document.querySelector('#sub_route').style.display = 'block';
+
         document.getElementById("map").src = mp;
-        }}})
+
+}};
+function subm_route(){
 
 
        document.querySelector('form').onsubmit=function() {
 
 
-        });
 
-
-        })
+}
+}
 
