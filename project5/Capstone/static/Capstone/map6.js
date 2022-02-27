@@ -38,18 +38,22 @@ function search_route(){
          let mp=route+key
 
         let data = fetch(mp)
-          .then(response=> response.json())
+
            .then(response=>{
-           if (response.status!==200){
-         alert("address not found");
-         }
-         else{
+           if (response.status==200){
+
         document.querySelector('#sub_route').style.display = 'block';
         document.querySelector('#map').style.display = 'block';
         document.querySelector('#map_pl').style.display = 'block';
         document.getElementById("map").src = mp;
-         alert("test");
+        document.getElementById("id_departure").value = start.value;
+        document.getElementById("id_destination").value = end.value;
 
+
+         }
+         else{
+
+alert("address not found");
 
          }})
          .then(response => console.log("res: ", response))
