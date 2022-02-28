@@ -1,3 +1,8 @@
+
+
+
+
+
 document.addEventListener('DOMContentLoaded', function() {
 
         document.querySelector('#sub_route').style.display = 'none';
@@ -5,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelector('#map_pl').style.display = 'none';
         document.querySelectorAll('#sear').forEach((element) => {
         element.onclick = () => search_route();
+        const d= new Date();
 
 })
 })
@@ -48,6 +54,8 @@ function search_route(){
         document.getElementById("map").src = mp;
         document.getElementById("id_departure").value = start.value;
         document.getElementById("id_destination").value = end.value;
+
+
 
 
          }

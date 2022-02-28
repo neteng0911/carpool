@@ -1,16 +1,49 @@
 
 from django import forms
-from datetime import datetime
-def the_date():
-    return datetime(year=datetime.today.year,month=datetime.today.month,day=datetime.today.day+1)
+from django.utils import timezone
+from django.core.exceptions import ValidationError
+from datetime import datetime,date
+
+# def check_date(value):
+#     if value<timezone.now().date():
+#         print(timezone.now().date())
+#
+#
+#         raise forms.ValidationError("The date must not be in the past")
+#     return value
+                     
+
+
 class RouteForm(forms.Form):
     departure = forms.CharField(
         widget=forms.TextInput(attrs={'placeholder': 'Departure'}))
     destination = forms.CharField(
         widget=forms.TextInput(attrs={'placeholder': 'Destination'}))
-    date_orig=forms.DateTimeField(initial=the_date,widget=forms.DateTimeInput(attrs={'type': 'date'}))
+    date_orig=forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
+    #date_orig=forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}), validators=[check_date])
     time_orig=forms.TimeField(widget=forms.TimeInput(attrs={'type': 'time'}))
     time_dep=forms.TimeField(widget=forms.TimeInput(attrs={'type': 'time'}))
 
-    cost=forms.FloatField()
-    no_pass = forms.IntegerField()
+    cost=forms.FloatField(min_value=0.0,error_messages={'min_value': u'Cost cannot be less than 0.0'})
+    no_pass = forms.IntegerField(min_value=1)
+
+
+
+    def clean(self):
+        cleaned_data = super().clean()
+        date_inp=cleaned_data.get('date_orig')
+        start = cleaned_data.get('time_orig')
+        end = cleaned_data.get('time_dep')
+        print(date_inp)
+        print(datetime.now().time())
+        print(start)
+        print(end)
+        print(date.today())
+        if date_inp < datetime.now().time():
+            raise ValidationError('start time should later than now.')
+
+        if start<datetime.now().time():
+            raise ValidationError('start time should later than now.')
+        if start > end:
+            raise ValidationError('end time should later start time.')
+        return cleaned_data

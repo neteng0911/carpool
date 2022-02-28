@@ -81,17 +81,20 @@ def driver(request):
         # check whether it's valid:
         if form.is_valid():
             # process the data in form.cleaned_data as required
-            origin=request.POST["origin"]
+            origin=request.POST["departure"]
             destination = request.POST["destination"]
             date_orig = request.POST["date_orig"]
             time_orig = request.POST["time_orig"]
             time_dep = request.POST["time_dep"]
             cost= request.POST["cost"]
             no_pass = request.POST["no_pass"]
+            print(form)
+
 
 
 
             create_route(request,origin,destination,date_orig,time_orig,time_dep,cost,no_pass)
+
 
 
             # redirect to a new URL:
