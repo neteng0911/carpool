@@ -5,9 +5,9 @@
 
 document.addEventListener('DOMContentLoaded', function() {
 
-        document.querySelector('#sub_route').style.display = 'none';
-        document.querySelector('#map').style.display = 'none';
-        document.querySelector('#map_pl').style.display = 'none';
+        document.querySelector('#sub_route').style.display = 'block';
+        document.querySelector('#map').style.display = 'block';
+        document.querySelector('#map_pl').style.display = 'block';
         document.querySelectorAll('#sear').forEach((element) => {
         element.onclick = () => search_route();
         const d= new Date();

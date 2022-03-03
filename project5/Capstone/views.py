@@ -72,7 +72,8 @@ def passenger(request):
 
 @login_required
 def driver(request):
-    form = RouteForm()
+
+    form = RouteForm
 
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
@@ -98,14 +99,18 @@ def driver(request):
 
 
             # redirect to a new URL:
-            return HttpResponseRedirect(reverse("driver"))
+            return render(request, 'Capstone/driver.html', {'form': form})
+            ##return HttpResponseRedirect(reverse("driver"))
 
     # if a GET (or any other method) we'll create a blank form
-        else:
-            form = RouteForm()
+    else:
+        form = RouteForm
 
-        return render(request, 'Capstone/driver.html', {'form': form})
+
+
     return render(request, 'Capstone/driver.html',{'form': form})
+
+
 def bing(request):
     return render(request, "Capstone/bing.html")
 

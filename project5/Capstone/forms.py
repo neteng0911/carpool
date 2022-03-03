@@ -4,6 +4,7 @@ from django.utils import timezone
 from django.core.exceptions import ValidationError
 from datetime import datetime,date
 
+
 # def check_date(value):
 #     if value<timezone.now().date():
 #         print(timezone.now().date())
@@ -35,15 +36,15 @@ class RouteForm(forms.Form):
         start = cleaned_data.get('time_orig')
         end = cleaned_data.get('time_dep')
         print(date_inp)
-        print(datetime.now().time())
+        print(date.today())
         print(start)
         print(end)
-        print(date.today())
-        if date_inp < datetime.now().time():
-            raise ValidationError('start time should later than now.')
+
+        if date_inp <date.today():
+            raise forms.ValidationError({'date_orig':'start date should be later than today.'})
 
         if start<datetime.now().time():
-            raise ValidationError('start time should later than now.')
+            raise forms.ValidationError('start time should later than now.')
         if start > end:
-            raise ValidationError('end time should later start time.')
+            raise forms.ValidationError('end time should later start time.')
         return cleaned_data
