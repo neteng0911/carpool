@@ -2,8 +2,11 @@
 from django import forms
 from django.utils import timezone
 from django.core.exceptions import ValidationError
-from datetime import datetime,date
+from datetime import date, datetime
 
+
+
+now_t=datetime.now().time().strftime("%H:%M")
 
 # def check_date(value):
 #     if value<timezone.now().date():
@@ -20,10 +23,10 @@ class RouteForm(forms.Form):
         widget=forms.TextInput(attrs={'placeholder': 'Departure'}))
     destination = forms.CharField(
         widget=forms.TextInput(attrs={'placeholder': 'Destination'}))
-    date_orig=forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
+    date_orig=forms.DateField(widget=forms.DateInput(attrs={'type': 'date','min':date.today()}))
     #date_orig=forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}), validators=[check_date])
-    time_orig=forms.TimeField(widget=forms.TimeInput(attrs={'type': 'time'}))
-    time_dep=forms.TimeField(widget=forms.TimeInput(attrs={'type': 'time'}))
+    time_orig=forms.TimeField(widget=forms.TimeInput(attrs={'type': 'time','min':now_t}))
+    time_dep=forms.TimeField(widget=forms.TimeInput(attrs={'type': 'time','min':time_orig}))
 
     cost=forms.FloatField(min_value=0.0,error_messages={'min_value': u'Cost cannot be less than 0.0'})
     no_pass = forms.IntegerField(min_value=1)
@@ -44,7 +47,7 @@ class RouteForm(forms.Form):
             raise forms.ValidationError({'date_orig':'start date should be later than today.'})
 
         if start<datetime.now().time():
-            raise forms.ValidationError('start time should later than now.')
+            raise forms.ValidationError('start time should be later than now.')
         if start > end:
-            raise forms.ValidationError('end time should later start time.')
+            raise forms.ValidationError({'time_dep':'end time should be later start time.'})
         return cleaned_data

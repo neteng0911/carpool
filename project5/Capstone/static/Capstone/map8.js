@@ -1,6 +1,8 @@
 
 
-
+        let mp=localStorage.getItem('mp');
+        document.getElementById("map").src = mp;
+        const today= new Date();
 
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -10,7 +12,14 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelector('#map_pl').style.display = 'block';
         document.querySelectorAll('#sear').forEach((element) => {
         element.onclick = () => search_route();
-        const d= new Date();
+        const form=document.getElementById("addresses");
+        const date=form.elements["date_orig"];
+        const time_orig=form.elements["time_orig"];
+        const time_dep=form.elements["time_dep"];
+        date.addEventListener('input', validateform);
+
+
+
 
 })
 })
@@ -19,7 +28,7 @@ function search_route(){
          const start=form.elements["dep"];
          const end=form.elements["dest"];
          if (start.value.trim() === "" || end.value.trim() === "" ){
-         alert("please fill in the blanks");
+
 
 
 
@@ -41,19 +50,24 @@ function search_route(){
          let place='Ymhttoy%72%20Athens'
 
          let test=`https://dev.virtualearth.net/REST/V1/Imagery/Map/Road/${place}?mapLayer=TrafficFlow&o=json&key=`
-         let mp=route+key
+
+
+         localStorage.setItem("mp",route+key );
+
 
         let data = fetch(mp)
 
            .then(response=>{
            if (response.status==200){
 
+        document.querySelector('#addresses').style.display = 'none';
         document.querySelector('#sub_route').style.display = 'block';
         document.querySelector('#map').style.display = 'block';
         document.querySelector('#map_pl').style.display = 'block';
         document.getElementById("map").src = mp;
         document.getElementById("id_departure").value = start.value;
         document.getElementById("id_destination").value = end.value;
+
 
 
 
@@ -82,12 +96,46 @@ alert("address not found");
 
 
 function subm_route(){
+        let mp=localStorage.getItem('mp');
+        let data = fetch(mp)
+
+           .then(response=>{
+       
+       document.getElementById("map").src = mp;
 
 
-       document.querySelector('form').onsubmit=function() {
+        document.querySelector('#addresses').style.display = 'block';
+        document.querySelector('#map').style.display = 'block';
+        document.querySelector('#sub_route').style.display = 'block';
+
+})
 
 
+
+        }
+
+
+
+
+
+function validateform(e){
+
+        e.preventDefault();
+
+        const form=document.getElementById("addresses");
+        const date=form.elements["date_orig"]
+        if (date<today){
+        alert('please select a later day')
+        date.focus();
+
+
+
+        }
+        else{
+            form.submit();
+                }
 
 }
-}
 
+
+//document.querySelector('form').onsubmit=function()

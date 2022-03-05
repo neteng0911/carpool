@@ -100,7 +100,9 @@ def driver(request):
 
             # redirect to a new URL:
             return render(request, 'Capstone/driver.html', {'form': form})
-            ##return HttpResponseRedirect(reverse("driver"))
+        else:
+            print(form.errors)
+            return render(request, 'Capstone/driver.html', {'form': form})
 
     # if a GET (or any other method) we'll create a blank form
     else:
