@@ -30,7 +30,7 @@
                 </li>
                 {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link text-warning" href="/following">Following</a>
+                        <a class="nav-link text-warning" href="{% url 'profile' user.id %}">Profile</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-warning" href="{% url 'logout' %}">Log Out</a>

@@ -3,7 +3,7 @@
 background-color: lightgrey;
 font-size: 16px;
 min-height: 100px;
-width: 22%;
+width: 25%;
 padding: 2px;
 margin-bottom:20px;
 position: relative;
@@ -83,7 +83,7 @@ display: inline-block;
 left: 40%;
 
 }
-.likeunlike {
+.joinleave {
   border: 1px solid #228B22;
   color: #228B22;
   padding: 1px 2px;
@@ -114,14 +114,14 @@ left: 40%;
 
 
 }
-#unlikebtn {
+#leavebtn {
 
   border: 1px solid #B22222;
   color: #B22222;
 
 }
 
-#likebtn {
+#joinbtn {
 
   border: 1px solid #228B22;
   color: #228B22;
@@ -131,3 +131,13 @@ input:invalid {
   box-shadow: 0 0 5px 1px red;
 }
 
+.readonly {
+  background: grey;
+
+}
+
+.succ {
+
+    font-size: 20px;
+    color: green;
+}

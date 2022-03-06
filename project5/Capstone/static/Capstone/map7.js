@@ -1,9 +1,13 @@
 
 
-        let mp=localStorage.getItem('mp');
+        let mp=sessionStorage.getItem('mp');
         document.getElementById("map").src = mp;
 
+        if (!mp){
+        document.querySelector('#map').style.display = 'none';
+        document.querySelector('#map_pl').style.display = 'none';
 
+        }
 document.addEventListener('DOMContentLoaded', function() {
 
         document.querySelector('#sub_route').style.display = 'block';
@@ -47,8 +51,8 @@ function search_route(){
 
          let test=`https://dev.virtualearth.net/REST/V1/Imagery/Map/Road/${place}?mapLayer=TrafficFlow&o=json&key=`
 
-
-         localStorage.setItem("mp",route+key );
+         let mp=route+key
+         sessionStorage.setItem("mp",route+key );
 
 
         let data = fetch(mp)
@@ -56,13 +60,15 @@ function search_route(){
            .then(response=>{
            if (response.status==200){
 
-        document.querySelector('#addresses').style.display = 'none';
+        document.querySelector('#addresses').style.display = 'block';
         document.querySelector('#sub_route').style.display = 'block';
         document.querySelector('#map').style.display = 'block';
         document.querySelector('#map_pl').style.display = 'block';
         document.getElementById("map").src = mp;
         document.getElementById("id_departure").value = start.value;
         document.getElementById("id_destination").value = end.value;
+        document.getElementById("id_destination").value = end.value;
+        document.getElementById("id_map_pic").value=mp
 
 
 
@@ -92,7 +98,7 @@ alert("address not found");
 
 
 function subm_route(){
-        let mp=localStorage.getItem('mp');
+        let mp=sessionStorage.getItem('mp');
         let data = fetch(mp)
 
            .then(response=>{
@@ -103,6 +109,7 @@ function subm_route(){
         document.querySelector('#addresses').style.display = 'block';
         document.querySelector('#map').style.display = 'block';
         document.querySelector('#sub_route').style.display = 'block';
+
 
 })
 

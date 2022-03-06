@@ -7,51 +7,14 @@
     <h2>You are viewing user:{{targ_user.username}}</h2>
 <div class= "prof"><strong> user's email address : {{targ_user.email}}</strong></p>
 <strong> {{targ_user.username}} is member since {{ targ_user.date_joined }}</strong>
-    <p>Total posts:<strong>{{user_posts_count}}</strong></p>
-
-    {% if targ_user in myfollowinglist %}
-    <p><strong> You are following {{targ_user.username}}</strong></p>
-    {% endif %}
-
-         {{targ_user.username}} is following <strong>{{no_of_following}} </strong> users:
-
-        {% for fol in followinglist %}
-
-            <strong> <a href="{% url 'profile' fol.id %}" > {{fol.username}} </a></strong>
-
-        {% endfor %}
-    <p></p>
-          {{targ_user.username}} has  <strong>{{no_of_followers}} </strong> followers:
-
-        {% for fol in followerslist %}
-
-      <strong> <a href="{% url 'profile' fol.id %}" > {{fol.username}} </a></strong>
-
-        {% endfor %}
-
-</div>
+    <p>Total Trips:<strong>{{user_routes_count}}</strong></p>
 
 
 
-
-{% if not targ_user in myfollowinglist %}
-
-    <form action="{% url 'profile' targ_user.id %}" method="post">
-        {% csrf_token %}
-   <input class="btn btn-primary" type="submit"   name="follow" value="Follow">
-    </form>
-{% else %}
-
-    <form action="{% url 'profile' targ_user.id %}" method="post">
-        {% csrf_token %}
-   <input class="btn btn-primary" type="submit"   name="unfollow" value="Unfollow">
-    </form>
-{% endif %}
 {% endifnotequal %}
 
-</p>
 {% ifequal request.user targ_user %}
- <h2>You are currenty logged in as :{{user.username}}</h2>
+ <h2 class="text-warning">You are currenty logged in as :{{user.username}}</h2>
 <div class= "prof"><strong> {{user.email}}</strong>
     <p><strong> You are member since {{user.date_joined}}</strong></p>
 
@@ -59,25 +22,7 @@
 
 
 
-Total posts:<strong>{{user_posts_count}}</strong>
-<p></p>
-       You are following <strong>{{no_of_following}} </strong> users:
-
-        {% for fol in followinglist %}
-
-            <strong> <a href="{% url 'profile' fol.id %}" > {{fol.username}} </a></strong>
-
-        {% endfor %}
-    <p></p>
-          You have  <strong>{{no_of_followers}} </strong> followers:
-
-        {% for fol in followerslist %}
-
-      <strong> <a href="{% url 'profile' fol.id %}" > {{fol.username}} </a></strong>
-
-        {% endfor %}
-
-</div>
+Total Trips:<strong>{{user_routes_count}}</strong>
 
 
 
@@ -87,23 +32,29 @@ Total posts:<strong>{{user_posts_count}}</strong>
 
 <p>
     {% endifequal %}
+</div>
 
 
-
-{% for user_post in  page.object_list %}
+{% for user_route in  page.object_list %}
 <section>
 <ul>
-<div class="post">{{user_post.description}}
 
-    <p style= "color:grey; font-size:12px;"> <strong><a href="{% url 'profile' targ_user.id %}" > {{targ_user.username}} </strong></a> wrote on: {{user_post.created_date}} </p>
+<div class="post">Trip No {{user_route.pk}}
+    <p> <h6>From</h6> {{user_route.origin}} <h6>To</h6> {{user_route.destination}} </p>
+    <p> <h6>on</h6> {{user_route.date_orig.date}}</p>
+    <p> <h6>Leaving at</h6>  {{user_route.time_orig}} <h6>and returning at</h6> {{user_route.time_dep}}</p>
+     <p>   <img src="{{ user_route.map_pic }}" alt="map"></p>
 
-        {% if user_post.likes.all.count != 0 %}
-    <p id="likes" style= "color:grey; font-size:12px;mix-blend-mode: multiply;"><img src="{% static  'network/images/like1.jpg' %}" alt="like image">
-        <span><strong id="likescounter_{{post.id}}">{{ user_post.likes.all.count }}</strong></span>
+
+    <p style= "color:grey; font-size:12px;"> <strong><a href="{% url 'profile' targ_user.id %}" > {{targ_user.username}} </strong></a> wrote on: {{user_route.created_date}} </p>
+
+        {% if user_route.passengers.all.count != 0 %}
+    <p id="likes" style= "color:grey; font-size:12px;mix-blend-mode: multiply;"><img src="{% static  'Capstone/images/seat.jpg' %}" alt="seat image">
+        <span><strong id="thepassengercounter_{{user_route.id}}">{{ user_route.thepassenger.all.count }}</strong></span>/{{ user_route.no_pass }}
 
         {% else %}
-    <p id="likes" style= "color:grey; font-size:12px;mix-blend-mode: multiply;"><img src="{% static  'network/images/like1.jpg' %}" alt="like image">
-        <span><strong id="likescounter_{{post.id}}">0</strong></span>
+    <p id="likes" style= "color:grey; font-size:12px;mix-blend-mode: multiply;"><img src="{% static  'Capstone/images/seat.jpg' %}" alt="seat image">
+        <span><strong id="thepassengercounter_{{user_route.id}}">0</strong></span>
         {% endif %}
 <form action="{% url 'profile' targ_user.id %}" method="post">
         {% csrf_token %}
@@ -111,25 +62,27 @@ Total posts:<strong>{{user_posts_count}}</strong>
 
         <div class="form-group">
             <input class="form-control" autofocus style="margin-top:30px" type="text" name="reply_txt" placeholder="reply">
-            <input type="hidden"  name="post_id" value={{user_post.pk}}>
+            <input type="hidden"  name="route_id" value={{user_route.pk}}>
 
         </div>
-    <input class="btn btn-primary" type="submit" name="post_reply" value="Post Reply">
+    <input class="btn btn-primary" type="submit" name="route_reply" value="Reply">
+        {% ifnotequal request.user user_route.thedriver %}
                 <div class="likes">
-                        {% if request.user in post.likes.all %}
+                        {% if request.user in user_route.thepassenger.all %}
 
-                        <span id="unlikebtn" class="likeunlike" data-id="{{post.id}}" onclick="return false" title="UNLIKE" >Unlike</span>
+                        <span id="leavebtn" class="joinleave" data-id="{{user_route.id}}" onclick="return false" title="Leave" >Leave</span>
                         {% else %}
-                        <span id="likebtn" class="likeunlike" data-id="{{post.id}}" onclick="return false"  title="LIKE">Like</span>
+                        <span id="joinbtn" class="joinleave" data-id="{{user_route.id}}" onclick="return false"  title="Join">Join</span>
                         {% endif %}
 
                 </div>
+        {% endifnotequal %}
 
-    {% ifequal user user_post.owner %}
-     <form action="{% url 'edit_post' user_post.pk %}" method="post">
+    {% ifequal user user_route.thedriver %}
+     <form action="{% url 'edit_route' user_route.pk %}" method="post">
      {% csrf_token %}
-     <input class="btn btn-primary" name="load_post" type="submit" value="Edit post" >
-     <input type="hidden"  name="post_to_load_id" value={{user_post.pk}}>
+     <input class="btn btn-primary" name="load_route" type="submit" value="Edit Trip" >
+     <input type="hidden"  name="route_to_load_id" value={{user_route.pk}}>
     {%endifequal %}
 
 
@@ -161,17 +114,17 @@ Total posts:<strong>{{user_posts_count}}</strong>
         <div class="page-links">
 
             {% if page.has_previous %}
-            <a href="{% url 'following' %}?page={{page.previous_page_number }}">Previous</a>
+            <a href="{% url 'profile' targ_user.id %}?page={{page.previous_page_number }}">Previous</a>
 
             {% endif %}
             {% if page.has_next %}
-            <a href="{% url 'following' %}?page={{page.next_page_number }}">Next</a>
+            <a href="{% url 'profile' targ_user.id %}?page={{page.next_page_number }}">Next</a>
             {% endif %}
 
         </div>
 
 {% block script %}
-    <script src="{% static 'network/likes.js' %}"></script>
+    <script src="{% static 'Capstone/join_leave.js' %}"></script>
 
 {% endblock script %}
 {% endblock %}

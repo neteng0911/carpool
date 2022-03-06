@@ -1,0 +1,37 @@
+{% extends "Capstone/layout.html" %}
+{% load static %}
+{% block body %}
+
+
+{% ifnotequal request.user route.thedriver %}
+
+<div class="post">{{route_to_load.origin}},{{route_to_load.destination}}
+
+
+   <p style= "color:grey; font-size:12px;"> <strong><a href="{% url 'profile' route_to_load.thedriver_id %}" >
+       <img src="{   'route_to_load.map_pic' }" alt="map_pic">
+
+      {{ route_to_load.thedriver}} </strong></a> wrote on: {{ route_to_load.created_date}} </p>
+    <p id="likes" style= "color:grey; font-size:12px;mix-blend-mode: multiply;"><img src="{% static  'network/images/like1.jpg' %}" alt="like image"> <strong>{{route.thepassenger.all.count}}</strong>
+
+<form action="{% url 'edit_route' route_to_load.pk %}" method="post">
+        {% csrf_token %}
+
+
+        <div class="form-group">
+            <input class="form-control" autofocus style="margin-top:30px" type="text" name="edit_txt"  value="{{route_to_load.origin}}">
+        </div>
+    <input class="btn btn-primary" name="edit_route" type="submit" value="Save">
+</form>
+
+
+<form action="{% url 'edit_route' route_to_load.pk %}" method="post">
+    {% csrf_token %}
+     <input class="btn btn-primary" name="del_post" type="submit" value="Delete post" >
+     <input type="hidden"  name="route_to_load_id" value={{route.pk}}>
+ </form>
+{% else %}
+
+    <p> <strong>You can't edit what's not yours</strong></p>
+{% endifnotequal %}
+{% endblock %}
