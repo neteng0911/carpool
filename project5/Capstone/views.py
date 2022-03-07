@@ -12,7 +12,7 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.db.models import Max,Count
 from django.core.exceptions import ObjectDoesNotExist
 from .forms import RouteForm
-from .models import User, Route, Reply
+from .models import User, Route, Comment
 def index(request):
     return render(request, 'Capstone/index.html')
 
@@ -72,14 +72,29 @@ def register(request):
 def passenger(request):
     current_user = request.user
 
-    all_routes=Route.objects.order_by('-created_date')
+    all_routes=Route.objects.all().order_by('-created_date')
     page = paging(request, all_routes)
-    #user_routes_count = routes.count()
+    routes_count = all_routes.count()
 
 
 
 
-    return render(request, "Capstone/passenger.html", {"count": page.count, "page": page})
+
+    comments = Comment.objects.order_by('-created_date')
+
+
+
+    if request.method == "POST" and "route_reply" in request.POST:
+        comm_txt = request.POST["comm_txt"]
+        route_id = request.POST.get("route_id")
+
+        comment(request,comm_txt,route_id)
+
+        return render(request, "Capstone/passenger.html", {"all_routes": all_routes,
+                                                           "comments": comments,"count":page.count,"page":page})
+
+    return render(request, "Capstone/passenger.html", {"all_routes": all_routes,"count": page.count, "page": page,
+                                                       'routes_count':routes_count})
 
 @login_required
 def driver(request):
@@ -102,7 +117,7 @@ def driver(request):
             cost= request.POST["cost"]
             no_pass = request.POST["no_pass"]
             map_pic=request.POST['map_pic']
-            print(form)
+            #print(form)
             form=RouteForm
             msg="Trip created successfully!"
 
@@ -114,7 +129,7 @@ def driver(request):
             # redirect to a new URL:
             return render(request, 'Capstone/driver.html', {'msg': msg,'form':form})
         else:
-            print(form.errors)
+            #print(form.errors)
             return render(request, 'Capstone/driver.html', {'form': form})
 
     # if a GET (or any other method) we'll create a blank form
@@ -283,3 +298,19 @@ def leave_route(request,route_id):
 
 
     return JsonResponse({"error": "POST request required."}, status=400)
+
+
+def comment(request,comm_txt,route_id):
+
+    route_comm = Route.objects.get(id=route_id)
+    created_date = timezone.now()
+    owner = request.user
+
+    #route_comm = Comment.objects.filter(route_comm=route.id)
+    #print(route_comm)
+    comment = Comment.objects.create_comment(comm_txt=comm_txt, created_date=created_date, owner=owner,
+                                       route_comm=route_comm)
+    comment.save()
+    #print(comment)
+    comment.lists.add(route_comm)
+    return HttpResponseRedirect(reverse("index"))

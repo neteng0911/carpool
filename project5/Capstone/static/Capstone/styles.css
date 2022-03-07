@@ -11,17 +11,18 @@ position: relative;
 left: 30%;
 
 }
-.replies
+.comms
 {border: 3px solid #adad85;
 background-color: #ccccb3;
 font-size: 14px;
 min-height: 10px;
 width: 20%;
 padding: 5px;
-margin-bottom:20px;
+margin-bottom:2px;
 position: relative;
 overflow: visible;
-left: 30%;
+left: 24%;
+display:inline-block;
 
 }
 
@@ -38,6 +39,7 @@ overflow: visible;
 left: 0%;
 
 }
+
 .btn-primary,
 .btn-primary:hover,
 .btn-primary:active,
@@ -54,6 +56,7 @@ min-height: 5px;
 min-width: 2%;
 padding: 1px;
 position: relative;
+display: inline-block;
 
 }
 .page
@@ -113,20 +116,23 @@ left: 40%;
   padding: 5%;
 
 
+
 }
 #leavebtn {
 
   border: 1px solid #B22222;
   color: #B22222;
-
+  display: inline-block;
 }
 
 #joinbtn {
 
   border: 1px solid #228B22;
   color: #228B22;
+  display: inline-block;
 
 }
+
 input:invalid {
   box-shadow: 0 0 5px 1px red;
 }
@@ -140,4 +146,7 @@ input:invalid {
 
     font-size: 20px;
     color: green;
+}
+.form-group{
+display: inline-block;
 }

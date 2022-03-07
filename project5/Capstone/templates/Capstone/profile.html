@@ -4,7 +4,7 @@
 
 {% ifnotequal request.user targ_user %}
 
-    <h2>You are viewing user:{{targ_user.username}}</h2>
+    <h2 class="text-warning">You are viewing user:{{targ_user.username}}</h2>
 <div class= "prof"><strong> user's email address : {{targ_user.email}}</strong></p>
 <strong> {{targ_user.username}} is member since {{ targ_user.date_joined }}</strong>
     <p>Total Trips:<strong>{{user_routes_count}}</strong></p>

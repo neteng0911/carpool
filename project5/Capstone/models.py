@@ -49,28 +49,37 @@ class Route(models.Model):
     thepassenger = models.ManyToManyField(User, blank="TRUE", related_name="thepassengers")
 
     objects = RouteManager()
-
+    marker=object()
     def __str__(self):
         return f"{self.id}: {self.origin} to {self.destination} with {self.no_passengers} at {self.cost} per passenger"
 
+    def exp_cost(self,expected_cost=marker):
+        if self.thepassenger==0:
+            expected_cost=int(self.cost)
+        else:
+            expected_cost=self.cost/int(self.thepassenger)
+        return expected_cost
 
 
-class ReplyManager(models.Manager):
 
-    def create_reply(self,reply_txt,mypost_reply,created_date,owner,):
-        reply=self.create(reply_txt=reply_txt, mypost_reply=mypost_reply,created_date=created_date, owner=owner)
-        return reply
 
-class Reply(models.Model):
-    reply_txt=models.CharField(max_length=150, blank="True")
-    myroute_reply=models.ForeignKey(Route, on_delete=models.CASCADE, null="TRUE", blank="TRUE")
+
+class CommentManager(models.Manager):
+
+    def create_comment(self,comm_txt,route_comm,created_date,owner):
+        comment=self.create(comm_txt=comm_txt, route_comm=route_comm,created_date=created_date, owner=owner)
+        return comment
+
+class Comment(models.Model):
+    comm_txt=models.CharField(max_length=150, blank="True")
+    route_comm=models.ForeignKey(Route, on_delete=models.CASCADE, null="TRUE", blank="TRUE")
     created_date=models.DateTimeField(default=now, editable=False)
-    lists = models.ManyToManyField(Route, blank="TRUE", related_name="replies")  # post_reply
+    lists = models.ManyToManyField(Route, blank="TRUE", related_name="comments")  # make comment
     owner = models.ForeignKey(User, on_delete=models.CASCADE, null="TRUE", blank="TRUE")
-    objects = ReplyManager()
+    objects = CommentManager()
 
     class Meta:
         ordering = ['-created_date']
 
     def __str__(self):
-        return f"{self.reply_txt}"
+        return f"{self.comm_txt}"
