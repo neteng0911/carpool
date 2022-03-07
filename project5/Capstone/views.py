@@ -71,10 +71,18 @@ def register(request):
 @login_required
 def passenger(request):
     current_user = request.user
+    exp_cost=0
 
     all_routes=Route.objects.all().order_by('-created_date')
     page = paging(request, all_routes)
     routes_count = all_routes.count()
+    # for ro in all_routes:
+    #     if ro.thepassenger.all().count()==0:
+    #         exp_cost=ro.cost
+    #     else:
+    #         exp_cost=ro.cost/ro.thepassenger.all().count()
+    #     return exp_cost
+
 
 
 

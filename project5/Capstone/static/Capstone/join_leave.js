@@ -5,9 +5,14 @@
 
 
             var route_id = element.dataset.id;
+            var cost=
 
 
             console.log(route_id)
+                function cost(route_id){
+                    return 2*document.querrySelector(`#cost_${route_id}`)/document.querrySelector(`#thepassengercounter_${route_id}`).innerHTML;
+
+    }
             if(element.title == "Join")
             {
 
@@ -18,6 +23,8 @@
                 element.innerHTML="Leave"
                 document.querySelector(`#thepassengercounter_${route_id}`).innerHTML++;
                 join_route(route_id);
+                document.querySelector(`#costpp_${route_id}`).innerHTML=cost(route_id);
+
             }
             else if (element.title == "Leave")
             {   console.log(element)
@@ -28,6 +35,7 @@
                 element.style.border = "1px solid  #228B22";
                 document.querySelector(`#thepassengercounter_${route_id}`).innerHTML--;
                 leave_route(route_id);
+                document.querySelector(`#costpp_${route_id}`).innerHTML=cost(route_id);
             }
         }
     });

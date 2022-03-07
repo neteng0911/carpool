@@ -53,12 +53,17 @@ class Route(models.Model):
     def __str__(self):
         return f"{self.id}: {self.origin} to {self.destination} with {self.no_passengers} at {self.cost} per passenger"
 
-    def exp_cost(self,expected_cost=marker):
-        if self.thepassenger==0:
-            expected_cost=int(self.cost)
+    def costpp(self, est_cost=marker):
+        while self.thepassenger.all().count()<=self.no_pass:
+            if self.thepassenger.all().count()==0:
+                est_cost=self.cost
+            else:
+                est_cost=self.cost/self.thepassenger.all().count()
+            return est_cost
         else:
-            expected_cost=self.cost/int(self.thepassenger)
-        return expected_cost
+            est_cost=self.cost/self.no_pass
+        return est_cost
+
 
 
 

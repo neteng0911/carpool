@@ -17,7 +17,8 @@
     <h6> Leaving at </h6> {{ro.time_orig}}
     <h6> Returning at </h6> {{ro.time_dep}}
     <h6> The Driver is </h6>   <strong><a href="{% url 'profile' ro.thedriver.id %}" > {{ro.thedriver}} </strong></a
-    <h6> Expected cost per passenger </h6>{{ro.exp_cost}}
+     <p hidden id="cost_{{ro.id}}">{{ro.cost}} </p>
+          <h6> Expected cost per passenger </h6><strong id="costpp_{{ro.id}}">{{ro.costpp}}$</strong>
 
 {% if user.is_authenticated %}
 
