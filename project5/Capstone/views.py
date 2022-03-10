@@ -8,9 +8,10 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
-
+import json
 from django.db.models import Max,Count
 from django.core.exceptions import ObjectDoesNotExist
+
 from .forms import RouteForm
 from .models import User, Route, Comment
 def index(request):
@@ -99,9 +100,11 @@ def passenger(request):
         comment(request,comm_txt,route_id)
 
         return render(request, "Capstone/passenger.html", {"all_routes": all_routes,
-                                                           "comments": comments,"count":page.count,"page":page})
+                                                           "comments": comments,"count":page.count,"page":page,
+                                                       'routes_count':routes_count})
 
-    return render(request, "Capstone/passenger.html", {"all_routes": all_routes,"count": page.count, "page": page,
+    return render(request, "Capstone/passenger.html", {"all_routes": all_routes,
+                                                           "comments": comments,"count":page.count,"page":page,
                                                        'routes_count':routes_count})
 
 @login_required
@@ -322,3 +325,17 @@ def comment(request,comm_txt,route_id):
     #print(comment)
     comment.lists.add(route_comm)
     return HttpResponseRedirect(reverse("index"))
+
+@login_required
+def load_route(request,route_id):
+    # Query for requested email
+    try:
+        route = Route.objects.get(pk=route_id)
+    except Route.DoesNotExist:
+        return JsonResponse({"error": "Route not found."}, status=404)
+
+    # Return email contents
+    if request.method == "GET":
+        return JsonResponse(route.serialize())
+
+    return render(request, "Capstone/route.html", {"route": route})

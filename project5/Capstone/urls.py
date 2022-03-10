@@ -14,6 +14,7 @@ urlpatterns = [
     path("profile/<int:user_id>", views.profile, name="profile"),
     path("edit/route/<int:route_id>", views.edit_route, name="edit_route"),
     path("join/route/<int:route_id>", views.join_route, name="join_route"),
-    path("leave/route/<int:route_id>", views.leave_route, name="leave_route")
+    path("leave/route/<int:route_id>", views.leave_route, name="leave_route"),
+    path("route/<int:route_id>", views.load_route, name="load_route")
 
 ]
