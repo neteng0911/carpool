@@ -64,8 +64,18 @@ class Route(models.Model):
             est_cost=self.cost/self.no_pass
         return est_cost
 
+    def serialize(self):
+        return{
 
-
+            'origin':self.origin,
+            'destination':self.destination,
+            'date_orig':self.date_orig,
+            'time_orig':self.time_orig,
+            'time_dep':self.time_dep,
+            'no_pas':self.no_pass,
+            'cost':self.cost,
+            'thedriver':self.thedriver
+        }
 
 
 
