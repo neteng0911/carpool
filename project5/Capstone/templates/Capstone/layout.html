@@ -25,9 +25,7 @@
 
 
                 {% endif %}
-                <li class="nav-item ">
-                  <a class="nav-link text-warning" href="{% url 'index' %}">All Posts</a>
-                </li>
+
                 {% if user.is_authenticated %}
                     <li class="nav-item">
                         <a class="nav-link text-warning" href="{% url 'profile' user.id %}">Profile</a>
@@ -35,9 +33,7 @@
                     <li class="nav-item">
                         <a class="nav-link text-warning" href="{% url 'logout' %}">Log Out</a>
                     </li>
-                  <li class="nav-item">
-                        <a class="nav-link text-warning" href="#">Create Post</a>
-                    </li>
+
                 {% else %}
                     <li class="nav-item">
                         <a class="nav-link text-warning" href="{% url 'login' %}">Log In</a>

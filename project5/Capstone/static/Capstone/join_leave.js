@@ -59,45 +59,29 @@ function leave_route(route_id)
 function est_cost(route_id){
 
 
-fetch('/route/${route_d}', {
-  method: 'POST',
-  body: JSON.stringify({
-      origin: origin,
-      destination: destination,
-      date: date,
-      cost:cost
-  }),
-  })
-    // Take the return data and parse it in JSON format.
-    .then((response) => response.json())
-    .then((result) => {
+fetch(`/route/${route_id}`)
+    .then(response => response.json())
+    .then(route => {
 
 
-        if (result.error) {
-            console.log(result.error);
-            alert(result.error)
+
+        if (route.error) {
+            console.log(route.error);
+            alert(route.error)
 
         }
 
-
-
+       var origin=route["origin"];
+       var destination=route["destination"];
        var init_cost=route["cost"];
        console.log(init_cost)
+       var no_pass= parseFloat(document.querySelector(`#thepassengercounter_${route_id}`).innerHTML);
+
+       console.log(no_pass);
+       var cost =init_cost/no_pass;
+       document.querySelector(`#costpp_${route_id}`).innerHTML = cost+'$';
 
 
 
     })
-
-
-//
-//        const init_cost = document.querySelector(`#costpp_${route_id}`).innerHTML;
-//        const a1 = init_cost.replace(/\,/g,'');
-//        const a1f = parseFloat(a1);
-//        var no_pass= parseFloat(document.querySelector(`#thepassengercounter_${route_id}`).innerHTML);
-//        console.log(a1f);
-//        console.log(no_pass)
-//
-//        var cost =a1f/no_pass;
-//        document.querySelector(`#costpp_${route_id}`).innerHTML = cost
-
-       }
+}

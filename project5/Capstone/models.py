@@ -74,7 +74,10 @@ class Route(models.Model):
             'time_dep':self.time_dep,
             'no_pas':self.no_pass,
             'cost':self.cost,
-            'thedriver':self.thedriver
+
+            'map_pic':self.map_pic,
+            'created_date':self.created_date
+
         }
 
 
