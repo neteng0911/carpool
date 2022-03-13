@@ -12,7 +12,7 @@ import json
 from django.db.models import Max,Count
 from django.core.exceptions import ObjectDoesNotExist
 
-from .forms import RouteForm
+from .forms import RouteForm, EditRouteForm
 from .models import User, Route, Comment
 def index(request):
     return render(request, 'Capstone/index.html')
@@ -249,7 +249,7 @@ def paging(request,the_posts):
 
 
 def edit_route(request, route_id):
-
+    form = EditRouteForm(request.POST)
     route_to_load = Route.objects.get(pk=route_id)
     if request.user == route_to_load.thedriver:
         if request.method =="POST" and "edit_route" in request.POST:
@@ -264,9 +264,9 @@ def edit_route(request, route_id):
             return HttpResponseRedirect(reverse("index"))
 
         else:
-            return render(request, "Capstone/edit_route.html",{"route_to_load":route_to_load})
+            return render(request, "Capstone/edit_route.html",{"route_to_load":route_to_load,'form':form})
     else:
-        return render(request, "network/errors/invalid.html")
+        return render(request, "Capstone/errors/invalid.html")
 
 @csrf_exempt
 @login_required

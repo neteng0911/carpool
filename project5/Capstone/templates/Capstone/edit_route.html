@@ -1,37 +1,84 @@
 {% extends "Capstone/layout.html" %}
 {% load static %}
+
 {% block body %}
+<div class="container mt-3" >
+    <div class="d-flex p-1 bg-secondary text-white flex-grow">
+        <div class="bg-info col-sm-3 mx-5 pr-5 shadow-lg ">
 
 
-{% ifnotequal request.user route.thedriver %}
+    <div  style="position:left;color:green; font-size:20px;">From: {{route_to_load.origin}}
+        <p>To: {{route_to_load.destination}}</p>
 
-<div class="post">{{route_to_load.origin}},{{route_to_load.destination}}
-
-
-   <p style= "color:grey; font-size:12px;"> <strong><a href="{% url 'profile' route_to_load.thedriver_id %}" >
-       <img src="{   'route_to_load.map_pic' }" alt="map_pic">
-
-      {{ route_to_load.thedriver}} </strong></a> wrote on: {{ route_to_load.created_date}} </p>
-    <p id="likes" style= "color:grey; font-size:12px;mix-blend-mode: multiply;"><img src="{% static  'network/images/like1.jpg' %}" alt="like image"> <strong>{{route.thepassenger.all.count}}</strong>
-
-<form action="{% url 'edit_route' route_to_load.pk %}" method="post">
-        {% csrf_token %}
+        <p> On: {{route_to_load.date_orig.date}}</p>
+        <p> Leaving at  {{route_to_load.time_orig}} and returning at {{route_to_load.time_dep}}</p>
 
 
-        <div class="form-group">
-            <input class="form-control" autofocus style="margin-top:30px" type="text" name="edit_txt"  value="{{route_to_load.origin}}">
+
+
+    <p  class="img-fluid"  id="map_to_load"><img src="{{route_to_load.map_pic}}"></p>
+
+
+
+
+
+   <p style= "color:grey; font-size:12px;"> <strong>Created by<a href="{% url 'profile' route_to_load.thedriver_id %}" >
+
+
+       {{ route_to_load.thedriver}} </strong></a>  on: {{ route_to_load.created_date}} </p>
+    <p id="likes" style= "color:grey; font-size:12px;mix-blend-mode: multiply;"><img src="{% static  'Capstone/images/seat.jpg' %}" alt="like image"> <strong>{{route.thepassenger.all.count}}</strong>
+    </p>
+    </div>
         </div>
-    <input class="btn btn-primary" name="edit_route" type="submit" value="Save">
-</form>
 
 
-<form action="{% url 'edit_route' route_to_load.pk %}" method="post">
+  <div class="d-flex p-1 bg-secondary text-white flex-grow">
+    <div class="bg-info col-sm-3 mx-5 pr-5 shadow-lg ">
+      <div class=form-group">
+
+
+
+
+
+</div>
+
+
+          <div class="succ" > {{  msg }} </div>
+      </div>
+
+
+
+    <div class="bg-info col-sm-3 mx-5 pr-5 shadow-lg" id="sub_route">
+      <form class='validity' action="{% url 'edit_route' route_to_load.pk %}" method="post">
     {% csrf_token %}
-     <input class="btn btn-primary" name="del_post" type="submit" value="Delete post" >
-     <input type="hidden"  name="route_to_load_id" value={{route.pk}}>
- </form>
-{% else %}
+    {{ form.as_p}}
 
-    <p> <strong>You can't edit what's not yours</strong></p>
-{% endifnotequal %}
+
+
+          <p>
+    <input id ="subbtn" type="submit" value="Submit"></p>
+    </form>
+
+    </div>
+    <div class="img-fluid" id="map_pl"><img id="map"  src='#'></div>
+
+<!--<form>
+{{ form.non_field_errors }}
+    <div class="fieldWrapper">
+        {{ form.time_dep.errors }}
+
+        {{ form.time_dep }}
+    </div>
+    </form>-->
+  </div>
+</div>
+
+<div class="mt-4 p-2 bg-dark text-white text-center">
+  <p>Footer</p>
+</div>
+
+{% block script %}
+    <script src="{% static 'Capstone/map7.js' %}"></script>
+
+{% endblock script %}
 {% endblock %}
