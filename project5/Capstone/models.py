@@ -51,7 +51,7 @@ class Route(models.Model):
     objects = RouteManager()
     marker=object()
     def __str__(self):
-        return f"{self.id}: {self.origin} to {self.destination} with {self.no_passengers} at {self.cost} per passenger"
+        return f"{self.id}: {self.origin} to {self.destination} with {self.no_pass} at {self.cost} per passenger"
 
     def costpp(self, est_cost=marker):
         while self.thepassenger.all().count()<=self.no_pass:

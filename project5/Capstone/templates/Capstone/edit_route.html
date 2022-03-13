@@ -49,11 +49,8 @@
 
 
     <div class="bg-info col-sm-3 mx-5 pr-5 shadow-lg" id="sub_route">
-      <form class='validity' action="{% url 'edit_route' route_to_load.pk %}" method="post">
+      <form class='validity' action="{% url 'webload_route' route_to_load.pk %}" method="post">
     {% csrf_token %}
-    {{ form.as_p}}
-
-
 
           <p>
     <input id ="subbtn" type="submit" value="Submit"></p>
@@ -78,7 +75,7 @@
 </div>
 
 {% block script %}
-    <script src="{% static 'Capstone/map7.js' %}"></script>
+    <script src="{% static 'Capstone/edit_route.js' %}"></script>
 
 {% endblock script %}
 {% endblock %}

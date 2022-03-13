@@ -195,12 +195,13 @@ def profile(request, user_id):
     if request.method == "POST" and "load_route" in request.POST:
 
         route_to_load_id = request.POST.get("route_to_load_id")
-        #edit_post(request,post_to_load_id)
+
         route_to_load = Route.objects.get(pk=route_to_load_id)
+        edit_route(request,route_to_load_id)
 
 
 
-        return render(request, "Capstone/edit_route.html", {"route_to_load": route_to_load})
+        return render(request, "Capstone/edit_route.html", {"route": route_to_load})
     # if targ_user in followinglist:
     #     print(request.user,"you are following user", targ_user)
     #
@@ -249,22 +250,27 @@ def paging(request,the_posts):
 
 
 def edit_route(request, route_id):
-    form = EditRouteForm(request.POST)
     route_to_load = Route.objects.get(pk=route_id)
+    editform = EditRouteForm(data=request.POST, request=request)
+    form =Route.form
+
     if request.user == route_to_load.thedriver:
         if request.method =="POST" and "edit_route" in request.POST:
+            form = EditRouteForm(data=request.POST, request=request)
+
 
             edit_txt = request.POST["edit_txt"]
             route_to_load.description=edit_txt
             route_to_load.save()
-
-            return HttpResponseRedirect(reverse("index"))
+            return render(request, "Capstone/edit_route.html", {"route_to_load": route_to_load, 'editform': editform, 'form': form})
+            #return HttpResponseRedirect(reverse("index"))
         if request.method == "POST" and "del_post" in request.POST:
             route_to_load.delete()
             return HttpResponseRedirect(reverse("index"))
 
         else:
-            return render(request, "Capstone/edit_route.html",{"route_to_load":route_to_load,'form':form})
+            editform=EditRouteForm(request=request)
+            return render(request, "Capstone/edit_route.html",{"route_to_load":route_to_load,'editform':editform})
     else:
         return render(request, "Capstone/errors/invalid.html")
 
@@ -337,5 +343,18 @@ def load_route(request,route_id):
     # Return email contents
     if request.method == "GET":
         return JsonResponse(route.serialize())
+    return render(request, "Capstone/route.html", {"route": route})
 
+@login_required
+def webload_route(request,route_id):
+    # Query for requested email
+
+    try:
+        route = Route.objects.get(pk=route_id)
+    except Route.DoesNotExist:
+        return JsonResponse({"error": "Route not found."}, status=404)
+
+    # Return email contents
+    if request.method == "GET":
+        return render(request, "Capstone/route.html", {"route": route})
     return render(request, "Capstone/route.html", {"route": route})

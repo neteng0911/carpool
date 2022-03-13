@@ -71,6 +71,13 @@ class EditRouteForm(forms.Form):
     no_pass = forms.IntegerField(min_value=1)
     map_pic = forms.CharField(widget=forms.TextInput(attrs={'type': 'hidden'}))
 
+    def __init__(self, *args, **kwargs):
+        self.request=kwargs.pop('request')
+        super(EditRouteForm, self).__init__(*args, **kwargs)
+        self.fields['departure'].label='Departure'
+        self.fields['departure'].label=self.route_to_load.departure
+
+
     def clean(self):
         cleaned_data = super().clean()
         date_inp = cleaned_data.get('date_orig')
