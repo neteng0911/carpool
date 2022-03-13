@@ -12,7 +12,7 @@ import json
 from django.db.models import Max,Count
 from django.core.exceptions import ObjectDoesNotExist
 
-from .forms import RouteForm, EditRouteForm
+from .forms import RouteForm
 from .models import User, Route, Comment
 def index(request):
     return render(request, 'Capstone/index.html')
@@ -120,7 +120,7 @@ def driver(request):
         if form.is_valid():
             # process the data in form.cleaned_data as required
             created_date = timezone.now()
-            origin=request.POST["departure"]
+            departure=request.POST["departure"]
             destination = request.POST["destination"]
             date_orig = request.POST["date_orig"]
             time_orig = request.POST["time_orig"]
@@ -133,7 +133,7 @@ def driver(request):
             msg="Trip created successfully!"
 
 
-            create_route(request,origin,destination,date_orig,time_orig,time_dep,cost,no_pass,map_pic,created_date)
+            create_route(request,departure,destination,date_orig,time_orig,time_dep,cost,no_pass,map_pic,created_date)
 
 
 
@@ -157,7 +157,7 @@ def bing(request):
 
 
 
-def create_route(request,origin,destination,date_orig,time_orig,time_dep,cost,no_pass,map_pic,created_date):
+def create_route(request,departure,destination,date_orig,time_orig,time_dep,cost,no_pass,map_pic,created_date):
     thedriver=request.user
 
 
@@ -165,7 +165,7 @@ def create_route(request,origin,destination,date_orig,time_orig,time_dep,cost,no
 
 
 
-    myroute = Route.objects.create_route(origin=origin,destination=destination,date_orig=date_orig,
+    myroute = Route.objects.create_route(departure=departure,destination=destination,date_orig=date_orig,
                                          time_orig=time_orig,time_dep=time_dep,cost=cost, no_pass=no_pass,
                                          thedriver=thedriver,map_pic=map_pic,created_date=created_date)
 
@@ -201,7 +201,7 @@ def profile(request, user_id):
 
 
 
-        return render(request, "Capstone/edit_route.html", {"route": route_to_load})
+        return render(request, "Capstone/edit_route.html", {"route_to_load": route_to_load})
     # if targ_user in followinglist:
     #     print(request.user,"you are following user", targ_user)
     #
@@ -251,26 +251,29 @@ def paging(request,the_posts):
 
 def edit_route(request, route_id):
     route_to_load = Route.objects.get(pk=route_id)
-    editform = EditRouteForm(data=request.POST, request=request)
-    form =Route.form
+
+    form = RouteForm
+    form.fields['departure'].initial = route_to_load.departure
+    form.destination.initial = route_to_load.destination
 
     if request.user == route_to_load.thedriver:
         if request.method =="POST" and "edit_route" in request.POST:
-            form = EditRouteForm(data=request.POST, request=request)
+            form = RouteForm
+
 
 
             edit_txt = request.POST["edit_txt"]
-            route_to_load.description=edit_txt
+            route_to_load.departure=edit_txt
             route_to_load.save()
-            return render(request, "Capstone/edit_route.html", {"route_to_load": route_to_load, 'editform': editform, 'form': form})
+            return render(request, "Capstone/edit_route.html", {"route_to_load": route_to_load, 'form': form})
             #return HttpResponseRedirect(reverse("index"))
-        if request.method == "POST" and "del_post" in request.POST:
+        if request.method == "POST" and "del_route" in request.POST:
             route_to_load.delete()
             return HttpResponseRedirect(reverse("index"))
 
         else:
-            editform=EditRouteForm(request=request)
-            return render(request, "Capstone/edit_route.html",{"route_to_load":route_to_load,'editform':editform})
+
+            return render(request, "Capstone/edit_route.html",{"route_to_load":route_to_load,'form':form})
     else:
         return render(request, "Capstone/errors/invalid.html")
 

@@ -25,8 +25,8 @@ class User(AbstractUser):
 
 
 class RouteManager(models.Manager):
-    def create_route(self, origin,destination,date_orig,time_orig,time_dep,cost,no_pass,thedriver,map_pic,created_date):
-        route=self.create(origin=origin,destination=destination,date_orig=date_orig,time_orig=time_orig,
+    def create_route(self, departure,destination,date_orig,time_orig,time_dep,cost,no_pass,thedriver,map_pic,created_date):
+        route=self.create(departure=departure,destination=destination,date_orig=date_orig,time_orig=time_orig,
                           time_dep=time_dep,cost=cost,no_pass=no_pass,thedriver=thedriver,map_pic=map_pic,created_date=created_date)
         return route
 
@@ -36,7 +36,7 @@ class RouteManager(models.Manager):
 
 
 class Route(models.Model):
-    origin = models.CharField(max_length=64)
+    departure = models.CharField(max_length=64)
     destination = models.CharField(max_length=64)
     date_orig=models.DateTimeField("date orig", default=date.today())
     time_orig=models.TimeField("time orig",default=timezone.now())
@@ -51,7 +51,7 @@ class Route(models.Model):
     objects = RouteManager()
     marker=object()
     def __str__(self):
-        return f"{self.id}: {self.origin} to {self.destination} with {self.no_pass} at {self.cost} per passenger"
+        return f"{self.id}: {self.departure} to {self.destination} with {self.no_pass} at {self.cost} per passenger"
 
     def costpp(self, est_cost=marker):
         while self.thepassenger.all().count()<=self.no_pass:
@@ -67,7 +67,7 @@ class Route(models.Model):
     def serialize(self):
         return{
 
-            'origin':self.origin,
+            'departure':self.departure,
             'destination':self.destination,
             'date_orig':self.date_orig,
             'time_orig':self.time_orig,
