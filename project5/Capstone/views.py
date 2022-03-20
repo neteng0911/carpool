@@ -10,11 +10,13 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 
 import json
-from django.db.models import Max,Count
+from django.db.models import Max, Count
 from django.core.exceptions import ObjectDoesNotExist
 
 from .forms import RouteForm
 from .models import User, Route, Comment
+
+
 def index(request):
     return render(request, 'Capstone/index.html')
 
@@ -70,12 +72,14 @@ def register(request):
         return HttpResponseRedirect(reverse("index"))
     else:
         return render(request, "Capstone/register.html")
+
+
 @login_required
 def passenger(request):
     current_user = request.user
-    exp_cost=0
+    exp_cost = 0
 
-    all_routes=Route.objects.all().order_by('-created_date')
+    all_routes = Route.objects.all().order_by('-created_date')
     page = paging(request, all_routes)
     routes_count = all_routes.count()
     # for ro in all_routes:
@@ -85,34 +89,29 @@ def passenger(request):
     #         exp_cost=ro.cost/ro.thepassenger.all().count()
     #     return exp_cost
 
-
-
-
-
-
     comments = Comment.objects.order_by('-created_date')
-
-
 
     if request.method == "POST" and "route_reply" in request.POST:
         comm_txt = request.POST["comm_txt"]
         route_id = request.POST.get("route_id")
 
-        comment(request,comm_txt,route_id)
+        comment(request, comm_txt, route_id)
 
         return render(request, "Capstone/passenger.html", {"all_routes": all_routes,
-                                                           "comments": comments,"count":page.count,"page":page,
-                                                       'routes_count':routes_count})
+                                                           "comments": comments, "count": page.count, "page": page,
+                                                           'routes_count': routes_count})
+    if request.method == "GET" and "load_route" in request.POST:
+        return render(request, 'Capstone/route.html')
+
+
 
     return render(request, "Capstone/passenger.html", {"all_routes": all_routes,
-                                                           "comments": comments,"count":page.count,"page":page,
-                                                       'routes_count':routes_count})
+                                                       "comments": comments, "count": page.count, "page": page,
+                                                       'routes_count': routes_count})
+
 
 @login_required
 def driver(request):
-
-    form = RouteForm
-
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
@@ -121,64 +120,55 @@ def driver(request):
         if form.is_valid():
             # process the data in form.cleaned_data as required
             created_date = timezone.now()
-            departure=request.POST["departure"]
+            departure = request.POST["departure"]
             destination = request.POST["destination"]
             date_orig = request.POST["date_orig"]
             time_orig = request.POST["time_orig"]
             time_dep = request.POST["time_dep"]
-            cost= request.POST["cost"]
+            cost = request.POST["cost"]
             no_pass = request.POST["no_pass"]
-            map_pic=request.POST['map_pic']
-            #print(form)
-            form=RouteForm
-            msg="Trip created successfully!"
+            map_pic = request.POST['map_pic']
+            # print(form)
+            form = RouteForm
+            msg = "Trip created successfully!"
 
-
-            create_route(request,departure,destination,date_orig,time_orig,time_dep,cost,no_pass,map_pic,created_date)
-
-
+            create_route(request, departure, destination, date_orig, time_orig, time_dep, cost, no_pass, map_pic,
+                         created_date)
 
             # redirect to a new URL:
-            return render(request, 'Capstone/driver.html', {'msg': msg,'form':form})
+            return render(request, 'Capstone/driver.html', {'msg': msg, 'form': form})
         else:
-            #print(form.errors)
+            # print(form.errors)
             return render(request, 'Capstone/driver.html', {'form': form})
 
     # if a GET (or any other method) we'll create a blank form
     else:
         form = RouteForm
 
-
-
-    return render(request, 'Capstone/driver.html',{'form': form})
+    return render(request, 'Capstone/driver.html', {'form': form})
 
 
 def bing(request):
     return render(request, "Capstone/bing.html")
 
 
+def create_route(request, departure, destination, date_orig, time_orig, time_dep, cost, no_pass, map_pic, created_date):
+    thedriver = request.user
 
-def create_route(request,departure,destination,date_orig,time_orig,time_dep,cost,no_pass,map_pic,created_date):
-    thedriver=request.user
-
-
-
-
-
-
-    myroute = Route.objects.create_route(departure=departure,destination=destination,date_orig=date_orig,
-                                         time_orig=time_orig,time_dep=time_dep,cost=cost, no_pass=no_pass,
-                                         thedriver=thedriver,map_pic=map_pic,created_date=created_date)
+    myroute = Route.objects.create_route(departure=departure, destination=destination, date_orig=date_orig,
+                                         time_orig=time_orig, time_dep=time_dep, cost=cost, no_pass=no_pass,
+                                         thedriver=thedriver, map_pic=map_pic, created_date=created_date)
 
     return HttpResponseRedirect(reverse("index"))
+
+
 @login_required
 def profile(request, user_id):
-
     current_user = request.user
     targ_user = User.objects.get(id=user_id)
-    user_routes=Route.objects.filter(thedriver_id=user_id).order_by('-created_date')
+    user_routes = Route.objects.filter(thedriver_id=user_id).order_by('-created_date')
     page = paging(request, user_routes)
-    user_routes_count=user_routes.count()
+    user_routes_count = user_routes.count()
 
     # myfollowinglist = current_user.followers.all()
     # followinglist=targ_user.followers.all()
@@ -190,7 +180,7 @@ def profile(request, user_id):
     if request.method == "POST" and "post_reply" in request.POST:
         reply_txt = request.POST["reply_txt"]
         mypost_reply = request.POST.get("post_id")
-        #reply(request, reply_txt, mypost_reply)
+        # reply(request, reply_txt, mypost_reply)
         return render(request, "Capstone/profile.html", {"targ_user": targ_user})
 
     if request.method == "POST" and "load_route" in request.POST:
@@ -198,19 +188,16 @@ def profile(request, user_id):
         route_to_load_id = request.POST.get("route_to_load_id")
 
         route_to_load = Route.objects.get(pk=route_to_load_id)
-        edit_route(request,route_to_load_id)
-
-
+        edit_route(request, route_to_load_id)
 
         return render(request, "Capstone/edit_route.html", {"route_to_load": route_to_load})
     # if targ_user in followinglist:
     #     print(request.user,"you are following user", targ_user)
     #
 
-    #created_date = timezone.now()
+    # created_date = timezone.now()
 
     # creating pages
-
 
     # if request.method=="POST" and "follow" in request.POST:
     #     targ_user.following.add(current_user)
@@ -237,61 +224,62 @@ def profile(request, user_id):
     #                                                     "no_of_following":no_of_following,"followerslist": followerslist,
     #                                                     "no_of_followers":no_of_followers, "myfollowinglist":myfollowinglist})
 
-
     else:
 
-        return render(request, "Capstone/profile.html", {"targ_user": targ_user,"count":page.count,"page":page ,'user_routes_count':user_routes_count})
+        return render(request, "Capstone/profile.html", {"targ_user": targ_user, "count": page.count, "page": page,
+                                                         'user_routes_count': user_routes_count})
 
-def paging(request,the_posts):
+
+def paging(request, the_posts):
     # creating pages
-    post_paginator=Paginator(the_posts,10)
+    post_paginator = Paginator(the_posts, 10)
 
     page_num = request.GET.get("page")
     return post_paginator.get_page(page_num)
 
+
 @login_required
 def edit_route(request, route_id):
-    route_to_load = Route.objects.get(pk=route_id)
-    if request.user == route_to_load.thedriver:
-        if request.method=='GET':
+    route = Route.objects.get(pk=route_id)
+    form = RouteForm(instance=route)
+    # form = RouteForm()
 
-            initform = RouteForm(instance=route_to_load)
-            return render(request, "Capstone/edit_route.html", {"route_to_load": route_to_load, 'initform': initform})
+    if request.user == route.thedriver:
+        # if request.method=='GET':
+        #     form = RouteForm(instance=route)
+        #
+        #     return render(request, "Capstone/edit_route.html", {"route": route, 'form': form})
 
-
-
-        if request.method =="POST" and "edit_route" in request.POST:
-
-            route_to_load.departure = request.POST["departure"]
-            route_to_load.destination = request.POST["destination"]
-            route_to_load.date_orig = request.POST["date_orig"]
-            route_to_load.time_orig = request.POST["time_orig"]
-            route_to_load.time_dep = request.POST["time_dep"]
-            route_to_load.cost = request.POST["cost"]
-            route_to_load.no_pass = request.POST["no_pass"]
-            route_to_load.map_pic = request.POST['map_pic']
+        if request.method == "POST" and "edit_route" in request.POST:
+            route.departure = request.POST["departure"]
+            route.destination = request.POST["destination"]
+            route.date_orig = request.POST["date_orig"]
+            route.time_orig = request.POST["time_orig"]
+            route.time_dep = request.POST["time_dep"]
+            route.cost = request.POST["cost"]
+            route.no_pass = request.POST["no_pass"]
+            route.map_pic = request.POST['map_pic']
             msg = "Trip edited successfully!"
 
 
-            route_to_load.save()
-
-
+            route.save()
 
             return HttpResponseRedirect(reverse("index"))
+
         if request.method == "POST" and "del_route" in request.POST:
-            route_to_load.delete()
+            route.delete()
             return HttpResponseRedirect(reverse("index"))
 
         else:
 
-            return render(request, "Capstone/edit_route.html",{"route_to_load":route_to_load})
+            return render(request, "Capstone/edit_route.html", {"route": route, 'form':form})
     else:
         return render(request, "Capstone/errors/invalid.html")
 
+
 @csrf_exempt
 @login_required
-def join_route(request,route_id):
-
+def join_route(request, route_id):
     # Query for requested route
     try:
         route = Route.objects.get(id=route_id)
@@ -306,13 +294,12 @@ def join_route(request,route_id):
 
         return JsonResponse({"message": "Trip joined successfully."}, status=201)
 
-
     return JsonResponse({"error": "POST request required."}, status=400)
+
 
 @csrf_exempt
 @login_required
-def leave_route(request,route_id):
-
+def leave_route(request, route_id):
     # Query for requested post
     try:
         route = Route.objects.get(id=route_id)
@@ -323,52 +310,66 @@ def leave_route(request,route_id):
     if request.method == "POST":
         route = Route.objects.get(id=route_id)
         route.thepassenger.remove(request.user)
-        print("You left trip no ",route.id)
+        print("You left trip no ", route.id)
 
         return JsonResponse({"message": "You left trip successfully."}, status=201)
-
 
     return JsonResponse({"error": "POST request required."}, status=400)
 
 
-def comment(request,comm_txt,route_id):
-
+def comment(request, comm_txt, route_id):
     route_comm = Route.objects.get(id=route_id)
     created_date = timezone.now()
     owner = request.user
 
-    #route_comm = Comment.objects.filter(route_comm=route.id)
-    #print(route_comm)
+    # route_comm = Comment.objects.filter(route_comm=route.id)
+    # print(route_comm)
     comment = Comment.objects.create_comment(comm_txt=comm_txt, created_date=created_date, owner=owner,
-                                       route_comm=route_comm)
+                                             route_comm=route_comm)
     comment.save()
-    #print(comment)
+    # print(comment)
     comment.lists.add(route_comm)
     return HttpResponseRedirect(reverse("index"))
 
+
 @login_required
-def load_route(request,route_id):
-    # Query for requested email
+def load_route(request, route_id):
+
     try:
         route = Route.objects.get(pk=route_id)
     except Route.DoesNotExist:
         return JsonResponse({"error": "Route not found."}, status=404)
 
-    # Return email contents
+
     if request.method == "GET":
         return JsonResponse(route.serialize())
     return render(request, "Capstone/route.html", {"route": route})
 
+
 @login_required
-def webload_route(request,route_id):
-    # Query for requested email
+def webload_route(request, route_id):
 
     try:
         route = Route.objects.get(pk=route_id)
     except Route.DoesNotExist:
         return JsonResponse({"error": "Route not found."}, status=404)
 
-    # Return email contents
+    # reply comments
     if request.method == "GET":
+        return render(request, "Capstone/route.html", {"route": route})
+
+    comments = Comment.objects.order_by('-created_date')
+
+    if request.method == "POST" and "route_reply" in request.POST:
+        comm_txt = request.POST["reply_txt"]
+
+
+        comment(request, comm_txt, route_id)
+
+        return render(request, "Capstone/route.html", {"route": route,
+                                                           "comments": comments})
+    if request.method == "POST" and "edit_route" in request.POST:
+
+
         return render(request, "Capstone/route.html", {"route": route})
     return render(request, "Capstone/route.html", {"route": route})

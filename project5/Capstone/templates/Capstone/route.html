@@ -6,17 +6,23 @@
 
 
 
-<section>
-<ul>
+<div class="media">
+  <img class="ml-5" src="{{ route.map_pic }}" alt="map_img">
+  <div class="media-body">
+      <div class="prof">
+    <h5 class="mt-0"></h5>
+        <h5> <strong>Trip No {{route.id}}</strong> </h5>
+    <h6> From </h6> {{route.departure}}
+    <h6> To </h6> {{route.destination}}
+    <h6> On </h6> {{route.date}}
+    <h6> Leaving at </h6> {{route.time_orig}}
+    <h6> Returning at </h6> {{route.time_dep}}
 
-<div class="post">Trip No {{route.pk}}
-    <p> <h6>From</h6> {{route.origin}} <h6>To</h6> {{route.destination}} </p>
-    <p> <h6>on</h6> {{route.date_orig.date}}</p>
-    <p> <h6>Leaving at</h6>  {{route.time_orig}} <h6>and returning at</h6> {{route.time_dep}}</p>
-     <p>   <img src="{{ route.map_pic }}" alt="map"></p>
+    <h6> The Driver is </h6>   <a href="{% url 'profile' route.thedriver.id %}" ><strong> {{route.thedriver}} </strong></a>
+    <p hidden id="cost_{{route.id}}"><h6>Initial cost per passenger {{route.cost}} $</h6>
+    <h6> Expected cost per passenger </h6><strong id="costpp_{{route.id}}">{{route.costpp}}$</strong>
 
-
-    <p style= "color:grey; font-size:12px;"> <strong><a href="{% url 'profile' route.id %}" > {{route.username}} </strong></a> wrote on: {{route.created_date}} </p>
+{% if user.is_authenticated %}
 
         {% if route.passengers.all.count != 0 %}
     <p id="likes" style= "color:grey; font-size:12px;mix-blend-mode: multiply;"><img src="{% static  'Capstone/images/seat.jpg' %}" alt="seat image">
@@ -26,16 +32,17 @@
     <p id="likes" style= "color:grey; font-size:12px;mix-blend-mode: multiply;"><img src="{% static  'Capstone/images/seat.jpg' %}" alt="seat image">
         <span><strong id="thepassengercounter_{{route.id}}">0</strong></span>
         {% endif %}
-<form action="{% url 'profile' route.id %}" method="post">
+<form action="{% url 'webload_route' route.id %}" method="post">
         {% csrf_token %}
 
-
         <div class="form-group">
-            <input class="form-control" autofocus style="margin-top:30px" type="text" name="reply_txt" placeholder="reply">
-            <input type="hidden"  name="route_id" value={{route.pk}}>
+            <input class="form-control" autofocus style="margin-top:30px" type="text" name="comm_txt" placeholder="Insert your comment">
+            <input type="hidden"  name="route_id" value={{route.id}}>
 
         </div>
-    <input class="btn btn-primary" type="submit" name="route_reply" value="Reply">
+    <input class="btn btn-primary"  id='post_btn' type="submit" name="route_reply" value="Post">
+</form>
+
         {% ifnotequal request.user route.thedriver %}
                 <div class="likes">
                         {% if request.user in route.thepassenger.all %}
@@ -46,52 +53,33 @@
                         {% endif %}
 
                 </div>
+
         {% endifnotequal %}
-
-    {% ifequal user route.thedriver %}
-     <form action="{% url 'edit_route' route.pk %}" method="post">
-     {% csrf_token %}
-     <input class="btn btn-primary" name="load_route" type="submit" value="Edit Trip" >
-     <input type="hidden"  name="route_id" value={{route.pk}}>
-    {%endifequal %}
-
-
-
-
-
-
-
+        {% ifequal request.user route.thedriver %}
+            <input class="btn btn-success" type="button"  name="load_route" value="Edit Trip"  onclick="location.href='{% url 'edit_route' route.pk %}'"  />
+            <input type="hidden"  name="route_to_load_id" value={route.pk}}>
+        {%endifequal %}
+  </div>
 </div>
-</ul>
-</section>
-
-{% for rep in post.replies.all %}
+</div>
+        {% for rep in route.comments.all %}
  <ul>
 
 
 
-        <div class="replies" ><p style= "color:blue; font-size:10px;"><a href="{% url 'profile' rep.owner_id %}">{{rep.owner}}</a>
+        <div class="comms" ><p style= "color:blue; font-size:10px;"><a href="{% url 'profile' rep.owner_id %}">{{rep.owner}}</a>
             replied on {{rep.created_date}}</p> <strong>{{rep}} </strong> </div>
 </ul>
-{% endfor %}
-</form>
-    </div>
+        {% endfor %}
+{% endif %}
 
 
 
 
-<h2 class="page"> Page: {{ page.number }}</h2>
-        <div class="page-links">
 
-            {% if page.has_previous %}
-            <a href="{% url 'profile' route.id %}?page={{page.previous_page_number }}">Previous</a>
 
-            {% endif %}
-            {% if page.has_next %}
-            <a href="{% url 'profile' route.id %}?page={{page.next_page_number }}">Next</a>
-            {% endif %}
 
-        </div>
+
 
 {% block script %}
     <script src="{% static 'Capstone/join_leave.js' %}"></script>

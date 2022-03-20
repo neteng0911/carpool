@@ -2,49 +2,48 @@
 {% load static %}
 
 {% block body %}
-<h1> {{ user}}, Here you can edit route no {{route_to_load.id}}</h1>
+<h1> {{ user}}, Here you can edit route no {{route.id}}</h1>
 <div class="container mt-3" >
     <div class="d-flex p-1 bg-secondary text-white flex-grow">
         <div class="bg-info col-sm-3 mx-5 pr-5 shadow-lg ">
 
 
-    <div  style="position:left;color:green; font-size:20px;">From: {{route_to_load.departure}}
-        <p>To: {{route_to_load.destination}}</p>
+    <div  style="position:left;color:green; font-size:20px;">From: {{route.departure}}
+        <p>To: {{route.destination}}</p>
 
-        <p> On: {{route_to_load.date_orig.date}}</p>
-        <p> Leaving at  {{route_to_load.time_orig}} and returning at {{route_to_load.time_dep}}</p>
-
-
-
-
-    <p  class="img-fluid"  id="map_to_load"><img src="{{route_to_load.map_pic}}"></p>
+        <p> On: {{route.date_orig.date}}</p>
+        <p> Leaving at  {{route.time_orig}} and returning at {{route.time_dep}}</p>
 
 
 
 
+    <p  class="img-fluid"  id="map_to_load"><img src="{{route.map_pic}}"></p>
 
-   <p style= "color:grey; font-size:12px;"> <strong>Created by<a href="{% url 'profile' route_to_load.thedriver_id %}" >
 
 
-       {{ route_to_load.thedriver}} </strong></a>  on: {{ route_to_load.created_date}} </p>
+
+   <p style= "color:grey; font-size:12px;"> <strong>Created by<a href="{% url 'profile' route.thedriver_id %}" >
+
+
+       {{ route.thedriver}} </strong></a>  on: {{ route.created_date}} </p>
     <!--<p id="likes" style= "color:grey; font-size:12px;mix-blend-mode: multiply;"><img src="{% static  'Capstone/images/seat.jpg' %}" alt="like image"> <strong>{{route.thepassenger.all.count}}</strong>
     </p>-->
     </div>
-<!--            <form action="{% url 'edit_route' route_to_load.pk %}" method="post">-->
+<!--            <form action="{% url 'edit_route' route.pk %}" method="post">-->
 <!--        {% csrf_token %}-->
 
 
 <!--        <div class="form-group">-->
-<!--            <input class="form-control" autofocus style="margin-top:30px" type="text" name="edit_txt"  value="{{route_to_load.destination}}">-->
+<!--            <input class="form-control" autofocus style="margin-top:30px" type="text" name="edit_txt"  value="{{route.destination}}">-->
 <!--        </div>-->
 <!--    <input class="btn btn-primary" name="edit_route" type="submit" value="Save">-->
 <!--</form>-->
 
 
-<form action="{% url 'edit_route' route_to_load.pk %}" method="post">
+<form action="{% url 'edit_route' route.pk %}" method="post">
     {% csrf_token %}
      <input class="btn btn-primary" name="del_route" type="submit" value="Delete Trip" >
-     <input type="hidden"  name="route_to_load_id" value={{route.pk}}>
+     <input type="hidden"  name="route_id" value={{route.pk}}>
  </form>
         </div>
 
@@ -58,13 +57,18 @@
 
 <div>
 <label for="input start">Departure Address</label>
-  <input type="text" class="form-control" id="dep" value="{{route_to_load.departure}}">
+  <input type="text" class="form-control" id="dep" value="{{route.departure}}">
 
-</div>
-<div>
+
+
   <label for="input finish">Destination Address</label>
-  <input type="text" class="form-control" id="dest" value="{{route_to_load.destination}}">
+  <input type="text" class="form-control" id="dest" value="{{route.destination}}">
     <p> <input id ="sear" class="btn-info" type="button" value="Search"></p>
+
+</form>
+
+
+
 </div>
 
 </div>
@@ -75,14 +79,16 @@
 
 
 
+
     <div class="bg-info col-sm-3 mx-5 pr-5 shadow-lg" id="sub_route">
-      <form class='validity' action="{% url 'edit_route' route_to_load.pk %}" method="post">
+      <form class='validity' action="{% url 'edit_route' route.pk %}" method="post">
     {% csrf_token %}
-          {{ initform.as_p }}
+          {{ form.as_p }}
 
 
           <p>
               <input class ='btn-info' id ="subbtn" name="edit_route" type="submit" value="Submit"></p>
+          </form>
     </div>
     <div class="img-fluid" id="map_pl"><img id="map"  src='#'></div>
 

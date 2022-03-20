@@ -55,8 +55,11 @@
 
         {% endifnotequal %}
         {% ifequal request.user ro.thedriver %}
-            <input class="btn btn-success" type="button"  name="load_route" value="Edit Trip" onclick="location.href='{% url 'edit_route' ro.pk %}'"  />
-            <input type="hidden"  name="route_to_load_id" value={ro.pk}}>
+          <form action="{% url 'edit_route' ro.pk %}" method="post">
+        {% csrf_token %}
+            <input class="btn btn-success" type="submit"  name="load_route" value="Edit Trip">  <!--onclick="location.href='{% url 'webload_route' ro.pk %}'"  />-->
+            <input type="hidden"  name="route_to_load_id" value={{ro.pk}}>
+          </form>
         {%endifequal %}
   </div>
 </div>
@@ -78,31 +81,6 @@
 
 
 
-<!--
-<div class="container-fluid">
-
-<p class="text-warning">Total Trips:<strong>{{routes_count}}</strong></p>
-{% for ro in  page.object_list %}
-<div class="prof">-->
-<!--origin,destination,date_orig,time_orig,time_dep,cost,no_pass,thedriver,map_pic,created_date
-    <h5> <strong>Trip No {{ro.id}}</strong> </h5>
-    <h6> From </h6> {{ro.origin}}
-    <h6> To </h6> {{ro.destination}}
-    <h6> On </h6> {{ro.date}}
-    <h6> Leaving at </h6> {{ro.time_orig}}
-    <h6> Returning at </h6> {{ro.time_dep}}
-    <h6> The Driver is </h6>   <strong><a href="{% url 'profile' ro.thedriver.id %}" > {{ro.thedriver}} </strong></a>
-     <p>   <img src="{{ ro.map_pic }}" alt="map"></p>
-
-
-
-</div>
-
-    </div>
-
--->
-
-{% endfor %}
 
 {% block script %}
     <script src="{% static 'Capstone/join_leave.js' %}"></script>
