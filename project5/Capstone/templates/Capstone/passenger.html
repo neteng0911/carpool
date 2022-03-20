@@ -11,7 +11,7 @@
       <div class="prof">
     <h5 class="mt-0"></h5>
         <h5> <strong>Trip No {{ro.id}}</strong> </h5>
-    <h6> From </h6> {{ro.origin}}
+    <h6> From </h6> {{ro.departure}}
     <h6> To </h6> {{ro.destination}}
     <h6> On </h6> {{ro.date}}
     <h6> Leaving at </h6> {{ro.time_orig}}
@@ -54,7 +54,10 @@
                 </div>
 
         {% endifnotequal %}
-
+        {% ifequal request.user ro.thedriver %}
+            <input class="btn btn-success" type="button"  name="load_route" value="Edit Trip" onclick="location.href='{% url 'edit_route' ro.pk %}'"  />
+            <input type="hidden"  name="route_to_load_id" value={ro.pk}}>
+        {%endifequal %}
   </div>
 </div>
 </div>

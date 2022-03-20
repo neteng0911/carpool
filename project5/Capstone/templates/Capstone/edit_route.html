@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block body %}
+<h1> {{ user}}, Here you can edit route no {{route_to_load.id}}</h1>
 <div class="container mt-3" >
     <div class="d-flex p-1 bg-secondary text-white flex-grow">
         <div class="bg-info col-sm-3 mx-5 pr-5 shadow-lg ">
@@ -53,7 +54,7 @@
       <div class=form-group">
 
 
-
+<form id="addresses">
 
 <div>
 <label for="input start">Departure Address</label>
@@ -65,11 +66,6 @@
   <input type="text" class="form-control" id="dest" value="{{route_to_load.destination}}">
     <p> <input id ="sear" class="btn-info" type="button" value="Search"></p>
 </div>
-
-
-          <p>
-
-
 
 </div>
 
@@ -84,21 +80,12 @@
     {% csrf_token %}
           {{ initform.as_p }}
 
-<form id="addresses">
-</form>
+
           <p>
-              <input class ='btn-info' id ="subbtn" type="submit" value="Submit"></p>
+              <input class ='btn-info' id ="subbtn" name="edit_route" type="submit" value="Submit"></p>
     </div>
     <div class="img-fluid" id="map_pl"><img id="map"  src='#'></div>
 
-<!--<form>
-{{ form.non_field_errors }}
-    <div class="fieldWrapper">
-        {{ form.time_dep.errors }}
-
-        {{ form.time_dep }}
-    </div>
-    </form>-->
   </div>
 </div>
 

@@ -252,39 +252,39 @@ def paging(request,the_posts):
 @login_required
 def edit_route(request, route_id):
     route_to_load = Route.objects.get(pk=route_id)
-    if request.method=='GET':
-
-        initform = RouteForm(instance=route_to_load)
-        return render(request, "Capstone/edit_route.html", {"route_to_load": route_to_load, 'initform': initform})
-
-    #date_orig, time_orig, time_dep, cost, no_pass, thedriver, map_pic, created_date)
-    # form = RouteForm(request.POST or None, initial={'departure':route_to_load.departure,
-    #                                                 'destination':route_to_load.destination,
-    #                                                 'date_orig':route_to_load.date_orig,
-    #                                                 'time_orig':route_to_load.time_orig,
-    #                                                 'time_dep':route_to_load.time_dep,
-    #                                                 })
-    # form['departure'].initial = route_to_load.departure
-    # form.destination.initial = route_to_load.destination
-
     if request.user == route_to_load.thedriver:
+        if request.method=='GET':
+
+            initform = RouteForm(instance=route_to_load)
+            return render(request, "Capstone/edit_route.html", {"route_to_load": route_to_load, 'initform': initform})
+
+
+
         if request.method =="POST" and "edit_route" in request.POST:
-            form = RouteForm
+
+            route_to_load.departure = request.POST["departure"]
+            route_to_load.destination = request.POST["destination"]
+            route_to_load.date_orig = request.POST["date_orig"]
+            route_to_load.time_orig = request.POST["time_orig"]
+            route_to_load.time_dep = request.POST["time_dep"]
+            route_to_load.cost = request.POST["cost"]
+            route_to_load.no_pass = request.POST["no_pass"]
+            route_to_load.map_pic = request.POST['map_pic']
+            msg = "Trip edited successfully!"
 
 
-
-            edit_txt = request.POST["edit_txt"]
-            route_to_load.departure=edit_txt
             route_to_load.save()
-            return render(request, "Capstone/edit_route.html", {"route_to_load": route_to_load, 'form': form})
-            #return HttpResponseRedirect(reverse("index"))
+
+
+
+            return HttpResponseRedirect(reverse("index"))
         if request.method == "POST" and "del_route" in request.POST:
             route_to_load.delete()
             return HttpResponseRedirect(reverse("index"))
 
         else:
 
-            return render(request, "Capstone/edit_route.html",{"route_to_load":route_to_load,'form':form})
+            return render(request, "Capstone/edit_route.html",{"route_to_load":route_to_load})
     else:
         return render(request, "Capstone/errors/invalid.html")
 
