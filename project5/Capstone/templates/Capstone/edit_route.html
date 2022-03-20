@@ -75,6 +75,7 @@
 
 
           <div class="succ" > {{  msg }} </div>
+
       </div>
 
 
@@ -84,11 +85,30 @@
       <form class='validity' action="{% url 'edit_route' route.pk %}" method="post">
     {% csrf_token %}
           {{ form.as_p }}
+            <input type="hidden" id="alert" value ='{{alert}}' readonly>
 
 
           <p>
-              <input class ='btn-info' id ="subbtn" name="edit_route" type="submit" value="Submit"></p>
+              <input class ='btn-info' id ="editbt" name="edit_route" type="submit" value="Submit"></p>
           </form>
+        <div style="color:red"> {{msger}}</div>
+<script>
+document.getElementById("editbt").addEventListener("click", myFunction);
+
+function myFunction() {
+
+const al=document.getElementById('alert').value;
+console.log(al);
+   if (al ==1){
+
+        alert('Success');
+
+        } else {
+        alert('please try again')
+        };
+}
+</script>
+
     </div>
     <div class="img-fluid" id="map_pl"><img id="map"  src='#'></div>
 

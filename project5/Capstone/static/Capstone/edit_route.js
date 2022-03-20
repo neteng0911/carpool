@@ -15,9 +15,10 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelector('#map_pl').style.display = 'block';
         document.querySelectorAll('#sear').forEach((element) => {
         element.onclick = () => search_route();
-        document.querySelectorAll('#subbtn').forEach((element) => {
+        document.querySelectorAll('#editbt').forEach((element) => {
         element.onclick = () => subm_route();
         const d= new Date();
+
 
 
 
@@ -110,6 +111,7 @@ function subm_route(){
         document.querySelector('#addresses').style.display = 'block';
         document.querySelector('#map').style.display = 'block';
         document.querySelector('#sub_route').style.display = 'block';
+
 
 
 })

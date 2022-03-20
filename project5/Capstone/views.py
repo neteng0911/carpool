@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
-
+from django.contrib import messages
 import json
 from django.db.models import Max, Count
 from django.core.exceptions import ObjectDoesNotExist
@@ -240,8 +240,9 @@ def paging(request, the_posts):
 
 @login_required
 def edit_route(request, route_id):
+    alert = 1
     route = Route.objects.get(pk=route_id)
-    form = RouteForm(instance=route)
+
     # form = RouteForm()
 
     if request.user == route.thedriver:
@@ -251,6 +252,8 @@ def edit_route(request, route_id):
         #     return render(request, "Capstone/edit_route.html", {"route": route, 'form': form})
 
         if request.method == "POST" and "edit_route" in request.POST:
+            form = RouteForm(request.POST, instance=route)
+
             route.departure = request.POST["departure"]
             route.destination = request.POST["destination"]
             route.date_orig = request.POST["date_orig"]
@@ -260,17 +263,29 @@ def edit_route(request, route_id):
             route.no_pass = request.POST["no_pass"]
             route.map_pic = request.POST['map_pic']
             msg = "Trip edited successfully!"
+            if form.is_valid():
+                alert = 1
+                print(alert)
 
 
-            route.save()
+                route.save()
+                messages.success(request, 'Trip edited succesfully')
 
-            return HttpResponseRedirect(reverse("index"))
+                return HttpResponseRedirect(reverse("index"))
+
+            else:
+                form = RouteForm(instance=route)
+                msger = "Invalid Input please try again"
+                alert = 0
+                print(alert)
+                return render(request, "Capstone/edit_route.html", {"route": route, 'form': form, 'msger':msger, 'alert':alert})
 
         if request.method == "POST" and "del_route" in request.POST:
             route.delete()
             return HttpResponseRedirect(reverse("index"))
 
         else:
+            form = RouteForm(instance=route)
 
             return render(request, "Capstone/edit_route.html", {"route": route, 'form':form})
     else:
