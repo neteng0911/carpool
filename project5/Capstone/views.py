@@ -177,11 +177,16 @@ def profile(request, user_id):
     # no_of_following=len(followinglist)
     # print(current_user,"Your followers are", followerslist)
     # print(current_user,"You r following",myfollowinglist)
-    if request.method == "POST" and "post_reply" in request.POST:
-        reply_txt = request.POST["reply_txt"]
-        mypost_reply = request.POST.get("post_id")
-        # reply(request, reply_txt, mypost_reply)
-        return render(request, "Capstone/profile.html", {"targ_user": targ_user})
+    comments = Comment.objects.order_by('-created_date')
+
+    if request.method == "POST" and "route_reply" in request.POST:
+        comm_txt = request.POST["comm_txt"]
+        route_id = request.POST.get("route_id")
+
+        comment(request, comm_txt, route_id)
+        return render(request, "Capstone/profile.html", {"targ_user": targ_user,'comments':comments,
+                                                         'user_routes':user_routes,'page':page,
+                                                         'user_routes_count': user_routes_count})
 
     if request.method == "POST" and "load_route" in request.POST:
 

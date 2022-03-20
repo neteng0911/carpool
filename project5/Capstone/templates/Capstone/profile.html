@@ -61,11 +61,11 @@ Total Trips:<strong>{{user_routes_count}}</strong>
 
 
         <div class="form-group">
-            <input class="form-control" autofocus style="margin-top:30px" type="text" name="reply_txt" placeholder="reply">
+            <input class="form-control" autofocus style="margin-top:30px" type="text" name="comm_txt" placeholder="insert your comment">
             <input type="hidden"  name="route_id" value={{user_route.pk}}>
 
         </div>
-    <input class="btn btn-primary" type="submit" name="route_reply" value="Reply">
+    <input class="btn btn-primary" type="submit" name="route_reply" value="Post">
         {% ifnotequal request.user user_route.thedriver %}
                 <div class="likes">
                         {% if request.user in user_route.thepassenger.all %}
@@ -80,33 +80,22 @@ Total Trips:<strong>{{user_routes_count}}</strong>
 
     {% ifequal user user_route.thedriver %}
      <input class="btn btn-success" type="button"  name="load_route" value="Edit Trip" onclick="location.href='{% url 'edit_route' user_route.pk %}'"  />
-<!--     <form action="{% url 'edit_route' user_route.pk %}" method="post">
-     {% csrf_token %}
-     <input class="btn btn-primary" name="load_route" type="submit" value="Edit Trip" >-->
+
      <input type="hidden"  name="route_to_load_id" value={{user_route.pk}}>
     {%endifequal %}
 
 
 
-
-
-
-
-</div>
-</ul>
-</section>
-
-{% for rep in user_post.replies.all %}
+       {% for rep in user_route.comments.all %}
  <ul>
 
 
 
-        <div class="replies" ><p style= "color:blue; font-size:10px;"><a href="{% url 'profile' rep.owner_id %}">{{rep.owner}}</a>
+        <div class="comms" ><p style= "color:blue; font-size:10px;"><a href="{% url 'profile' rep.owner_id %}">{{rep.owner}}</a>
             replied on {{rep.created_date}}</p> <strong>{{rep}} </strong> </div>
 </ul>
-{% endfor %}
-</form>
-    </div>
+        {% endfor %}
+</section>
 
 
 
