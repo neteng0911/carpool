@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
+
 import json
 from django.db.models import Max,Count
 from django.core.exceptions import ObjectDoesNotExist
@@ -248,13 +249,23 @@ def paging(request,the_posts):
     page_num = request.GET.get("page")
     return post_paginator.get_page(page_num)
 
-
+@login_required
 def edit_route(request, route_id):
     route_to_load = Route.objects.get(pk=route_id)
+    if request.method=='GET':
 
-    form = RouteForm
-    form.fields['departure'].initial = route_to_load.departure
-    form.destination.initial = route_to_load.destination
+        initform = RouteForm(instance=route_to_load)
+        return render(request, "Capstone/edit_route.html", {"route_to_load": route_to_load, 'initform': initform})
+
+    #date_orig, time_orig, time_dep, cost, no_pass, thedriver, map_pic, created_date)
+    # form = RouteForm(request.POST or None, initial={'departure':route_to_load.departure,
+    #                                                 'destination':route_to_load.destination,
+    #                                                 'date_orig':route_to_load.date_orig,
+    #                                                 'time_orig':route_to_load.time_orig,
+    #                                                 'time_dep':route_to_load.time_dep,
+    #                                                 })
+    # form['departure'].initial = route_to_load.departure
+    # form.destination.initial = route_to_load.destination
 
     if request.user == route_to_load.thedriver:
         if request.method =="POST" and "edit_route" in request.POST:

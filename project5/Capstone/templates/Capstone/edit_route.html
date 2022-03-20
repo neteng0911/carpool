@@ -7,7 +7,7 @@
         <div class="bg-info col-sm-3 mx-5 pr-5 shadow-lg ">
 
 
-    <div  style="position:left;color:green; font-size:20px;">From: {{route_to_load.origin}}
+    <div  style="position:left;color:green; font-size:20px;">From: {{route_to_load.departure}}
         <p>To: {{route_to_load.destination}}</p>
 
         <p> On: {{route_to_load.date_orig.date}}</p>
@@ -26,18 +26,18 @@
 
 
        {{ route_to_load.thedriver}} </strong></a>  on: {{ route_to_load.created_date}} </p>
-    <p id="likes" style= "color:grey; font-size:12px;mix-blend-mode: multiply;"><img src="{% static  'Capstone/images/seat.jpg' %}" alt="like image"> <strong>{{route.thepassenger.all.count}}</strong>
-    </p>
+    <!--<p id="likes" style= "color:grey; font-size:12px;mix-blend-mode: multiply;"><img src="{% static  'Capstone/images/seat.jpg' %}" alt="like image"> <strong>{{route.thepassenger.all.count}}</strong>
+    </p>-->
     </div>
-            <form action="{% url 'edit_route' route_to_load.pk %}" method="post">
-        {% csrf_token %}
+<!--            <form action="{% url 'edit_route' route_to_load.pk %}" method="post">-->
+<!--        {% csrf_token %}-->
 
 
-        <div class="form-group">
-            <input class="form-control" autofocus style="margin-top:30px" type="text" name="edit_txt"  value="{{route_to_load.destination}}">
-        </div>
-    <input class="btn btn-primary" name="edit_route" type="submit" value="Save">
-</form>
+<!--        <div class="form-group">-->
+<!--            <input class="form-control" autofocus style="margin-top:30px" type="text" name="edit_txt"  value="{{route_to_load.destination}}">-->
+<!--        </div>-->
+<!--    <input class="btn btn-primary" name="edit_route" type="submit" value="Save">-->
+<!--</form>-->
 
 
 <form action="{% url 'edit_route' route_to_load.pk %}" method="post">
@@ -54,13 +54,22 @@
 
 
 
-      <form class='validity' action="{% url 'edit_route' route_to_load.pk %}" method="post">
-    {% csrf_token %}
-          {{ form.as_p }}
+
+<div>
+<label for="input start">Departure Address</label>
+  <input type="text" class="form-control" id="dep" value="{{route_to_load.departure}}">
+
+</div>
+<div>
+  <label for="input finish">Destination Address</label>
+  <input type="text" class="form-control" id="dest" value="{{route_to_load.destination}}">
+    <p> <input id ="sear" class="btn-info" type="button" value="Search"></p>
+</div>
+
 
           <p>
-    <input id ="subbtn" type="submit" value="Submit"></p>
-    </form>
+
+
 
 </div>
 
@@ -71,8 +80,14 @@
 
 
     <div class="bg-info col-sm-3 mx-5 pr-5 shadow-lg" id="sub_route">
+      <form class='validity' action="{% url 'edit_route' route_to_load.pk %}" method="post">
+    {% csrf_token %}
+          {{ initform.as_p }}
 
-
+<form id="addresses">
+</form>
+          <p>
+              <input class ='btn-info' id ="subbtn" type="submit" value="Submit"></p>
     </div>
     <div class="img-fluid" id="map_pl"><img id="map"  src='#'></div>
 

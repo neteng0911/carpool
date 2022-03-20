@@ -79,9 +79,10 @@ Total Trips:<strong>{{user_routes_count}}</strong>
         {% endifnotequal %}
 
     {% ifequal user user_route.thedriver %}
-     <form action="{% url 'edit_route' user_route.pk %}" method="post">
+     <input class="btn btn-success" type="button"  name="load_route" value="Edit Trip" onclick="location.href='{% url 'edit_route' user_route.pk %}'"  />
+<!--     <form action="{% url 'edit_route' user_route.pk %}" method="post">
      {% csrf_token %}
-     <input class="btn btn-primary" name="load_route" type="submit" value="Edit Trip" >
+     <input class="btn btn-primary" name="load_route" type="submit" value="Edit Trip" >-->
      <input type="hidden"  name="route_to_load_id" value={{user_route.pk}}>
     {%endifequal %}
 
