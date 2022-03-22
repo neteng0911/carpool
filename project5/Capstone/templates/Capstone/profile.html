@@ -83,7 +83,9 @@ Total Trips:<strong>{{user_routes_count}}</strong>
 
      <input type="hidden"  name="route_to_load_id" value={{user_route.pk}}>
     {%endifequal %}
+    </form>
 
+</section>
 
 
        {% for rep in user_route.comments.all %}
@@ -95,7 +97,8 @@ Total Trips:<strong>{{user_routes_count}}</strong>
             replied on {{rep.created_date}}</p> <strong>{{rep}} </strong> </div>
 </ul>
         {% endfor %}
-</section>
+
+
 
 
 

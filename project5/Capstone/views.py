@@ -275,15 +275,18 @@ def edit_route(request, route_id):
 
                 route.save()
                 messages.success(request, 'Trip edited succesfully')
-
-                return HttpResponseRedirect(reverse("index"))
+                return render(request, "Capstone/edit_route.html", {"route": route, 'form': form})
+                #return HttpResponseRedirect(reverse("index"))
 
             else:
                 form = RouteForm(instance=route)
                 msger = "Invalid Input please try again"
-                alert = 0
-                print(alert)
-                return render(request, "Capstone/edit_route.html", {"route": route, 'form': form, 'msger':msger, 'alert':alert})
+                # alert = 0
+                # print(alert)
+                messages.error(request, 'Invalid form submission.')
+                messages.error(request, form.errors)
+
+                return render(request, "Capstone/edit_route.html", {"route": route, 'form': form, 'msger':msger})
 
         if request.method == "POST" and "del_route" in request.POST:
             route.delete()

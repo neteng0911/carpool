@@ -86,20 +86,20 @@
     {% csrf_token %}
           {{ form.as_p }}
             <input type="hidden" id="alert" value ='{{alert}}' readonly>
-
-
+{{ block.super }}
+{% include 'messages.html' %}
           <p>
               <input class ='btn-info' id ="editbt" name="edit_route" type="submit" value="Submit"></p>
           </form>
         <div style="color:red"> {{msger}}</div>
-<script>
+<!--<script>
 document.getElementById("editbt").addEventListener("click", myFunction);
 
 function myFunction() {
 
 const al=document.getElementById('alert').value;
 console.log(al);
-   if (al ==1){
+   if (al == 1){
 
         alert('Success');
 
@@ -107,7 +107,7 @@ console.log(al);
         alert('please try again')
         };
 }
-</script>
+</script>-->
 
     </div>
     <div class="img-fluid" id="map_pl"><img id="map"  src='#'></div>
