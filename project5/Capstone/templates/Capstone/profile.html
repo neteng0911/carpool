@@ -52,9 +52,17 @@ Total Trips:<strong>{{user_routes_count}}</strong>
     <p id="likes" style= "color:grey; font-size:12px;mix-blend-mode: multiply;"><img src="{% static  'Capstone/images/seat.jpg' %}" alt="seat image">
         <span><strong id="thepassengercounter_{{user_route.id}}">{{ user_route.thepassenger.all.count }}</strong></span>/{{ user_route.no_pass }}
 
-        {% else %}
+
+        <p style= "color:grey; font-size:12px;mix-blend-mode: multiply;"> Passengers:{{  user_route.thepassenger.all }}</p>
+
+
+
+    {% else %}
+
     <p id="likes" style= "color:grey; font-size:12px;mix-blend-mode: multiply;"><img src="{% static  'Capstone/images/seat.jpg' %}" alt="seat image">
         <span><strong id="thepassengercounter_{{user_route.id}}">0</strong></span>
+
+
         {% endif %}
 <form action="{% url 'profile' targ_user.id %}" method="post">
         {% csrf_token %}
