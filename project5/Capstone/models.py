@@ -1,6 +1,6 @@
 from django.db import models
 
-# Create your models here.
+from datetime import datetime
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from datetime import date
@@ -47,6 +47,13 @@ class Route(models.Model):
     map_pic = models.CharField(max_length=256,null=True)
     created_date = models.DateTimeField(default=now, editable=False)
     thepassenger = models.ManyToManyField(User, blank="TRUE", related_name="thepassengers")
+    def fin(self):
+        if self.date_orig.timestamp() < datetime.today().timestamp() or self.time_orig < datetime.now().time():
+            return True
+        else:
+            return False
+
+
 
     objects = RouteManager()
     marker=object()
@@ -63,6 +70,8 @@ class Route(models.Model):
         else:
             est_cost=self.cost/self.no_pass
         return est_cost
+
+
 
     def serialize(self):
         return{

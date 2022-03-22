@@ -10,7 +10,7 @@
   <div class="media-body">
       <div class="prof">
     <h5 class="mt-0"></h5>
-        <h5> <strong>Trip No {{ro.id}}</strong> </h5>
+        <h5> <strong>Trip No {{ro.id}}</strong> </h5> {% if ro.fin  %}  <h5 style='color:red;'> 'Trip Closed'</h5>{% endif %}
     <h6> From </h6> {{ro.departure}}
     <h6> To </h6> {{ro.destination}}
     <h6> On </h6> {{ro.date_orig.date}}
@@ -30,7 +30,8 @@
         {% else %}
     <p id="likes" style= "color:grey; font-size:12px;mix-blend-mode: multiply;"><img src="{% static  'Capstone/images/seat.jpg' %}" alt="seat image">
         <span><strong id="thepassengercounter_{{ro.id}}">0</strong></span>
-        {% endif %}
+
+       {% endif %}
 <form action="{% url 'passenger' %}" method="post">
         {% csrf_token %}
 
@@ -43,6 +44,7 @@
 </form>
 
         {% ifnotequal request.user ro.thedriver %}
+            {% if not ro.fin %}
                 <div class="likes">
                         {% if request.user in ro.thepassenger.all %}
 
@@ -52,7 +54,7 @@
                         {% endif %}
 
                 </div>
-
+            {% endif %}
         {% endifnotequal %}
         {% ifequal request.user ro.thedriver %}
           <form action="{% url 'edit_route' ro.pk %}" method="post">

@@ -80,6 +80,7 @@ def passenger(request):
     exp_cost = 0
 
     all_routes = Route.objects.all().order_by('-created_date')
+
     page = paging(request, all_routes)
     routes_count = all_routes.count()
     # for ro in all_routes:
@@ -166,6 +167,7 @@ def create_route(request, departure, destination, date_orig, time_orig, time_dep
 def profile(request, user_id):
     current_user = request.user
     targ_user = User.objects.get(id=user_id)
+
     user_routes = Route.objects.filter(thedriver_id=user_id).order_by('-created_date')
     page = paging(request, user_routes)
     user_routes_count = user_routes.count()
@@ -189,13 +191,28 @@ def profile(request, user_id):
                                                          'user_routes_count': user_routes_count})
 
     if request.method == "POST" and "load_route" in request.POST:
-
         route_to_load_id = request.POST.get("route_to_load_id")
 
         route_to_load = Route.objects.get(pk=route_to_load_id)
+
+        # route_to_load_id = request.POST.get("route_to_load_id")
+        #
+        # route_to_load = Route.objects.get(pk=route_to_load_id)
         edit_route(request, route_to_load_id)
 
         return render(request, "Capstone/edit_route.html", {"route_to_load": route_to_load})
+
+    if request.method == "POST" and "finalise_trip" in request.POST:
+        route_to_load_id = request.POST.get("route_to_load_id")
+
+        route_to_load = Route.objects.get(pk=route_to_load_id)
+        route_to_load.fin=True
+        message_cl="Passenger list completed"
+        print(message_cl)
+
+        route_to_load.save()
+        return render(request, "Capstone/profile.html", {"targ_user": targ_user, "count": page.count, "page": page,
+                                                         'user_routes_count': user_routes_count,'message_cl':message_cl})
     # if targ_user in followinglist:
     #     print(request.user,"you are following user", targ_user)
     #
@@ -269,13 +286,13 @@ def edit_route(request, route_id):
             route.map_pic = request.POST['map_pic']
             msg = "Trip edited successfully!"
             if form.is_valid():
-                alert = 1
-                print(alert)
+                # alert = 1
+                # print(alert)
 
 
                 route.save()
-                messages.success(request, 'Trip edited succesfully')
-                return render(request, "Capstone/edit_route.html", {"route": route, 'form': form})
+                # messages.success(request, 'Trip edited succesfully')
+                return render(request, "Capstone/edit_route.html", {"route": route, 'form': form, 'msg':msg})
                 #return HttpResponseRedirect(reverse("index"))
 
             else:
@@ -283,8 +300,8 @@ def edit_route(request, route_id):
                 msger = "Invalid Input please try again"
                 # alert = 0
                 # print(alert)
-                messages.error(request, 'Invalid form submission.')
-                messages.error(request, form.errors)
+                # messages.error(request, 'Invalid form submission.')
+                # messages.error(request, form.errors)
 
                 return render(request, "Capstone/edit_route.html", {"route": route, 'form': form, 'msger':msger})
 

@@ -39,8 +39,8 @@ Total Trips:<strong>{{user_routes_count}}</strong>
 <section>
 <ul>
 
-<div class="post">Trip No {{user_route.pk}}
-    <p> <h6>From</h6> {{user_route.origin}} <h6>To</h6> {{user_route.destination}} </p>
+<div class="post">Trip No {{user_route.pk}} {% if user_route.fin  %}  <h5 style='color:red;'> 'Trip Closed'</h5>{% endif %}
+    <p> <h6>From</h6> {{user_route.departure}} <h6>To</h6> {{user_route.destination}} </p>
     <p> <h6>on</h6> {{user_route.date_orig.date}}</p>
     <p> <h6>Leaving at</h6>  {{user_route.time_orig}} <h6>and returning at</h6> {{user_route.time_dep}}</p>
      <p>   <img src="{{ user_route.map_pic }}" alt="map"></p>
@@ -76,11 +76,27 @@ Total Trips:<strong>{{user_routes_count}}</strong>
                         {% endif %}
 
                 </div>
+    </form>
         {% endifnotequal %}
 
     {% ifequal user user_route.thedriver %}
-     <input class="btn btn-success" type="button"  name="load_route" value="Edit Trip" onclick="location.href='{% url 'edit_route' user_route.pk %}'"  />
 
+    {% if not user_route.fin  %}
+<form action="{% url 'profile' targ_user.id %}" method="post">
+        {% csrf_token %}
+
+
+        <div class="form-group">
+
+            <input type="hidden"  name="route_to_load_id" value={{user_route.pk}}>
+
+        </div>
+    <input class="btn btn-primary" type="submit" name="finalise_trip" value="Finalise trip">
+    </form>
+    {% endif %}
+
+    <form>
+     <input class="btn btn-success" type="button"  name="load_route" value="Edit Trip" onclick="location.href='{% url 'edit_route' user_route.pk %}'"  />
      <input type="hidden"  name="route_to_load_id" value={{user_route.pk}}>
     {%endifequal %}
     </form>
