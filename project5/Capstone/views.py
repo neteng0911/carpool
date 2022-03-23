@@ -172,6 +172,21 @@ def profile(request, user_id):
     page = paging(request, user_routes)
     user_routes_count = user_routes.count()
 
+
+    for route in user_routes:
+        a=route.thepassenger.all()
+        for i in a:
+            b=i.username
+            print(b)
+
+
+    user_passenger_list = current_user.thepassengers.all()
+    user_passenger_count = user_passenger_list.count()
+
+    print (user_passenger_list, user_passenger_count)
+    print('******************')
+
+
     #passengerlist = user_routes(thepassengers=user_id)
 
     # myfollowinglist = current_user.followers.all()
@@ -190,7 +205,7 @@ def profile(request, user_id):
         comment(request, comm_txt, route_id)
         return render(request, "Capstone/profile.html", {"targ_user": targ_user,'comments':comments,
                                                          'user_routes':user_routes,'page':page,
-                                                         'user_routes_count': user_routes_count,'passengerlist':passengerlist})
+                                                         'user_routes_count': user_routes_count,'user_passenger_list':user_passenger_list, 'user_passenger_count':user_passenger_count})
 
     if request.method == "POST" and "load_route" in request.POST:
         route_to_load_id = request.POST.get("route_to_load_id")
@@ -214,7 +229,8 @@ def profile(request, user_id):
 
         route_to_load.save()
         return render(request, "Capstone/profile.html", {"targ_user": targ_user, "count": page.count, "page": page,
-                                                         'user_routes_count': user_routes_count,'message_cl':message_cl})
+                                                         'user_routes_count': user_routes_count,'message_cl':message_cl
+                                                         ,'user_passenger_list':user_passenger_list, 'user_passenger_count':user_passenger_count})
     # if targ_user in followinglist:
     #     print(request.user,"you are following user", targ_user)
     #
@@ -251,7 +267,8 @@ def profile(request, user_id):
     else:
 
         return render(request, "Capstone/profile.html", {"targ_user": targ_user, "count": page.count, "page": page,
-                                                         'user_routes_count': user_routes_count})
+                                                         'user_routes_count': user_routes_count,
+                      'user_passenger_list':user_passenger_list, 'user_passenger_count':user_passenger_count})
 
 
 def paging(request, the_posts):

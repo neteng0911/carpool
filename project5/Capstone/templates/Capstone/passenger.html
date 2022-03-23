@@ -1,7 +1,9 @@
 {% extends "Capstone/layout.html" %}
 {% load static %}
 {% block body %}
-
+                    <li class="nav-item">
+                        <a class="nav-link text-warning" href="#">Log In</a>
+                    </li>
 
 <p class="text-warning">Total Trips:<strong>{{routes_count}}</strong></p>
 {% for ro in  page.object_list %}

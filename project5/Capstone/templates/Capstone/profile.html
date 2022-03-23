@@ -7,7 +7,7 @@
     <h2 class="text-warning">You are viewing user:{{targ_user.username}}</h2>
 <div class= "prof"><strong> user's email address : {{targ_user.email}}</strong></p>
 <strong> {{targ_user.username}} is member since {{ targ_user.date_joined }}</strong>
-    <p>Total Trips:<strong>{{user_routes_count}}</strong></p>
+    <p>Total Trips as a driver:<strong>{{user_routes_count}}</strong></p>
 
 
 
@@ -17,12 +17,18 @@
  <h2 class="text-warning">You are currenty logged in as :{{user.username}}</h2>
 <div class= "prof"><strong> {{user.email}}</strong>
     <p><strong> You are member since {{user.date_joined}}</strong></p>
+    <p> You are a passenger of {{user_passenger_count}}  trips</p>{% for route in user_passenger_list %}
+
+
+            <strong> <a href="{% url 'webload_route' route.id %}" > {{route.id}} </a></strong>
+
+        {% endfor %}
 
 
 
 
 
-Total Trips:<strong>{{user_routes_count}}</strong>
+<p>Total Trips as a driver:<strong>{{user_routes_count}}</strong></p>
 
 
 
@@ -43,17 +49,24 @@ Total Trips:<strong>{{user_routes_count}}</strong>
     <p> <h6>From</h6> {{user_route.departure}} <h6>To</h6> {{user_route.destination}} </p>
     <p> <h6>on</h6> {{user_route.date_orig.date}}</p>
     <p> <h6>Leaving at</h6>  {{user_route.time_orig}} <h6>and returning at</h6> {{user_route.time_dep}}</p>
+        <p hidden id="cost_{{route.id}}"><h6>Initial cost per passenger {{user_route.cost}} $</h6>
+    <h6> Expected cost per passenger </h6><strong id="costpp_{{route.id}}">{{user_route.costpp}}$</strong>
      <p>   <img src="{{ user_route.map_pic }}" alt="map"></p>
 
 
     <p style= "color:grey; font-size:12px;"> <strong><a href="{% url 'profile' targ_user.id %}" > {{targ_user.username}} </strong></a> wrote on: {{user_route.created_date}} </p>
 
-        {% if user_route.passengers.all.count != 0 %}
+        {% if user_route.thepassenger.all.count != 0 %}
     <p id="likes" style= "color:grey; font-size:12px;mix-blend-mode: multiply;"><img src="{% static  'Capstone/images/seat.jpg' %}" alt="seat image">
         <span><strong id="thepassengercounter_{{user_route.id}}">{{ user_route.thepassenger.all.count }}</strong></span>/{{ user_route.no_pass }}
+       Passengers of this Trip:
+
+        {% for a in user_route.thepassenger.all %}
+        <strong> <a href="{% url 'profile' a.id %}" >  {{ a.username }}</a></strong>
+        {% endfor %}
 
 
-        <p style= "color:grey; font-size:12px;mix-blend-mode: multiply;"> Passengers:{{  user_route.thepassenger.all }}</p>
+
 
 
 
