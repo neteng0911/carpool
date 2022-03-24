@@ -32,7 +32,7 @@ class RouteForm(forms.ModelForm):
         widget=forms.TextInput(attrs={'placeholder': 'Destination','readonly':'readonly','class':'readonly'}))
     date_orig=forms.DateField(widget=forms.DateInput(attrs={'type': 'date','min':date.today()}))
     #date_orig=forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}), validators=[check_date])
-    time_orig=forms.TimeField(widget=forms.TimeInput(attrs={'type': 'time','min':now_t}))
+    time_orig=forms.TimeField(widget=forms.TimeInput(attrs={'type': 'time'}))
     time_dep=forms.TimeField(widget=forms.TimeInput(attrs={'type': 'time','min':time_orig}))
 
     cost=forms.FloatField(min_value=0.0,error_messages={'min_value': u'Cost cannot be less than 0.0'})
@@ -57,7 +57,7 @@ class RouteForm(forms.ModelForm):
         if date_inp <date.today():
             raise forms.ValidationError({'date_orig':'start date should be later than today.'})
 
-        if start<datetime.now().time():
+        if date_inp == date.today() and start < datetime.now().time():
             raise forms.ValidationError('start time should be later than now.')
         if start > end:
             raise forms.ValidationError({'time_dep':'end time should be later than start time.'})

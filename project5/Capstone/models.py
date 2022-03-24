@@ -48,7 +48,9 @@ class Route(models.Model):
     created_date = models.DateTimeField(default=now, editable=False)
     thepassenger = models.ManyToManyField(User, blank="TRUE", related_name="thepassengers")
     def fin(self):
-        if self.date_orig.timestamp() < datetime.today().timestamp() or self.time_orig < datetime.now().time():
+        if self.date_orig.timestamp() < datetime.today().timestamp() :
+            return True
+        elif self.date_orig.timestamp() == datetime.today().timestamp() and self.time_orig < datetime.now().time():
             return True
         else:
             return False
