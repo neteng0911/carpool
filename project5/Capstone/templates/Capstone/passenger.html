@@ -2,7 +2,7 @@
 {% load static %}
 {% block body %}
                     <li class="nav-item">
-                        <input id = 'sort' class="btn-info" style='position:absolute; right:100px;' type="button" value="Show Valid Trips">
+                        <input id = 'sortbtn' class="btn-info" style='position:absolute; right:100px;' type="button" value="Show Valid Trips">
                     </li>
 
 <p class="text-warning">Total Trips:<strong>{{routes_count}}</strong></p>
@@ -46,7 +46,7 @@
 </form>
 
         {% ifnotequal request.user ro.thedriver %}
-            {% if not ro.fin %}
+            {% if not ro.fin or not ro.fin_set %}
                 <div class="likes">
                         {% if request.user in ro.thepassenger.all %}
 

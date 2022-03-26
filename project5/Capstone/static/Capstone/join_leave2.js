@@ -2,35 +2,25 @@
 
    document.addEventListener('DOMContentLoaded', function() {
 
-       var sortbtn = document.querySelector('#sortbtn');
-        sortbtn.addEventListener('click', sort);
-
-      document.querySelectorAll('#route').forEach((element) => {
-
-
-
-       var route_id = element.dataset.id;
-       console.log(route_id)
+    fetch(`/route/${route_id}`)
+    .then(response => response.json())
+    .then(route => {
 
 
 
-        var fin=route["fin"];
-        var fin_set = route['fin_set'];
+        if (route.error) {
+            console.log(route.error);
+            alert(route.error)
+
+        }
+
+       var fin=route["fin"];
 
        console.log(fin)
-       if (fin == 1 || fin_set == 1) {document.querySelector('.likes').style.display='none';
+       if (fin == 1) {document.querySelector('.likes').style.display='none';
 
        }
-       else{document.querySelector('.likes').style.display='block';
-
-       }
-       }
-       )
-
-
-
-
-
+       else{document.querySelectorB('.likes').style.display='block';
        document.querySelectorAll('.joinleave').forEach((element) => {
             element.onclick = () => {
 
@@ -69,31 +59,7 @@
                 est_cost(route_id);
             }
         }
-    });
-
-    function sort(){
-    document.querySelectorAll('#route').forEach((element) => {
-
-
-    var fin=element.dataset.fin;
-    var fin_set = route['fin_set'];
-    console.log(document.querySelector(".media").style.display);
-    console.log(fin)
-     console.log(fin_set)
-
-
-
-
-
-       if (fin == 'True' || fin_set=="True") {document.querySelector('.media').style.display='none';
-
-       }
-       else{document.querySelector('.media').style.display='block';
-
-       }
-})}
-
-
+    })};
  function join_route(route_id)
 {
     fetch(`/join/route/${route_id}`, {
@@ -140,11 +106,8 @@ fetch(`/route/${route_id}`)
 }
        else{
        var cost =init_cost/no_pass;
-       document.querySelector(`#costpp_${route_id}`).innerHTML = cost+'$';
-
-}
-
-    })
+       document.querySelector(`#costpp_${route_id}`).innerHTML = cost+'$';}
+       })
 
 
 
@@ -155,5 +118,6 @@ fetch(`/route/${route_id}`)
 
 
 
-   })
+   }
 
+})
