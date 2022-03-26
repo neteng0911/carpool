@@ -80,6 +80,7 @@
     console.log(document.querySelector(".media").style.display);
     console.log(fin)
      console.log(fin_set)
+     alert('sorting')
 
 
 

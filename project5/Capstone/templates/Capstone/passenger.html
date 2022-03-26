@@ -46,8 +46,9 @@
 </form>
 
         {% ifnotequal request.user ro.thedriver %}
-            {% if not ro.fin or not ro.fin_set %}
+            {% if not ro.fin_set and not ro.fin  %}
                 <div class="likes">
+                    {{ro.fin}} {{ro.fin_set}}
                         {% if request.user in ro.thepassenger.all %}
 
                         <span id="leavebtn" class="joinleave" data-id="{{ro.id}}" onclick="return false" title="Leave" >Leave</span>
@@ -56,7 +57,7 @@
                         {% endif %}
 
                 </div>
-            {% endif %}
+            {% endif%}
         {% endifnotequal %}
         {% ifequal request.user ro.thedriver %}
           <form action="{% url 'edit_route' ro.pk %}" method="post">
