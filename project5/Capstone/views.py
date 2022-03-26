@@ -226,6 +226,7 @@ def profile(request, user_id):
         route_to_load.fin=True
         message_cl="Passenger list completed"
         print(message_cl)
+        print(route_to_load_id, route_to_load.fin)
 
         route_to_load.save()
         return render(request, "Capstone/profile.html", {"targ_user": targ_user, "count": page.count, "page": page,

@@ -45,7 +45,7 @@
 <section>
 <ul>
 
-<div class="post">Trip No {{user_route.pk}} {% if user_route.fin  %}  <h5 style='color:red;'> 'Trip Closed'</h5>{% endif %}
+<div class="post">Trip No {{user_route.pk}} {% if user_route.fin  %}  <h5 style='color:red;'> 'Trip Closed'</h5>{% endif %} {{ user_route.fin}}
     <p> <h6>From</h6> {{user_route.departure}} <h6>To</h6> {{user_route.destination}} </p>
     <p> <h6>on</h6> {{user_route.date_orig.date}}</p>
     <p> <h6>Leaving at</h6>  {{user_route.time_orig}} <h6>and returning at</h6> {{user_route.time_dep}}</p>

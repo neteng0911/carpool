@@ -1,36 +1,6 @@
 
-
-   document.addEventListener('DOMContentLoaded', function() {
-
-       var sortbtn = document.querySelector('#sortbtn');
-        sortbtn.addEventListener('click', sort);
-
-      document.querySelectorAll('#route').forEach((element) => {
-
-
-
-       var route_id = element.dataset.id;
-
-
-
-        var fin=route["fin"];
-
-       console.log(fin)
-       if (fin == 1) {document.querySelector('.likes').style.display='none';
-
-       }
-       else{document.querySelector('.likes').style.display='block';
-
-       }
-       }
-       )
-
-
-
-
-
-       document.querySelectorAll('.joinleave').forEach((element) => {
-            element.onclick = () => {
+   document.querySelectorAll('.joinleave').forEach((element) => {
+        element.onclick = () => {
 
 
 
@@ -68,27 +38,6 @@
             }
         }
     });
-
-    function sort(){
-    document.querySelectorAll('#route').forEach((element) => {
-
-    var fin=element.dataset.fin;
-    console.log(document.querySelector(".media").style.display);
-    console.log(fin)
-
-
-
-
-
-       if (fin == 'True') {document.querySelector('.media').style.display='none';
-
-       }
-       else{document.querySelector('.media').style.display='block';
-
-       }
-})}
-
-
  function join_route(route_id)
 {
     fetch(`/join/route/${route_id}`, {
@@ -107,7 +56,7 @@ function leave_route(route_id)
     }
 
 
-function est_cost(){
+function est_cost(route_id){
 
 
 fetch(`/route/${route_id}`)
@@ -135,20 +84,9 @@ fetch(`/route/${route_id}`)
 }
        else{
        var cost =init_cost/no_pass;
-       document.querySelector(`#costpp_${route_id}`).innerHTML = cost+'$';
-
-}
-
-    })
-
-
-
+       document.querySelector(`#costpp_${route_id}`).innerHTML = cost+'$';}
+       })
 
 
 
     }
-
-
-
-   })
-

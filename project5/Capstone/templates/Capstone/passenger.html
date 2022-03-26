@@ -2,12 +2,12 @@
 {% load static %}
 {% block body %}
                     <li class="nav-item">
-                        <input id = 'sort' class="btn-info" style='position:absolute; right:100px;' type="button" value="Show Valid Trips">
+                        <input id = 'sortbtn' class="btn-info" style='position:absolute; right:100px;' type="button" value="Show Valid Trips Only">
                     </li>
 
 <p class="text-warning">Total Trips:<strong>{{routes_count}}</strong></p>
 {% for ro in  page.object_list %}
-<div class="media" id="{{ro.fin}}">
+<div class="media" id = 'route' data-fin="{{ro.fin}}">
   <img class="ml-5" src="{{ ro.map_pic }}" alt="map_img">
   <div class="media-body">
       <div class="prof">

@@ -150,3 +150,8 @@ input:invalid {
 .form-group{
 display: inline-block;
 }
+
+.hid{
+display: none;
+
+}

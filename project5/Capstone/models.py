@@ -42,18 +42,48 @@ class Route(models.Model):
     time_orig=models.TimeField("time orig",default=timezone.now())
     time_dep=models.TimeField("time dep",default=timezone.now())
     no_pass = models.IntegerField()
-    cost=models.FloatField()
+    cost=models.FloatField(default = 0, null=True)
     thedriver=models.ForeignKey(User, on_delete=models.CASCADE, null="FALSE", blank="FALSE")
     map_pic = models.CharField(max_length=256,null=True)
     created_date = models.DateTimeField(default=now, editable=False)
     thepassenger = models.ManyToManyField(User, blank="TRUE", related_name="thepassengers")
-    def fin(self):
-        if self.date_orig.timestamp() < datetime.today().timestamp() :
-            return True
+    #fin = models.BooleanField(default=False)
+
+
+    def set_fin(self, new_fin):
+        print(new_fin)
+        if self.date_orig.timestamp() < datetime.today().timestamp():
+            self._fin = True
         elif self.date_orig.timestamp() == datetime.today().timestamp() and self.time_orig < datetime.now().time():
-            return True
-        else:
-            return False
+            self._fin = True
+
+
+    def get_fin(self):
+        return self._fin
+
+    fin = property(get_fin, set_fin)
+
+    # @property
+    # def fin(self):
+    #
+    #
+    #     if self.date_orig.timestamp() < datetime.today().timestamp():
+    #         return True
+    #
+    #     elif self.date_orig.timestamp() == datetime.today().timestamp() and self.time_orig < datetime.now().time():
+    #         return True
+    #     # else:
+    #     #     return False
+    #
+    #
+    # @fin.setter
+    # def fin(self, new_val):
+    #     self.fin = new_val
+
+
+
+
+
 
 
 
