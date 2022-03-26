@@ -223,7 +223,7 @@ def profile(request, user_id):
         route_to_load_id = request.POST.get("route_to_load_id")
 
         route_to_load = Route.objects.get(pk=route_to_load_id)
-        route_to_load.fin=True
+        route_to_load.fin_set=True
         message_cl="Passenger list completed"
         print(message_cl)
 

@@ -100,12 +100,14 @@ fetch(`/route/${route_id}`)
        var no_pass= parseFloat(document.querySelector(`#thepassengercounter_${route_id}`).innerHTML);
 
        console.log(no_pass);
-       var cost =init_cost/no_pass;
+       if (no_pass ===0){
+       var cost=init_cost;
        document.querySelector(`#costpp_${route_id}`).innerHTML = cost+'$';
-
-
-
-    })
+}
+       else{
+       var cost =init_cost/no_pass;
+       document.querySelector(`#costpp_${route_id}`).innerHTML = cost+'$';}
+       })
 
 
 
@@ -118,4 +120,4 @@ fetch(`/route/${route_id}`)
 
    }
 
-}
+})

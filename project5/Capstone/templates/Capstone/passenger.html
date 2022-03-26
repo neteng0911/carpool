@@ -12,7 +12,7 @@
   <div class="media-body">
       <div class="prof">
     <h5 class="mt-0"></h5>
-        <h5> <strong>Trip No {{ro.id}}</strong> </h5> {% if ro.fin  %}  <h5 style='color:red;'> 'Trip Closed'</h5>{% endif %}
+        <h5> <strong>Trip No {{ro.id}}</strong> </h5> {% if ro.fin or ro.fin_set %}  <h5 style='color:red;'> 'Trip Closed'</h5>{% endif %}
     <h6> From </h6> {{ro.departure}}
     <h6> To </h6> {{ro.destination}}
     <h6> On </h6> {{ro.date_orig.date}}

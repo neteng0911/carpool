@@ -47,6 +47,11 @@ class Route(models.Model):
     map_pic = models.CharField(max_length=256,null=True)
     created_date = models.DateTimeField(default=now, editable=False)
     thepassenger = models.ManyToManyField(User, blank="TRUE", related_name="thepassengers")
+    fin_set = models.BooleanField(default=False)
+
+
+
+
     def fin(self):
         if self.date_orig.timestamp() < datetime.today().timestamp() :
             return True
