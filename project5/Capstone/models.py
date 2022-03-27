@@ -88,7 +88,7 @@ class Route(models.Model):
             'date_orig':self.date_orig,
             'time_orig':self.time_orig,
             'time_dep':self.time_dep,
-            'no_pas':self.no_pass,
+            'no_pass':self.no_pass,
             'cost':self.cost,
 
             'map_pic':self.map_pic,

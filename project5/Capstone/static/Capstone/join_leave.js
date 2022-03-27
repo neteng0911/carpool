@@ -4,8 +4,25 @@
 
        var sortbtn = document.querySelector('#sortbtn');
         sortbtn.addEventListener('click', sort);
+        // checking if current passengers >= max passengers so changing Join btn to Closed
+        document.querySelectorAll('.joinleave').forEach((element) => {
+            var route_id = element.dataset.id;
+            var no_pass= parseFloat(document.querySelector(`#thepassengercounter_${route_id}`).innerHTML);
+            var max_pass = parseFloat(document.querySelector(`#max_pass_${route_id}`).innerHTML);
+
+            if (no_pass == max_pass){
+                if (element.innerHTML="Join"){
 
 
+                element.style.color = "#B22222";
+                element.style.border = "1px solid #B22222";
+                element.title="Closed";
+                element.innerHTML="Closed";
+                }
+
+            }
+        }
+        )
 
 
 
@@ -34,8 +51,8 @@
             console.log(max_pass);
 
 
-
-       while (no_pass < max_pass){
+// checking if current passengers >= max passengers so not allowing joinining but only leaving
+       if (no_pass < max_pass){
 
             if(element.title == "Join")
             {
@@ -53,6 +70,39 @@
             else if (element.title == "Leave"){
                console.log(element);
 
+
+                element.title="Join";
+                element.innerHTML="Join";
+                element.style.color = "#228B22";
+                element.style.border = "1px solid  #228B22";
+                document.querySelector(`#thepassengercounter_${route_id}`).innerHTML--;
+                leave_route(route_id);
+                est_cost(route_id);
+
+                }}
+
+
+
+
+
+       else {
+                if(element.title == "Closed")
+            {
+                alert('Sorry, max number of passengers reached');
+
+                element.style.color = "#B22222";
+                element.style.border = "1px solid #B22222";
+                element.title="Closed";
+                element.innerHTML="Closed";
+                //document.querySelector(`#thepassengercounter_${route_id}`).innerHTML++;
+                //join_route(route_id);
+                //est_cost(route_id);
+
+            }
+            else if (element.title == "Leave"){
+               console.log(element);
+
+
                 element.title="Join";
                 element.innerHTML="Join";
                 element.style.color = "#228B22";
@@ -63,22 +113,8 @@
 
                 }
 
-
-
-
-
-       else{
-            console.log(element);
-
-                element.style.color = "#B22222";
-                element.style.border = "1px solid #B22222";
-                element.title="Leave";
-                element.innerHTML="Leave";
-                document.querySelector(`#thepassengercounter_${route_id}`).innerHTML--;
-                leave_route(route_id);
-                est_cost(route_id);
                }
-       }
+
 
 
         })
@@ -145,7 +181,9 @@ fetch(`/route/${route_id}`)
        var origin=route["origin"];
        var destination=route["destination"];
        var init_cost=route["cost"];
-       console.log(init_cost)
+       var max_pass=route["no_pass"];
+       console.log('the max passengers are', max_pass);
+       console.log(init_cost);
        var no_passengers= parseFloat(document.querySelector(`#thepassengercounter_${route_id}`).innerHTML);
 
        console.log(no_passengers);

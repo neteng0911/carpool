@@ -27,7 +27,7 @@
 
         {% if ro.passengers.all.count != 0 %}
     <p id="likes" style= "color:grey; font-size:12px;mix-blend-mode: multiply;"><img src="{% static  'Capstone/images/seat.jpg' %}" alt="seat image">
-        <span><strong id="thepassengercounter_{{ro.id}}">{{ ro.thepassenger.all.count }}</strong></span>/{{ ro.no_pass }}
+        <span><strong id="thepassengercounter_{{ro.id}}">{{ ro.thepassenger.all.count }}</strong></span>/<span id = 'max_pass_{{ro.id}}'>{{ ro.no_pass }}</span>
 
         {% else %}
     <p id="likes" style= "color:grey; font-size:12px;mix-blend-mode: multiply;"><img src="{% static  'Capstone/images/seat.jpg' %}" alt="seat image">

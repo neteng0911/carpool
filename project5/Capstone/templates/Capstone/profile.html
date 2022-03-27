@@ -87,7 +87,7 @@
 
         </div>
     <input class="btn btn-primary" type="submit" name="route_reply" value="Post">
-        {% ifnotequal request.user user_route.thedriver %}
+        {% ifnotequal targ_user user_route.thedriver %}
                 <div class="likes">
                         {% if request.user in user_route.thepassenger.all %}
 
