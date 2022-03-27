@@ -13,6 +13,8 @@ class User(AbstractUser):
 
     email=models.EmailField(max_length=254)
     date_joined = models.DateTimeField(default=timezone.now)
+    name = models.CharField(max_length=64, default='xxxx')
+    surname = models.CharField(max_length=64, default='xxxx')
 
 
 
