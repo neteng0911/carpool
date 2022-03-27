@@ -16,6 +16,7 @@ urlpatterns = [
     path("join/route/<int:route_id>", views.join_route, name="join_route"),
     path("leave/route/<int:route_id>", views.leave_route, name="leave_route"),
     path("route/<int:route_id>", views.load_route, name="load_route"),
-    path("wroute/<int:route_id>", views.webload_route, name="webload_route")
+    path("wroute/<int:route_id>", views.webload_route, name="webload_route"),
+    path("valid-trips", views.find_valid_trips, name="valid_trips")
 
 ]

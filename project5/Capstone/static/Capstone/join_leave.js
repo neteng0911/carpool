@@ -1,9 +1,13 @@
 
 
    document.addEventListener('DOMContentLoaded', function() {
-
+        // sorting(valid) NOT CLOSED trips
        var sortbtn = document.querySelector('#sortbtn');
-        sortbtn.addEventListener('click', sort);
+        //sortbtn.addEventListener('click', sort);
+
+
+
+
         // checking if current passengers >= max passengers so changing Join btn to Closed
         document.querySelectorAll('.joinleave').forEach((element) => {
             var route_id = element.dataset.id;
@@ -120,17 +124,17 @@
         })
     }});
 
-    function sort(){
-    alert('sorting')
-    document.querySelectorAll('#route').forEach((element) => {
+   /* function sort(){
+    //alert('sorting')
+    document.querySelectorAll('.media').forEach((element) => {
 
+    var route_id = element.dataset.id;
+    var fin = element.dataset.fin;
+    var fin_set = element.dataset.fin_set;
+    console.log(route_id, 'style', document.querySelector(".media").style.display);
+    console.log(route_id, 'fin', fin);
+     console.log(route_id, 'fin_set', fin_set);
 
-    var fin=element.dataset.fin;
-    var fin_set = route['fin_set'];
-    console.log(document.querySelector(".media").style.display);
-    console.log(fin)
-     console.log(fin_set)
-     alert('sorting')
 
 
 
@@ -143,6 +147,7 @@
 
        }
 })}
+*/
 
 
  function join_route(route_id)

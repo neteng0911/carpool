@@ -80,9 +80,11 @@ def passenger(request):
     exp_cost = 0
 
     all_routes = Route.objects.all().order_by('-created_date')
-
     page = paging(request, all_routes)
     routes_count = all_routes.count()
+
+    comments = Comment.objects.order_by('-created_date')
+
     # for ro in all_routes:
     #     if ro.thepassenger.all().count()==0:
     #         exp_cost=ro.cost
@@ -90,7 +92,9 @@ def passenger(request):
     #         exp_cost=ro.cost/ro.thepassenger.all().count()
     #     return exp_cost
 
-    comments = Comment.objects.order_by('-created_date')
+
+
+
 
     if request.method == "POST" and "route_reply" in request.POST:
         comm_txt = request.POST["comm_txt"]
@@ -432,3 +436,23 @@ def webload_route(request, route_id):
 
         return render(request, "Capstone/route.html", {"route": route})
     return render(request, "Capstone/route.html", {"route": route})
+
+@login_required
+def find_valid_trips(request):
+
+    valid_trips = []
+    fin_routes = Route.objects.filter(fin_set=False).order_by('-created_date')
+    comments = Comment.objects.order_by('-created_date')
+    for route in fin_routes:
+
+        if route.fin() == False:
+            valid_trips.append(route)
+
+    print('valid trips', valid_trips)
+    routes_count = len(valid_trips)
+    page_valid_trips = paging(request, valid_trips)
+
+    return render(request, "Capstone/validtrips.html", {"all_routes": valid_trips,
+                                                        "comments": comments, "count": page_valid_trips.count,
+                                                        "page": page_valid_trips,
+                                                        'routes_count': routes_count})

@@ -52,10 +52,13 @@ class Route(models.Model):
 
 
 
+
     def fin(self):
         if self.date_orig.timestamp() < datetime.today().timestamp() :
             return True
         elif self.date_orig.timestamp() == datetime.today().timestamp() and self.time_orig < datetime.now().time():
+            return True
+        elif self.no_pass == self.thepassenger.count():
             return True
         else:
             return False
