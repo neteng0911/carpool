@@ -29,6 +29,8 @@
         )
 
 
+//  so as to not reload the page after joining or leaving a trip. It updates the innerHTML instantly
+ //and then fetches as POST the route_id json page so as to update the DB
 
 
 
@@ -149,7 +151,6 @@
 })}
 */
 
-
  function join_route(route_id)
 {
     fetch(`/join/route/${route_id}`, {
@@ -167,7 +168,8 @@ function leave_route(route_id)
     .then(data => console.log(data));
     }
 
-
+// Calculating the cost  per passenger depending on the number of passengers instantly on the page (changing innerHTML)
+// The updating of the DB is being done in models by the cost method separately
 function est_cost(route_id){
 
 

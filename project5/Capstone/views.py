@@ -51,6 +51,8 @@ def register(request):
 
         username = request.POST["username"]
         email = request.POST["email"]
+        name = request.POST["name"]
+        surname = request.POST["surname"]
 
         # Ensure password matches confirmation
         password = request.POST["password"]
@@ -80,10 +82,10 @@ def passenger(request):
     exp_cost = 0
 
     all_routes = Route.objects.all().order_by('-created_date')
-    page = paging(request, all_routes)
+    page = paging(request, all_routes) #paging
     routes_count = all_routes.count()
 
-    comments = Comment.objects.order_by('-created_date')
+    comments = Comment.objects.order_by('-created_date')  #comments on trips
 
     # for ro in all_routes:
     #     if ro.thepassenger.all().count()==0:
@@ -152,7 +154,7 @@ def driver(request):
 
     return render(request, 'Capstone/driver.html', {'form': form})
 
-
+#test bing api
 def bing(request):
     return render(request, "Capstone/bing.html")
 
@@ -166,7 +168,7 @@ def create_route(request, departure, destination, date_orig, time_orig, time_dep
 
     return HttpResponseRedirect(reverse("index"))
 
-
+# visit user's profile
 @login_required
 def profile(request, user_id):
     current_user = request.user
@@ -285,7 +287,7 @@ def paging(request, the_posts):
 
 @login_required
 def edit_route(request, route_id):
-    alert = 1
+   # alert = 1
     route = Route.objects.get(pk=route_id)
 
     # form = RouteForm()
@@ -394,7 +396,7 @@ def comment(request, comm_txt, route_id):
     comment.lists.add(route_comm)
     return HttpResponseRedirect(reverse("index"))
 
-
+# load route in json format
 @login_required
 def load_route(request, route_id):
 
@@ -408,7 +410,7 @@ def load_route(request, route_id):
         return JsonResponse(route.serialize())
     return render(request, "Capstone/route.html", {"route": route})
 
-
+# load route in web view
 @login_required
 def webload_route(request, route_id):
 
@@ -436,7 +438,7 @@ def webload_route(request, route_id):
 
         return render(request, "Capstone/route.html", {"route": route})
     return render(request, "Capstone/route.html", {"route": route})
-
+# load trips that are not Closed either by date or by user or by not available seats
 @login_required
 def find_valid_trips(request):
 

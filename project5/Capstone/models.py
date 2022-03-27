@@ -49,12 +49,12 @@ class Route(models.Model):
     map_pic = models.CharField(max_length=256,null=True)
     created_date = models.DateTimeField(default=now, editable=False)
     thepassenger = models.ManyToManyField(User, blank="TRUE", related_name="thepassengers")
-    fin_set = models.BooleanField(default=False)
+    fin_set = models.BooleanField(default=False) # if the driver wants to manually close the trip
 
 
 
 
-
+#  workaround so as to auto-close the trips depending on the current date and time (if the have expired or started or no available seats exist)
     def fin(self):
         if self.date_orig.timestamp() < datetime.today().timestamp() :
             return True
@@ -72,6 +72,9 @@ class Route(models.Model):
     def __str__(self):
         return f"{self.id}: {self.departure} to {self.destination} with {self.no_pass} at {self.cost} per passenger"
 
+
+
+# method for auto calculating the cost per passenger in the DB
     def costpp(self, est_cost=marker):
         while self.thepassenger.all().count()<=self.no_pass:
             if self.thepassenger.all().count()==0:
@@ -84,7 +87,7 @@ class Route(models.Model):
         return est_cost
 
 
-
+# so as to interact with javascript with fetch method
     def serialize(self):
         return{
 

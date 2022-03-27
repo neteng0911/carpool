@@ -42,7 +42,7 @@ class RouteForm(forms.ModelForm):
     class Meta:
         model = Route
         fields = ['departure','destination','date_orig','time_orig', 'time_dep', 'cost', 'no_pass', 'map_pic']
-
+#validators regarding date and time
 
     def clean(self):
         cleaned_data = super().clean()

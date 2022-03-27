@@ -1,5 +1,5 @@
 
-
+// to keep in session last map (not the best implementation
         let mp=sessionStorage.getItem('mp');
         document.getElementById("map").src = mp;
 
@@ -13,10 +13,10 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelector('#sub_route').style.display = 'block';
         document.querySelector('#map').style.display = 'block';
         document.querySelector('#map_pl').style.display = 'block';
-        document.querySelectorAll('#sear').forEach((element) => {
+        document.querySelectorAll('#sear').forEach((element) => {    //searching of the route initially
         element.onclick = () => search_route();
         document.querySelectorAll('#subbtn').forEach((element) => {
-        element.onclick = () => subm_route();
+        element.onclick = () => subm_route();                       // submitting the route after successful initial search
         const d= new Date();
 
 
@@ -35,16 +35,16 @@ function search_route(){
          }  else    {
 
 
-         <!--'Ymhttou%2072%20Athens'-->
-         <!--'Skoufa%202%20Athens'-->
+   //      <!--'Ymhttou%2072%20Athens'-->
+   //     <!--'Skoufa%202%20Athens'-->
 
-         'https://dev.virtualearth.net/REST/v1/Imagery/Map/imagerySet/centerPoint/zoomLevel/Routes/\
+   /*      'https://dev.virtualearth.net/REST/v1/Imagery/Map/imagerySet/centerPoint/zoomLevel/Routes/\
          travelMode?waypoint.1={routeWaypoint1}&waypoint.2={routeWaypoint2}\
          &waypoint.n={routeWaypointn}&mapSize={mapSize}\
          &avoid={avoidOptions}&pushpin={pushpin}&timeType={timetType}&dateTime={dateTime}\
          &maxSolutions={maxSolutions}\
-         &distanceBeforeFirstTurn={distanceBeforeFirstTurn}&mapLayer={mapLayer}&format={format}&mapMetadata={mapMetadata}&&o=json&key='
-         let key='Ak1lcrrpdMdej2d1w_shmItLOBhpEmeQpVz6g6FsRwa7CkamEDl4sgkw00XlEPbF'
+         &distanceBeforeFirstTurn={distanceBeforeFirstTurn}&mapLayer={mapLayer}&format={format}&mapMetadata={mapMetadata}&&o=json&key=' */
+         let key='Ak1lcrrpdMdej2d1w_shmItLOBhpEmeQpVz6g6FsRwa7CkamEDl4sgkw00XlEPbF'  // THIS IS MY BING MAPS API KEY!!!!!!!!!!1
          let route=`https://dev.virtualearth.net/REST/v1/Imagery/Map/Road/Routes?wp.0=${start.value}1&wp.1=${end.value}2&o=json&key=`
          let point='https://dev.virtualearth.net/REST/V1/Imagery/Map/Road/Solonos%20Athens?zoomlevel=20&mapLayer=TrafficFlow&o=json&key='
          let place='Ymhttoy%72%20Athens'
