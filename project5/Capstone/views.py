@@ -64,7 +64,7 @@ def register(request):
 
         # Attempt to create new user
         try:
-            user = User.objects.create_user(username, email, password)
+            user = User.objects.create_user(username, email, password, name=name,surname=surname)
             user.save()
         except IntegrityError:
             return render(request, "Capstone/register.html", {
