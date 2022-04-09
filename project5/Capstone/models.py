@@ -50,6 +50,7 @@ class Route(models.Model):
     created_date = models.DateTimeField(default=now, editable=False)
     thepassenger = models.ManyToManyField(User, blank="TRUE", related_name="thepassengers")
     fin_set = models.BooleanField(default=False) # if the driver wants to manually close the trip
+    
 
 
 

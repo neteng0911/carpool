@@ -1,16 +1,9 @@
 
 
    document.addEventListener('DOMContentLoaded', function() {
-        // get button by id
-       document.querySelectorById('remove').onclick {
-
-
-
-
-
-
-       }
-
+        // sorting(valid) NOT CLOSED trips
+       var rembtn = document.querySelector('#sortbtn');
+        //sortbtn.addEventListener('click', sort);
 
 
 

@@ -418,12 +418,21 @@ def webload_route(request, route_id):
         route = Route.objects.get(pk=route_id)
     except Route.DoesNotExist:
         return JsonResponse({"error": "Route not found."}, status=404)
-
+    passengers = route.thepassenger.all()
     # reply comments
     if request.method == "GET":
-        return render(request, "Capstone/route.html", {"route": route})
+
+        return render(request, "Capstone/route.html", {"route": route, 'passengers':passengers})
 
     comments = Comment.objects.order_by('-created_date')
+    route = Route.objects.get(pk=route_id)
+
+    if request.method == 'POST' and 'remove' in request.POST:
+        passenger_id = int(request.POST['passenger'])
+        remove_passenger(request,route_id,passenger_id)
+        return render(request, "Capstone/route.html", {"route": route,
+                                                           "comments": comments, 'passengers':passengers})
+
 
     if request.method == "POST" and "route_reply" in request.POST:
         comm_txt = request.POST["reply_txt"]
@@ -432,12 +441,12 @@ def webload_route(request, route_id):
         comment(request, comm_txt, route_id)
 
         return render(request, "Capstone/route.html", {"route": route,
-                                                           "comments": comments})
+                                                           "comments": comments, 'passengers':passengers})
     if request.method == "POST" and "edit_route" in request.POST:
 
 
-        return render(request, "Capstone/route.html", {"route": route})
-    return render(request, "Capstone/route.html", {"route": route})
+        return render(request, "Capstone/route.html", {"route": route, 'passengers':passengers})
+    return render(request, "Capstone/route.html", {"route": route, 'passengers':passengers})
 # load trips that are not Closed either by date or by user or by not available seats
 @login_required
 def find_valid_trips(request):
@@ -458,3 +467,15 @@ def find_valid_trips(request):
                                                         "comments": comments, "count": page_valid_trips.count,
                                                         "page": page_valid_trips,
                                                         'routes_count': routes_count})
+
+@login_required
+def remove_passenger(request,route_id, passenger_id):
+    route = Route.objects.get(pk=route_id)
+    passenger = User.objects.get(pk=passenger_id)
+
+
+
+    route.thepassenger.remove(passenger)
+
+    print('passenger',passenger, 'removed from route', route_id)
+

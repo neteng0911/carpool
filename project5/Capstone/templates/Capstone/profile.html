@@ -103,7 +103,7 @@
     {% ifequal user user_route.thedriver %}
 
     {% if not user_route.fin  %}
-<form action="{% url 'profile' targ_user.id %}" method="post">
+<form class = 'form-inline' action="{% url 'profile' targ_user.id %}" method="post">
         {% csrf_token %}
 
 
@@ -113,13 +113,22 @@
 
         </div>
     <input class="btn btn-primary" type="submit" name="finalise_trip" value="Finalise trip">
-    </form>
+
     {% endif %}
 
-    <form>
+
      <input class="btn btn-success" type="button"  name="load_route" value="Edit Trip" onclick="location.href='{% url 'edit_route' user_route.pk %}'"  />
      <input type="hidden"  name="route_to_load_id" value={{user_route.pk}}>
+
+     <input class="btn btn-danger" type="button"   value="Remove passenger" onclick="location.href='{% url 'webload_route' user_route.pk %}'"  />
+     <input type="hidden"  name="route_to_load_id" value={{user_route.pk}}>
+
+
+
     {%endifequal %}
+
+
+
     </form>
 
 </section>
