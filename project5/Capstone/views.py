@@ -485,8 +485,8 @@ def remove_passenger(request,route_id, passenger_id):
 
 
     route.thepassenger.remove(passenger)
-    content = 'You have been removed from route' , route.id
-    message = Message(content=content, created_date=created_date)
+    content = 'You have been removed from route'
+    message = Message(content=content, created_date=created_date, route_id=route_id)
     message.save()
     # print(comment)
     message.recipient.add(passenger)

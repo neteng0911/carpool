@@ -134,3 +134,4 @@ class Message(models.Model):
      content = models.CharField(max_length=150, blank="True")
      recipient = models.ManyToManyField(User,blank='TRUE',related_name='messages')
      created_date = models.DateTimeField(default=now, editable=False)
+     route_id = models.IntegerField(default = 0)

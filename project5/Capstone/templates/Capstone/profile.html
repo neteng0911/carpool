@@ -18,7 +18,7 @@
 <div class= "prof"><strong> {{user.email}}</strong>
     <p><strong> You are member since {{user.date_joined}}</strong></p>
     {% for message in user_messages %}
-    <li><strong>{{ message.content }}</strong></li>
+    <li><strong>{{ message.content }}, <a href="{% url 'webload_route' route.id %}" ><!-- {{message.route.id}}--> </a></strong></li>
 
     {% endfor %}
 
