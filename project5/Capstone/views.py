@@ -14,7 +14,7 @@ from django.db.models import Max, Count
 from django.core.exceptions import ObjectDoesNotExist
 
 from .forms import RouteForm
-from .models import User, Route, Comment
+from .models import User, Route, Comment, Message
 
 
 def index(request):
@@ -189,8 +189,12 @@ def profile(request, user_id):
     user_passenger_list = current_user.thepassengers.all()
     user_passenger_count = user_passenger_list.count()
 
-    print (user_passenger_list, user_passenger_count)
-    print('******************')
+    user_messages = current_user.messages.all()
+    for i in user_messages:
+        print(i.content)
+
+    #print (user_passenger_list, user_passenger_count)
+    #print('******************')
 
 
     #passengerlist = user_routes(thepassengers=user_id)
@@ -211,7 +215,9 @@ def profile(request, user_id):
         comment(request, comm_txt, route_id)
         return render(request, "Capstone/profile.html", {"targ_user": targ_user,'comments':comments,
                                                          'user_routes':user_routes,'page':page,
-                                                         'user_routes_count': user_routes_count,'user_passenger_list':user_passenger_list, 'user_passenger_count':user_passenger_count})
+                                                         'user_routes_count': user_routes_count,'user_passenger_list':user_passenger_list, 'user_passenger_count':user_passenger_count,
+                                                         'user_messages':user_messages
+                                                         })
 
     if request.method == "POST" and "load_route" in request.POST:
         route_to_load_id = request.POST.get("route_to_load_id")
@@ -236,7 +242,8 @@ def profile(request, user_id):
         route_to_load.save()
         return render(request, "Capstone/profile.html", {"targ_user": targ_user, "count": page.count, "page": page,
                                                          'user_routes_count': user_routes_count,'message_cl':message_cl
-                                                         ,'user_passenger_list':user_passenger_list, 'user_passenger_count':user_passenger_count})
+                                                         ,'user_passenger_list':user_passenger_list, 'user_passenger_count':user_passenger_count,
+                                                         'user_messages':user_messages})
     # if targ_user in followinglist:
     #     print(request.user,"you are following user", targ_user)
     #
@@ -274,7 +281,8 @@ def profile(request, user_id):
 
         return render(request, "Capstone/profile.html", {"targ_user": targ_user, "count": page.count, "page": page,
                                                          'user_routes_count': user_routes_count,
-                      'user_passenger_list':user_passenger_list, 'user_passenger_count':user_passenger_count})
+                      'user_passenger_list':user_passenger_list, 'user_passenger_count':user_passenger_count,
+                                                         'user_messages':user_messages})
 
 
 def paging(request, the_posts):
@@ -472,10 +480,17 @@ def find_valid_trips(request):
 def remove_passenger(request,route_id, passenger_id):
     route = Route.objects.get(pk=route_id)
     passenger = User.objects.get(pk=passenger_id)
+    created_date = timezone.now()
 
 
 
     route.thepassenger.remove(passenger)
+    content = 'You have been removed from route' , route.id
+    message = Message(content=content, created_date=created_date)
+    message.save()
+    # print(comment)
+    message.recipient.add(passenger)
+
 
     print('passenger',passenger, 'removed from route', route_id)
 

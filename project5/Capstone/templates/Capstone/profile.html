@@ -17,12 +17,17 @@
  <h2 class="text-warning">You are currenty logged in as :{{user.username}}</h2>
 <div class= "prof"><strong> {{user.email}}</strong>
     <p><strong> You are member since {{user.date_joined}}</strong></p>
+    {% for message in user_messages %}
+    <li><strong>{{ message.content }}</strong></li>
+
+    {% endfor %}
+
     <p> You are a passenger of {{user_passenger_count}}  trips</p>{% for route in user_passenger_list %}
 
 
             <strong> <a href="{% url 'webload_route' route.id %}" > {{route.id}} </a></strong>
 
-        {% endfor %}
+
 
 
 
@@ -33,7 +38,7 @@
 
 
 
-
+{% endfor %}
 
 
 <p>
@@ -119,11 +124,11 @@
 
      <input class="btn btn-success" type="button"  name="load_route" value="Edit Trip" onclick="location.href='{% url 'edit_route' user_route.pk %}'"  />
      <input type="hidden"  name="route_to_load_id" value={{user_route.pk}}>
-
+        {% ifnotequal user_route.thepassenger.all.count 0 %}
      <input class="btn btn-danger" type="button"   value="Remove passenger" onclick="location.href='{% url 'webload_route' user_route.pk %}'"  />
      <input type="hidden"  name="route_to_load_id" value={{user_route.pk}}>
 
-
+        {%endifnotequal %}
 
     {%endifequal %}
 

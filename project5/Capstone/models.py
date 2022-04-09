@@ -20,6 +20,8 @@ class User(AbstractUser):
 
 
 
+
+
     def __str__(self):
         return f"{self.username}"
         #return f"{self.username}, {self.email}"
@@ -50,7 +52,7 @@ class Route(models.Model):
     created_date = models.DateTimeField(default=now, editable=False)
     thepassenger = models.ManyToManyField(User, blank="TRUE", related_name="thepassengers")
     fin_set = models.BooleanField(default=False) # if the driver wants to manually close the trip
-    
+
 
 
 
@@ -103,6 +105,7 @@ class Route(models.Model):
             'map_pic':self.map_pic,
             'created_date':self.created_date
 
+
         }
 
 
@@ -126,3 +129,8 @@ class Comment(models.Model):
 
     def __str__(self):
         return f"{self.comm_txt}"
+
+class Message(models.Model):
+     content = models.CharField(max_length=150, blank="True")
+     recipient = models.ManyToManyField(User,blank='TRUE',related_name='messages')
+     created_date = models.DateTimeField(default=now, editable=False)
