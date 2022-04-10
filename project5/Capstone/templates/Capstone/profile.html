@@ -57,7 +57,7 @@
     <p> <h6>Leaving at</h6>  {{user_route.time_orig}} <h6>and returning at</h6> {{user_route.time_dep}}</p>
         <p hidden id="cost_{{route.id}}"><h6>Initial cost per passenger {{user_route.cost}} $</h6>
     <h6> Expected cost per passenger </h6><strong id="costpp_{{route.id}}">{{user_route.costpp}}$</strong>
-     <p>   <img style="width:400px;height:400px;" src="{{ user_route.map_pic }}" alt="map"></p>
+     <p>   <img class = 'img-fluid' style="width:400px;height:400px;" src="{{ user_route.map_pic }}" alt="map"></p>
 
 
     <p style= "color:grey; font-size:12px;"> <strong><a href="{% url 'profile' targ_user.id %}" > {{targ_user.username}} </strong></a> wrote on: {{user_route.created_date}} </p>
