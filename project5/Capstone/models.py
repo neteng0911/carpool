@@ -126,3 +126,9 @@ class Comment(models.Model):
 
     def __str__(self):
         return f"{self.comm_txt}"
+
+class Message(models.Model):
+    content = models.CharField(max_length=150, blank='True')
+    recipient = models.ManyToManyField(User, related_name='messages')
+    created_date=models.DateTimeField(default=now, editable=False)
+    route_id= models.IntegerField()

@@ -14,7 +14,7 @@ from django.db.models import Max, Count
 from django.core.exceptions import ObjectDoesNotExist
 
 from .forms import RouteForm
-from .models import User, Route, Comment
+from .models import User, Route, Comment, Message
 
 
 def index(request):
@@ -177,6 +177,7 @@ def profile(request, user_id):
     user_routes = Route.objects.filter(thedriver_id=user_id).order_by('-created_date')
     page = paging(request, user_routes)
     user_routes_count = user_routes.count()
+    user_messages = current_user.messages.all()
 
 
     for route in user_routes:
@@ -274,7 +275,7 @@ def profile(request, user_id):
 
         return render(request, "Capstone/profile.html", {"targ_user": targ_user, "count": page.count, "page": page,
                                                          'user_routes_count': user_routes_count,
-                      'user_passenger_list':user_passenger_list, 'user_passenger_count':user_passenger_count})
+                      'user_passenger_list':user_passenger_list, 'user_passenger_count':user_passenger_count, 'user_messages':user_messages})
 
 
 def paging(request, the_posts):
@@ -472,10 +473,16 @@ def find_valid_trips(request):
 def remove_passenger(request,route_id, passenger_id):
     route = Route.objects.get(pk=route_id)
     passenger = User.objects.get(pk=passenger_id)
+    created_date = timezone.now()
 
 
 
     route.thepassenger.remove(passenger)
+    content = 'You have been removed from route'
+    message = Message(content=content, created_date=created_date, route_id=route_id)
+    message.save()
+    # print(comment)
+    message.recipient.add(passenger)
+
 
     print('passenger',passenger, 'removed from route', route_id)
-
