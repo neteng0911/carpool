@@ -10,7 +10,7 @@
   <img class="ml-5" src="{{ route.map_pic }}" alt="map_img">
   <div class="media-body">
       <div class="prof">
-    <h5 class="mt-0"></h5>
+    <h5 class="bg-info col-sm-3 mx-1 pr-5 shadow-lg "></h5>
           <div><h5>Trip No {{route.pk}} </h5>{% if route.fin or route.fin_set  %}  <h5 style='color:red;'> 'Trip Closed'</h5>{% endif %}
 
     <h6> From </h6> {{route.departure}}
@@ -42,9 +42,8 @@
 
         </div>
     <input class="btn btn-primary"  id='post_btn' type="submit" name="route_reply" value="Post">
-</form>
 
-        {% ifnotequal request.user route.thedriver %}
+                  {% ifnotequal request.user route.thedriver %}
                 <div class="likes">
                         {% if request.user in route.thepassenger.all %}
 
@@ -54,6 +53,9 @@
                         {% endif %}
 
                 </div>
+</form>
+
+
 
         {% endifnotequal %}
 

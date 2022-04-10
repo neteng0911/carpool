@@ -42,9 +42,8 @@
 
         </div>
     <input class="btn btn-primary"  id='post_btn' type="submit" name="route_reply" value="Post">
-</form>
 
-        {% ifnotequal request.user ro.thedriver %}
+                  {% ifnotequal request.user ro.thedriver %}
             {% if not ro.fin_set and not ro.fin  %}
                 <div class="likes">
 
@@ -56,6 +55,9 @@
                         {% endif %}
 
                 </div>
+</form>
+
+
             {% endif%}
         {% endifnotequal %}
         {% ifequal request.user ro.thedriver %}

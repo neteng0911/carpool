@@ -2,14 +2,7 @@
 
    document.addEventListener('DOMContentLoaded', function() {
         // get button by id
-       document.querySelectorById('remove').onclick {
 
-
-
-
-
-
-       }
 
 
 

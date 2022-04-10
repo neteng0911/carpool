@@ -33,6 +33,9 @@
                     <li class="nav-item">
                         <a class="nav-link text-warning" href="{% url 'logout' %}">Log Out</a>
                     </li>
+                    <li class="nav-item">
+                        <b class="nav-link text-warning" >Hello {{user}}</b>
+                    </li>
 
                 {% else %}
                     <li class="nav-item">
@@ -41,6 +44,7 @@
                     <li class="nav-item">
                         <a class="nav-link text-warning" href="{% url 'register' %}">Register</a>
                     </li>
+
                 {% endif %}
               </ul>
             </div>

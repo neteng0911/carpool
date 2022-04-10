@@ -3,12 +3,12 @@
 
 {% block body %}
 <h2 class = 'text-warning'> {{ user}}, Here you can edit route no {{route.id}}</h2>
-<div class="container mt-3" >
+<div class="container-fluid mt-1" >
     <div class="d-flex p-1 bg-secondary text-white flex-grow">
-        <div class="bg-info col-sm-3 mx-5 pr-5 shadow-lg ">
+        <div class="bg-info col-sm-3 mx-1 pr-5 shadow-lg ">
 
 
-    <div  style="position:left;color:green; font-size:20px;">From: {{route.departure}}
+    <div  style="position:left;color:black; font-size:17px;">From: {{route.departure}}
         <p>To: {{route.destination}}</p>
 
         <p> On: {{route.date_orig.date}}</p>
@@ -17,7 +17,7 @@
 
 
 
-    <p  class="img-fluid"  id="map_to_load"><img src="{{route.map_pic}}"></p>
+    <p  class="img-fluid"  id="map_to_load"><img style="height:350px; width:350px;" src="{{route.map_pic}}"></p>
 
 
 
@@ -26,30 +26,21 @@
 
 
        {{ route.thedriver}} </strong></a>  on: {{ route.created_date}} </p>
-    <!--<p id="likes" style= "color:grey; font-size:12px;mix-blend-mode: multiply;"><img src="{% static  'Capstone/images/seat.jpg' %}" alt="like image"> <strong>{{route.thepassenger.all.count}}</strong>
-    </p>-->
+
     </div>
-<!--            <form action="{% url 'edit_route' route.pk %}" method="post">-->
-<!--        {% csrf_token %}-->
 
-
-<!--        <div class="form-group">-->
-<!--            <input class="form-control" autofocus style="margin-top:30px" type="text" name="edit_txt"  value="{{route.destination}}">-->
-<!--        </div>-->
-<!--    <input class="btn btn-primary" name="edit_route" type="submit" value="Save">-->
-<!--</form>-->
 
 
 <form action="{% url 'edit_route' route.pk %}" method="post">
     {% csrf_token %}
-     <input class="btn btn-primary" name="del_route" type="submit" value="Delete Trip" >
+     <input class="btn btn-danger" name="del_route" type="submit" value="Delete Trip" >
      <input type="hidden"  name="route_id" value={{route.pk}}>
  </form>
         </div>
 
 
   <div class="d-flex p-1 bg-secondary text-white flex-grow">
-    <div class="bg-info col-sm-3 mx-5 pr-5 shadow-lg ">
+    <div class="bg-info col-sm-4 mx-1 pr-5 shadow-lg ">
       <div class=form-group">
 
 
@@ -81,21 +72,11 @@
 
 
 
-    <div class="bg-info col-sm-3 mx-5 pr-5 shadow-lg" id="sub_route">
+    <div class="bg-info col-md-4 mx-1 pr-5 shadow-lg" id="sub_route">
       <form class='validity' action="{% url 'edit_route' route.pk %}" method="post">
     {% csrf_token %}
           {{ form.as_p }}
-            <!--<input type="hidden" id="alert" value ='{{alert}}' readonly>
-{% if messages %}
-  {% for message in messages %}
-    <div id='msg' class="alert alert-dismissible alert-success" role="alert">
-      <button type="button" class="close" data-dismiss="alert">
-      ×
-      </button>
-      <strong>{{message}}<strong>
-    </div>
- {% endfor %}
-{% endif %}-->
+
           <p>
               <input class ='btn-info' id ="editbt" name="edit_route" type="submit" value="Submit"></p>
           </form>
@@ -120,7 +101,7 @@ console.log(al);
 </script>-->
 
     </div>
-    <div class="img-fluid" id="map_pl"><img id="map"  src='#'></div>
+    <div class="img-fluid" id="map_pl"><img style="height:350px; width:350px;" id="map"  src='#'></div>
 
   </div>
 </div>
