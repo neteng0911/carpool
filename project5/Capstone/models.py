@@ -8,6 +8,12 @@ from datetime import date
 from django.utils.timezone import now
 
 from django.utils import timezone
+import random
+
+
+def random_string():
+    return str(random.randint(10000, 99999))
+
 
 class User(AbstractUser):
 
@@ -50,6 +56,8 @@ class Route(models.Model):
     created_date = models.DateTimeField(default=now, editable=False)
     thepassenger = models.ManyToManyField(User, blank="TRUE", related_name="thepassengers")
     fin_set = models.BooleanField(default=False) # if the driver wants to manually close the trip
+    keynum = models.CharField(max_length=12, default = random_string)
+
     
 
 
@@ -132,3 +140,6 @@ class Message(models.Model):
     recipient = models.ManyToManyField(User, related_name='messages')
     created_date=models.DateTimeField(default=now, editable=False)
     route_id= models.IntegerField()
+
+
+

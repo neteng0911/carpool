@@ -1,7 +1,7 @@
 {% extends "Capstone/layout.html" %}
 {% load static %}
 {% block body %}
-
+{% load qr_code %}
 
 
 
@@ -25,9 +25,18 @@
 </div>
 {% if user.is_authenticated %}
 
+                    {% if route.fin or route.fin_set  %}
+
+                        {% if request.user in route.thepassenger.all %}
+                {% qr_from_text route.keynum size="2" image_format="png" error_correction="L" %}
+
+
+                        {% endif %}
+                    {% endif %}
+
         {% if route.passengers.all.count != 0 %}
     <p id="likes" style= "color:grey; font-size:12px;mix-blend-mode: multiply;"><img src="{% static  'Capstone/images/seat.jpg' %}" alt="seat image">
-        <span><strong id="thepassengercounter_{{route.id}}">{{ route.thepassenger.all.count }}</strong></span>/{{ route.no_pass }}
+        <span><strong id="thepassengercounter_{{route.id}}">{{ route.thepassenger.all.count }}</strong></span>/<span id = 'max_pass_{{route.id}}'>{{ route.no_pass }}
 
         {% else %}
     <p id="likes" style= "color:grey; font-size:12px;mix-blend-mode: multiply;"><img src="{% static  'Capstone/images/seat.jpg' %}" alt="seat image">
@@ -44,14 +53,16 @@
     <input class="btn btn-primary"  id='post_btn' type="submit" name="route_reply" value="Post">
 
                   {% ifnotequal request.user route.thedriver %}
+          {% if not route.fin and not route.fin_set  %}
                 <div class="likes">
                         {% if request.user in route.thepassenger.all %}
+
 
                         <span id="leavebtn" class="joinleave" data-id="{{route.id}}" onclick="return false" title="Leave" >Leave</span>
                         {% else %}
                         <span id="joinbtn" class="joinleave" data-id="{{route.id}}" onclick="return false"  title="Join">Join</span>
+                    {% endif %}
                         {% endif %}
-
                 </div>
 </form>
 
@@ -105,8 +116,10 @@
 
 
 
+{% block script %}
+    <script src="{% static 'Capstone/join_leave.js' %}"></script>
 
-
+{% endblock script %}
 
 
 

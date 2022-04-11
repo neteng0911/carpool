@@ -1,6 +1,7 @@
 {% extends "Capstone/layout.html" %}
 {% load static %}
 {% block body %}
+{% load qr_code %}
 
 {% ifnotequal request.user targ_user %}
 
@@ -57,6 +58,15 @@
     <p> <h6>Leaving at</h6>  {{user_route.time_orig}} <h6>and returning at</h6> {{user_route.time_dep}}</p>
         <p hidden id="cost_{{route.id}}"><h6>Initial cost per passenger {{user_route.cost}} $</h6>
     <h6> Expected cost per passenger </h6><strong id="costpp_{{route.id}}">{{user_route.costpp}}$</strong>
+
+
+
+              <p>  {% qr_from_text user_route.keynum size="2" image_format="png" error_correction="L" %}</p>
+
+
+
+
+
      <p>   <img class = 'img-fluid' style="width:400px;height:400px;" src="{{ user_route.map_pic }}" alt="map"></p>
 
 

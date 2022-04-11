@@ -8,10 +8,11 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
-from django.contrib import messages
-import json
-from django.db.models import Max, Count
+
+
+
 from django.core.exceptions import ObjectDoesNotExist
+from qr_code.qrcode.utils import MeCard
 
 from .forms import RouteForm
 from .models import User, Route, Comment, Message
@@ -180,6 +181,7 @@ def profile(request, user_id):
     user_messages = current_user.messages.all()
 
 
+
     for route in user_routes:
         a=route.thepassenger.all()
         for i in a:
@@ -194,15 +196,7 @@ def profile(request, user_id):
     print('******************')
 
 
-    #passengerlist = user_routes(thepassengers=user_id)
 
-    # myfollowinglist = current_user.followers.all()
-    # followinglist=targ_user.followers.all()
-    # followerslist=User.objects.filter(followers=user_id)
-    # no_of_followers=len(followerslist)
-    # no_of_following=len(followinglist)
-    # print(current_user,"Your followers are", followerslist)
-    # print(current_user,"You r following",myfollowinglist)
     comments = Comment.objects.order_by('-created_date')
 
     if request.method == "POST" and "route_reply" in request.POST:
@@ -219,9 +213,6 @@ def profile(request, user_id):
 
         route_to_load = Route.objects.get(pk=route_to_load_id)
 
-        # route_to_load_id = request.POST.get("route_to_load_id")
-        #
-        # route_to_load = Route.objects.get(pk=route_to_load_id)
         edit_route(request, route_to_load_id)
 
         return render(request, "Capstone/edit_route.html", {"route_to_load": route_to_load})
@@ -238,38 +229,6 @@ def profile(request, user_id):
         return render(request, "Capstone/profile.html", {"targ_user": targ_user, "count": page.count, "page": page,
                                                          'user_routes_count': user_routes_count,'message_cl':message_cl
                                                          ,'user_passenger_list':user_passenger_list, 'user_passenger_count':user_passenger_count})
-    # if targ_user in followinglist:
-    #     print(request.user,"you are following user", targ_user)
-    #
-
-    # created_date = timezone.now()
-
-    # creating pages
-
-    # if request.method=="POST" and "follow" in request.POST:
-    #     targ_user.following.add(current_user)
-    #     followerslist = User.objects.filter(followers=user_id)
-    #     no_of_followers = len(followerslist)
-    #     #print(current_user,"Now you are following", myfollowinglist)
-    #     print(targ_user, "has these followers", followerslist)
-    #     return render(request, "network/profile.html", {"targ_user": targ_user, "followinglist": followinglist,
-    #                                                     "user_posts":user_routes,"user_posts_count":user_routes_count,
-    #                                                     "no_of_following":no_of_following,"followerslist": followerslist,
-    #                                                     "no_of_followers":no_of_followers,
-    #                                                     "myfollowinglist":myfollowinglist})
-
-    #
-    # if request.method=="POST" and "unfollow" in request.POST:
-    #     targ_user.following.remove(current_user)
-    #     followerslist = User.objects.filter(followers=user_id)
-    #     no_of_followers = len(followerslist)
-    #
-    #     print(current_user,"Now you are following", myfollowinglist)
-    #     print(targ_user, "has these followers", followerslist)
-    #     return render(request, "network/profile.html", {"targ_user": targ_user, "followinglist": followinglist,
-    #                                                     "user_posts":user_routes,"user_posts_count":user_routes_count,
-    #                                                     "no_of_following":no_of_following,"followerslist": followerslist,
-    #                                                     "no_of_followers":no_of_followers, "myfollowinglist":myfollowinglist})
 
     else:
 
@@ -423,10 +382,15 @@ def webload_route(request, route_id):
     # reply comments
     if request.method == "GET":
 
+
+
         return render(request, "Capstone/route.html", {"route": route, 'passengers':passengers})
 
     comments = Comment.objects.order_by('-created_date')
     route = Route.objects.get(pk=route_id)
+
+
+
 
     if request.method == 'POST' and 'remove' in request.POST:
         passenger_id = int(request.POST['passenger'])
