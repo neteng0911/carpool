@@ -142,4 +142,7 @@ class Message(models.Model):
     route_id= models.IntegerField()
 
 
-
+class Qrcode(models.Model):
+    code = models.CharField(max_length=12, default = random_string)
+    passenger = models.ForeignKey(User, on_delete=models.CASCADE, null="TRUE", blank="TRUE")
+    trip = models.ForeignKey(Route, on_delete=models.CASCADE, null="TRUE", blank="TRUE")

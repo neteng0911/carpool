@@ -60,9 +60,12 @@
     <h6> Expected cost per passenger </h6><strong id="costpp_{{route.id}}">{{user_route.costpp}}$</strong>
 
 
+                {% for qr in qrcodes %}
 
-              <p>  {% qr_from_text user_route.keynum size="2" image_format="png" error_correction="L" %}</p>
 
+              <!--<p>  {% qr_from_text qr.code size="2" image_format="png" error_correction="L" %}</p>-->
+
+                        {% endfor %}
 
 
 

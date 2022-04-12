@@ -1,6 +1,7 @@
 {% extends "Capstone/layout.html" %}
 {% load static %}
 {% block body %}
+{% load qr_code %}
                    <a  class="text-warning" style='position:absolute; right:100px;' href="{% url 'passenger' %}" ><strong> Show All Trips </strong></a>
 
 <p class="text-warning">Total Trips:<strong>{{routes_count}}</strong></p>
@@ -10,7 +11,7 @@
   <div class="media-body">
       <div class="prof">
     <h5 class="mt-0"></h5>
-        <h5> <strong>Trip No {{ro.id}}</strong> </h5> {% if ro.fin or ro.fin_set %}  <h5 style='color:red;'> 'Trip Closed'</h5>{% endif %}
+        <h5> <strong><a href="{% url 'webload_route' ro.id %}" > Trip No:{{ro.id}} </a></strong> </h5> {% if ro.fin or ro.fin_set %}  <h5 style='color:red;'> 'Trip Closed'</h5>{% endif %}
     <h6> From </h6> {{ro.departure}}
     <h6> To </h6> {{ro.destination}}
     <h6> On </h6> {{ro.date_orig.date}}
@@ -23,6 +24,14 @@
           {{ro.fin}} {{ro.fin_set}}
 
 {% if user.is_authenticated %}
+                              {% if route.fin or route.fin_set  %}
+
+                        {% if request.user in route.thepassenger.all %}
+                {% qr_from_text qrcode.code size="2" image_format="png" error_correction="L" %}
+
+
+                        {% endif %}
+                    {% endif %}
 
         {% if ro.passengers.all.count != 0 %}
     <p id="likes" style= "color:grey; font-size:12px;mix-blend-mode: multiply;"><img src="{% static  'Capstone/images/seat.jpg' %}" alt="seat image">
@@ -63,7 +72,7 @@
         {% ifequal request.user ro.thedriver %}
           <form action="{% url 'edit_route' ro.pk %}" method="post">
         {% csrf_token %}
-            <input class="btn btn-success" type="submit"  name="load_route" value="Edit Trip">  <!--onclick="location.href='{% url 'webload_route' ro.pk %}'"  />-->
+            <input class="btn btn-success" type="button"  name="load_route" value="Edit Trip"  onclick="location.href='{% url 'webload_route' ro.pk %}'"  />
             <input type="hidden"  name="route_to_load_id" value={{ro.pk}}>
           </form>
         {%endifequal %}

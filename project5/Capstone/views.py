@@ -15,7 +15,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from qr_code.qrcode.utils import MeCard
 
 from .forms import RouteForm
-from .models import User, Route, Comment, Message
+from .models import User, Route, Comment, Message, Qrcode
 
 
 def index(request):
@@ -174,26 +174,55 @@ def create_route(request, departure, destination, date_orig, time_orig, time_dep
 def profile(request, user_id):
     current_user = request.user
     targ_user = User.objects.get(id=user_id)
+    #qr_codes = []
+    qrcodes=[]
 
     user_routes = Route.objects.filter(thedriver_id=user_id).order_by('-created_date')
     page = paging(request, user_routes)
     user_routes_count = user_routes.count()
     user_messages = current_user.messages.all()
+    fin_trips = []
+
+
+    #qr_codes = Qrcode.objects.filter(trip=user_routes)
 
 
 
-    for route in user_routes:
-        a=route.thepassenger.all()
-        for i in a:
-            b=i.username
-            print(b)
+
+    #
+    # for route in user_routes:
+    #
+    #
+    #     if route.fin() == True or route.fin_set == True:
+    #         fin_trips.append(route)
+    #
+    #         for trip in fin_trips:
+    #             qrcodes = Qrcode.objects.filter(trip=trip)
+    #
+    #             for r in qrcodes:
+    #
+    #                 print(route.id, r.code)
+    #                 qr_codes.append(r.code)
+
+
+
+
+
+
+
+
+    # for route in user_routes:
+    #     a=route.thepassenger.all()
+    #     for i in a:
+    #         b=i.username
+    #         print(b)
 
 
     user_passenger_list = current_user.thepassengers.all()
     user_passenger_count = user_passenger_list.count()
-
-    print (user_passenger_list, user_passenger_count)
-    print('******************')
+    #
+    # print (user_passenger_list, user_passenger_count)
+    # print('******************')
 
 
 
@@ -315,7 +344,10 @@ def join_route(request, route_id):
     if request.method == "POST":
         route = Route.objects.get(id=route_id)
         route.thepassenger.add(request.user)
-        print("joined trip no ", route.id)
+        qrcode=Qrcode(passenger=request.user, trip=route)
+        qrcode.save()
+
+        print(request.user, "joined trip no ", route.id)
 
         return JsonResponse({"message": "Trip joined successfully."}, status=201)
 
@@ -381,8 +413,8 @@ def webload_route(request, route_id):
     passengers = route.thepassenger.all()
     # reply comments
     if request.method == "GET":
-
-
+        # qrcode = Qrcode.objects.get(trip=route, passenger=request.user)
+        # print('qrcode ', qrcode.code)
 
         return render(request, "Capstone/route.html", {"route": route, 'passengers':passengers})
 
@@ -394,7 +426,7 @@ def webload_route(request, route_id):
 
     if request.method == 'POST' and 'remove' in request.POST:
         passenger_id = int(request.POST['passenger'])
-        remove_passenger(request,route_id,passenger_id)
+        remove_passenger(request, route_id,passenger_id)
         return render(request, "Capstone/route.html", {"route": route,
                                                            "comments": comments, 'passengers':passengers})
 
@@ -434,7 +466,7 @@ def find_valid_trips(request):
                                                         'routes_count': routes_count})
 
 @login_required
-def remove_passenger(request,route_id, passenger_id):
+def remove_passenger(request, route_id, passenger_id):
     route = Route.objects.get(pk=route_id)
     passenger = User.objects.get(pk=passenger_id)
     created_date = timezone.now()
@@ -442,6 +474,7 @@ def remove_passenger(request,route_id, passenger_id):
 
 
     route.thepassenger.remove(passenger)
+    #Qrcode.objects.filter(passenger=passenger,trip=route).delete()
     content = 'You have been removed from route'
     message = Message(content=content, created_date=created_date, route_id=route_id)
     message.save()
