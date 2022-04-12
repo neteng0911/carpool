@@ -174,7 +174,7 @@ def create_route(request, departure, destination, date_orig, time_orig, time_dep
 def profile(request, user_id):
     current_user = request.user
     targ_user = User.objects.get(id=user_id)
-    #qr_codes = []
+    qr_codes = []
     qrcodes=[]
 
     user_routes = Route.objects.filter(thedriver_id=user_id).order_by('-created_date')
@@ -184,12 +184,11 @@ def profile(request, user_id):
     fin_trips = []
 
 
-    #qr_codes = Qrcode.objects.filter(trip=user_routes)
 
 
+    qrroute = Route.objects.get(pk=request.GET.get('route_to_load_id'))
+    qr_codes = Qrcode.objects.filter(trip=qrroute)
 
-
-    #
     # for route in user_routes:
     #
     #
@@ -197,12 +196,13 @@ def profile(request, user_id):
     #         fin_trips.append(route)
     #
     #         for trip in fin_trips:
-    #             qrcodes = Qrcode.objects.filter(trip=trip)
-    #
+    #             qr_codes = Qrcode.objects.filter(trip=trip)
+
     #             for r in qrcodes:
     #
-    #                 print(route.id, r.code)
+    #                 #print(route.id, r.code)
     #                 qr_codes.append(r.code)
+    # print(qr_codes)
 
 
 
@@ -263,7 +263,7 @@ def profile(request, user_id):
 
         return render(request, "Capstone/profile.html", {"targ_user": targ_user, "count": page.count, "page": page,
                                                          'user_routes_count': user_routes_count,
-                      'user_passenger_list':user_passenger_list, 'user_passenger_count':user_passenger_count, 'user_messages':user_messages})
+                      'user_passenger_list':user_passenger_list, 'user_passenger_count':user_passenger_count, 'user_messages':user_messages,'qr_codes':qr_codes})
 
 
 def paging(request, the_posts):
@@ -367,6 +367,7 @@ def leave_route(request, route_id):
     if request.method == "POST":
         route = Route.objects.get(id=route_id)
         route.thepassenger.remove(request.user)
+        Qrcode.objects.get(passenger=request.user, trip=route).delete()
         print("You left trip no ", route.id)
 
         return JsonResponse({"message": "You left trip successfully."}, status=201)
@@ -413,13 +414,14 @@ def webload_route(request, route_id):
     passengers = route.thepassenger.all()
     # reply comments
     if request.method == "GET":
-        # qrcode = Qrcode.objects.get(trip=route, passenger=request.user)
+        #qrcode = Qrcode.objects.get(trip=route, passenger=request.user)
         # print('qrcode ', qrcode.code)
 
         return render(request, "Capstone/route.html", {"route": route, 'passengers':passengers})
 
     comments = Comment.objects.order_by('-created_date')
     route = Route.objects.get(pk=route_id)
+    qrcode = Qrcode.objects.get(trip=route, passenger=request.user)
 
 
 
@@ -443,7 +445,7 @@ def webload_route(request, route_id):
 
 
         return render(request, "Capstone/route.html", {"route": route, 'passengers':passengers})
-    return render(request, "Capstone/route.html", {"route": route, 'passengers':passengers})
+    return render(request, "Capstone/route.html", {"route": route, 'passengers':passengers, 'qrcode':qrcode})
 # load trips that are not Closed either by date or by user or by not available seats
 @login_required
 def find_valid_trips(request):
