@@ -182,6 +182,8 @@ def profile(request, user_id):
     user_routes_count = user_routes.count()
     user_messages = current_user.messages.all()
     fin_trips = []
+    user_qrcodes = current_user.qrpassengers.all()
+
 
 
     #qr_codes = Qrcode.objects.filter(trip=user_routes)
@@ -344,8 +346,12 @@ def join_route(request, route_id):
     if request.method == "POST":
         route = Route.objects.get(id=route_id)
         route.thepassenger.add(request.user)
-        qrcode=Qrcode(passenger=request.user, trip=route)
+        qrcode=Qrcode()
+
         qrcode.save()
+        qrcode.qrpassenger.add(request.user)
+        qrcode.trip.add(route)
+
 
         print(request.user, "joined trip no ", route.id)
 
@@ -413,8 +419,12 @@ def webload_route(request, route_id):
     passengers = route.thepassenger.all()
     # reply comments
     if request.method == "GET":
-        # qrcode = Qrcode.objects.get(trip=route, passenger=request.user)
-        # print('qrcode ', qrcode.code)
+        qrcode = Qrcode.objects.filter(trip = route, qrpassenger = request.user)
+        #qrcode = Qrcode.objects.get(trip=route, passenger=request.user)
+        grpassengers  = qrcode.qrpassenger.all()
+        trips = qrcode.trip.all()
+        print(grpassengers, qrcode.code, trips)
+        # print('qrcode ', qrcode.code, trips)
 
         return render(request, "Capstone/route.html", {"route": route, 'passengers':passengers})
 
@@ -474,6 +484,7 @@ def remove_passenger(request, route_id, passenger_id):
 
 
     route.thepassenger.remove(passenger)
+
     #Qrcode.objects.filter(passenger=passenger,trip=route).delete()
     content = 'You have been removed from route'
     message = Message(content=content, created_date=created_date, route_id=route_id)
