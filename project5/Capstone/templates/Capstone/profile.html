@@ -59,17 +59,19 @@
         <p hidden id="cost_{{route.id}}"><h6>Initial cost per passenger {{user_route.cost}} $</h6>
     <h6> Expected cost per passenger </h6><strong id="costpp_{{route.id}}">{{user_route.costpp}}$</strong>
 
-
-                {% for qr in qr_codes %}
-                     {% if user_route.fin or user_route.fin_set  %}
-
+    {% if user_route.fin or user_route.fin_set  %}
+                {% for qr in user_route.qrcodes.all %}
 
 
-              <p>  {% qr_from_text qr.code size="2" image_format="png" error_correction="L" %}</p>
-                        {% endif %}
+
+              <p>  {% qr_from_text qr.code size="2" image_format="png" error_correction="L" %}   <a href="{% url 'profile' qr.passenger.id %}" >  {{ qr.passenger.username }}</a></p>
+
+
+
                         {% endfor %}
 
 
+    {% endif %}
 
 
      <p>   <img class = 'img-fluid' style="width:400px;height:400px;" src="{{ user_route.map_pic }}" alt="map"></p>
@@ -80,7 +82,7 @@
         {% if user_route.thepassenger.all.count != 0 %}
     <p id="likes" style= "color:grey; font-size:12px;mix-blend-mode: multiply;"><img src="{% static  'Capstone/images/seat.jpg' %}" alt="seat image">
         <span><strong id="thepassengercounter_{{user_route.id}}">{{ user_route.thepassenger.all.count }}</strong></span>/{{ user_route.no_pass }}
-       Passengers of this Trip:
+       Passengers on this Trip:
 
         {% for a in user_route.thepassenger.all %}
         <strong> <a href="{% url 'profile' a.id %}" >  {{ a.username }}</a></strong>

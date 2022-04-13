@@ -174,20 +174,26 @@ def create_route(request, departure, destination, date_orig, time_orig, time_dep
 def profile(request, user_id):
     current_user = request.user
     targ_user = User.objects.get(id=user_id)
-    qr_codes = []
-    qrcodes=[]
+
 
     user_routes = Route.objects.filter(thedriver_id=user_id).order_by('-created_date')
     page = paging(request, user_routes)
     user_routes_count = user_routes.count()
     user_messages = current_user.messages.all()
-    fin_trips = []
 
 
 
 
-    qrroute = Route.objects.get(pk=request.GET.get('route_to_load_id'))
-    qr_codes = Qrcode.objects.filter(trip=qrroute)
+    #qrroute = Route.objects.get(pk=request.GET.get('route_to_load_id'))
+    for r in user_routes:
+        #print(r)
+        mycode = r.qrcodes.all()
+
+        for t in mycode:
+            passen = t.passenger
+            print(passen)
+
+
 
     # for route in user_routes:
     #
@@ -197,12 +203,12 @@ def profile(request, user_id):
     #
     #         for trip in fin_trips:
     #             qr_codes = Qrcode.objects.filter(trip=trip)
-
+    #
     #             for r in qrcodes:
     #
     #                 #print(route.id, r.code)
     #                 qr_codes.append(r.code)
-    # print(qr_codes)
+    #     print(qr_codes)
 
 
 
@@ -263,7 +269,7 @@ def profile(request, user_id):
 
         return render(request, "Capstone/profile.html", {"targ_user": targ_user, "count": page.count, "page": page,
                                                          'user_routes_count': user_routes_count,
-                      'user_passenger_list':user_passenger_list, 'user_passenger_count':user_passenger_count, 'user_messages':user_messages,'qr_codes':qr_codes})
+                      'user_passenger_list':user_passenger_list, 'user_passenger_count':user_passenger_count, 'user_messages':user_messages})
 
 
 def paging(request, the_posts):
@@ -344,8 +350,10 @@ def join_route(request, route_id):
     if request.method == "POST":
         route = Route.objects.get(id=route_id)
         route.thepassenger.add(request.user)
-        qrcode=Qrcode(passenger=request.user, trip=route)
+        #qrcode=Qrcode(passenger=request.user, trip=route)
+        qrcode = Qrcode(passenger=request.user)
         qrcode.save()
+        qrcode.trip.add(route)
 
         print(request.user, "joined trip no ", route.id)
 
@@ -414,14 +422,31 @@ def webload_route(request, route_id):
     passengers = route.thepassenger.all()
     # reply comments
     if request.method == "GET":
-        #qrcode = Qrcode.objects.get(trip=route, passenger=request.user)
-        # print('qrcode ', qrcode.code)
 
-        return render(request, "Capstone/route.html", {"route": route, 'passengers':passengers})
+        if passenger == request.user:
+            trip = Route.objects.get(pk=route_id)
+            codes = trip.qrcodes.all()
+
+            myqr = trip.qrcodes.get(passenger= request.user)
+            mycode = myqr.code
+            #print(myqr)
+            return render(request, "Capstone/route.html", {"route": route, 'passengers': passengers, 'mycode': mycode})
+        else:
+            trip = Route.objects.get(pk=route_id)
+
+            mycodes=trip.qrcodes.all()
+            print(mycodes)
+            for my in mycodes:
+                mycode = my.code
+
+                print(my.code)
+
+
+
+                return render(request, "Capstone/route.html", {"route": route, 'passengers':passengers,'mycode':mycode})
 
     comments = Comment.objects.order_by('-created_date')
-    route = Route.objects.get(pk=route_id)
-    qrcode = Qrcode.objects.get(trip=route, passenger=request.user)
+
 
 
 

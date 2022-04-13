@@ -144,5 +144,5 @@ class Message(models.Model):
 
 class Qrcode(models.Model):
     code = models.CharField(max_length=12, default = random_string)
-    passenger = models.ForeignKey(User, on_delete=models.CASCADE, null="TRUE", blank="TRUE")
-    trip = models.ForeignKey(Route, on_delete=models.CASCADE, null="TRUE", blank="TRUE")
+    passenger = models.ForeignKey(User, on_delete=models.CASCADE, null="TRUE", blank="TRUE", related_name='code')
+    trip = models.ManyToManyField(Route, related_name='qrcodes')
