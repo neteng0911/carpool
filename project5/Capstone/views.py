@@ -258,7 +258,7 @@ def profile(request, user_id):
         route_to_load = Route.objects.get(pk=route_to_load_id)
         route_to_load.fin_set=True
         message_cl="Passenger list completed"
-        print(message_cl)
+        #print(message_cl)
 
         route_to_load.save()
         return render(request, "Capstone/profile.html", {"targ_user": targ_user, "count": page.count, "page": page,
@@ -282,16 +282,12 @@ def paging(request, the_posts):
 
 @login_required
 def edit_route(request, route_id):
-   # alert = 1
+
     route = Route.objects.get(pk=route_id)
 
-    # form = RouteForm()
 
     if request.user == route.thedriver:
-        # if request.method=='GET':
-        #     form = RouteForm(instance=route)
-        #
-        #     return render(request, "Capstone/edit_route.html", {"route": route, 'form': form})
+
 
         if request.method == "POST" and "edit_route" in request.POST:
             form = RouteForm(request.POST, instance=route)
@@ -306,27 +302,35 @@ def edit_route(request, route_id):
             route.map_pic = request.POST['map_pic']
             msg = "Trip edited successfully!"
             if form.is_valid():
-                # alert = 1
-                # print(alert)
+
 
 
                 route.save()
-                # messages.success(request, 'Trip edited succesfully')
+
                 return render(request, "Capstone/edit_route.html", {"route": route, 'form': form, 'msg':msg})
-                #return HttpResponseRedirect(reverse("index"))
+
 
             else:
-                form = RouteForm(instance=route)
+                form = RouteForm(instance=route) #instance loads the pre-filled form
                 msger = "Invalid Input please try again"
-                # alert = 0
-                # print(alert)
-                # messages.error(request, 'Invalid form submission.')
-                # messages.error(request, form.errors)
+
 
                 return render(request, "Capstone/edit_route.html", {"route": route, 'form': form, 'msger':msger})
 
         if request.method == "POST" and "del_route" in request.POST:
+            passengers = route.thepassenger.all()
+
+
+            for p in passengers:
+                content = 'Driver just cancelled the trip'
+                created_date = timezone.now()
+                message = Message(content=content, created_date=created_date, route_id=route_id)
+                message.save()
+                # print(comment)
+                message.recipient.add(p)
             route.delete()
+
+
             return HttpResponseRedirect(reverse("index"))
 
         else:
@@ -404,7 +408,7 @@ def load_route(request, route_id):
     try:
         route = Route.objects.get(pk=route_id)
     except Route.DoesNotExist:
-        return JsonResponse({"error": "Route not found."}, status=404)
+        return JsonResponse({"error": "Trip not found."}, status=404)
 
 
     if request.method == "GET":
@@ -418,14 +422,14 @@ def webload_route(request, route_id):
     try:
         route = Route.objects.get(pk=route_id)
     except Route.DoesNotExist:
-        return JsonResponse({"error": "Route not found."}, status=404)
+        return JsonResponse({"error": "trip not found."}, status=404)
     passengers = route.thepassenger.all()
     # reply comments
     if request.method == "GET":
 
         if passenger == request.user:
             trip = Route.objects.get(pk=route_id)
-            codes = trip.qrcodes.all()
+            #codes = trip.qrcodes.all()
 
             myqr = trip.qrcodes.get(passenger= request.user)
             mycode = myqr.code
@@ -435,11 +439,11 @@ def webload_route(request, route_id):
             trip = Route.objects.get(pk=route_id)
 
             mycodes=trip.qrcodes.all()
-            print(mycodes)
+            #print(mycodes)
             for my in mycodes:
                 mycode = my.code
 
-                print(my.code)
+                #print(my.code)
 
 
 
@@ -470,7 +474,7 @@ def webload_route(request, route_id):
 
 
         return render(request, "Capstone/route.html", {"route": route, 'passengers':passengers})
-    return render(request, "Capstone/route.html", {"route": route, 'passengers':passengers, 'qrcode':qrcode})
+    return render(request, "Capstone/route.html", {"route": route, 'passengers':passengers})
 # load trips that are not Closed either by date or by user or by not available seats
 @login_required
 def find_valid_trips(request):

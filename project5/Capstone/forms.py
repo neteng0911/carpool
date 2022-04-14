@@ -10,14 +10,6 @@ from .models import Route
 now_t=datetime.now().time().strftime("%H:%M")
 
 
-
-# def check_date(value):
-#     if value<timezone.now().date():
-#         print(timezone.now().date())
-#
-#
-#         raise forms.ValidationError("The date must not be in the past")
-#     return value
                      
 
 
@@ -31,7 +23,7 @@ class RouteForm(forms.ModelForm):
     destination = forms.CharField(
         widget=forms.TextInput(attrs={'placeholder': 'Destination','readonly':'readonly','class':'readonly'}))
     date_orig=forms.DateField(widget=forms.DateInput(attrs={'type': 'date','min':date.today()}))
-    #date_orig=forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}), validators=[check_date])
+
     time_orig=forms.TimeField(widget=forms.TimeInput(attrs={'type': 'time'}))
     time_dep=forms.TimeField(widget=forms.TimeInput(attrs={'type': 'time','min':time_orig}))
 
