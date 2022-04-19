@@ -21,7 +21,7 @@
     <h6> The Driver is </h6>   <a href="{% url 'profile' ro.thedriver.id %}" ><strong> {{ro.thedriver}} </strong></a>
     <p hidden id="cost_{{ro.id}}"><h6>Initial cost per passenger {{ro.cost}} $</h6>
     <h6> Expected cost per passenger </h6><strong id="costpp_{{ro.id}}">{{ro.costpp}}$</strong>
-          {{ro.fin}} {{ro.fin_set}}
+         
 
 {% if user.is_authenticated %}
                               {% if route.fin or route.fin_set  %}
