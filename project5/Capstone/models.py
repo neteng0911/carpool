@@ -1,6 +1,6 @@
 from django.db import models
 
-from datetime import datetime
+from datetime import datetime, timedelta
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from datetime import date
@@ -63,7 +63,7 @@ class Route(models.Model):
 
 
 
-#  workaround so as to auto-close the trips depending on the current date and time (if the have expired or started or no available seats exist)
+#  workaround method so as to auto-close the trips depending on the current date and time (if the have expired or started or no available seats exist)
     def fin(self):
         if self.date_orig.timestamp() < datetime.today().timestamp() :
             return True
@@ -135,11 +135,24 @@ class Comment(models.Model):
     def __str__(self):
         return f"{self.comm_txt}"
 
+
+
+class MessageManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(created_date__gte=timezone.now()-timezone.timedelta(days = 7))#custom queryset to hide older than 7 days messages
+
 class Message(models.Model):
     content = models.CharField(max_length=150, blank='True')
     recipient = models.ManyToManyField(User, related_name='messages')
     created_date=models.DateTimeField(default=now, editable=False)
     route_id= models.IntegerField()
+
+    objects = MessageManager()
+
+
+
+
+
 
 
 class Qrcode(models.Model):

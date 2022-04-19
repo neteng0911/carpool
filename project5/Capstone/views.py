@@ -11,8 +11,6 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 
 
 
-from django.core.exceptions import ObjectDoesNotExist
-from qr_code.qrcode.utils import MeCard
 
 from .forms import RouteForm
 from .models import User, Route, Comment, Message, Qrcode
@@ -284,6 +282,7 @@ def paging(request, the_posts):
 def edit_route(request, route_id):
 
     route = Route.objects.get(pk=route_id)
+    passengers = route.thepassenger.all()
 
 
     if request.user == route.thedriver:
@@ -307,6 +306,14 @@ def edit_route(request, route_id):
 
                 route.save()
 
+                for p in passengers:
+                    content = 'Attention! Driver just edited the trip'
+                    created_date = timezone.now()
+                    message = Message(content=content, created_date=created_date, route_id=route_id)
+                    message.save()
+                    # print(comment)
+                    message.recipient.add(p)
+
                 return render(request, "Capstone/edit_route.html", {"route": route, 'form': form, 'msg':msg})
 
 
@@ -318,11 +325,11 @@ def edit_route(request, route_id):
                 return render(request, "Capstone/edit_route.html", {"route": route, 'form': form, 'msger':msger})
 
         if request.method == "POST" and "del_route" in request.POST:
-            passengers = route.thepassenger.all()
+
 
 
             for p in passengers:
-                content = 'Driver just cancelled the trip'
+                content = 'Attention! Driver just cancelled the trip'
                 created_date = timezone.now()
                 message = Message(content=content, created_date=created_date, route_id=route_id)
                 message.save()
@@ -506,7 +513,7 @@ def remove_passenger(request, route_id, passenger_id):
 
     route.thepassenger.remove(passenger)
     #Qrcode.objects.filter(passenger=passenger,trip=route).delete()
-    content = 'You have been removed from route'
+    content = 'Attention! You have been removed from trip'
     message = Message(content=content, created_date=created_date, route_id=route_id)
     message.save()
     # print(comment)

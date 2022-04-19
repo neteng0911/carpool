@@ -19,7 +19,8 @@
 <div class= "prof"><strong> {{user.email}}</strong>
     <p><strong> You are member since {{user.date_joined}}</strong></p>
     {% for message in user_messages %}
-    <li><strong class="text-danger" >{{ message.content }} <a href="{% url 'webload_route' message.route_id %}" >{{message.route_id}} </a></strong></li>
+    <li><strong class="text-danger" >{{ message.content }} <a href="{% url 'webload_route' message.route_id %}" >
+        {{message.route_id}} </a></strong> <div style="color:blue; font-size:9px;">on {{message.created_date}}</div> </li>
 
 
     {% endfor %}
@@ -61,14 +62,12 @@
 
     {% if user_route.fin or user_route.fin_set  %}
                 {% for qr in user_route.qrcodes.all %}
-
+                    {% if qr.passenger in user_route.thepassenger.all  %}
 
 
               <p>  {% qr_from_text qr.code size="2" image_format="png" error_correction="L" %}   <a href="{% url 'profile' qr.passenger.id %}" >  {{ qr.passenger.username }}</a></p>
-
-
-
-                        {% endfor %}
+                {% endif %}
+                {% endfor %}
 
 
     {% endif %}
