@@ -1,0 +1,24 @@
+{% extends "Capstone/layout.html" %}
+{% load static %}
+{% block body %}
+
+<!--{% block script %}
+    <script src="{% static 'network/likes.js' %}"></script>
+
+{% endblock script %}-->
+<div class="container">
+<div class="row">
+
+    <div class="col-lg-6 corps">
+        <a href="{% url 'passenger'%}"> <img class="img-fluid "  src="{% static  'Capstone/images/pass.jpg' %}"  title="Passenger"></a>
+    </div>
+
+    <div class="col-lg-6 corps">
+        <a href="{% url 'driver'%}"> <img class="img-fluid" src="{% static  'Capstone/images/driver.png' %}" title="Driver" > </a>
+    </div>
+
+</div>
+</div>
+
+
+{% endblock %}

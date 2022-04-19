@@ -1,0 +1,117 @@
+{% extends "Capstone/layout.html" %}
+{% load static %}
+
+{% block body %}
+<h3 class = 'text-warning'> {{ user}}, Here you can edit Trip no {{route.id}}</h3>
+<div class="container-fluid mt-1" >
+    <div class="d-flex p-1 bg-secondary text-white flex-grow">
+        <div class="bg-info col-sm-3 mx-1 pr-5 shadow-lg ">
+
+
+    <div  style="position:left;color:black; font-size:17px;">From: {{route.departure}}
+        <p>To: {{route.destination}}</p>
+
+        <p> On: {{route.date_orig.date}}</p>
+        <p> Leaving at  {{route.time_orig}} and returning at {{route.time_dep}}</p>
+
+
+
+
+    <p  class="img-fluid"  id="map_to_load"><img style="height:350px; width:350px;" src="{{route.map_pic}}"></p>
+
+
+
+
+   <p style= "color:grey; font-size:12px;"> <strong>Created by<a href="{% url 'profile' route.thedriver_id %}" >
+
+
+       {{ route.thedriver}} </strong></a>  on: {{ route.created_date}} </p>
+
+    </div>
+
+
+
+<form action="{% url 'edit_route' route.pk %}" method="post">
+    {% csrf_token %}
+     <input class="btn btn-danger" name="del_route" type="submit" value="Delete Trip" >
+     <input type="hidden"  name="route_id" value={{route.pk}}>
+ </form>
+        </div>
+
+
+  <div class="d-flex p-1 bg-secondary text-white flex-grow">
+    <div class="bg-info col-sm-4 mx-1 pr-5 shadow-lg ">
+      <div class=form-group">
+
+
+<form id="addresses">
+
+<div>
+<label for="input start">Departure Address</label>
+  <input type="text" class="form-control" id="dep" value="{{route.departure}}">
+
+
+
+  <label for="input finish">Destination Address</label>
+  <input type="text" class="form-control" id="dest" value="{{route.destination}}">
+    <p> <input id ="sear" class="btn-info" type="button" value="Search"></p>
+
+</form>
+
+
+
+</div>
+
+</div>
+
+
+
+
+      </div>
+
+
+
+
+    <div class="bg-info col-md-4 mx-1 pr-5 shadow-lg" id="sub_route">
+      <form class='validity' action="{% url 'edit_route' route.pk %}" method="post">
+    {% csrf_token %}
+          {{ form.as_p }}
+
+          <p>
+              <input class ='btn-info' id ="editbt" name="edit_route" type="submit" value="Submit"></p>
+          </form>
+        <div style="color:red"> {{msger}}</div>
+        <div class="succ" > {{ msg}} </div>
+<!--<script>
+document.getElementById("editbt").addEventListener("click", myFunction);
+
+function myFunction() {
+
+const al=document.getElementById('alert').value;
+console.log(al);
+   if (al == 1){
+
+        alert('Success')
+        document.getElementById('msg').className='alert alert-success';
+
+        } if (al== 0){
+        document.getElementById('msg').className='alert alert-danger';
+        };
+}
+</script>-->
+
+    </div>
+    <div class="img-fluid" id="map_pl"><img style="height:350px; width:350px;" id="map"  src='#'></div>
+
+  </div>
+</div>
+
+<div class="mt-4 p-2 bg-dark text-white text-center">
+  <p>Footer</p>
+</div>
+
+{% block script %}
+    <script src="{% static 'Capstone/edit_route.js' %}"></script>
+
+{% endblock script %}
+{% endblock %}
