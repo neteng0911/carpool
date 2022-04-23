@@ -52,8 +52,8 @@
 {% for user_route in  page.object_list %}
 <section>
 <ul>
-
-<div class="post"><h5>Trip No {{user_route.pk}} </h5>{% if user_route.fin or user_route.fin_set  %}  <h5 style='color:red;'> 'Trip Closed'</h5>{% endif %}
+<div class="container-fluid">
+<div class="prof"><h5>Trip No {{user_route.pk}} </h5>{% if user_route.fin or user_route.fin_set  %}  <h5 style='color:red;'> 'Trip Closed'</h5>{% endif %}
     <p> <h6>From</h6> {{user_route.departure}} <h6>To</h6> {{user_route.destination}} </p>
     <p> <h6>on</h6> {{user_route.date_orig.date}}</p>
     <p> <h6>Leaving at</h6>  {{user_route.time_orig}} <h6>and returning at</h6> {{user_route.time_dep}}</p>
@@ -73,7 +73,7 @@
     {% endif %}
 
 
-     <p>   <img class = 'img-fluid' style="width:400px;height:400px;" src="{{ user_route.map_pic }}" alt="map"></p>
+     <p>   <img class = 'img-fluid' src="{{ user_route.map_pic }}" alt="map"></p>
 
 
     <p style= "color:grey; font-size:12px;"> <strong><a href="{% url 'profile' targ_user.id %}" > {{targ_user.username}} </strong></a> wrote on: {{user_route.created_date}} </p>
@@ -154,7 +154,7 @@
     </form>
 
 </section>
-
+</div>
 
        {% for rep in user_route.comments.all %}
  <ul>
