@@ -50,37 +50,21 @@ function search_route(){
          let place='Ymhttoy%72%20Athens'
 
          let test=`https://dev.virtualearth.net/REST/V1/Imagery/Map/Road/${place}?mapLayer=TrafficFlow&o=json&key=`
-         let det =`http://dev.virtualearth.net/REST/V1/Routes/Driving?wp.0=${start.value}1&wp.1=${end.value}2&o=json&key=`
 
          let mp=route+key
-
          sessionStorage.setItem("mp",route+key );
-         let detroute = det+key
-         let detdata=fetch(detroute)
-           .then(response=>{
-           return response.json();
-           })
-           //console.log(response);
-           //console.log(detroute);
-             .then(function(data) {
-             console.log(JSON.stringify(data));
 
-
-           if(data.resourceSets && data.resourceSets.length > 0 && data.resourceSets[0].resources && data.resourceSets[0].resources.length > 0){
-
-            var firstResult =  data.resourceSets[0].resources[0].routeLegs[0];
-            var dist = firstResult.travelDistance;
-            var dur = firstResult.travelDuration;
-            alert(dist)
-            console.log(dist);
-}
-           })
 
         let data = fetch(mp)
 
 
 
            .then(response=>{
+               return response.json();
+  }
+           })
+           .then(response=>{
+
            if (response.status==200){
 
         document.querySelector('#addresses').style.display = 'block';
@@ -91,9 +75,9 @@ function search_route(){
         document.getElementById("id_departure").value = start.value;
         document.getElementById("id_destination").value = end.value;
         document.getElementById("id_destination").value = end.value;
-        document.getElementById("id_map_pic").value=mp;
+        document.getElementById("id_map_pic").value=mp
 
-
+        console.log(JSON.stringify(response));
 
 
 
@@ -118,6 +102,8 @@ alert("address not found");
 
         }
         }
+
+})
 
 
 function subm_route(){

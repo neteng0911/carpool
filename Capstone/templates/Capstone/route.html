@@ -6,11 +6,11 @@
 
 
 
-<div class="media">
-  <img class="img-fluid" src="{{ route.map_pic }}" alt="map_img">
+<div class="container-xxl">
+
   <div class="media-body">
       <div class="prof">
-    <h5 class="bg-info col-sm-3 mx-1 pr-5 shadow-lg "></h5>
+    <h5 class="bg-info col-md-auto mx-1 pr-5 shadow-lg "></h5>
           <div><h5>Trip No {{route.pk}} </h5>{% if route.fin or route.fin_set  %}  <h5 style='color:red;'> 'Trip Closed'</h5>{% endif %}
 
     <h6> From </h6> {{route.departure}}
@@ -21,7 +21,9 @@
 
     <h6> The Driver is </h6>   <a href="{% url 'profile' route.thedriver.id %}" ><strong> {{route.thedriver}} </strong></a>
     <p hidden id="cost_{{route.id}}"><h6>Initial cost per passenger {{route.cost}} $</h6>
-    <h6> Expected cost per passenger </h6><strong id="costpp_{{route.id}}">{{route.costpp}}$</strong>
+    <h6> Expected cost per passenger <strong id="costpp_{{route.id}}">{{route.costpp}}$</strong></h6>
+              <p></p>
+              <img class="img-fluid" src="{{ route.map_pic }}" alt="map_img">
 </div>
 {% if user.is_authenticated %}
           {% if route.fin or route.fin_set  %}

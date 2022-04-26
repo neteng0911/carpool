@@ -470,7 +470,7 @@ def webload_route(request, route_id):
 
 
     if request.method == "POST" and "route_reply" in request.POST:
-        comm_txt = request.POST["reply_txt"]
+        comm_txt = request.POST["comm_txt"]
 
 
         comment(request, comm_txt, route_id)

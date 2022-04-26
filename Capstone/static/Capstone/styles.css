@@ -16,13 +16,13 @@ left: 30%;
 background-color: #ccccb3;
 font-size: 14px;
 min-height: 10px;
-width: 20%;
+width: 50%;
 padding: 5px;
 margin-bottom:2px;
 position: relative;
 overflow: visible;
-left: 24%;
-display:inline-block;
+left: 25%;
+overflow: visible;
 
 }
 
@@ -31,12 +31,12 @@ display:inline-block;
 background-color: #eff5f5;
 font-size: 14px;
 min-height: 10px;
-width: 25%;
+width: 50%;
 padding: 5px;
 margin-bottom:20px;
 position: relative;
 overflow: visible;
-left: 0%;
+left: 25%;
 
 }
 

@@ -6,8 +6,8 @@
 
 <p class="text-warning">Total Trips:<strong>{{routes_count}}</strong></p>
 {% for ro in  page.object_list %}
-<div class="media" data-fin="{{ro.fin}}" data-fin_set="{{ro.fin_set}}">
-  <img  class="img-fluid" src="{{ ro.map_pic }}" alt="map_img">
+<div class="container-fluid" data-fin="{{ro.fin}}" data-fin_set="{{ro.fin_set}}">
+
   <div class="media-body">
       <div class="prof">
     <h5 class="mt-0"></h5>
@@ -20,9 +20,9 @@
 
     <h6> The Driver is </h6>   <a href="{% url 'profile' ro.thedriver.id %}" ><strong> {{ro.thedriver}} </strong></a>
     <p hidden id="cost_{{ro.id}}"><h6>Initial cost per passenger {{ro.cost}} $</h6>
-    <h6> Expected cost per passenger </h6><strong id="costpp_{{ro.id}}">{{ro.costpp}}$</strong>
+    <h6> Expected cost per passenger <strong id="costpp_{{ro.id}}">{{ro.costpp}}$</strong></h6>
          
-
+        <img  class="img-fluid" src="{{ ro.map_pic }}" alt="map_img">
 {% if user.is_authenticated %}
                               {% if route.fin or route.fin_set  %}
 
