@@ -13,12 +13,14 @@
   <div class="media-body">
       <div class="prof">
     <h5 class="mt-0"></h5>
-        <h5> <strong><a href="{% url 'webload_route' ro.id %}" > Trip No:{{ro.id}} </a></strong> </h5> {% if ro.fin or ro.fin_set %}  <h5 style='color:red;'> 'Trip Closed'</h5>{% endif %}
+        <h5> <strong><a href="{% url 'webload_route' ro.id %}" > Trip No:{{ro.id}} </a></strong> </h5> {% if ro.fin or ro.fin_set %}  <h5 id='closed_{{ro.id}}' style='color:red;'> 'Trip Closed'</h5>{% endif %}
     <h6> From </h6> {{ro.departure}}
     <h6> To </h6> {{ro.destination}}
     <h6> On </h6> {{ro.date_orig.date}}
     <h6> Leaving at </h6> {{ro.time_orig}}
     <h6> Returning at </h6> {{ro.time_dep}}
+    <h6> Distance </h6> {{ro.dist}}Km
+
 
     <h6> The Driver is </h6>   <a href="{% url 'profile' ro.thedriver.id %}" ><strong> {{ro.thedriver}} </strong></a>
     <p hidden id="cost_{{ro.id}}"><h6>Initial cost per passenger {{ro.cost}} $</h6>
@@ -60,21 +62,25 @@
     <input class="btn btn-primary"  id='post_btn' type="submit" name="route_reply" value="Post">
 
                   {% ifnotequal request.user ro.thedriver %}
-            {% if not ro.fin_set and not ro.fin  %}
+
                 <div class="likes">
 
                         {% if request.user in ro.thepassenger.all %}
 
                         <span id="leavebtn" class="joinleave" data-id="{{ro.id}}" onclick="return false" title="Leave" >Leave</span>
-                        {% else %}
-                        <span id="joinbtn" class="joinleave" data-id="{{ro.id}}" onclick="return false"  title="Join">Join</span>
-                        {% endif %}
 
+                    {% else %}
+                    {% if not ro.fin_set and not ro.fin  %}
+
+                        <span id="joinbtn" class="joinleave" data-id="{{ro.id}}" onclick="return false"  title="Join">Join</span>
+            {% endif%}
+            {% endif %}
                 </div>
+
 </form>
 
 
-            {% endif%}
+
         {% endifnotequal %}
         {% ifequal request.user ro.thedriver %}
           <form action="{% url 'edit_route' ro.pk %}" method="post">

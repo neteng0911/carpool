@@ -134,12 +134,13 @@ def driver(request):
             cost = request.POST["cost"]
             no_pass = request.POST["no_pass"]
             map_pic = request.POST['map_pic']
+            dist = request.POST['dist']
             # print(form)
             form = RouteForm
             msg = "Trip created successfully!"
 
             create_route(request, departure, destination, date_orig, time_orig, time_dep, cost, no_pass, map_pic,
-                         created_date)
+                         created_date,dist)
 
             # redirect to a new URL:
             return render(request, 'Capstone/driver.html', {'msg': msg, 'form': form})
@@ -158,12 +159,12 @@ def bing(request):
     return render(request, "Capstone/bing.html")
 
 
-def create_route(request, departure, destination, date_orig, time_orig, time_dep, cost, no_pass, map_pic, created_date):
+def create_route(request, departure, destination, date_orig, time_orig, time_dep, cost, no_pass, map_pic, created_date,dist):
     thedriver = request.user
 
     myroute = Route.objects.create_route(departure=departure, destination=destination, date_orig=date_orig,
                                          time_orig=time_orig, time_dep=time_dep, cost=cost, no_pass=no_pass,
-                                         thedriver=thedriver, map_pic=map_pic, created_date=created_date)
+                                         thedriver=thedriver, map_pic=map_pic, created_date=created_date,dist=dist)
 
     return HttpResponseRedirect(reverse("index"))
 
@@ -512,7 +513,7 @@ def remove_passenger(request, route_id, passenger_id):
 
 
     route.thepassenger.remove(passenger)
-    #Qrcode.objects.filter(passenger=passenger,trip=route).delete()
+    Qrcode.objects.filter(passenger=passenger,trip=route).delete()
     content = 'Attention! You have been removed from trip'
     message = Message(content=content, created_date=created_date, route_id=route_id)
     message.save()

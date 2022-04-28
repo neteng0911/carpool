@@ -71,12 +71,12 @@ function search_route(){
             var firstResult =  data.resourceSets[0].resources[0].routeLegs[0];
             var dist = firstResult.travelDistance;
             var dur = firstResult.travelDuration;
-            alert(dist)
+            //alert(dist)
             console.log(dist);
 }
-           })
 
-        let data = fetch(mp)
+
+        let mydata = fetch(mp)
 
 
 
@@ -92,6 +92,7 @@ function search_route(){
         document.getElementById("id_destination").value = end.value;
         document.getElementById("id_destination").value = end.value;
         document.getElementById("id_map_pic").value=mp;
+        document.getElementById("id_dist").value=dist;
 
 
 
@@ -115,7 +116,7 @@ alert("address not found");
 
          //console.log(data)
 
-
+})
         }
         }
 

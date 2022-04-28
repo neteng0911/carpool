@@ -29,11 +29,12 @@ class RouteForm(forms.ModelForm):
 
     cost=forms.FloatField(min_value=0.0,error_messages={'min_value': u'Cost cannot be less than 0.0'})
     no_pass = forms.IntegerField(min_value=1)
-    map_pic=forms.CharField(widget=forms.TextInput(attrs={'type': 'hidden'}))
+    map_pic=forms.CharField(widget=forms.HiddenInput())
+    dist = forms.FloatField(widget=forms.HiddenInput())
 
     class Meta:
         model = Route
-        fields = ['departure','destination','date_orig','time_orig', 'time_dep', 'cost', 'no_pass', 'map_pic']
+        fields = ['departure','destination','date_orig','time_orig', 'time_dep', 'cost', 'no_pass', 'map_pic','dist']
 #validators regarding date and time
 
     def clean(self):

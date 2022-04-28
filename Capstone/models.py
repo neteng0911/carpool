@@ -33,9 +33,9 @@ class User(AbstractUser):
 
 
 class RouteManager(models.Manager):
-    def create_route(self, departure,destination,date_orig,time_orig,time_dep,cost,no_pass,thedriver,map_pic,created_date):
+    def create_route(self, departure,destination,date_orig,time_orig,time_dep,cost,no_pass,thedriver,map_pic,created_date,dist):
         route=self.create(departure=departure,destination=destination,date_orig=date_orig,time_orig=time_orig,
-                          time_dep=time_dep,cost=cost,no_pass=no_pass,thedriver=thedriver,map_pic=map_pic,created_date=created_date)
+                          time_dep=time_dep,cost=cost,no_pass=no_pass,thedriver=thedriver,map_pic=map_pic,created_date=created_date,dist=dist)
         return route
 
 
@@ -57,6 +57,7 @@ class Route(models.Model):
     thepassenger = models.ManyToManyField(User, blank="TRUE", related_name="thepassengers")
     fin_set = models.BooleanField(default=False) # if the driver wants to manually close the trip
     keynum = models.CharField(max_length=12, default = random_string)
+    dist = models.FloatField(blank = 'TRUE')
 
     
 
@@ -109,7 +110,9 @@ class Route(models.Model):
             'cost':self.cost,
 
             'map_pic':self.map_pic,
-            'created_date':self.created_date
+            'created_date':self.created_date,
+            'dist': self.dist,
+            'key_num':self.keynum
 
         }
 

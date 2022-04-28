@@ -9,7 +9,7 @@
 
 
         // checking if current passengers >= max passengers so changing Join btn to Closed
-/*        document.querySelectorAll('.joinleave').forEach((element) => {
+        document.querySelectorAll('.joinleave').forEach((element) => {
             var route_id = element.dataset.id;
             var no_pass= parseFloat(document.querySelector(`#thepassengercounter_${route_id}`).innerHTML);
             var max_pass = parseFloat(document.querySelector(`#max_pass_${route_id}`).innerHTML);
@@ -24,15 +24,10 @@
                 element.innerHTML="Closed";
                 }
 
-            else{
-
-                element.title="Leave";
-                element.innerHTML="Leave";
-            }
             }
 
         }
-        )*/
+        )
 
 
 //  so as to not reload the page after joining or leaving a trip. It updates the innerHTML instantly
@@ -59,16 +54,8 @@
 
             var no_pass= parseFloat(document.querySelector(`#thepassengercounter_${route_id}`).innerHTML);
             var max_pass = route["no_pass"];
-            var dist = route["dist"];
-            var key_num = route["key_num"]
-            var co2=dist*2.40*2;
-
-            //console.log(route_id);
-            console.log('max passengers  ', max_pass);
-            console.log('current passengers ', no_pass);
-
-            //console.log(dist)
-            //console.log(key_num)
+            console.log(route_id);
+            console.log(max_pass);
 
 
 // checking if current passengers >= max passengers so not allowing joinining but only leaving
@@ -83,10 +70,6 @@
                 element.title="Leave";
                 element.innerHTML="Leave";
                 document.querySelector(`#thepassengercounter_${route_id}`).innerHTML++;
-
-
-
-                alert("Congrats you just saved "+(co2.toFixed(2))+' kg of CO2 by Carpooling')
                 join_route(route_id);
                 est_cost(route_id);
 
@@ -104,54 +87,12 @@
                 est_cost(route_id);
 
                 }}
-      else if (no_pass == max_pass){
-
-        if (element.title == "Leave"){
-               //console.log(element);
-
-
-                element.title="Join";
-                element.innerHTML="Join";
-                element.style.color = "#228B22";
-                element.style.border = "1px solid  #228B22";
-                document.querySelector(`#thepassengercounter_${route_id}`).innerHTML--;
-                leave_route(route_id);
-                est_cost(route_id);
-                document.querySelector(`#closed_${route_id}`).style.display='none';
-
-
-                }
-
-
-
-
-                }
-
-
-        else if (max_pass-no_pass==1){
-                    if(element.title == "Join")
-            {
-
-
-                element.style.color = "#B22222";
-                element.style.border = "1px solid #B22222";
-                element.title="Leave";
-                element.innerHTML="Leave";
-                document.querySelector(`#thepassengercounter_${route_id}`).innerHTML++;
-                document.querySelector(`#closed_${route_id}`).style.display='block';
-                document.querySelector(`#closed_${route_id}`).innerHTML='Trip Closed';
-        }
-
-
-
-}
 
 
 
 
 
-
-/*       else {
+       else {
                 if(element.title == "Closed")
             {
                 alert('Sorry, max number of passengers reached');
@@ -164,8 +105,8 @@
                 //join_route(route_id);
                 //est_cost(route_id);
 
-            }*/
-/*            else if (element.title == "Leave"){
+            }
+            else if (element.title == "Leave"){
                console.log(element);
 
 
@@ -177,15 +118,14 @@
                 leave_route(route_id);
                 est_cost(route_id);
 
-                }*/
+                }
 
-               })
+               }
 
 
 
-        }
-
-    })});
+        })
+    }});
 
    /* function sort(){
     //alert('sorting')
@@ -218,11 +158,8 @@
         method: "POST"
     })
     .then(response => response.json())
-    .then(data => console.log(data))
-
-
+    .then(data => console.log(data));
 }
-
 function leave_route(route_id)
 {
     fetch(`/leave/route/${route_id}`, {
@@ -253,11 +190,11 @@ fetch(`/route/${route_id}`)
        var destination=route["destination"];
        var init_cost=route["cost"];
        var max_pass=route["no_pass"];
-       //console.log('the max passengers are', max_pass);
-       //console.log(init_cost);
+       console.log('the max passengers are', max_pass);
+       console.log(init_cost);
        var no_passengers= parseFloat(document.querySelector(`#thepassengercounter_${route_id}`).innerHTML);
 
-       //console.log(no_passengers);
+       console.log(no_passengers);
        if (no_passengers ===0){
        var cost=init_cost;
        document.querySelector(`#costpp_${route_id}`).innerHTML = cost+'$';
@@ -265,7 +202,6 @@ fetch(`/route/${route_id}`)
        else{
        var cost =init_cost/no_passengers;
        document.querySelector(`#costpp_${route_id}`).innerHTML = cost+'$';
-
 
 }
 
@@ -280,4 +216,5 @@ fetch(`/route/${route_id}`)
 
 
 
+   })
 
