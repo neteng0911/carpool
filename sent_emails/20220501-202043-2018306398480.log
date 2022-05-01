@@ -1,0 +1,25 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: Password reset on localhost:8000
+From: webmaster@localhost
+To: e.matragos@gmail.com
+Date: Sun, 01 May 2022 17:20:43 -0000
+Message-ID: <165142564395.9308.11795759566412812934@Evan-Yoga>
+
+
+You're receiving this email because you requested a password reset for your user account at localhost:8000.
+
+Please go to the following page and choose a new password:
+
+http://localhost:8000/reset/MTc/b4rhuj-6f161566b19f43c484e39ed18a2f1137/
+
+Your username, in case you’ve forgotten: Evanwer
+
+Thanks for using our site!
+
+The localhost:8000 team
+
+
+
+-------------------------------------------------------------------------------

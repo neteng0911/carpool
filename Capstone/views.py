@@ -569,36 +569,36 @@ def remove_passenger(request, route_id, passenger_id):
     print('passenger',passenger, 'removed from route', route_id)
 
 
-def password_reset_request(request):
-
-    if request.method == "POST":
-        password_reset_form = PasswordResetForm(request.POST)
-        useremail = request.POST["email"]
-        if password_reset_form.is_valid():
-            data = password_reset_form.cleaned_data['email']
-            associated_users = User.objects.filter(Q(email=data))
-            if associated_users.exists():
-                for user in associated_users:
-                    current_site = get_current_site(request)
-
-                    mail_subject = 'Password Reset Requested'
-                    message = render_to_string('Capstone/password/password_reset_email.txt',
-                                               {'user': user, 'domain': current_site.domain,
-                                                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-                                                'token': default_token_generator.make_token(user)})
-                    to_email = useremail
-                    email = EmailMessage(mail_subject, message, to=[to_email])
-                    #try:
-                    email.send()
-                    # except BadHeaderError:
-                    #
-                    #     return HttpResponse('Invalid header found.')
-
-
-                    messages.success(request, 'A message with reset password instructions has been sent to your inbox.')
-                    return redirect("/password_reset/done/")
-
-                messages.error(request, 'An invalid email has been entered.')
-    password_reset_form = PasswordResetForm()
-    return render(request, "Capstone/password/password_reset.html",{
-                         "password_reset_form": password_reset_form})
+# def password_reset_request(request):
+#
+#     if request.method == "POST":
+#         password_reset_form = PasswordResetForm(request.POST)
+#         useremail = request.POST["email"]
+#         if password_reset_form.is_valid():
+#             data = password_reset_form.cleaned_data['email']
+#             associated_users = User.objects.filter(Q(email=data))
+#             if associated_users.exists():
+#                 for user in associated_users:
+#                     current_site = get_current_site(request)
+#
+#                     mail_subject = 'Password Reset Requested'
+#                     message = render_to_string('Capstone/password/password_reset_email.txt',
+#                                                {'user': user, 'domain': current_site.domain,
+#                                                 'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+#                                                 'token': default_token_generator.make_token(user)})
+#                     to_email = useremail
+#                     email = EmailMessage(mail_subject, message, to=[to_email])
+#                     #try:
+#                     email.send()
+#                     # except BadHeaderError:
+#                     #
+#                     #     return HttpResponse('Invalid header found.')
+#
+#
+#                     messages.success(request, 'A message with reset password instructions has been sent to your inbox.')
+#                     return redirect("/password_reset/done/")
+#
+#                 messages.error(request, 'An invalid email has been entered.')
+#     password_reset_form = PasswordResetForm()
+#     return render(request, "Capstone/password/password_reset.html",{
+#                          "password_reset_form": password_reset_form})
