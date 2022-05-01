@@ -11,7 +11,9 @@
   <div class="media-body">
       <div class="prof">
     <h5 class="mt-0"></h5>
-        <h5> <strong><a href="{% url 'webload_route' ro.id %}" > Trip No:{{ro.id}} </a></strong> </h5> {% if ro.fin or ro.fin_set %}  <h5 style='color:red;'> 'Trip Closed'</h5>{% endif %}
+        <h5> <strong><a href="{% url 'webload_route' ro.id %}" > Trip No:{{ro.id}} </a></strong> </h5> {% if ro.fin or ro.fin_set or ro.fin_p %}  <h5 id='closed_{{ro.id}}' style='color:red;'> 'Trip Closed'</h5>{% endif %}
+                         <h5 class='closedjs' id = 'closedjs_{{ro.id}}' style='color:red;'> 'Trip Closed'</h5>
+            <p id="fin_{{route.id}}" hidden>{{route.fin}}</p>
     <h6> From </h6> {{ro.departure}}
     <h6> To </h6> {{ro.destination}}
     <h6> On </h6> {{ro.date_orig.date}}
@@ -24,9 +26,9 @@
          
         <img  class="img-fluid" src="{{ ro.map_pic }}" alt="map_img">
 {% if user.is_authenticated %}
-                              {% if route.fin or route.fin_set  %}
+                              {% if ro.fin or ro.fin_set or ro.fin_p %}
 
-                        {% if request.user in route.thepassenger.all %}
+                        {% if request.user in ro.thepassenger.all %}
                 {% qr_from_text qrcode.code size="2" image_format="png" error_correction="L" %}
 
 

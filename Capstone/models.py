@@ -70,10 +70,15 @@ class Route(models.Model):
             return True
         elif self.date_orig.timestamp() == datetime.today().timestamp() and self.time_orig < datetime.now().time():
             return True
-        elif self.no_pass == self.thepassenger.count():
-            return True
+
         else:
             return False
+
+
+    def fin_p(self):
+        if self.no_pass == self.thepassenger.count():
+            return True
+
 
 
 
@@ -113,6 +118,8 @@ class Route(models.Model):
             'created_date':self.created_date,
             'dist': self.dist,
             'key_num':self.keynum
+
+
 
         }
 

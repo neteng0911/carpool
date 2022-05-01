@@ -2,7 +2,11 @@
 
    document.addEventListener('DOMContentLoaded', function() {
         // get button by id
+        //document.getElementById('closedjs_$').style.display='none';
+        var trips = document.querySelectorAll('*[id^="closedjs"]');
 
+//        trips = document.querySelectorAll('.closedjs')
+         trips.forEach((element) =>{element.style.display='none';})
 
 
 
@@ -48,6 +52,7 @@
             var route_id = element.dataset.id;
 
             fetch(`/route/${route_id}`)
+
                 .then(response => response.json())
                 .then(route => {
 
@@ -57,15 +62,21 @@
 
         }
 
+
             var no_pass= parseFloat(document.querySelector(`#thepassengercounter_${route_id}`).innerHTML);
             var max_pass = route["no_pass"];
             var dist = route["dist"];
-            var key_num = route["key_num"]
+            var key_num = route["key_num"];
             var co2=dist*2.40*2;
+            var fin = document.querySelector(`#fin_${route_id}`).innerHTML;
+            var diff_p = max_pass-no_pass
+
 
             //console.log(route_id);
             console.log('max passengers  ', max_pass);
             console.log('current passengers ', no_pass);
+            console.log('is date passed? ', fin);
+            console.log('diff pass ', diff_p);
 
             //console.log(dist)
             //console.log(key_num)
@@ -74,6 +85,27 @@
 // checking if current passengers >= max passengers so not allowing joinining but only leaving
        if (no_pass < max_pass){
 
+
+              if (diff_p==1){
+                    if(element.title == "Join")
+            {
+
+
+                element.style.color = "#B22222";
+                element.style.border = "1px solid #B22222";
+                element.title="Leave";
+                element.innerHTML="Leave";
+                document.querySelector(`#thepassengercounter_${route_id}`).innerHTML++;
+                document.querySelector(`#closedjs_${route_id}`).style.display='block';
+
+                alert("Congrats you just saved "+(co2.toFixed(2))+' kg of CO2 by Carpooling')
+                join_route(route_id);
+                est_cost(route_id);
+
+
+        }
+}
+            else if (diff_p!=1){
             if(element.title == "Join")
             {
 
@@ -106,6 +138,8 @@
                 }}
       else if (no_pass == max_pass){
 
+        if (fin === 'False'){
+
         if (element.title == "Leave"){
                //console.log(element);
 
@@ -125,22 +159,9 @@
 
 
 
-                }
 
 
-        else if (max_pass-no_pass==1){
-                    if(element.title == "Join")
-            {
 
-
-                element.style.color = "#B22222";
-                element.style.border = "1px solid #B22222";
-                element.title="Leave";
-                element.innerHTML="Leave";
-                document.querySelector(`#thepassengercounter_${route_id}`).innerHTML++;
-                document.querySelector(`#closed_${route_id}`).style.display='block';
-                document.querySelector(`#closed_${route_id}`).innerHTML='Trip Closed';
-        }
 
 
 
@@ -179,13 +200,13 @@
 
                 }*/
 
-               })
+               }
 
 
+}
+        })
 
-        }
-
-    })});
+    }})});
 
    /* function sort(){
     //alert('sorting')

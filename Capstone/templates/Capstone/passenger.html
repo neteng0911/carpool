@@ -8,12 +8,14 @@
 
 <p class="text-warning">Total Trips:<strong>{{routes_count}}</strong></p>
 {% for ro in  page.object_list %}
-<div class="container-fluid" data-fin="{{ro.fin}}" data-fin_set="{{ro.fin_set}}">
+<div class="container-fluid" data-fin="{{ro.fin}}" data-fin_set="{{ro.fin_set}}" data-fin_p="{{ro.fin_p}}">
 
   <div class="media-body">
       <div class="prof">
     <h5 class="mt-0"></h5>
-        <h5> <strong><a href="{% url 'webload_route' ro.id %}" > Trip No:{{ro.id}} </a></strong> </h5> {% if ro.fin or ro.fin_set %}  <h5 id='closed_{{ro.id}}' style='color:red;'> 'Trip Closed'</h5>{% endif %}
+        <h5> <strong><a href="{% url 'webload_route' ro.id %}" > Trip No:{{ro.id}} </a></strong> </h5>
+             {% if ro.fin or ro.fin_set or ro.fin_p %} <h5 id='closed_{{ro.id}}' style='color:red;'> 'Trip Closed'</h5>{% endif %}
+          <h5  id = 'closedjs_{{ro.id}}' style='color:red;'> 'Trip Closed'</h5><p id="fin_{{ro.id}}" hidden>{{ro.fin}}</p>
     <h6> From </h6> {{ro.departure}}
     <h6> To </h6> {{ro.destination}}
     <h6> On </h6> {{ro.date_orig.date}}
@@ -64,7 +66,7 @@
                   {% ifnotequal request.user ro.thedriver %}
 
                 <div class="likes">
-
+                {% if not ro.fin %}
                         {% if request.user in ro.thepassenger.all %}
 
                         <span id="leavebtn" class="joinleave" data-id="{{ro.id}}" onclick="return false" title="Leave" >Leave</span>
@@ -75,6 +77,7 @@
                         <span id="joinbtn" class="joinleave" data-id="{{ro.id}}" onclick="return false"  title="Join">Join</span>
             {% endif%}
             {% endif %}
+                    {% endif %}
                 </div>
 
 </form>
