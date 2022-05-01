@@ -12,6 +12,7 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 
 
 
+
 from .forms import RouteForm
 from .models import User, Route, Comment, Message, Qrcode
 
@@ -56,10 +57,21 @@ def register(request):
         # Ensure password matches confirmation
         password = request.POST["password"]
         confirmation = request.POST["confirmation"]
+
+        if User.objects.filter(username=username).exists():
+
+            return render(request, "Capstone/register.html", {
+                "message": "Username exists."
+            })
+        if User.objects.filter(email=email).exists():
+            return render(request, "Capstone/register.html", {
+                "message": "Email exists."
+            })
         if password != confirmation:
             return render(request, "Capstone/register.html", {
                 "message": "Passwords must match."
             })
+
 
         # Attempt to create new user
         try:
