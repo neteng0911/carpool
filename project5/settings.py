@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'qr_code'
+    'qr_code',
+    'crispy_forms'
 
 ]
 
@@ -121,3 +122,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'evangelosmat0@gmail.com'
+EMAIL_HOST_PASSWORD = 'paramaribo0'
+EMAIL_PORT = 587
+EMAIL_FILE_PATH = BASE_DIR / "sent_emails"

@@ -1,13 +1,23 @@
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
+from django.core.mail import EmailMessage
+from .tokens import account_activation_token
+from django.template.loader import render_to_string
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.contrib.sites.shortcuts import get_current_site
+from django.utils.encoding import force_bytes, force_text
+from django.contrib.auth.forms import PasswordResetForm
+from django.db.models.query_utils import Q
+from django.contrib import messages
+from django.contrib.auth.tokens import default_token_generator
 
 
 
@@ -59,9 +69,8 @@ def register(request):
         confirmation = request.POST["confirmation"]
 
         if User.objects.filter(username=username).exists():
-
             return render(request, "Capstone/register.html", {
-                "message": "Username exists."
+                "message": "Username already exists."
             })
         if User.objects.filter(email=email).exists():
             return render(request, "Capstone/register.html", {
@@ -74,19 +83,43 @@ def register(request):
 
 
         # Attempt to create new user
-        try:
-            user = User.objects.create_user(username, email, password, name=name,surname=surname)
-            user.save()
-        except IntegrityError:
-            return render(request, "Capstone/register.html", {
-                "message": "Username already taken."
-            })
-        login(request, user)
-        return HttpResponseRedirect(reverse("index"))
+
+        user = User.objects.create_user(username, email, password, name=name,surname=surname)
+        user.is_active = False
+        user.save()
+        current_site = get_current_site(request)
+        mail_subject = 'Activate your Carpooling registration'
+        message = render_to_string('Capstone/acc_activate_email.html',{'user':user,'domain':current_site.domain,'uid':urlsafe_base64_encode(force_bytes(user.pk)),
+                                                                  'token':account_activation_token.make_token(user)})
+        to_email = email
+        email = EmailMessage(mail_subject,message,to=[to_email])
+        email.send()
+        return HttpResponse('Please confirm your email address to complete registration')
+
+
+
+
+
+
+        #login(request, user)
+        #return HttpResponseRedirect(reverse("index"))
     else:
         return render(request, "Capstone/register.html")
 
-
+def activate (request, uidb64, token):
+    try:
+        uid = force_text(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+    if user is not None and account_activation_token.check_token(user, token):
+        user.is_active = True
+        user.save()
+        login(request, user)
+        # return redirect('home')
+        return HttpResponse('Thank you for your email confirmation. Now you can login your account.')
+    else:
+        return HttpResponse('Activation link is invalid!')
 @login_required
 def passenger(request):
     current_user = request.user
@@ -534,3 +567,38 @@ def remove_passenger(request, route_id, passenger_id):
 
 
     print('passenger',passenger, 'removed from route', route_id)
+
+
+def password_reset_request(request):
+
+    if request.method == "POST":
+        password_reset_form = PasswordResetForm(request.POST)
+        useremail = request.POST["email"]
+        if password_reset_form.is_valid():
+            data = password_reset_form.cleaned_data['email']
+            associated_users = User.objects.filter(Q(email=data))
+            if associated_users.exists():
+                for user in associated_users:
+                    current_site = get_current_site(request)
+
+                    mail_subject = 'Password Reset Requested'
+                    message = render_to_string('Capstone/password/password_reset_email.txt',
+                                               {'user': user, 'domain': current_site.domain,
+                                                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                                                'token': default_token_generator.make_token(user)})
+                    to_email = useremail
+                    email = EmailMessage(mail_subject, message, to=[to_email])
+                    #try:
+                    email.send()
+                    # except BadHeaderError:
+                    #
+                    #     return HttpResponse('Invalid header found.')
+
+
+                    messages.success(request, 'A message with reset password instructions has been sent to your inbox.')
+                    return redirect("/password_reset/done/")
+
+                messages.error(request, 'An invalid email has been entered.')
+    password_reset_form = PasswordResetForm()
+    return render(request, "Capstone/password/password_reset.html",{
+                         "password_reset_form": password_reset_form})

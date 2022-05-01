@@ -1,0 +1,11 @@
+{% extends "Capstone/layout.html" %}
+
+
+{% block body %}
+{% autoescape off %}
+Hi {{ user.username }}
+Please click on the link to confirm your registration for the Carpooling Project,
+http://{{ domain }}{% url 'activate' uidb64=uid token=token %}
+{% endautoescape %}
+
+{% endblock %}

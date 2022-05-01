@@ -17,6 +17,9 @@ urlpatterns = [
     path("leave/route/<int:route_id>", views.leave_route, name="leave_route"),
     path("route/<int:route_id>", views.load_route, name="load_route"),
     path("wroute/<int:route_id>", views.webload_route, name="webload_route"),
-    path("valid-trips", views.find_valid_trips, name="valid_trips")
+    path("valid-trips", views.find_valid_trips, name="valid_trips"),
+    path('activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
+        views.activate, name='activate'),
+    path("password_reset", views.password_reset_request, name="password_reset")
 
 ]
