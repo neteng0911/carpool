@@ -105,24 +105,8 @@
 
         }
 }
-            else if (diff_p!=1){
-            if(element.title == "Join")
-            {
 
 
-                element.style.color = "#B22222";
-                element.style.border = "1px solid #B22222";
-                element.title="Leave";
-                element.innerHTML="Leave";
-                document.querySelector(`#thepassengercounter_${route_id}`).innerHTML++;
-
-
-
-                alert("Congrats you just saved "+(co2.toFixed(2))+' kg of CO2 by Carpooling')
-                join_route(route_id);
-                est_cost(route_id);
-
-            }
             else if (element.title == "Leave"){
                console.log(element);
 
@@ -151,6 +135,7 @@
                 document.querySelector(`#thepassengercounter_${route_id}`).innerHTML--;
                 leave_route(route_id);
                 est_cost(route_id);
+                document.querySelector(`#closedjs_${route_id}`).style.display='none';
                 document.querySelector(`#closed_${route_id}`).style.display='none';
 
 
@@ -203,7 +188,7 @@
                }
 
 
-}
+
         })
 
     }})});
