@@ -150,3 +150,13 @@ input:invalid {
 .form-group{
 display: inline-block;
 }
+
+.cookie-bar {
+   position: fixed;
+   width: 100%;
+   top:0;
+   text-align:center;
+   height:25px;
+   line-height: 25px;
+   background: #eee;
+   }

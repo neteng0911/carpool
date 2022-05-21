@@ -1,6 +1,5 @@
 
 // to keep in session last map (not the best implementation
-
         let mp=sessionStorage.getItem('mp');
         document.getElementById("map").src = mp;
 
@@ -47,7 +46,12 @@ function search_route(){
          &distanceBeforeFirstTurn={distanceBeforeFirstTurn}&mapLayer={mapLayer}&format={format}&mapMetadata={mapMetadata}&&o=json&key=' */
          //let key='Ak1lcrrpdMdej2d1w_shmItLOBhpEmeQpVz6g6FsRwa7CkamEDl4sgkw00XlEPbF'  // THIS IS MY BING MAPS API KEY!!!!!!!!!!1
 
+         fetch('/config.json').then(function (config) {
+            console.log('API key:', config.ApiKey);
 
+
+
+            var key = data.Apikey
 
 
 
@@ -57,7 +61,7 @@ function search_route(){
 
          let test=`https://dev.virtualearth.net/REST/V1/Imagery/Map/Road/${place}?mapLayer=TrafficFlow&o=json&key=`
          let det =`http://dev.virtualearth.net/REST/V1/Routes/Driving?wp.0=${start.value}1&wp.1=${end.value}2&o=json&key=`
-         let key = 'Ak1lcrrpdMdej2d1w_shmItLOBhpEmeQpVz6g6FsRwa7CkamEDl4sgkw00XlEPbF'
+
          let mp=route+key
 
          sessionStorage.setItem("mp",route+key );
@@ -123,9 +127,9 @@ alert("address not found");
          //console.log(data)
 
 })
-
         }
-}})
+        }
+})
 
 function subm_route(){
         let mp=sessionStorage.getItem('mp');
@@ -145,7 +149,7 @@ function subm_route(){
 
 
 }
+}
 
-
-
+)
 //document.querySelector('form').onsubmit=function()

@@ -2,10 +2,9 @@
 {% load static %}
 {% block body %}
 
-<!--{% block script %}
-    <script src="{% static 'network/likes.js' %}"></script>
 
-{% endblock script %}-->
+
+
 <div class="container">
 <div class="row">
 
@@ -19,6 +18,12 @@
 
 </div>
 </div>
+{% block script %}
 
+<!-- make sure the config gets loaded before Klaro -->
+<script src="{% static 'Capstone/join_leave.js' %}"></script>
+<script defer type="text/javascript" src="{% static 'Capstone/config.js' %}"></script>
+<script defer type="text/javascript" src="https://cdn.kiprotect.com/klaro/[v0.7.18]/klaro.js"></script>
+{% endblock script %}
 
 {% endblock %}
