@@ -16,7 +16,7 @@ left: 30%;
 background-color: #ccccb3;
 font-size: 14px;
 min-height: 10px;
-width: 50%;
+width: 30%;
 padding: 5px;
 margin-bottom:2px;
 position: relative;
@@ -31,7 +31,7 @@ overflow: visible;
 background-color: #eff5f5;
 font-size: 14px;
 min-height: 10px;
-width: 50%;
+width: 30%;
 padding: 5px;
 margin-bottom:20px;
 position: relative;
@@ -39,7 +39,19 @@ overflow: visible;
 left: 25%;
 
 }
+.prof1{
+border: 5px solid #90bbbb;
+background-color: #eff5f5;
+font-size: 14px;
+min-height: 10px;
+width: 25%;
+padding: 5px;
+margin-bottom:20px;
+position: relative;
+overflow: visible;
+left: 0;
 
+}
 .btn-primary,
 .btn-primary:hover,
 .btn-primary:active,

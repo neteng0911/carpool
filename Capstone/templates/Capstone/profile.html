@@ -6,7 +6,7 @@
 {% ifnotequal request.user targ_user %}
 
     <h2 class="text-warning">You are viewing user:{{targ_user.username}}</h2>
-<div class= "prof"><strong> user's email address : {{targ_user.email}}</strong></p>
+<div class= "prof1"><strong> user's email address : {{targ_user.email}}</strong></p>
 <strong> {{targ_user.username}} is member since {{ targ_user.date_joined }}</strong>
     <p>Total Trips as a driver:<strong>{{user_routes_count}}</strong></p>
 
@@ -16,7 +16,7 @@
 
 {% ifequal request.user targ_user %}
  <h2 class="text-warning">You are currenty logged in as :{{user.username}}</h2>
-<div class= "prof"><strong> {{user.email}}</strong>
+<div class= "prof1"><strong> {{user.email}}</strong>
     <p><strong> You are member since {{user.date_joined}}</strong></p>
     {% for message in user_messages %}
     <li><strong class="text-danger" >{{ message.content }} <a href="{% url 'webload_route' message.route_id %}" >
