@@ -151,12 +151,24 @@ input:invalid {
 display: inline-block;
 }
 
-.cookie-bar {
+
+
+  .consent-popup{
+
    position: fixed;
-   width: 100%;
-   top:0;
-   text-align:center;
-   height:25px;
-   line-height: 25px;
-   background: #eee;
+   bottom: 0;
+   left: 0;
+   right: 0;
+   padding: 1rem;
+   background-color: #4a4948;
+   opacity: 1;
+   transition: opacity .8s ease;
+
+
    }
+
+.consent-popup-hidden{
+
+    opacity:0;
+
+}

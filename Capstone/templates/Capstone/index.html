@@ -15,15 +15,22 @@
     <div class="col-lg-6 corps">
         <a href="{% url 'driver'%}"> <img class="img-fluid" src="{% static  'Capstone/images/driver.png' %}" title="Driver" > </a>
     </div>
+    <div id="consent-popup" class="consent-popup-hidden">
+        <p> By using this site you agree to our <a href="#"> Terms and conditions</a>.
+            Please <a id="accept" href="#">Accept</a> these before using this site.
 
+
+        </p>
+
+
+    </div>
 </div>
 </div>
 {% block script %}
 
-<!-- make sure the config gets loaded before Klaro -->
 <script src="{% static 'Capstone/join_leave.js' %}"></script>
-<script defer type="text/javascript" src="{% static 'Capstone/config.js' %}"></script>
-<script defer type="text/javascript" src="https://cdn.kiprotect.com/klaro/[v0.7.18]/klaro.js"></script>
+<script src="{% static 'Capstone/cookies.js' %}"></script>
+
 {% endblock script %}
 
 {% endblock %}
