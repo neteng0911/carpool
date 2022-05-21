@@ -238,7 +238,8 @@ def profile(request, user_id):
             passen = t.passenger
             print(passen)
 
-
+    user_passenger_list = current_user.thepassengers.all()
+    user_passenger_count = user_passenger_list.count()
 
 
 
