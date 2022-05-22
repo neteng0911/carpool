@@ -18,7 +18,7 @@ from django.contrib.auth.forms import PasswordResetForm
 from django.db.models.query_utils import Q
 from django.contrib import messages
 from django.contrib.auth.tokens import default_token_generator
-from cookie_consent.util import get_cookie_value_from_request
+#from cookie_consent.util import get_cookie_value_from_request
 
 
 
@@ -95,7 +95,8 @@ def register(request):
         to_email = email
         email = EmailMessage(mail_subject,message,to=[to_email])
         email.send()
-        return HttpResponse('Please confirm your email address to complete registration')
+        return render(request, 'Capstone/confirm_email.html',{'user':user})
+        #return HttpResponse('Please confirm your email address to complete registration')
 
 
 
@@ -118,7 +119,8 @@ def activate (request, uidb64, token):
         user.save()
         login(request, user)
         # return redirect('home')
-        return HttpResponse('Thank you for your email confirmation. Now you can login your account.')
+        return render(request, 'Capstone/confirm_email_success.html', {'user': user})
+        #return HttpResponse('Thank you for your email confirmation. Now you can login your account.')
     else:
         return HttpResponse('Activation link is invalid!')
 @login_required
@@ -539,9 +541,9 @@ def remove_passenger(request, route_id, passenger_id):
 
 
 
-def myview(request, *args, **kwargs):
-  cc = get_cookie_value_from_request(request, "mycookies")
-  if cc:
-    # add cookie
-    cc = get_cookie_value_from_request(request, "mycookies", "mycookie1")
+# def myview(request, *args, **kwargs):
+#   cc = get_cookie_value_from_request(request, "mycookies")
+#   if cc:
+#     # add cookie
+#     cc = get_cookie_value_from_request(request, "mycookies", "mycookie1")
 
