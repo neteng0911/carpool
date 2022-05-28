@@ -1,77 +1,8 @@
-
-        {% load qr_code %}
-
-
+{% extends "Capstone/layout.html" %}
 {% load static %}
-
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <title>{% block title %}CarPooling{% endblock %}</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-        <link href="{% static 'Capstone/styles.css' %}" rel="stylesheet">
-    </head>
-
-<style type="text/css">
-   body { background: black !important; } /* Adding !important forces the browser to overwrite the default style applied by Bootstrap */
-</style>
-
-    <body>
-
-        <nav class="navbar navbar-expand-lg navbar-light bg-dark sticky-top">
-            <a class="navbar-brand text-warning" href="{% url 'index' %}">CarPooling</a>
-
-            <div>
-              <ul class="navbar-nav mr-auto ">
-                {% if user.is_authenticated %}
-                    <li class="nav-item"></li>
-
-
-                {% endif %}
-
-                {% if user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link text-warning" href="{% url 'profile' user.id %}">Profile</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-warning" href="{% url 'logout' %}">Log Out</a>
-                    </li>
-                    <li class="nav-item">
-                        <b class="nav-link text-warning" >Hello {{user}}</b>
-                    </li>
-                  <li class="nav-item">
-                        <a  class="text-warning" style='position:absolute; right:100px;' href="{% url 'valid_trips' %}" ><strong> Show Valid Trips </strong></a>
-                  </li>
-                  <li class="nav-item">
-                  <input type="text" style='position:absolute; right:230px' placeholder="Search..">
-                  </li>
-                {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link text-warning" href="{% url 'login' %}">Log In</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-warning" href="{% url 'register' %}">Register</a>
-                    </li>
-
-                {% endif %}
-              </ul>
-            </div>
-          </nav>
-
-        <div class="body">
-            {% block body %}
-
-            {% endblock %}
-        </div>
-
-    </body>
-</html>
-
-
-
-
-
+{% block body %}
+        {% load qr_code %}
+                    <a  class="text-warning" style='position:absolute; right:100px;' href="{% url 'valid_trips' %}" ><strong> Show Valid Trips </strong></a>
 
 
 
@@ -198,3 +129,4 @@
     <script src="{% static 'Capstone/join_leave.js' %}"></script>
 
 {% endblock script %}
+{% endblock %}
