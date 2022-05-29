@@ -19,7 +19,8 @@ urlpatterns = [
     path("wroute/<int:route_id>", views.webload_route, name="webload_route"),
     path("valid-trips", views.find_valid_trips, name="valid_trips"),
     path('activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
-        views.activate, name='activate')
+        views.activate, name='activate'),
+
 
 
 ]

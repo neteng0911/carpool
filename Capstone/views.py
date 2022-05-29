@@ -19,6 +19,7 @@ from django.db.models.query_utils import Q
 from django.contrib import messages
 from django.contrib.auth.tokens import default_token_generator
 #from cookie_consent.util import get_cookie_value_from_request
+from django.db.models import Q
 
 
 
@@ -142,7 +143,25 @@ def passenger(request):
     #     return exp_cost
 
 
+    if request.method=='POST' and 'searched' in request.POST:
+        searched=request.POST['searched']
+        if searched =='':
+            message ='Please enter a valid search'
+            return render(request, "Capstone/searchedtrips.html", {"message":message})
+        else:
+            searched_routes = Route.objects.filter(Q(departure__icontains=searched) | Q(destination__icontains=searched)).order_by('-created_date')
+            print('you searched for ',searched)
+            print(searched_routes)
+            comments = Comment.objects.order_by('-created_date')
+            page_searched_routes = paging(request, searched_routes)
+            searched_routes_count=searched_routes.count()
 
+            return render(request, "Capstone/searchedtrips.html", {"all_routes": searched_routes,
+                                                                   "comments": comments,
+                                                                   "count": page_searched_routes.count,
+                                                                   "page": page_searched_routes,
+                                                                    "searched":searched,
+                          "searched_routes_count":searched_routes_count})
 
 
     if request.method == "POST" and "route_reply" in request.POST:
@@ -537,6 +556,7 @@ def remove_passenger(request, route_id, passenger_id):
 
 
     print('passenger',passenger, 'removed from route', route_id)
+
 
 
 
