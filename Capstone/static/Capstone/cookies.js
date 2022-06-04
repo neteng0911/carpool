@@ -3,7 +3,7 @@ const cookieStorage = {
         const cookies = document.cookie
         .split(';')
         .map(cookie => cookie.split('='))
-        .reduce((acc, [key, value]) => ({...acc, [key.trim()]: value}));
+        .reduce((acc, [key, value]) => ({...acc, [key.trim()]: value}), {});
 
     return cookies[key];
 
@@ -11,6 +11,8 @@ const cookieStorage = {
     setItem : (key, value) => {
     document.cookie = `${key}=${value}`;
     },
+
+
 
 
 
@@ -32,7 +34,7 @@ window.onload = () => {
        const acceptFn = event => {
        SaveToStorage(StorageType);
        consentPopup.classList.add('consent-popup-hidden');
-       console.log(consentPopup.classList);
+       //console.log(consentPopup.classList);
 
 
 
@@ -45,7 +47,7 @@ if (ShouldShowPopup(StorageType)) {
     setTimeout(() =>{
             consentPopup.classList.replace('consent-popup-hidden','consent-popup');
             consentPopup.classList.add('text-warning');
-            console.log(consentPopup.classList);
+            //console.log(consentPopup.classList);
 }, 1500);
 
 }
