@@ -175,6 +175,7 @@ display: inline-block;
    background-color: #4a4948;
    opacity: 1;
    transition: opacity .8s ease;
+   z-index: 9;
 
 
    }
@@ -183,4 +184,3 @@ display: inline-block;
 
     opacity:0;
 
-}

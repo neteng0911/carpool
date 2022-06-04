@@ -557,7 +557,8 @@ def remove_passenger(request, route_id, passenger_id):
 
     print('passenger',passenger, 'removed from route', route_id)
 
-
+def terms(request):
+    return render(request, "Capstone/terms.html")
 
 
 
