@@ -20,8 +20,10 @@ class User(AbstractUser):
     email=models.EmailField(max_length=254)
     date_joined = models.DateTimeField(default=timezone.now)
     name = models.CharField(max_length=64, null=False, blank=False)
-    surname = models.CharField(max_length=64, default='xxxx')
-    profile_pic = models.ImageField(null=True, blank=True, default='/default_user.jpg')
+    surname = models.CharField(max_length=64, null=False, blank=False)
+    profile_pic = models.ImageField(null=False, blank=False, default='/default_user.jpg')
+    about = models.CharField(max_length=64, null=True, blank=True)
+
 
 
 

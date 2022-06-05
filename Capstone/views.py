@@ -25,7 +25,7 @@ from django.db.models import Q
 
 
 
-from .forms import RouteForm
+from .forms import RouteForm, UserForm
 from .models import User, Route, Comment, Message, Qrcode
 
 
@@ -246,9 +246,18 @@ def profile(request, user_id):
     page = paging(request, user_routes)
     user_routes_count = user_routes.count()
     user_messages = current_user.messages.all()
+    user_passenger_list = current_user.thepassengers.all()
+    user_passenger_count = user_passenger_list.count()
+
+
+    if request.method == "POST" and "edit_profile" in request.POST:
+
+        edit_profile(request,request.user_id)
 
 
 
+
+        return render(request, "Capstone/edit_profile.html")
 
     #qrroute = Route.objects.get(pk=request.GET.get('route_to_load_id'))
     for r in user_routes:
@@ -259,8 +268,7 @@ def profile(request, user_id):
             passen = t.passenger
             print(passen)
 
-    user_passenger_list = current_user.thepassengers.all()
-    user_passenger_count = user_passenger_list.count()
+
 
 
 
@@ -274,7 +282,8 @@ def profile(request, user_id):
         comment(request, comm_txt, route_id)
         return render(request, "Capstone/profile.html", {"targ_user": targ_user,'comments':comments,
                                                          'user_routes':user_routes,'page':page,
-                                                         'user_routes_count': user_routes_count,'user_passenger_list':user_passenger_list, 'user_passenger_count':user_passenger_count})
+                                                         'user_routes_count': user_routes_count,
+                                                         'user_passenger_list':user_passenger_list, 'user_passenger_count':user_passenger_count})
 
     if request.method == "POST" and "load_route" in request.POST:
         route_to_load_id = request.POST.get("route_to_load_id")
@@ -302,7 +311,25 @@ def profile(request, user_id):
 
         return render(request, "Capstone/profile.html", {"targ_user": targ_user, "count": page.count, "page": page,
                                                          'user_routes_count': user_routes_count,
-                      'user_passenger_list':user_passenger_list, 'user_passenger_count':user_passenger_count, 'user_messages':user_messages})
+                      'user_passenger_list':user_passenger_list, 'user_passenger_count':user_passenger_count,
+                                                         'user_messages':user_messages})
+@login_required
+def edit_profile(request, user_id):
+    current_user = request.user
+    targ_user = User.objects.get(id=user_id)
+    if request.method=='GET':
+        form = UserForm(request.POST, request.FILES, instance=current_user)
+        return render(request, "Capstone/edit_profile.html", {'form': form, "targ_user": targ_user,})
+
+
+    if request.method == "POST" and "Update" in request.POST:
+        form = UserForm(request.POST, request.FILES, instance=current_user)
+        if form.is_valid:
+            form.save()
+            messages.success(request, "profile successfully updated")
+
+
+            return render(request, "Capstone/edit_profile.html", {'form': form, "targ_user": targ_user,})
 
 
 def paging(request, the_posts):

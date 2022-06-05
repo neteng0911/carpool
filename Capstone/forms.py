@@ -56,6 +56,9 @@ class RouteForm(forms.ModelForm):
             raise forms.ValidationError({'time_dep':'end time should be later than start time.'})
         return cleaned_data
 
-class User_form_Img(forms.ModelForm):
-    model=User
-    fields=['user_Img']
+class UserForm(forms.ModelForm):
+    class Meta:
+        model=User
+        fields = ['profile_pic', 'about']
+
+
