@@ -3,7 +3,7 @@ from django import forms
 from django.forms import ModelForm
 from django.core.exceptions import ValidationError
 from datetime import date, datetime
-from .models import Route
+from .models import Route, User
 
 
 
@@ -56,3 +56,6 @@ class RouteForm(forms.ModelForm):
             raise forms.ValidationError({'time_dep':'end time should be later than start time.'})
         return cleaned_data
 
+class User_form_Img(forms.ModelForm):
+    model=User
+    fields=['user_Img']

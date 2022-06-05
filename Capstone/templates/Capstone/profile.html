@@ -5,19 +5,24 @@
 
 {% ifnotequal request.user targ_user %}
 
-    <h2 class="text-warning">You are viewing user:{{targ_user.username}}</h2>
-<div class= "prof1"><strong> user's email address : {{targ_user.email}}</strong></p>
+    <h2 class="text-warning">You are viewing user: {{targ_user.username}}</h2>
+<div class= "prof1"><strong> user's email address : {{targ_user.email}}</strong>
+    <p></p>
+
+    <p  class="img-responsive thumbnail"><img src="{{targ_user.profile_pic.url}}" alt="img" width="79" height="88"></p>
+
 <strong> {{targ_user.username}} is member since {{ targ_user.date_joined }}</strong>
-    <p>Total Trips as a driver:<strong>{{user_routes_count}}</strong></p>
+    <p>Total Trips as a driver:<strong>{{user_routes_count}}</strong></p></div>
 
 
 
 {% endifnotequal %}
 
 {% ifequal request.user targ_user %}
- <h2 class="text-warning">You are currenty logged in as :{{user.username}}</h2>
+ <!--<h2 class="text-warning">You are currenty logged in as :{{user.username}}</h2>-->
 <div class= "prof1"><strong> {{user.email}}</strong>
     <p><strong> You are member since {{user.date_joined}}</strong></p>
+    <p  class="img-responsive thumbnail"><img src="{{request.user.profile_pic.url}}" alt="img" width="79" height="88"></p>
     {% for message in user_messages %}
     <li><strong class="text-danger" >{{ message.content }} <a href="{% url 'webload_route' message.route_id %}" >
         {{message.route_id}} </a></strong> <div style="color:blue; font-size:9px;">on {{message.created_date}}</div> </li>
