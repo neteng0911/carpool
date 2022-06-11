@@ -374,6 +374,7 @@ def edit_route(request, route_id):
             route.cost = request.POST["cost"]
             route.no_pass = request.POST["no_pass"]
             route.map_pic = request.POST['map_pic']
+            route.d_a = request.POST['d_a']
             msg = "Trip edited successfully!"
             if form.is_valid():
 

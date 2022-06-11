@@ -10,6 +10,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 import os
+import django_heroku
+import dj_database_url
+form decouple import config
 from pathlib import Path
 from dotenv import load_dotenv
 load_dotenv()
@@ -55,6 +58,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'project5.urls'
@@ -127,6 +131,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 MEDIA_URL = '/images/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'Capstone/static/Capstone/images')
 
@@ -141,7 +147,7 @@ EMAIL_PORT = 587
 
 EMAIL_FILE_PATH = BASE_DIR / "sent_emails"
 
-
+django_heroku.settings(locals())
 
 #
 # COOKIE_CONSENT_NAME = "cookie_consent"

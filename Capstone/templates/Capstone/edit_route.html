@@ -5,19 +5,19 @@
 <h3 class = 'text-warning'> {{ user }}, Here you can edit Trip no {{route.id}}</h3>
 <div class="container-fluid mt-1" >
     <div class="d-flex p-1 bg-secondary text-white flex-grow">
-        <div class="bg-info col-sm-3 mx-1 pr-5 shadow-lg ">
+        <div class="bg-info col-md-3 mx-1 pr-5 shadow-lg ">
 
 
-    <div  style="position:left;color:black; font-size:17px;">From: {{route.departure}}
-        <p>To: {{route.destination}}</p>
+            <div  style="position:left;color:black; font-size:17px;">From: <strong>{{route.departure}}</strong>
+        <p>To: <strong>{{route.destination}}</strong></p>
 
-        <p> On: {{route.date_orig.date}}</p>
-        <p> Leaving at  {{route.time_orig}} and returning at {{route.time_dep}}</p>
-
-
+                <p> On: <strong> {{route.date_orig.date}}</strong></p>
+                <p> Leaving at  <strong>{{route.time_orig}}</strong> and returning at <strong>{{route.time_dep}}</strong></p>
 
 
-    <p  class="img-fluid"  id="map_to_load"><img style="height:350px; width:350px;" src="{{route.map_pic}}"></p>
+
+
+    <p  class="img-fluid"  id="map_to_load"><img style="height:300px; width:300px;" src="{{route.map_pic}}" onerror="this.style.display='none'"></p>
 
 
 
@@ -40,7 +40,7 @@
 
 
   <div class="d-flex p-1 bg-secondary text-white flex-grow">
-    <div class="bg-info col-sm-4 mx-1 pr-5 shadow-lg ">
+    <div class="bg-info col-sm-3 mx-1 pr-5 shadow-lg ">
       <div class=form-group">
 
 
@@ -72,7 +72,7 @@
 
 
 
-    <div class="bg-info col-md-4 mx-1 pr-5 shadow-lg" id="sub_route">
+    <div class="bg-info col-md-3 mx-1 pr-5 shadow-lg" id="sub_route">
       <form class='validity' action="{% url 'edit_route' route.pk %}" method="post">
     {% csrf_token %}
           {{ form.as_p }}
@@ -81,7 +81,7 @@
               <input class ='btn-info' id ="editbt" name="edit_route" type="submit" value="Submit"></p>
           </form>
         <div style="color:red"> {{msger}}</div>
-        <div class="succ" > {{ msg}} </div>
+        <div class="succ" > {{ msg }} </div>
 <!--<script>
 document.getElementById("editbt").addEventListener("click", myFunction);
 
@@ -101,7 +101,7 @@ console.log(al);
 </script>-->
 
     </div>
-    <div class="img-fluid" id="map_pl"><img style="height:350px; width:350px;" id="map"  src='#'></div>
+    <div class="img-fluid" id="map_pl"><img style="height:400px; width:400px;" id="map"  src='#' onerror="this.style.display='none'"></div>
 
   </div>
 </div>
