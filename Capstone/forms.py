@@ -28,13 +28,18 @@ class RouteForm(forms.ModelForm):
     time_dep=forms.TimeField(widget=forms.TimeInput(attrs={'type': 'time','min':time_orig}))
 
     cost=forms.FloatField(min_value=0.0,error_messages={'min_value': u'Cost cannot be less than 0.0'})
-    no_pass = forms.IntegerField(min_value=1)
+    no_pass = forms.IntegerField(min_value=1, label='Passengers')
     map_pic=forms.CharField(widget=forms.HiddenInput())
     dist = forms.FloatField(widget=forms.HiddenInput())
+    d_a=forms.CheckboxInput
 
     class Meta:
         model = Route
-        fields = ['departure','destination','date_orig','time_orig', 'time_dep', 'cost', 'no_pass', 'map_pic','dist']
+        fields = ['departure','destination','date_orig','time_orig', 'time_dep', 'cost', 'no_pass', 'map_pic','dist','d_a']
+        help_texts = {
+            'd_a': ('Check if at least one disabled passenger can join'),
+        }
+        labels ={'d_a':'Disabled access'}
 #validators regarding date and time
 
     def clean(self):
@@ -42,10 +47,10 @@ class RouteForm(forms.ModelForm):
         date_inp=cleaned_data.get('date_orig')
         start = cleaned_data.get('time_orig')
         end = cleaned_data.get('time_dep')
-        print(date_inp)
-        print(date.today())
-        print(start)
-        print(end)
+        #print(date_inp)
+        #print(date.today())
+        #print(start)
+        #print(end)
 
         if date_inp <date.today():
             raise forms.ValidationError({'date_orig':'start date should be later than today.'})

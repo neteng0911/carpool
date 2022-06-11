@@ -20,6 +20,8 @@ from django.contrib import messages
 from django.contrib.auth.tokens import default_token_generator
 #from cookie_consent.util import get_cookie_value_from_request
 from django.db.models import Q
+import datetime
+from datetime import date
 
 
 
@@ -65,6 +67,8 @@ def register(request):
         email = request.POST["email"]
         name = request.POST["name"]
         surname = request.POST["surname"]
+        dob = request.POST['dob']
+        birthday=datetime.datetime.strptime(dob,'%Y-%m-%d')
 
         # Ensure password matches confirmation
         password = request.POST["password"]
@@ -81,6 +85,14 @@ def register(request):
         if password != confirmation:
             return render(request, "Capstone/register.html", {
                 "message": "Passwords must match."
+            })
+
+
+
+
+        if datetime.datetime.today() - birthday < datetime.timedelta(days=18 * 365):
+            return render(request, "Capstone/register.html", {
+                "message": "You must be over 18 years old to register"
             })
 
 
@@ -124,7 +136,7 @@ def activate (request, uidb64, token):
         #return HttpResponse('Thank you for your email confirmation. Now you can login your account.')
     else:
         return HttpResponse('Activation link is invalid!')
-@login_required
+@login_required(login_url='login')
 def passenger(request):
     current_user = request.user
     exp_cost = 0
@@ -183,7 +195,7 @@ def passenger(request):
                                                        'routes_count': routes_count})
 
 
-@login_required
+@login_required(login_url='login')
 def driver(request):
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
@@ -202,12 +214,13 @@ def driver(request):
             no_pass = request.POST["no_pass"]
             map_pic = request.POST['map_pic']
             dist = request.POST['dist']
+            d_a = request.POST['d_a']
             # print(form)
             form = RouteForm
             msg = "Trip created successfully!"
 
             create_route(request, departure, destination, date_orig, time_orig, time_dep, cost, no_pass, map_pic,
-                         created_date,dist)
+                         created_date,dist,d_a)
 
             # redirect to a new URL:
             return render(request, 'Capstone/driver.html', {'msg': msg, 'form': form})
@@ -226,12 +239,12 @@ def bing(request):
     return render(request, "Capstone/bing.html")
 
 
-def create_route(request, departure, destination, date_orig, time_orig, time_dep, cost, no_pass, map_pic, created_date,dist):
+def create_route(request, departure, destination, date_orig, time_orig, time_dep, cost, no_pass, map_pic, created_date,dist,d_a):
     thedriver = request.user
 
     myroute = Route.objects.create_route(departure=departure, destination=destination, date_orig=date_orig,
                                          time_orig=time_orig, time_dep=time_dep, cost=cost, no_pass=no_pass,
-                                         thedriver=thedriver, map_pic=map_pic, created_date=created_date,dist=dist)
+                                         thedriver=thedriver, map_pic=map_pic, created_date=created_date,dist=dist,d_a=d_a)
 
     return HttpResponseRedirect(reverse("index"))
 

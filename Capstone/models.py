@@ -11,6 +11,7 @@ from django.utils import timezone
 import random
 
 
+
 def random_string():
     return str(random.randint(10000, 99999))
 
@@ -23,17 +24,15 @@ class User(AbstractUser):
     surname = models.CharField(max_length=64, null=False, blank=False)
     profile_pic = models.ImageField(null=False, blank=False, default='/default_user.jpg')
     about = models.CharField(max_length=64, null=True, blank=True)
-
-
-
-
-
-
+    dob = models.DateField(blank=False,default=date.today())
 
 
     def __str__(self):
         return f"{self.username}"
         #return f"{self.username}, {self.email}"
+
+
+
 
 
 
@@ -63,6 +62,7 @@ class Route(models.Model):
     fin_set = models.BooleanField(default=False) # if the driver wants to manually close the trip
     keynum = models.CharField(max_length=12, default = random_string)
     dist = models.FloatField(blank = 'TRUE')
+    d_a = models.BooleanField(default=False) # whether the vehicle has disability access
 
     
 
