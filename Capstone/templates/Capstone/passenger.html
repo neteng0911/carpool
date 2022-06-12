@@ -81,15 +81,22 @@
 
 
 <p class="text-warning">Total Trips:<strong>{{routes_count}}</strong></p>
+
+  <!-- trip start-->
 {% for ro in  page.object_list %}
-<div class="container-fluid" data-fin="{{ro.fin}}" data-fin_set="{{ro.fin_set}}" data-fin_p="{{ro.fin_p}}">
+
+
+<div class="container-xxl">
+
 
   <div class="media-body">
       <div class="prof">
-    <h5 class="mt-0"></h5>
+    <h5 class="bg-info col-md-auto mx-1 pr-5 shadow-lg "></h5>
+          <div class="container-fluid" data-fin="{{ro.fin}}" data-fin_set="{{ro.fin_set}}" data-fin_p="{{ro.fin_p}}">
         <h5> <strong><a href="{% url 'webload_route' ro.id %}" > Trip No:{{ro.id}} </a></strong> </h5>
              {% if ro.fin or ro.fin_set or ro.fin_p %} <h5 id='closed_{{ro.id}}' style='color:red;'> 'Trip Closed'</h5>{% endif %}
-          <h5  id = 'closedjs_{{ro.id}}' style='color:red;'> 'Trip Closed'</h5><p id="fin_{{ro.id}}" hidden>{{ro.fin}}</p>
+
+          <h5 class='closedjs' id = 'closedjs_{{ro.id}}' style='color:red;'> 'Trip Closed'</h5><p id="fin_{{ro.id}}" hidden>{{ro.fin}}</p>
     <h6> From </h6> {{ro.departure}}
     <h6> To </h6> {{ro.destination}}
     <h6> On </h6> {{ro.date_orig}}
@@ -106,7 +113,7 @@
 </h6>
           {% endif %}
           <img  class="img-fluid" src="{{ ro.map_pic }}" alt="map_img">
-
+      </div>
 
 <!--{% if user.is_authenticated %}
                               {% if ro.fin or ro.fin_set  %}

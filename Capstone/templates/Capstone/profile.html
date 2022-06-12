@@ -43,8 +43,9 @@
     {% endif %}
 
     {% for message in user_messages %}
+    <ul>
     <li><strong class="text-danger" >{{ message.content }} <a href="{% url 'webload_route' message.route_id %}" >
-        {{message.route_id}} </a></strong> <div style="color:blue; font-size:9px;">on {{message.created_date}}</div> </li>
+        {{message.route_id}} </a></strong> <div style="color:blue; font-size:9px;">on {{message.created_date}}</div> </li></ul>
 
 
     {% endfor %}
@@ -75,11 +76,20 @@
 </div>
 
 
+
+<!-- profile area  end-->
+<!-- trip area  start-->
 {% for user_route in  page.object_list %}
-<section>
-<ul>
-<div class="container-fluid">
-<div class="prof"><h5>Trip No {{user_route.pk}} </h5>{% if user_route.fin or user_route.fin_set  %}  <h5 style='color:red;'> 'Trip Closed'</h5>{% endif %}
+
+
+<div class="container-xxl">
+    <div class="media-body">
+        <div class="prof">
+            <div class="col-md-auto mx-1 pr-5 shadow-lg "><h5><strong><a href ="{% url 'webload_route' user_route.pk %}" >Trip No {{user_route.pk}} </a> </strong></h5>{% if user_route.fin or user_route.fin_set  %}  <h5 style='color:red;'> 'Trip Closed'</h5>{% endif %}
+                  <h5 class='closedjs' id = 'closedjs_{user_{route.id}}' style='color:red;'> 'Trip Closed'</h5>
+            <p id="fin_{{user_route.id}}" hidden>{{user_route.fin}}</p>
+
+
     <p> <h6>From</h6> {{user_route.departure}} <h6>To</h6> {{user_route.destination}} </p>
     <p> <h6>on</h6> {{user_route.date_orig.date}}</p>
     <p> <h6>Leaving at</h6>  {{user_route.time_orig}} <h6>and returning at</h6> {{user_route.time_dep}}</p>
@@ -100,6 +110,7 @@
 
 
      <p>   <img class = 'img-fluid' src="{{ user_route.map_pic }}" alt="map"></p>
+</div>
 
 
     <p style= "color:grey; font-size:12px;"> <strong><a href="{% url 'profile' targ_user.id %}" > {{targ_user.username}} </strong></a> wrote on: {{user_route.created_date}} </p>
@@ -179,8 +190,9 @@
 
     </form>
 
-</section>
+    </div>
 </div>
+
 
        {% for rep in user_route.comments.all %}
  <ul>
@@ -209,6 +221,8 @@
             {% endif %}
 
         </div>
+
+
 
 {% block script %}
     <script src="{% static 'Capstone/join_leave.js' %}"></script>
