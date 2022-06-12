@@ -32,7 +32,8 @@ class RouteForm(forms.ModelForm):
     no_pass = forms.IntegerField(min_value=1, label='Passengers')
     map_pic=forms.CharField(widget=forms.HiddenInput())
     dist = forms.FloatField(widget=forms.HiddenInput())
-    d_a = forms.BooleanField(label='Disabled access',help_text='Check if at least one disabled passenger can join',required=False, initial=False)
+    d_a = forms.BooleanField(label='Disabled access',help_text='Check if at least one disabled passenger can join',required=False,
+                             initial=False)
 
 
 

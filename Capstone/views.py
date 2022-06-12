@@ -212,6 +212,8 @@ def driver(request):
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
         form = RouteForm(request.POST)
+
+
         # check whether it's valid:
         if form.is_valid():
             # process the data in form.cleaned_data as required
@@ -225,16 +227,16 @@ def driver(request):
             no_pass = request.POST["no_pass"]
             map_pic = request.POST['map_pic']
             dist = request.POST['dist']
-            i_d_a = request.POST['d_a']
+            id_a= request.POST.get('d_a') #me [] den douleuei giati dinei on anti gia True
+            if id_a == '' or id_a==False or id_a==0:
+                d_a=False
+            else:
+                d_a=True
             #print(form)
             form = RouteForm
             msg = "Trip created successfully!"
             date_orig=datetime.strptime(date_orig_str,"%Y-%m-%d")
-            if i_d_a:
-                d_a=True
-            else:
-                d_a=False
-            print(d_a)
+
             create_route(request, departure, destination, date_orig, time_orig, time_dep, cost, no_pass, map_pic,
                          created_date,dist,d_a)
 
