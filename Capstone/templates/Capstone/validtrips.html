@@ -5,11 +5,13 @@
                    <a  class="text-warning" style='position:absolute; right:100px;' href="{% url 'passenger' %}" ><strong> Show All Trips </strong></a>
 
 <p class="text-warning">Total Trips:<strong>{{routes_count}}</strong></p>
-{% for ro in  page.object_list %}
+
 <div class="container-fluid" data-fin="{{ro.fin}}" data-fin_set="{{ro.fin_set}}">
 
   <div class="media-body">
+      {% for ro in  page.object_list %}
       <div class="prof">
+
     <h5 class="mt-0"></h5>
         <h5> <strong><a href="{% url 'webload_route' ro.id %}" > Trip No:{{ro.id}} </a></strong> </h5> {% if ro.fin or ro.fin_set or ro.fin_p %}  <h5 id='closed_{{ro.id}}' style='color:red;'> 'Trip Closed'</h5>{% endif %}
                          <h5 class='closedjs' id = 'closedjs_{{ro.id}}' style='color:red;'> 'Trip Closed'</h5>

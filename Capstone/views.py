@@ -25,7 +25,7 @@ from django.utils.timezone import now, make_aware
 from datetime import date
 from django.utils import timezone
 from datetime import date, datetime, timedelta
-from django.utils.timezone import make_aware
+
 
 
 
@@ -143,7 +143,7 @@ def activate (request, uidb64, token):
 def passenger(request):
     current_user = request.user
     exp_cost = 0
-    time_now=datetime.now().time()
+    #time_now=datetime.now()
     #print(time_now)
     #print(datetime.now().timestamp())
     #print(datetime.now().date().strftime("%Y-%m-%d"))
@@ -153,6 +153,9 @@ def passenger(request):
 
     comments = Comment.objects.order_by('-created_date')  #comments on trips
 
+    #
+    # for ro in all_routes:
+    #     print("Trip", ro.pk,"")
     # for ro in all_routes:
     #     print(ro.date_orig, 'vs', datetime.now().date().strftime("%Y-%m-%d"))
     #
@@ -200,7 +203,7 @@ def passenger(request):
 
     return render(request, "Capstone/passenger.html", {"all_routes": all_routes,
                                                        "comments": comments, "count": page.count, "page": page,
-                                                       'routes_count': routes_count,'time_now':time_now})
+                                                       'routes_count': routes_count})
 
 
 @login_required(login_url='login')

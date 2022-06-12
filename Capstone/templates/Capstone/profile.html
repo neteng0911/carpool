@@ -4,7 +4,9 @@
 {% load qr_code %}
 
 {% ifnotequal request.user targ_user %}
-
+<div class="container-xxl">
+    <div class ='row'>
+        <div class="col-sm">
     <h2 class="text-warning">You are viewing user: {{targ_user.username}}</h2>
 <div class= "prof1"><strong> <i class="fas fa-envelope mr-3"></i>  {{targ_user.email}}</strong>
     <p></p>
@@ -74,17 +76,18 @@
 
     {% endifequal %}
 </div>
-
+</div>
 
 
 <!-- profile area  end-->
 <!-- trip area  start-->
-{% for user_route in  page.object_list %}
 
 
-<div class="container-xxl">
-    <div class="media-body">
-        <div class="prof">
+
+
+    <div class="col-sm">
+        {% for user_route in  page.object_list %}
+        <div class="prof1">
             <div class="col-md-auto mx-1 pr-5 shadow-lg "><h5><strong><a href ="{% url 'webload_route' user_route.pk %}" >Trip No {{user_route.pk}} </a> </strong></h5>{% if user_route.fin or user_route.fin_set  %}  <h5 style='color:red;'> 'Trip Closed'</h5>{% endif %}
                   <h5 class='closedjs' id = 'closedjs_{user_{route.id}}' style='color:red;'> 'Trip Closed'</h5>
             <p id="fin_{{user_route.id}}" hidden>{{user_route.fin}}</p>
@@ -113,7 +116,7 @@
 </div>
 
 
-    <p style= "color:grey; font-size:12px;"> <strong><a href="{% url 'profile' targ_user.id %}" > {{targ_user.username}} </strong></a> wrote on: {{user_route.created_date}} </p>
+    <p style= "color:grey; font-size:12px;"> <strong><a href="{% url 'profile' targ_user.id %}" > {{targ_user.username}} </strong></a> created on: {{user_route.created_date}} </p>
 
         {% if user_route.thepassenger.all.count != 0 %}
     <p id="likes" style= "color:grey; font-size:12px;mix-blend-mode: multiply;"><img src="{% static  'Capstone/images/seat.jpg' %}" alt="seat image">
@@ -191,7 +194,7 @@
     </form>
 
     </div>
-</div>
+
 
 
        {% for rep in user_route.comments.all %}
@@ -221,6 +224,8 @@
             {% endif %}
 
         </div>
+
+    </div>
 
 
 
