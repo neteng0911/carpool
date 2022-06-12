@@ -19,7 +19,7 @@ def random_string():
 class User(AbstractUser):
 
     email=models.EmailField(max_length=254)
-    date_joined = models.DateTimeField(default=timezone.now)
+    date_joined = models.DateTimeField(default=now)
     name = models.CharField(max_length=64, null=False, blank=False)
     surname = models.CharField(max_length=64, null=False, blank=False)
     profile_pic = models.ImageField(null=False, blank=False, default='/default_user.jpg')
@@ -37,9 +37,9 @@ class User(AbstractUser):
 
 
 class RouteManager(models.Manager):
-    def create_route(self, departure,destination,date_orig,time_orig,time_dep,cost,no_pass,thedriver,map_pic,created_date,dist):
+    def create_route(self, departure,destination,date_orig,time_orig,time_dep,cost,no_pass,thedriver,map_pic,created_date,dist, d_a):
         route=self.create(departure=departure,destination=destination,date_orig=date_orig,time_orig=time_orig,
-                          time_dep=time_dep,cost=cost,no_pass=no_pass,thedriver=thedriver,map_pic=map_pic,created_date=created_date,dist=dist)
+                          time_dep=time_dep,cost=cost,no_pass=no_pass,thedriver=thedriver,map_pic=map_pic,created_date=created_date,dist=dist, d_a=d_a)
         return route
 
 
@@ -50,9 +50,9 @@ class RouteManager(models.Manager):
 class Route(models.Model):
     departure = models.CharField(max_length=64)
     destination = models.CharField(max_length=64)
-    date_orig=models.DateTimeField("date orig", default=date.today())
-    time_orig=models.TimeField("time orig",default=timezone.now())
-    time_dep=models.TimeField("time dep",default=timezone.now())
+    date_orig=models.DateTimeField("date orig")
+    time_orig=models.TimeField("time orig")
+    time_dep=models.TimeField("time dep")
     no_pass = models.IntegerField()
     cost=models.FloatField()
     thedriver=models.ForeignKey(User, on_delete=models.CASCADE, null="FALSE", blank="FALSE")
@@ -62,7 +62,7 @@ class Route(models.Model):
     fin_set = models.BooleanField(default=False) # if the driver wants to manually close the trip
     keynum = models.CharField(max_length=12, default = random_string)
     dist = models.FloatField(blank = 'TRUE')
-    d_a = models.BooleanField(default=False) # whether the vehicle has disability access
+    d_a = models.BooleanField(default=False, blank = 'TRUE') # whether the vehicle has disability access
 
     
 
@@ -73,7 +73,7 @@ class Route(models.Model):
     def fin(self):
         if self.date_orig.timestamp() < datetime.today().timestamp() :
             return True
-        elif self.date_orig.timestamp() == datetime.today().timestamp() and self.time_orig < datetime.now().time():
+        elif self.date_orig.timestamp() == datetime.now().date().strftime("%Y-%m-%d") and self.time_orig < datetime.now().time():
             return True
 
         else:

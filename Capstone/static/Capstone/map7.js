@@ -60,7 +60,7 @@ function search_route(){
          let key = 'Ak1lcrrpdMdej2d1w_shmItLOBhpEmeQpVz6g6FsRwa7CkamEDl4sgkw00XlEPbF'
          let mp=route+key
 
-         //sessionStorage.setItem("mp",route+key );  //Stores the last img nd displays it upon visiting driver page
+         sessionStorage.setItem("mp",route+key );  //Stores the last img nd displays it upon visiting driver page
          let detroute = det+key
          let detdata=fetch(detroute)
            .then(response=>{

@@ -21,8 +21,10 @@ from django.contrib.auth.tokens import default_token_generator
 #from cookie_consent.util import get_cookie_value_from_request
 from django.db.models import Q
 import datetime
+from django.utils.timezone import now, make_aware
 from datetime import date
-
+from django.utils import timezone
+from datetime import date, datetime
 
 
 
@@ -140,19 +142,24 @@ def activate (request, uidb64, token):
 def passenger(request):
     current_user = request.user
     exp_cost = 0
-
+    time_now=datetime.now().time()
+    print(time_now)
+    print(datetime.now().timestamp())
+    print(datetime.now().date().strftime("%Y-%m-%d"))
     all_routes = Route.objects.all().order_by('-created_date')
     page = paging(request, all_routes) #paging
     routes_count = all_routes.count()
 
     comments = Comment.objects.order_by('-created_date')  #comments on trips
 
-    # for ro in all_routes:
-    #     if ro.thepassenger.all().count()==0:
-    #         exp_cost=ro.cost
-    #     else:
-    #         exp_cost=ro.cost/ro.thepassenger.all().count()
-    #     return exp_cost
+    for ro in all_routes:
+        print(ro.date_orig, 'vs', datetime.now().date().strftime("%Y-%m-%d"))
+
+        if ro.date_orig == datetime.now().date().strftime("%Y-%m-%d"):
+            print(ro.id, 'equal')
+        else:
+            print(ro.id, 'not equal')
+
 
 
     if request.method=='POST' and 'searched' in request.POST:
@@ -192,7 +199,7 @@ def passenger(request):
 
     return render(request, "Capstone/passenger.html", {"all_routes": all_routes,
                                                        "comments": comments, "count": page.count, "page": page,
-                                                       'routes_count': routes_count})
+                                                       'routes_count': routes_count,'time_now':time_now})
 
 
 @login_required(login_url='login')
@@ -215,7 +222,7 @@ def driver(request):
             map_pic = request.POST['map_pic']
             dist = request.POST['dist']
             d_a = request.POST['d_a']
-            # print(form)
+            print(form)
             form = RouteForm
             msg = "Trip created successfully!"
 
@@ -239,7 +246,7 @@ def bing(request):
     return render(request, "Capstone/bing.html")
 
 
-def create_route(request, departure, destination, date_orig, time_orig, time_dep, cost, no_pass, map_pic, created_date,dist,d_a):
+def create_route(request, departure, destination, date_orig, time_orig, time_dep, cost, no_pass, map_pic, created_date, dist, d_a):
     thedriver = request.user
 
     myroute = Route.objects.create_route(departure=departure, destination=destination, date_orig=date_orig,

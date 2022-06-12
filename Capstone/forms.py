@@ -4,6 +4,7 @@ from django.forms import ModelForm
 from django.core.exceptions import ValidationError
 from datetime import date, datetime
 from .models import Route, User
+from django.utils.timezone import make_aware
 
 
 
@@ -31,7 +32,8 @@ class RouteForm(forms.ModelForm):
     no_pass = forms.IntegerField(min_value=1, label='Passengers')
     map_pic=forms.CharField(widget=forms.HiddenInput())
     dist = forms.FloatField(widget=forms.HiddenInput())
-    d_a=forms.CheckboxInput
+    d_a=forms.BooleanField(label='Disabled access',help_text='Check if at least one disabled passenger can join')
+
 
     class Meta:
         model = Route

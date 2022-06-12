@@ -75,7 +75,7 @@
             //console.log(route_id);
             console.log('max passengers  ', max_pass);
             console.log('current passengers ', no_pass);
-            console.log('is date passed? ', fin);
+            console.log('is date or time passed? ', fin);
             console.log('diff pass ', diff_p);
 
             //console.log(dist)
