@@ -222,13 +222,18 @@ def driver(request):
             no_pass = request.POST["no_pass"]
             map_pic = request.POST['map_pic']
             dist = request.POST['dist']
-            #d_a = request.POST['d_a']
+            i_d_a = request.POST['d_a']
             #print(form)
             form = RouteForm
             msg = "Trip created successfully!"
             date_orig=datetime.strptime(date_orig_str,"%Y-%m-%d")
+            if i_d_a:
+                d_a=True
+            else:
+                d_a=False
+            print(d_a)
             create_route(request, departure, destination, date_orig, time_orig, time_dep, cost, no_pass, map_pic,
-                         created_date,dist)
+                         created_date,dist,d_a)
 
             # redirect to a new URL:
             return render(request, 'Capstone/driver.html', {'msg': msg, 'form': form})
@@ -247,12 +252,12 @@ def bing(request):
     return render(request, "Capstone/bing.html")
 
 
-def create_route(request, departure, destination, date_orig, time_orig, time_dep, cost, no_pass, map_pic, created_date, dist):
+def create_route(request, departure, destination, date_orig, time_orig, time_dep, cost, no_pass, map_pic, created_date, dist, d_a):
     thedriver = request.user
 
     myroute = Route.objects.create_route(departure=departure, destination=destination, date_orig=date_orig,
                                          time_orig=time_orig, time_dep=time_dep, cost=cost, no_pass=no_pass,
-                                         thedriver=thedriver, map_pic=map_pic, created_date=created_date,dist=dist)
+                                         thedriver=thedriver, map_pic=map_pic, created_date=created_date,dist=dist,d_a=d_a)
 
     return HttpResponseRedirect(reverse("index"))
 

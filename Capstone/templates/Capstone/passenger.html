@@ -101,10 +101,10 @@
     <h6> The Driver is </h6>   <a href="{% url 'profile' ro.thedriver.id %}" ><strong> {{ro.thedriver}} </strong></a>
     <p hidden id="cost_{{ro.id}}"><h6>Initial cost per passenger {{ro.cost}} $</h6>
     <h6> Expected cost per passenger <strong id="costpp_{{ro.id}}">{{ro.costpp}}$</strong></h6>
- <!--         {% if ro.d_a  %}
+         {% if ro.d_a  %}
           <h6> Disabled access <i class="fa fa-wheelchair" aria-hidden="true"></i>
 </h6>
-          {% endif %}-->
+          {% endif %}
           <img  class="img-fluid" src="{{ ro.map_pic }}" alt="map_img">
 
 

@@ -40,9 +40,9 @@ class User(AbstractUser):
 
 
 class RouteManager(models.Manager):
-    def create_route(self, departure,destination,date_orig,time_orig,time_dep,cost,no_pass,thedriver,map_pic,created_date,dist):
+    def create_route(self, departure,destination,date_orig,time_orig,time_dep,cost,no_pass,thedriver,map_pic,created_date,dist,d_a):
         route=self.create(departure=departure,destination=destination,date_orig=date_orig,time_orig=time_orig,
-                          time_dep=time_dep,cost=cost,no_pass=no_pass,thedriver=thedriver,map_pic=map_pic,created_date=created_date,dist=dist)
+                          time_dep=time_dep,cost=cost,no_pass=no_pass,thedriver=thedriver,map_pic=map_pic,created_date=created_date,dist=dist, d_a=d_a)
         return route
 
 
@@ -65,7 +65,7 @@ class Route(models.Model):
     fin_set = models.BooleanField(default=False) # if the driver wants to manually close the trip
     keynum = models.CharField(max_length=12, default = random_string)
     dist = models.FloatField(blank = 'TRUE')
-    #d_a = models.BooleanField(default=False) # whether the vehicle has disability access
+    d_a = models.BooleanField(default=False) # whether the vehicle has disability access
 
     
 
