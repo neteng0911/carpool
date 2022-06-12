@@ -25,6 +25,7 @@ from django.utils.timezone import now, make_aware
 from datetime import date
 from django.utils import timezone
 from datetime import date, datetime
+from django.utils.timezone import make_aware
 
 
 
@@ -143,22 +144,22 @@ def passenger(request):
     current_user = request.user
     exp_cost = 0
     time_now=datetime.now().time()
-    print(time_now)
-    print(datetime.now().timestamp())
-    print(datetime.now().date().strftime("%Y-%m-%d"))
+    #print(time_now)
+    #print(datetime.now().timestamp())
+    #print(datetime.now().date().strftime("%Y-%m-%d"))
     all_routes = Route.objects.all().order_by('-created_date')
     page = paging(request, all_routes) #paging
     routes_count = all_routes.count()
 
     comments = Comment.objects.order_by('-created_date')  #comments on trips
 
-    for ro in all_routes:
-        print(ro.date_orig, 'vs', datetime.now().date().strftime("%Y-%m-%d"))
-
-        if ro.date_orig == datetime.now().date().strftime("%Y-%m-%d"):
-            print(ro.id, 'equal')
-        else:
-            print(ro.id, 'not equal')
+    # for ro in all_routes:
+    #     print(ro.date_orig, 'vs', datetime.now().date().strftime("%Y-%m-%d"))
+    #
+    #     if ro.date_orig == datetime.now().date().strftime("%Y-%m-%d"):
+    #         print(ro.id, 'equal')
+    #     else:
+    #         print(ro.id, 'not equal')
 
 
 
@@ -169,8 +170,8 @@ def passenger(request):
             return render(request, "Capstone/searchedtrips.html", {"message":message})
         else:
             searched_routes = Route.objects.filter(Q(departure__icontains=searched) | Q(destination__icontains=searched)).order_by('-created_date')
-            print('you searched for ',searched)
-            print(searched_routes)
+            #print('you searched for ',searched)
+            #print(searched_routes)
             comments = Comment.objects.order_by('-created_date')
             page_searched_routes = paging(request, searched_routes)
             searched_routes_count=searched_routes.count()
@@ -214,20 +215,20 @@ def driver(request):
             created_date = timezone.now()
             departure = request.POST["departure"]
             destination = request.POST["destination"]
-            date_orig = request.POST["date_orig"]
+            date_orig_str = request.POST["date_orig"]
             time_orig = request.POST["time_orig"]
             time_dep = request.POST["time_dep"]
             cost = request.POST["cost"]
             no_pass = request.POST["no_pass"]
             map_pic = request.POST['map_pic']
             dist = request.POST['dist']
-            d_a = request.POST['d_a']
-            print(form)
+            #d_a = request.POST['d_a']
+            #print(form)
             form = RouteForm
             msg = "Trip created successfully!"
-
+            date_orig=datetime.strptime(date_orig_str,"%Y-%m-%d")
             create_route(request, departure, destination, date_orig, time_orig, time_dep, cost, no_pass, map_pic,
-                         created_date,dist,d_a)
+                         created_date,dist)
 
             # redirect to a new URL:
             return render(request, 'Capstone/driver.html', {'msg': msg, 'form': form})
@@ -246,12 +247,12 @@ def bing(request):
     return render(request, "Capstone/bing.html")
 
 
-def create_route(request, departure, destination, date_orig, time_orig, time_dep, cost, no_pass, map_pic, created_date, dist, d_a):
+def create_route(request, departure, destination, date_orig, time_orig, time_dep, cost, no_pass, map_pic, created_date, dist):
     thedriver = request.user
 
     myroute = Route.objects.create_route(departure=departure, destination=destination, date_orig=date_orig,
                                          time_orig=time_orig, time_dep=time_dep, cost=cost, no_pass=no_pass,
-                                         thedriver=thedriver, map_pic=map_pic, created_date=created_date,dist=dist,d_a=d_a)
+                                         thedriver=thedriver, map_pic=map_pic, created_date=created_date,dist=dist)
 
     return HttpResponseRedirect(reverse("index"))
 

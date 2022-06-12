@@ -23,7 +23,7 @@ class RouteForm(forms.ModelForm):
         widget=forms.TextInput(attrs={'placeholder': 'Departure','readonly':'readonly','class':'readonly'}))
     destination = forms.CharField(
         widget=forms.TextInput(attrs={'placeholder': 'Destination','readonly':'readonly','class':'readonly'}))
-    date_orig=forms.DateField(widget=forms.DateInput(attrs={'type': 'date','min':date.today()}))
+    date_orig=forms.DateField(widget=forms.DateInput(attrs={'type': 'date','min':date.today(),'format':['%y-%m-%d']}))
 
     time_orig=forms.TimeField(widget=forms.TimeInput(attrs={'type': 'time'}))
     time_dep=forms.TimeField(widget=forms.TimeInput(attrs={'type': 'time','min':time_orig}))
@@ -32,16 +32,16 @@ class RouteForm(forms.ModelForm):
     no_pass = forms.IntegerField(min_value=1, label='Passengers')
     map_pic=forms.CharField(widget=forms.HiddenInput())
     dist = forms.FloatField(widget=forms.HiddenInput())
-    d_a=forms.BooleanField(label='Disabled access',help_text='Check if at least one disabled passenger can join')
+    #d_a = forms.BooleanField(label='Disabled access',help_text='Check if at least one disabled passenger can join',required=False)
 
 
     class Meta:
         model = Route
-        fields = ['departure','destination','date_orig','time_orig', 'time_dep', 'cost', 'no_pass', 'map_pic','dist','d_a']
-        help_texts = {
-            'd_a': ('Check if at least one disabled passenger can join'),
-        }
-        labels ={'d_a':'Disabled access'}
+        fields = ['departure','destination','date_orig','time_orig', 'time_dep', 'cost', 'no_pass', 'map_pic','dist']
+        # help_texts = {
+        #     'd_a': ('Check if at least one disabled passenger can join'),
+        # }
+        # labels ={'d_a':'Disabled access'}
 #validators regarding date and time
 
     def clean(self):

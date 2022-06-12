@@ -9,6 +9,9 @@ from django.utils.timezone import now
 
 from django.utils import timezone
 import random
+from datetime import date, datetime
+import pytz
+
 
 
 
@@ -37,9 +40,9 @@ class User(AbstractUser):
 
 
 class RouteManager(models.Manager):
-    def create_route(self, departure,destination,date_orig,time_orig,time_dep,cost,no_pass,thedriver,map_pic,created_date,dist, d_a):
+    def create_route(self, departure,destination,date_orig,time_orig,time_dep,cost,no_pass,thedriver,map_pic,created_date,dist):
         route=self.create(departure=departure,destination=destination,date_orig=date_orig,time_orig=time_orig,
-                          time_dep=time_dep,cost=cost,no_pass=no_pass,thedriver=thedriver,map_pic=map_pic,created_date=created_date,dist=dist, d_a=d_a)
+                          time_dep=time_dep,cost=cost,no_pass=no_pass,thedriver=thedriver,map_pic=map_pic,created_date=created_date,dist=dist)
         return route
 
 
@@ -50,7 +53,7 @@ class RouteManager(models.Manager):
 class Route(models.Model):
     departure = models.CharField(max_length=64)
     destination = models.CharField(max_length=64)
-    date_orig=models.DateTimeField("date orig")
+    date_orig=models.DateField("date orig")
     time_orig=models.TimeField("time orig")
     time_dep=models.TimeField("time dep")
     no_pass = models.IntegerField()
@@ -62,7 +65,7 @@ class Route(models.Model):
     fin_set = models.BooleanField(default=False) # if the driver wants to manually close the trip
     keynum = models.CharField(max_length=12, default = random_string)
     dist = models.FloatField(blank = 'TRUE')
-    d_a = models.BooleanField(default=False, blank = 'TRUE') # whether the vehicle has disability access
+    #d_a = models.BooleanField(default=False) # whether the vehicle has disability access
 
     
 
@@ -71,9 +74,11 @@ class Route(models.Model):
 
 #  workaround method so as to auto-close the trips depending on the current date and time (if the have expired or started or no available seats exist)
     def fin(self):
-        if self.date_orig.timestamp() < datetime.today().timestamp() :
+
+
+        if self.date_orig < datetime.now().date() :
             return True
-        elif self.date_orig.timestamp() == datetime.now().date().strftime("%Y-%m-%d") and self.time_orig < datetime.now().time():
+        elif self.date_orig == datetime.now().date() and self.time_orig < datetime.now().time():
             return True
 
         else:
