@@ -24,7 +24,7 @@ import datetime
 from django.utils.timezone import now, make_aware
 from datetime import date
 from django.utils import timezone
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 from django.utils.timezone import make_aware
 
 
@@ -71,7 +71,7 @@ def register(request):
         name = request.POST["name"]
         surname = request.POST["surname"]
         dob = request.POST['dob']
-        birthday=datetime.datetime.strptime(dob,'%Y-%m-%d')
+        birthday=datetime.strptime(dob,'%Y-%m-%d')
 
         # Ensure password matches confirmation
         password = request.POST["password"]
@@ -93,7 +93,7 @@ def register(request):
 
 
 
-        if datetime.datetime.today() - birthday < datetime.timedelta(days=18 * 365):
+        if datetime.today() - birthday < timedelta(days=18 * 365):
             return render(request, "Capstone/register.html", {
                 "message": "You must be over 18 years old to register"
             })
