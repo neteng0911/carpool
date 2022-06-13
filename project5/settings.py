@@ -103,6 +103,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'OPTIONS':{
+            'min_length':9,
+    }
     },
     {
         'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
@@ -140,13 +143,21 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'Capstone/static/Capstone/images')
 
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_USE_TLS = str(os.getenv('EMAIL_USE_TLS'))
-EMAIL_HOST = str(os.getenv('EMAIL_HOST'))
-EMAIL_HOST_USER = str(os.getenv('EMAIL_HOST_USER'))
-
-EMAIL_HOST_PASSWORD = str(os.getenv('EMAIL_HOST_PASSWORD'))
-EMAIL_PORT = str(os.getenv('EMAIL_PORT'))
+# EMAIL_USE_TLS = str(os.getenv('EMAIL_USE_TLS'))
+# EMAIL_HOST = str(os.getenv('EMAIL_HOST'))
+# EMAIL_HOST_USER = str(os.getenv('EMAIL_HOST_USER'))
+#
+# EMAIL_HOST_PASSWORD = str(os.getenv('EMAIL_HOST_PASSWORD'))
+# EMAIL_PORT = str(os.getenv('EMAIL_PORT'))
 #SMTP_SSL = True
+
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'vehpool@gmail.com'
+
+EMAIL_HOST_PASSWORD = 'hsgiagloskialhak'
+EMAIL_PORT = 587
 
 EMAIL_FILE_PATH = BASE_DIR / "sent_emails"
 

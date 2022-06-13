@@ -25,8 +25,6 @@ from django.utils.timezone import now, make_aware
 from datetime import date
 from django.utils import timezone
 from datetime import date, datetime, timedelta
-from django.contrib.auth.password_validation import validate_password
-from django.core.exceptions import ValidationError
 
 
 
@@ -91,11 +89,6 @@ def register(request):
             return render(request, "Capstone/register.html", {
                 "message": "Passwords must match."
             })
-        try:
-            validate_password(password)
-        except ValidationError as e:
-
-            return render(request,"Capstone/register.html", {'message': e})
 
 
 
