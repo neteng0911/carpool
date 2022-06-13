@@ -87,7 +87,7 @@
 
     <div class="col-sm">
         {% for user_route in  page.object_list %}
-        <div class="prof1">
+        <div class="prof" style="top:0px">
             <div class="col-md-auto mx-1 pr-5 shadow-lg "><h5><strong><a href ="{% url 'webload_route' user_route.pk %}" >Trip No {{user_route.pk}} </a> </strong></h5>{% if user_route.fin or user_route.fin_set  %}  <h5 style='color:red;'> 'Trip Closed'</h5>{% endif %}
                   <h5 class='closedjs' id = 'closedjs_{user_{route.id}}' style='color:red;'> 'Trip Closed'</h5>
             <p id="fin_{{user_route.id}}" hidden>{{user_route.fin}}</p>
