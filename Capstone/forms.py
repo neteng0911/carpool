@@ -26,6 +26,8 @@ class RouteForm(forms.ModelForm):
     date_orig=forms.DateField(widget=forms.DateInput(attrs={'type': 'date','min':date.today(),'format':['%y-%m-%d']}))
 
     time_orig=forms.TimeField(widget=forms.TimeInput(attrs={'type': 'time'}))
+    date_ret = forms.DateField(
+        widget=forms.DateInput(attrs={'type': 'date', 'min': date_orig, 'format': ['%y-%m-%d']}))
     time_dep=forms.TimeField(widget=forms.TimeInput(attrs={'type': 'time','min':time_orig}))
 
     cost=forms.FloatField(min_value=0.0,error_messages={'min_value': u'Cost cannot be less than 0.0'})
@@ -39,7 +41,7 @@ class RouteForm(forms.ModelForm):
 
     class Meta:
         model = Route
-        fields = ['departure','destination','date_orig','time_orig', 'time_dep', 'cost', 'no_pass', 'map_pic','dist']
+        fields = ['departure','destination','date_orig','time_orig','date_ret', 'time_dep', 'cost', 'no_pass', 'map_pic','dist']
         # help_texts = {
         #     'd_a': ('Check if at least one disabled passenger can join'),
         # }
@@ -49,6 +51,7 @@ class RouteForm(forms.ModelForm):
     def clean(self):
         cleaned_data = super().clean()
         date_inp=cleaned_data.get('date_orig')
+        date_inp_ret = cleaned_data.get('date_ret')
         start = cleaned_data.get('time_orig')
         end = cleaned_data.get('time_dep')
         #print(date_inp)
@@ -58,10 +61,11 @@ class RouteForm(forms.ModelForm):
 
         if date_inp <date.today():
             raise forms.ValidationError({'date_orig':'start date should be later than today.'})
-
+        if date_inp_ret <date_inp:
+            raise forms.ValidationError({'date_ret':'return date should be later than start date.'})
         if date_inp == date.today() and start < datetime.now().time():
             raise forms.ValidationError('start time should be later than now.')
-        if start > end:
+        if date_inp_ret  == date_inp and start > end:
             raise forms.ValidationError({'time_dep':'end time should be later than start time.'})
         return cleaned_data
 

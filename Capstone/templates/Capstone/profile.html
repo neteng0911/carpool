@@ -94,8 +94,8 @@
 
 
     <p> <h6>From</h6> {{user_route.departure}} <h6>To</h6> {{user_route.destination}} </p>
-    <p> <h6>on</h6> {{user_route.date_orig.date}}</p>
-    <p> <h6>Leaving at</h6>  {{user_route.time_orig}} <h6>and returning at</h6> {{user_route.time_dep}}</p>
+    <p> <h6>Leaving on</h6> {{user_route.date_orig.date}}</p>
+    <p> <h6>Leaving at</h6>  {{user_route.time_orig}} <h6>and returning on</h6> {{user_route.time_ret}}<h6>and returning at</h6> {{user_route.time_dep}}</p>
         <p hidden id="cost_{{route.id}}"><h6>Initial cost per passenger {{user_route.cost}} $</h6>
     <h6> Expected cost per passenger <strong id="costpp_{{route.id}}">{{user_route.costpp}}$</strong></h6>
 

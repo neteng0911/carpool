@@ -228,6 +228,7 @@ def driver(request):
             departure = request.POST["departure"]
             destination = request.POST["destination"]
             date_orig_str = request.POST["date_orig"]
+            date_ret_str = request.POST["date_ret"]
             time_orig = request.POST["time_orig"]
             time_dep = request.POST["time_dep"]
             cost = request.POST["cost"]
@@ -235,7 +236,7 @@ def driver(request):
             map_pic = request.POST['map_pic']
             dist = request.POST['dist']
             id_a= request.POST.get('d_a') #me [] den douleuei giati dinei on anti gia True
-            if id_a == '' or id_a==False or id_a==0:
+            if id_a == '' or id_a==False or id_a==0 or id_a==None:
                 d_a=False
             else:
                 d_a=True
@@ -243,10 +244,11 @@ def driver(request):
             form = RouteForm
             msg = "Trip created successfully!"
             date_orig=datetime.strptime(date_orig_str,"%Y-%m-%d")
+            date_ret = datetime.strptime(date_ret_str, "%Y-%m-%d")
 
-            create_route(request, departure, destination, date_orig, time_orig, time_dep, cost, no_pass, map_pic,
+            create_route(request, departure, destination, date_orig, time_orig,date_ret,time_dep, cost, no_pass, map_pic,
                          created_date,dist,d_a)
-
+            print('id_a',id_a, 'd_a',d_a)
             # redirect to a new URL:
             return render(request, 'Capstone/driver.html', {'msg': msg, 'form': form})
         else:
@@ -264,11 +266,11 @@ def bing(request):
     return render(request, "Capstone/bing.html")
 
 
-def create_route(request, departure, destination, date_orig, time_orig, time_dep, cost, no_pass, map_pic, created_date, dist, d_a):
+def create_route(request, departure, destination, date_orig, time_orig,date_ret, time_dep, cost, no_pass, map_pic, created_date, dist, d_a):
     thedriver = request.user
 
     myroute = Route.objects.create_route(departure=departure, destination=destination, date_orig=date_orig,
-                                         time_orig=time_orig, time_dep=time_dep, cost=cost, no_pass=no_pass,
+                                         time_orig=time_orig,date_ret=date_ret, time_dep=time_dep, cost=cost, no_pass=no_pass,
                                          thedriver=thedriver, map_pic=map_pic, created_date=created_date,dist=dist,d_a=d_a)
 
     return HttpResponseRedirect(reverse("index"))

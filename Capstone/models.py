@@ -40,9 +40,9 @@ class User(AbstractUser):
 
 
 class RouteManager(models.Manager):
-    def create_route(self, departure,destination,date_orig,time_orig,time_dep,cost,no_pass,thedriver,map_pic,created_date,dist,d_a):
-        route=self.create(departure=departure,destination=destination,date_orig=date_orig,time_orig=time_orig,
-                          time_dep=time_dep,cost=cost,no_pass=no_pass,thedriver=thedriver,map_pic=map_pic,created_date=created_date,dist=dist, d_a=d_a)
+    def create_route(self, departure,destination,date_orig,time_orig,date_ret,time_dep,cost,no_pass,thedriver,map_pic,created_date,dist,d_a):
+        route=self.create(departure=departure,destination=destination,date_orig=date_orig,time_orig=time_orig,date_ret=date_ret,
+                          time_dep=time_dep,no_pass=no_pass,cost=cost,thedriver=thedriver,map_pic=map_pic,created_date=created_date,dist=dist, d_a=d_a)
         return route
 
 
@@ -55,6 +55,7 @@ class Route(models.Model):
     destination = models.CharField(max_length=64)
     date_orig=models.DateField("date orig")
     time_orig=models.TimeField("time orig")
+    date_ret = models.DateField("date ret")
     time_dep=models.TimeField("time dep")
     no_pass = models.IntegerField()
     cost=models.FloatField()
