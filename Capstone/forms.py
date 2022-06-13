@@ -43,7 +43,7 @@ class RouteForm(forms.ModelForm):
         # help_texts = {
         #     'd_a': ('Check if at least one disabled passenger can join'),
         # }
-        # labels ={'d_a':'Disabled access'}
+        #labels ={'time_dep':'Return Time'}
 #validators regarding date and time
 
     def clean(self):

@@ -56,7 +56,7 @@ function search_route(){
          let place='Ymhttoy%72%20Athens'
 
          let test=`https://dev.virtualearth.net/REST/V1/Imagery/Map/Road/${place}?mapLayer=TrafficFlow&o=json&key=`
-         let det =`http://dev.virtualearth.net/REST/V1/Routes/Driving?wp.0=${start.value}1&wp.1=${end.value}2&o=json&key=`
+         let det =`https://dev.virtualearth.net/REST/V1/Routes/Driving?wp.0=${start.value}1&wp.1=${end.value}2&o=json&key=`
          let key = 'Ak1lcrrpdMdej2d1w_shmItLOBhpEmeQpVz6g6FsRwa7CkamEDl4sgkw00XlEPbF'
          let mp=route+key
 
