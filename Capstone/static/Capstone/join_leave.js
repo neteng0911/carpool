@@ -78,6 +78,7 @@
             console.log('current passengers ', no_pass);
             console.log('is date or time passed? ', fin);
             console.log('diff pass ', diff_p);
+            console.log(element.title);
 
 
             //console.log(dist)
