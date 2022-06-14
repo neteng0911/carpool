@@ -221,7 +221,7 @@
 
  function join_route(route_id)
 {
-    fetch(`/join/route/${route_id}`, {
+    fetch(`https://carpoollshare.herokuapp.com/join/route/${route_id}`, {
         method: "POST"
     })
     .then(response => response.json())
@@ -232,7 +232,7 @@
 
 function leave_route(route_id)
 {
-    fetch(`/leave/route/${route_id}`, {
+    fetch(`https://carpoollshare.herokuapp.com/leave/route/${route_id}`, {
         method: "POST"
     })
     .then(response => response.json())
