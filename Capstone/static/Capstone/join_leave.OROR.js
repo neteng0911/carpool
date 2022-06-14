@@ -241,7 +241,7 @@ function leave_route(route_id)
 
 // Calculating the cost  per passenger depending on the number of passengers instantly on the page (changing innerHTML)
 // The updating of the DB is being done in models by the cost method separately
-/*function est_cost(route_id){
+function est_cost(route_id){
 
 
 fetch(`/route/${route_id}`)
@@ -283,7 +283,7 @@ fetch(`/route/${route_id}`)
 
 
 
-    }*/
+    }
 
 
 
