@@ -64,10 +64,11 @@
 
 
             var no_pass= parseFloat(document.querySelector(`#thepassengercounter_${route_id}`).innerHTML);
-            var max_pass = route_id["no_pass"];
-            var dist = route_id["dist"];
-            var key_num = route_id["key_num"];
-            var co2=dist*2.40*2;
+            var max_pass = parseFloat(document.querySelector(`#max_pass_${route_id}`).innerHTML);
+
+            //var dist = route_id["dist"];
+            //var key_num = route_id["key_num"];
+            //var co2=dist*2.40*2;
             var fin = document.querySelector(`#fin_${route_id}`).innerHTML;
             var diff_p = max_pass-no_pass
 
@@ -77,8 +78,8 @@
             console.log('current passengers ', no_pass);
             console.log('is date or time passed? ', fin);
             console.log('diff pass ', diff_p);
-            alert('presssed')
-            join_route(route_id);
+
+
             //console.log(dist)
             //console.log(key_num)
 
@@ -99,7 +100,7 @@
                 document.querySelector(`#thepassengercounter_${route_id}`).innerHTML++;
                 document.querySelector(`#closedjs_${route_id}`).style.display='block';
 
-                alert("Congrats you just saved "+(co2.toFixed(2))+' kg of CO2 by Carpooling')
+                //alert("Congrats you just saved "+(co2.toFixed(2))+' kg of CO2 by Carpooling')
                 join_route(route_id);
                 est_cost(route_id);
 
@@ -226,7 +227,7 @@
     })
     .then(response => response.json())
     .then(data => console.log(data))
-
+alert('Congrats you just saved kg of CO2 by Carpooling');
 
 }
 
@@ -241,7 +242,7 @@ function leave_route(route_id)
 
 // Calculating the cost  per passenger depending on the number of passengers instantly on the page (changing innerHTML)
 // The updating of the DB is being done in models by the cost method separately
-/*function est_cost(route_id){
+function est_cost(route_id){
 
 
 fetch(`/route/${route_id}`)
@@ -283,7 +284,8 @@ fetch(`/route/${route_id}`)
 
 
 
-    }*/
+    }
+
 
 
 
