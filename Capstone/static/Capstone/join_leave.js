@@ -51,7 +51,7 @@
 
             var route_id = element.dataset.id;
 
-           /* fetch(`/route/${route_id}`)
+/*            fetch(`/route/${route_id}`)
 
                 .then(response => response.json())
                 .then(route => {
@@ -64,9 +64,9 @@
 
 
             var no_pass= parseFloat(document.querySelector(`#thepassengercounter_${route_id}`).innerHTML);
-            var max_pass = route["no_pass"];
-            var dist = route["dist"];
-            var key_num = route["key_num"];
+            var max_pass = route_id["no_pass"];
+            var dist = route_id["dist"];
+            var key_num = route_id["key_num"];
             var co2=dist*2.40*2;
             var fin = document.querySelector(`#fin_${route_id}`).innerHTML;
             var diff_p = max_pass-no_pass
@@ -78,7 +78,7 @@
             console.log('is date or time passed? ', fin);
             console.log('diff pass ', diff_p);
             alert('presssed')
-
+            join_route(route_id);
             //console.log(dist)
             //console.log(key_num)
 
@@ -190,9 +190,9 @@
 
 
 
-        })
+        }
 
-    }})});
+    })});
 
    /* function sort(){
     //alert('sorting')
