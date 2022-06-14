@@ -51,7 +51,7 @@
 
             var route_id = element.dataset.id;
 
-            fetch(`https:/carpoollshare.herokuapp.com/route/${route_id}`)
+           /* fetch(`/route/${route_id}`)
 
                 .then(response => response.json())
                 .then(route => {
@@ -60,7 +60,7 @@
                     console.log(route.error);
                     alert(route.error)
 
-        }
+        }*/
 
 
             var no_pass= parseFloat(document.querySelector(`#thepassengercounter_${route_id}`).innerHTML);
@@ -221,7 +221,7 @@
 
  function join_route(route_id)
 {
-    fetch(`https://carpoollshare.herokuapp.com/join/route/${route_id}`, {
+    fetch(`/join/route/${route_id}`, {
         method: "POST"
     })
     .then(response => response.json())
@@ -232,7 +232,7 @@
 
 function leave_route(route_id)
 {
-    fetch(`https://carpoollshare.herokuapp.com/leave/route/${route_id}`, {
+    fetch(`/leave/route/${route_id}`, {
         method: "POST"
     })
     .then(response => response.json())
