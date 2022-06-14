@@ -51,7 +51,7 @@
 
             var route_id = element.dataset.id;
 
-            fetch(`/route/${route_id}`)
+            fetch(`https:/carpoollshare.herokuapp.com/route/${route_id}`)
 
                 .then(response => response.json())
                 .then(route => {
