@@ -194,34 +194,8 @@
 
         }
 
-    })});
-
-   /* function sort(){
-    //alert('sorting')
-    document.querySelectorAll('.media').forEach((element) => {
-
-    var route_id = element.dataset.id;
-    var fin = element.dataset.fin;
-    var fin_set = element.dataset.fin_set;
-    console.log(route_id, 'style', document.querySelector(".media").style.display);
-    console.log(route_id, 'fin', fin);
-     console.log(route_id, 'fin_set', fin_set);
-
-
-
-
-
-
-       if (fin == 'True' || fin_set=="True") {document.querySelector('.media').style.display='none';
-
-       }
-       else{document.querySelector('.media').style.display='block';
-
-       }
-})}
-*/
-
- function join_route(route_id)
+    })
+    function join_route(route_id)
 {
     fetch(`/join/route/${route_id}`, {
         method: "POST"
@@ -286,6 +260,34 @@ fetch(`/route/${route_id}`)
 
 
     }
+    });
+
+   /* function sort(){
+    //alert('sorting')
+    document.querySelectorAll('.media').forEach((element) => {
+
+    var route_id = element.dataset.id;
+    var fin = element.dataset.fin;
+    var fin_set = element.dataset.fin_set;
+    console.log(route_id, 'style', document.querySelector(".media").style.display);
+    console.log(route_id, 'fin', fin);
+     console.log(route_id, 'fin_set', fin_set);
+
+
+
+
+
+
+       if (fin == 'True' || fin_set=="True") {document.querySelector('.media').style.display='none';
+
+       }
+       else{document.querySelector('.media').style.display='block';
+
+       }
+})}
+*/
+
+
 
 
 
