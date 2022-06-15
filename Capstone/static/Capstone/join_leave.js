@@ -87,7 +87,7 @@
 
 // checking if current passengers >= max passengers so not allowing joinining but only leaving
        if (no_pass < max_pass){
-
+            console.log('pasengers<max passengers')
 
               if (diff_p==1){
                     if(element.title == "Join")
@@ -101,7 +101,7 @@
                 document.querySelector(`#thepassengercounter_${route_id}`).innerHTML++;
                 document.querySelector(`#closedjs_${route_id}`).style.display='block';
 
-                //alert("Congrats you just saved "+(co2.toFixed(2))+' kg of CO2 by Carpooling')
+
                 join_route(route_id);
                 est_cost(route_id);
 
@@ -124,7 +124,7 @@
 
                 }}
       else if (no_pass == max_pass){
-
+        console.log('pasengers=<max passengers')
         if (fin === 'False'){
 
         if (element.title == "Leave"){
@@ -202,6 +202,7 @@
     })
     .then(response => response.json())
     .then(data => console.log(data))
+    //alert("Congrats you just saved "+(co2.toFixed(2))+' kg of CO2 by Carpooling')
 alert('Congrats you just saved kg of CO2 by Carpooling');
 
 }
