@@ -131,7 +131,7 @@
                 element.title="Leave";
                 element.innerHTML="Leave";
                 document.querySelector(`#thepassengercounter_${route_id}`).innerHTML++;
-                
+
 
                 alert("Congrats you just saved "+(co2.toFixed(2))+' kg of CO2 by Carpooling')
                 join_route(route_id);
@@ -289,7 +289,7 @@ fetch(`/route/${route_id}`)
        document.querySelector(`#costpp_${route_id}`).innerHTML = cost+'$';
 }
        else{
-       var cost =init_cost/no_passengers;
+       var cost =(init_cost/no_passengers).toFixed(2);
        document.querySelector(`#costpp_${route_id}`).innerHTML = cost+'$';
 
 
