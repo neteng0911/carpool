@@ -106,7 +106,7 @@ class Route(models.Model):
             if self.thepassenger.all().count()==0:
                 est_cost=self.cost
             else:
-                est_cost=self.cost/self.thepassenger.all().count()
+                est_cost="{:.2f}".format(self.cost/self.thepassenger.all().count())
             return est_cost
         else:
             est_cost=self.cost/self.no_pass
@@ -128,7 +128,7 @@ class Route(models.Model):
             'map_pic':self.map_pic,
             'created_date':self.created_date,
             'dist': self.dist,
-            'key_num':self.keynum
+            #'key_num':self.keynum
 
 
 
