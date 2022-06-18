@@ -347,6 +347,23 @@ def profile(request, user_id):
                                                          'user_routes_count': user_routes_count,'message_cl':message_cl
                                                          ,'user_passenger_list':user_passenger_list, 'user_passenger_count':user_passenger_count})
 
+
+
+    if request.method == "POST" and "unfinalise_trip" in request.POST:
+        route_to_load_id = request.POST.get("route_to_load_id")
+
+        route_to_load = Route.objects.get(pk=route_to_load_id)
+        route_to_load.fin_set=False
+        message_cl="Trip open again"
+        #print(message_cl)
+
+        route_to_load.save()
+        return render(request, "Capstone/profile.html", {"targ_user": targ_user, "count": page.count, "page": page,
+                                                         'user_routes_count': user_routes_count,'message_cl':message_cl
+                                                         ,'user_passenger_list':user_passenger_list, 'user_passenger_count':user_passenger_count})
+
+
+
     else:
 
         return render(request, "Capstone/profile.html", {"targ_user": targ_user, "count": page.count, "page": page,
@@ -570,6 +587,18 @@ def webload_route(request, route_id):
         route_to_load.save()
         return render(request, "Capstone/route.html", {"route": route, 'passengers':passengers})
 
+
+    if request.method == "POST" and "unfinalise_trip" in request.POST:
+        route_to_load_id = request.POST.get("route_to_load_id")
+
+        route_to_load = Route.objects.get(pk=route_to_load_id)
+        route_to_load.fin_set = False
+        message_cl = "Trip open again"
+        # print(message_cl)
+
+        route_to_load.save()
+        return render(request, "Capstone/route.html", {"route": route, 'passengers':passengers})
+
     comments = Comment.objects.order_by('-created_date')
 
 
@@ -595,7 +624,10 @@ def webload_route(request, route_id):
 
 
         return render(request, "Capstone/route.html", {"route": route, 'passengers':passengers})
-    return render(request, "Capstone/route.html", {"route": route, 'passengers':passengers})
+
+
+    else:
+        return render(request, "Capstone/route.html", {"route": route, 'passengers':passengers})
 # load trips that are not Closed either by date or by user or by not available seats
 @login_required
 def find_valid_trips(request):

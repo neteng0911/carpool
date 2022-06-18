@@ -24,9 +24,6 @@
 <strong> {{targ_user.username}} is member since {{ targ_user.date_joined }}</strong>
     <p>Total Trips as a driver:<strong>{{user_routes_count}}</strong></p></div>
 
-        </div>
-    </div>
-</div>
 
 
 
@@ -83,21 +80,20 @@
           </form>
 
     {% endifequal %}
-</div>
-</div>
-    </div>
+
 
 
 <!-- profile area  end-->
 <!-- trip area  start-->
 
 
+</div>
 
 
     <div class="col-sm">
         {% for user_route in  page.object_list %}
-        <div class="prof" style="top:-300px">
-            <div class="col-md-auto mx-1 pr-5 shadow-lg "><h5><strong><a href ="{% url 'webload_route' user_route.pk %}" >Trip No {{user_route.pk}}
+        <div class="prof" style="top:0px">
+            <div class="col-md-auto mx-3 pr-5 shadow-lg "><h5><strong><a href ="{% url 'webload_route' user_route.pk %}" >Trip No {{user_route.pk}}
             </a> </strong></h5>{% if user_route.fin or user_route.fin_set or user_route.fin_p  %}  <h5 style='color:red;'> 'Trip Closed'</h5>{% endif %}
                   <h5 class='closedjs' id = 'closedjs_{user_{route.id}}' style='color:red;'> 'Trip Closed'</h5>
             <p id="fin_{{user_route.id}}" hidden>{{user_route.fin}}</p>
@@ -196,7 +192,19 @@
     <input class="btn btn-primary" type="submit" name="finalise_trip" value="Finalise trip">
 
     {% endif %}
+    {% if user_route.fin_set %}
+<form class = 'form-inline' action="{% url 'profile' targ_user.id %}" method="post">
+        {% csrf_token %}
 
+
+        <div class="form-group">
+
+            <input type="hidden"  name="route_to_load_id" value={{user_route.pk}}>
+
+        </div>
+    <input class="btn btn-primary" type="submit" name="unfinalise_trip" value="Unfinalise trip">
+
+    {% endif %}
 
      <input class="btn btn-success" type="button"  name="load_route" value="Edit Trip" onclick="location.href='{% url 'edit_route' user_route.pk %}'"  />
      <input type="hidden"  name="route_to_load_id" value={{user_route.pk}}>

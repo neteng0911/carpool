@@ -106,6 +106,24 @@
     <input class="btn btn-primary" type="submit" name="finalise_trip" value="Finalise trip">
 
     {% endif %}
+
+
+        {% if route.fin_set %}
+<form class = 'form-inline' action="{% url 'webload_route' route.id %}" method="post">
+        {% csrf_token %}
+
+
+        <div class="form-group">
+
+            <input type="hidden"  name="route_to_load_id" value={{route.pk}}>
+
+        </div>
+    <input class="btn btn-primary" type="submit" name="unfinalise_trip" value="Unfinalise trip">
+
+    {% endif %}
+
+
+
           {% ifnotequal route.thepassenger.all.count 0 %}
 
           <form  class="form-inline" action="{% url 'webload_route' route.id %}" method="post">

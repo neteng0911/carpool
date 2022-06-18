@@ -338,6 +338,20 @@ def profile(request, user_id):
                                                          'user_routes_count': user_routes_count,'message_cl':message_cl
                                                          ,'user_passenger_list':user_passenger_list, 'user_passenger_count':user_passenger_count})
 
+
+    if request.method == "POST" and "unfinalise_trip" in request.POST:
+        route_to_load_id = request.POST.get("route_to_load_id")
+
+        route_to_load = Route.objects.get(pk=route_to_load_id)
+        route_to_load.fin_set=False
+        message_cl="Trip open again"
+        #print(message_cl)
+
+        route_to_load.save()
+        return render(request, "Capstone/profile.html", {"targ_user": targ_user, "count": page.count, "page": page,
+                                                         'user_routes_count': user_routes_count,'message_cl':message_cl
+                                                         ,'user_passenger_list':user_passenger_list, 'user_passenger_count':user_passenger_count})
+
     else:
 
         return render(request, "Capstone/profile.html", {"targ_user": targ_user, "count": page.count, "page": page,
