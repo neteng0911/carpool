@@ -4,9 +4,9 @@
 {% load qr_code %}
 
 {% ifnotequal request.user targ_user %}
-<div class="container-xxl">
-    <div class ='row'>
-        <div class="col-sm">
+<div class="container-fluid">
+
+        <div class="col-lg-12">
     <h2 class="text-warning">You are viewing user: {{targ_user.username}}</h2>
 <div class= "prof1"><strong> <i class="fas fa-envelope mr-3"></i>  {{targ_user.email}}</strong>
     <p></p>
@@ -29,14 +29,14 @@
 
 
 {% endifnotequal %}
-
+        </div>
 
 
 
 {% ifequal request.user targ_user %}
-<div class="container-xxl">
-    <div class ='row'>
-        <div class="col-sm">
+
+
+        <div class="col-lg-12">
  <!--<h2 class="text-warning">You are currenty logged in as :{{user.username}}</h2>-->
 <div class= "prof1"><strong> <i class="fas fa-envelope mr-3"></i>  {{user.email}}</strong>
     <p><strong> You are member since {{user.date_joined}}</strong></p>
