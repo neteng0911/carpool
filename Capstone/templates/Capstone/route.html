@@ -53,7 +53,11 @@
         {% if route.passengers.all.count != 0 %}
     <p id="likes" style= "color:grey; font-size:12px;mix-blend-mode: multiply;"><img src="{% static  'Capstone/images/seat.jpg' %}" alt="seat image">
         <span><strong id="thepassengercounter_{{route.id}}">{{ route.thepassenger.all.count }}</strong></span>/<span id = 'max_pass_{{route.id}}'>{{ route.no_pass }}
+       Passengers on this Trip:
 
+        {% for a in route.thepassenger.all %}
+        <strong> <a href="{% url 'profile' a.id %}" >  {{ a.username }}</a></strong>
+        {% endfor %}
         {% else %}
     <p id="likes" style= "color:grey; font-size:12px;mix-blend-mode: multiply;"><img src="{% static  'Capstone/images/seat.jpg' %}" alt="seat image">
         <span><strong id="thepassengercounter_{{route.id}}">0</strong></span>

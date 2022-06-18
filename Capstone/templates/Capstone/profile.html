@@ -24,13 +24,20 @@
 <strong> {{targ_user.username}} is member since {{ targ_user.date_joined }}</strong>
     <p>Total Trips as a driver:<strong>{{user_routes_count}}</strong></p></div>
 
-
+        </div>
+    </div>
+</div>
 
 
 
 
 {% endifnotequal %}
 
+
+
+<div class="container-xxl">
+    <div class ='row'>
+        <div class="col-sm">
 {% ifequal request.user targ_user %}
  <!--<h2 class="text-warning">You are currenty logged in as :{{user.username}}</h2>-->
 <div class= "prof1"><strong> <i class="fas fa-envelope mr-3"></i>  {{user.email}}</strong>
@@ -101,16 +108,23 @@
     <h6> Expected cost per passenger <strong id="costpp_{{route.id}}">{{user_route.costpp}}$</strong></h6>
 
     {% if user_route.fin or user_route.fin_set or user_route.fin_p  %}
+                {% ifequal request.user user_route.the_driver %}
                 {% for qr in user_route.qrcodes.all %}
-                    {% if qr.passenger in user_route.thepassenger.all  %}
+
 
 
               <p>  {% qr_from_text qr.code size="2" image_format="png" error_correction="L" %}   <a href="{% url 'profile' qr.passenger.id %}" >  {{ qr.passenger.username }}</a></p>
-                {% endif %}
                 {% endfor %}
+                {% endifequal %}
 
+    {% if request.user in user_route.thepassenger.all  %}
+                {% qr_from_text mycode size="2" image_format="png" error_correction="L" %}
 
     {% endif %}
+    {% endif %}
+
+
+
 
 
      <p>   <img class = 'img-fluid' src="{{ user_route.map_pic }}" alt="map"></p>
