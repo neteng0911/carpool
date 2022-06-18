@@ -41,9 +41,10 @@
 
 
                         {% endif %}
+
                         {% ifequal  request.user route.thedriver %}
-                            {% for qr in route.qrcodes.all %}
-<p>  {% qr_from_text qr.code size="2" image_format="png" error_correction="L" %}  <a href="{% url 'profile' qr.passenger.id %}" >  {{ qr.passenger.username }}</a></p>
+                            {% for qr in codearr %}
+<p>  {% qr_from_text qr size="2" image_format="png" error_correction="L" %}  <a href="{% url 'profile' qr.passenger.id %}" >  {{ qr.passenger.username }}</a></p>
                             {% endfor %}
                         {% endifequal %}
           {% endif %}

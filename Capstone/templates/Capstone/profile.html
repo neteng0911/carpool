@@ -107,13 +107,13 @@
         <p hidden id="cost_{{route.id}}"><h6>Initial cost per passenger {{user_route.cost}} $</h6>
     <h6> Expected cost per passenger <strong id="costpp_{{route.id}}">{{user_route.costpp}}$</strong></h6>
 
-    {% if user_route.fin or user_route.fin_set or user_route.fin_p  %}
+   <!-- {% if user_route.fin or user_route.fin_set or user_route.fin_p  %}
                 {% ifequal request.user user_route.the_driver %}
                 {% for qr in user_route.qrcodes.all %}
 
 
 
-              <p>  {% qr_from_text qr.code size="2" image_format="png" error_correction="L" %}   <a href="{% url 'profile' qr.passenger.id %}" >  {{ qr.passenger.username }}</a></p>
+              <p>  {% qr_from_text mycode size="2" image_format="png" error_correction="L" %}   <a href="{% url 'profile' qr.passenger.id %}" >  {{ qr.passenger.username }}</a></p>
                 {% endfor %}
                 {% endifequal %}
 
@@ -123,7 +123,7 @@
     {% endif %}
     {% endif %}
 
-
+-->
 
 
 
@@ -179,7 +179,7 @@
     </form>
         {% endifnotequal %}
 
-    {% ifequal user user_route.thedriver %}
+   <!-- {% ifequal user user_route.thedriver %}
 
     {% if not user_route.fin and not user_route.fin_set and not user_route.fin_p   %}
 <form class = 'form-inline' action="{% url 'profile' targ_user.id %}" method="post">
@@ -221,7 +221,7 @@
 
 
     </form>
-
+-->
     </div>
 
 

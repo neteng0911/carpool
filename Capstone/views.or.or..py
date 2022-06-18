@@ -550,34 +550,30 @@ def webload_route(request, route_id):
         route = Route.objects.get(pk=route_id)
     except Route.DoesNotExist:
         return JsonResponse({"error": "trip not found."}, status=404)
-
     passengers = route.thepassenger.all()
-    mycodes = route.qrcodes.all()
-    codearr=[]
-
-
-    for q in mycodes:
-        #print(str(q.code) + " passenger name: " + str(q.passenger.username) + ' Trip code:' + str(route.keynum))
-        mycode = str(q.code) + " passenger name: " + str(q.passenger.username) + ' Trip code:' + str(route.keynum)
-        codearr.append(mycode)
-        print(mycode)
-
-    mycodes = route.qrcodes.all()
-    # print(mycodes)
-    for my in mycodes:
-        mycode = my.code
     # reply comments
+    if request.method == "GET":
 
-        return render(request, "Capstone/route.html", {"route": route, 'passengers': passengers, 'mycode': mycode})
+        if passenger == request.user:
+            trip = Route.objects.get(pk=route_id)
+            #codes = trip.qrcodes.all()
 
+            myqr = trip.qrcodes.get(passenger= request.user)
+            mycode = myqr.code
+            #print(myqr)
+            return render(request, "Capstone/route.html", {"route": route, 'passengers': passengers, 'mycode': mycode})
+        else:
+            trip = Route.objects.get(pk=route_id)
 
-
-
-
-
-
-
-
+            mycodes=trip.qrcodes.all()
+            #print(mycodes)
+            for pas in passengers:
+                for my in mycodes:
+                    mycode = str(str(my.code)+' Trip No '+str(route.id)+''+my.passenger.username)
+                    print (pas)
+                    return render(request, "Capstone/route.html",
+                              {"route": route, 'passengers': passengers, 'mycode': mycode})
+                #print(my.code)
 
 
 
@@ -641,7 +637,7 @@ def webload_route(request, route_id):
 
 
     else:
-        return render(request, "Capstone/route.html", {"route": route, 'passengers':passengers,'codearr':codearr})
+        return render(request, "Capstone/route.html", {"route": route, 'passengers':passengers})
 # load trips that are not Closed either by date or by user or by not available seats
 @login_required
 def find_valid_trips(request):
