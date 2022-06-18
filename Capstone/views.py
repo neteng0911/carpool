@@ -559,6 +559,17 @@ def webload_route(request, route_id):
 
                 return render(request, "Capstone/route.html", {"route": route, 'passengers':passengers,'mycode':mycode})
 
+    if request.method == "POST" and "finalise_trip" in request.POST:
+        route_to_load_id = request.POST.get("route_to_load_id")
+
+        route_to_load = Route.objects.get(pk=route_to_load_id)
+        route_to_load.fin_set = True
+        message_cl = "Passenger list completed"
+        # print(message_cl)
+
+        route_to_load.save()
+        return render(request, "Capstone/route.html", {"route": route, 'passengers':passengers})
+
     comments = Comment.objects.order_by('-created_date')
 
 
