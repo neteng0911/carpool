@@ -122,7 +122,24 @@
                 leave_route(route_id);
                 est_cost(route_id);
 
-                }}}
+                }}
+
+                else {
+
+                element.style.color = "#B22222";
+                element.style.border = "1px solid #B22222";
+                element.title="Leave";
+                element.innerHTML="Leave";
+                document.querySelector(`#thepassengercounter_${route_id}`).innerHTML++;
+                
+
+                alert("Congrats you just saved "+(co2.toFixed(2))+' kg of CO2 by Carpooling')
+                join_route(route_id);
+                est_cost(route_id);
+
+                }
+
+                }
       else if (no_pass == max_pass){
 
         if (fin === 'False'){
