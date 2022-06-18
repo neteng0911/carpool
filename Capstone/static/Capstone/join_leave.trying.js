@@ -13,13 +13,37 @@
 
 
         // checking if current passengers >= max passengers so changing Join btn to Closed
-/*        document.querySelectorAll('.joinleave').forEach((element) => {
-            var route_id = element.dataset.id;
+       document.querySelectorAll('.joinleave').forEach((element) => {
+       var route_id = element.dataset.id;
+
+        element.onclick = () => {
+            fetch(`/route/${route_id}`)
+
+                .then(response => response.json())
+                .then(route => {
+
+                if (route.error) {
+                    console.log(route.error);
+                    alert(route.error)
+
+
             var no_pass= parseFloat(document.querySelector(`#thepassengercounter_${route_id}`).innerHTML);
             var max_pass = parseFloat(document.querySelector(`#max_pass_${route_id}`).innerHTML);
 
-            if (no_pass == max_pass){
-                if (element.innerHTML="Join"){
+            var dist = route["dist"];
+            var key_num = route["key_num"];
+            var co2=dist*2.40*2;
+            var fin = document.querySelector(`#fin_${route_id}`).innerHTML;
+            var diff_p = max_pass-no_pass
+            console.log('pasengers<max passengers')
+            console.log(route_id);
+            console.log('max passengers  ', max_pass);
+            console.log('current passengers ', no_pass);
+            console.log('is date or time passed? ', fin);
+            console.log('diff pass ', diff_p);
+            console.log(element.title);
+/*            if (no_pass == max_pass){
+                if (element.innerHTML=="Join"){
 
 
                 element.style.color = "#B22222";
@@ -33,10 +57,18 @@
                 element.title="Leave";
                 element.innerHTML="Leave";
             }
-            }
+            join_route(route_id)
+
+            console.log(route_id);
+            console.log('max passengers  ', max_pass);
+            console.log('current passengers ', no_pass);
+            console.log('is date or time passed? ', fin);
+            console.log('diff pass ', diff_p);
+            console.log(element.title);
+            }*/
 
         }
-        )*/
+
 
 
 //  so as to not reload the page after joining or leaving a trip. It updates the innerHTML instantly
@@ -44,39 +76,11 @@
 
 
 
-       document.querySelectorAll('.joinleave').forEach((element) => {
-            element.onclick = () => {
+            //var no_pass= parseFloat(document.querySelector(`#thepassengercounter_${route_id}`).innerHTML);
+            //var max_pass = parseFloat(document.querySelector(`#max_pass_${route_id}`).innerHTML);
 
 
 
-            var route_id = element.dataset.id;
-
-            fetch(`/route/${route_id}`)
-
-                .then(response => response.json())
-                .then(route => {
-
-                if (route.error) {
-                    console.log(route.error);
-                    alert(route.error)
-
-        }
-
-
-            var no_pass= parseFloat(document.querySelector(`#thepassengercounter_${route_id}`).innerHTML);
-            var max_pass = route["no_pass"];
-            var dist = route["dist"];
-            var key_num = route["key_num"];
-            var co2=dist*2.40*2;
-            var fin = document.querySelector(`#fin_${route_id}`).innerHTML;
-            var diff_p = max_pass-no_pass
-
-
-            //console.log(route_id);
-            console.log('max passengers  ', max_pass);
-            console.log('current passengers ', no_pass);
-            console.log('is date or time passed? ', fin);
-            console.log('diff pass ', diff_p);
 
 
             //console.log(dist)
@@ -85,11 +89,24 @@
 
 // checking if current passengers >= max passengers so not allowing joinining but only leaving
        if (no_pass < max_pass){
-
+            console.log('pasengers<max passengers')
+            console.log(route_id);
+            console.log('max passengers  ', max_pass);
+            console.log('current passengers ', no_pass);
+            console.log('is date or time passed? ', fin);
+            console.log('diff pass ', diff_p);
+            console.log(element.title);
 
               if (diff_p==1){
 
 
+
+            console.log(route_id);
+            console.log('max passengers  ', max_pass);
+            console.log('current passengers ', no_pass);
+            console.log('is date or time passed? ', fin);
+            console.log('diff pass ', diff_p);
+            console.log(element.title);
                     if(element.title == "Join")
             {
 
@@ -100,14 +117,18 @@
                 element.innerHTML="Leave";
                 document.querySelector(`#thepassengercounter_${route_id}`).innerHTML++;
                 document.querySelector(`#closedjs_${route_id}`).style.display='block';
-
-                alert("Congrats you just saved "+(co2.toFixed(2))+' kg of CO2 by Carpooling')
                 join_route(route_id);
                 est_cost(route_id);
 
 
-        }
 
+
+        }
+        else{
+
+                 join_route(route_id);
+                est_cost(route_id);}
+}
 
 
             else if (element.title == "Leave"){
@@ -122,9 +143,15 @@
                 leave_route(route_id);
                 est_cost(route_id);
 
-                }}}
+                }}
       else if (no_pass == max_pass){
-
+            console.log('pasengers=max passengers')
+            console.log(route_id);
+            console.log('max passengers  ', max_pass);
+            console.log('current passengers ', no_pass);
+            console.log('is date or time passed? ', fin);
+            console.log('diff pass ', diff_p);
+            console.log(element.title);
         if (fin === 'False'){
 
         if (element.title == "Leave"){
@@ -192,43 +219,18 @@
 
 
 
-        })
+        })}
 
-    }})});
-
-   /* function sort(){
-    //alert('sorting')
-    document.querySelectorAll('.media').forEach((element) => {
-
-    var route_id = element.dataset.id;
-    var fin = element.dataset.fin;
-    var fin_set = element.dataset.fin_set;
-    console.log(route_id, 'style', document.querySelector(".media").style.display);
-    console.log(route_id, 'fin', fin);
-     console.log(route_id, 'fin_set', fin_set);
-
-
-
-
-
-
-       if (fin == 'True' || fin_set=="True") {document.querySelector('.media').style.display='none';
-
-       }
-       else{document.querySelector('.media').style.display='block';
-
-       }
-})}
-*/
-
- function join_route(route_id)
+    })
+    function join_route(route_id)
 {
     fetch(`/join/route/${route_id}`, {
         method: "POST"
     })
     .then(response => response.json())
     .then(data => console.log(data))
-
+    //alert("Congrats you just saved "+(co2.toFixed(2))+' kg of CO2 by Carpooling')
+alert('Congrats you just saved kg of CO2 by Carpooling');
 
 }
 
@@ -286,6 +288,12 @@ fetch(`/route/${route_id}`)
 
 
     }
+    });
+
+
+
+
+
 
 
 

@@ -77,7 +77,7 @@
             console.log('current passengers ', no_pass);
             console.log('is date or time passed? ', fin);
             console.log('diff pass ', diff_p);
-            alert('presssed')
+
 
             //console.log(dist)
             //console.log(key_num)
