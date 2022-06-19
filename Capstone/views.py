@@ -555,31 +555,18 @@ def webload_route(request, route_id):
     mycodes = route.qrcodes.all()
     codearr=[]
 
+    try:
+        myqr = route.qrcodes.get(passenger=request.user)
+        passcode = 'Your code: '+str(myqr.code)+' Trip code:' + str(route.keynum)
+    except Qrcode.DoesNotExist:
+        passcode=''
+
 
     for q in mycodes:
         #print(str(q.code) + " passenger name: " + str(q.passenger.username) + ' Trip code:' + str(route.keynum))
-        mycode = str(q.code) + " passenger name: " + str(q.passenger.username) + ' Trip code:' + str(route.keynum)
+        mycode = str(q.code) + " passenger name: " + str(q.passenger.username) + ' Trip code: ' + str(route.keynum)
         codearr.append(mycode)
-        print(mycode)
-
-    mycodes = route.qrcodes.all()
-    # print(mycodes)
-    for my in mycodes:
-        mycode = my.code
-    # reply comments
-
-        return render(request, "Capstone/route.html", {"route": route, 'passengers': passengers, 'mycode': mycode})
-
-
-
-
-
-
-
-
-
-
-
+        #print(mycode)
 
     if request.method == "POST" and "finalise_trip" in request.POST:
         route_to_load_id = request.POST.get("route_to_load_id")
@@ -641,7 +628,7 @@ def webload_route(request, route_id):
 
 
     else:
-        return render(request, "Capstone/route.html", {"route": route, 'passengers':passengers,'codearr':codearr})
+        return render(request, "Capstone/route.html", {"route": route, 'passengers':passengers,'codearr':codearr,'passenger':passenger,'passcode':passcode})
 # load trips that are not Closed either by date or by user or by not available seats
 @login_required
 def find_valid_trips(request):

@@ -37,18 +37,30 @@
           {% if route.fin or route.fin_set or route.fin_p  %}
 
                         {% if request.user in route.thepassenger.all  %}
-                {% qr_from_text mycode size="2" image_format="png" error_correction="L" %}
+                {% qr_from_text passcode size="2" image_format="png" error_correction="L" %}
 
-
+ {% endif %}
                         {% endif %}
 
-                        {% ifequal  request.user route.thedriver %}
-                            {% for qr in codearr %}
-<p>  {% qr_from_text qr size="2" image_format="png" error_correction="L" %}  <a href="{% url 'profile' qr.passenger.id %}" >  {{ qr.passenger.username }}</a></p>
-                            {% endfor %}
-                        {% endifequal %}
-          {% endif %}
 
+
+
+            {% ifequal  request.user route.thedriver %}
+                    {% for i in codearr  %}
+          {% qr_from_text i size="2" image_format="png" error_correction="L" %}
+                        {% endfor %}
+          <P></P>
+                {% for a in route.thepassenger.all %}
+
+
+
+          <a href="{% url 'profile' a.id %}" >  {{ a.username }}</a>
+
+
+          {% endfor %}
+
+
+{% endifequal %}
 
 
         {% if route.passengers.all.count != 0 %}
