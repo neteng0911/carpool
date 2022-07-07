@@ -16,18 +16,21 @@ left: 30%;
 background-color: #ccccb3;
 font-size: 14px;
 min-height: 10px;
-width: 30%;
+width: 42.5%;
 padding: 5px;
-margin-bottom:2px;
+margin-top: 5px;
+margin-bottom: 2px;
 position: relative;
 overflow: visible;
-left: 25%;
-overflow: visible;
+left: 5%;
+
 
 }
 
 .prof
-{border: 5px solid #90bbbb;
+{
+
+border: 5px solid #90bbbb;
 background-color: #eff5f5;
 font-size: 14px;
 min-height: 10px;
