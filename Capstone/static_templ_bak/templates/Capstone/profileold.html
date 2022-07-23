@@ -1,0 +1,266 @@
+{% extends "Capstone/layout.html" %}
+{% load static %}
+{% block body %}
+{% load qr_code %}
+
+{% ifnotequal request.user targ_user %}
+<div class="container-fluid">
+
+        <div class="col-lg-12">
+    <h2 class="text-warning">You are viewing user: {{targ_user.username}}</h2>
+<div class= "prof1"><strong> <i class="fas fa-envelope mr-3"></i>  {{targ_user.email}}</strong>
+    <p></p>
+
+    <div  class="img-responsive thumbnail inline"><img src="{{targ_user.profile_pic.url}}" alt="img" width="79" height="88">
+{% if targ.user.about %}
+          <i class="fas fa-quote-left fa-xs text-warning me-2" ></i>
+          <span class="font-italic" style="background-color: #f2efcb;">{{targ_user.about}}<i class="fas fa-quote-right fa-xs text-warning me-2"></i></span>
+  </div>
+    {% else %}
+    {% endif %}
+
+
+<p></p>
+<strong> {{targ_user.username}} is member since {{ targ_user.date_joined }}</strong>
+    <p>Total Trips as a driver:<strong>{{user_routes_count}}</strong></p></div>
+
+
+
+
+
+{% endifnotequal %}
+        </div>
+
+
+
+{% ifequal request.user targ_user %}
+
+
+        <div class="col-lg-12">
+ <!--<h2 class="text-warning">You are currenty logged in as :{{user.username}}</h2>-->
+<div class= "prof1"><strong> <i class="fas fa-envelope mr-3"></i>  {{user.email}}</strong>
+    <p><strong> You are member since {{user.date_joined}}</strong></p>
+    <div  class="img-responsive thumbnail inline" ><img src="{{request.user.profile_pic.url}}" alt="img" width="79" height="88">
+        {% if request.user.about %}
+          <i class="fas fa-quote-left fa-xs text-warning me-2" ></i>
+                                <span class="font-italic" style="background-color: #f2efcb;">{{targ_user.about}}<i class="fas fa-quote-right fa-xs text-warning me-2"></i></span>
+  </div>
+
+    {% else %}
+    {% endif %}
+
+    {% for message in user_messages %}
+    <ul>
+    <li><strong class="text-danger" >{{ message.content }} <a href="{% url 'webload_route' message.route_id %}" >
+        {{message.route_id}} </a></strong> <div style="color:blue; font-size:9px;">on {{message.created_date}}</div> </li></ul>
+
+
+    {% endfor %}
+
+    <p> You are a passenger of {{user_passenger_count}}  trips</p>{% for route in user_passenger_list %}
+
+
+
+            <strong> <a href="{% url 'webload_route' route.id %}" > {{route.id}} </a></strong>
+
+
+{% endfor %}
+
+
+
+
+<p>Total Trips as a driver:<strong>{{user_routes_count}}</strong></p>
+
+
+          <form action="{% url 'edit_profile' request.user.id %}" method="post">
+        {% csrf_token %}
+            <input class="btn btn-success" type="button"  name="edit_profile"
+                   value="Edit Your Profile"  onclick="location.href='{% url 'edit_profile' request.user.id %}'"  />
+
+          </form>
+
+    {% endifequal %}
+
+
+
+<!-- profile area  end-->
+<!-- trip area  start-->
+
+
+</div>
+        </div>
+    </div>
+
+
+    <div class="col-sm">
+        {% for user_route in  page.object_list %}
+        <div class="prof" style="top:0px">
+            <div class="col-md-auto mx-3 pr-5 shadow-lg "><h5><strong><a href ="{% url 'webload_route' user_route.pk %}" >Trip No {{user_route.pk}}
+            </a> </strong></h5>{% if user_route.fin or user_route.fin_set or user_route.fin_p  %}  <h5 style='color:red;'> 'Trip Closed'</h5>{% endif %}
+                  <h5 class='closedjs' id = 'closedjs_{user_{route.id}}' style='color:red;'> 'Trip Closed'</h5>
+            <p id="fin_{{user_route.id}}" hidden>{{user_route.fin}}</p>
+
+
+    <p> <h6>From</h6> {{user_route.departure}} <h6>To</h6> {{user_route.destination}} </p>
+    <p> <h6>Leaving on</h6> {{user_route.date_orig}}</p>
+    <p> <h6>Leaving at</h6>  {{user_route.time_orig}} <h6>and returning on</h6> {{user_route.date_ret}}<h6>and returning at</h6> {{user_route.time_dep}}</p>
+        <p hidden id="cost_{{route.id}}"><h6>Initial cost per passenger {{user_route.cost}} $</h6>
+    <h6> Expected cost per passenger <strong id="costpp_{{route.id}}">{{user_route.costpp}}$</strong></h6>
+
+   <!-- {% if user_route.fin or user_route.fin_set or user_route.fin_p  %}
+                {% ifequal request.user user_route.the_driver %}
+                {% for qr in user_route.qrcodes.all %}
+
+
+
+              <p>  {% qr_from_text mycode size="2" image_format="png" error_correction="L" %}   <a href="{% url 'profile' qr.passenger.id %}" >  {{ qr.passenger.username }}</a></p>
+                {% endfor %}
+                {% endifequal %}
+
+    {% if request.user in user_route.thepassenger.all  %}
+                {% qr_from_text mycode size="2" image_format="png" error_correction="L" %}
+
+    {% endif %}
+    {% endif %}
+
+-->
+
+
+
+     <p>   <img class = 'img-fluid' src="{{ user_route.map_pic }}" alt="map"></p>
+</div>
+
+
+    <p style= "color:grey; font-size:12px;"> <strong><a href="{% url 'profile' targ_user.id %}" > {{targ_user.username}} </strong></a> created on: {{user_route.created_date}} </p>
+
+        {% if user_route.thepassenger.all.count != 0 %}
+    <!--<p id="likes" style= "color:grey; font-size:12px;mix-blend-mode: multiply;"><img src="{% static  'Capstone/images/seat.jpg' %}" alt="seat image">-->
+            <i class="fa-thin fa-chair"></i>
+        <span><strong id="thepassengercounter_{{user_route.id}}">{{ user_route.thepassenger.all.count }}</strong></span>/{{ user_route.no_pass }}
+       Passengers on this Trip:
+
+        {% for a in user_route.thepassenger.all %}
+        <strong> <a href="{% url 'profile' a.id %}" >  {{ a.username }}</a></strong>
+        {% endfor %}
+
+
+
+
+
+
+    {% else %}
+
+    <!--<p id="likes" style= "color:grey; font-size:12px;mix-blend-mode: multiply;"><img src="{% static  'Capstone/images/seat.jpg' %}" alt="seat image">-->
+            <i class="fa-thin fa-chair"></i>
+        <span><strong id="thepassengercounter_{{user_route.id}}">0</strong></span> Passengers on this trip
+
+
+        {% endif %}
+<form action="{% url 'profile' targ_user.id %}" method="post">
+        {% csrf_token %}
+
+
+        <div class="form-group">
+            <input class="form-control"  style="margin-top:30px" type="text" name="comm_txt" placeholder="insert your comment">
+            <input type="hidden"  name="route_id" value={{user_route.pk}}>
+
+        </div>
+    <input class="btn btn-primary" type="submit" name="route_reply" value="Post">
+        {% ifnotequal targ_user user_route.thedriver %}
+                <div class="likes">
+                        {% if request.user in user_route.thepassenger.all %}
+
+                        <span id="leavebtn" class="joinleave" data-id="{{user_route.id}}" onclick="return false" title="Leave" >Leave</span>
+                        {% else %}
+                        <span id="joinbtn" class="joinleave" data-id="{{user_route.id}}" onclick="return false"  title="Join">Join</span>
+                        {% endif %}
+
+                </div>
+    </form>
+        {% endifnotequal %}
+
+   <!-- {% ifequal user user_route.thedriver %}
+
+    {% if not user_route.fin and not user_route.fin_set and not user_route.fin_p   %}
+<form class = 'form-inline' action="{% url 'profile' targ_user.id %}" method="post">
+        {% csrf_token %}
+
+
+        <div class="form-group">
+
+            <input type="hidden"  name="route_to_load_id" value={{user_route.pk}}>
+
+        </div>
+    <input class="btn btn-primary" type="submit" name="finalise_trip" value="Finalise trip">
+
+    {% endif %}
+    {% if user_route.fin_set %}
+<form class = 'form-inline' action="{% url 'profile' targ_user.id %}" method="post">
+        {% csrf_token %}
+
+
+        <div class="form-group">
+
+            <input type="hidden"  name="route_to_load_id" value={{user_route.pk}}>
+
+        </div>
+    <input class="btn btn-primary" type="submit" name="unfinalise_trip" value="Unfinalise trip">
+
+    {% endif %}
+
+     <input class="btn btn-success" type="button"  name="load_route" value="Edit Trip" onclick="location.href='{% url 'edit_route' user_route.pk %}'"  />
+     <input type="hidden"  name="route_to_load_id" value={{user_route.pk}}>
+        {% ifnotequal user_route.thepassenger.all.count 0 %}
+     <input class="btn btn-danger" type="button"   value="Remove passenger" onclick="location.href='{% url 'webload_route' user_route.pk %}'"  />
+     <input type="hidden"  name="route_to_load_id" value={{user_route.pk}}>
+
+        {%endifnotequal %}
+
+    {%endifequal %}
+
+
+
+    </form>
+-->
+    </div>
+
+
+
+       {% for rep in user_route.comments.all %}
+ <ul>
+
+
+
+        <div class="comms" ><p style= "color:blue; font-size:10px;"><a href="{% url 'profile' rep.owner_id %}">{{rep.owner}}</a>
+            replied on {{rep.created_date}}</p> <strong>{{rep}} </strong> </div>
+</ul>
+        {% endfor %}
+
+
+
+
+
+{% endfor %}
+<h2 class="page"> Page: {{ page.number }}</h2>
+        <div class="page-links">
+
+            {% if page.has_previous %}
+            <a href="{% url 'profile' targ_user.id %}?page={{page.previous_page_number }}">Previous</a>
+
+            {% endif %}
+            {% if page.has_next %}
+            <a href="{% url 'profile' targ_user.id %}?page={{page.next_page_number }}">Next</a>
+            {% endif %}
+
+        </div>
+
+    </div>
+
+
+
+{% block script %}
+    <script src="{% static 'Capstone/join_leave.js' %}"></script>
+
+{% endblock script %}
+
+{% endblock %}

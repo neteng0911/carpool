@@ -1,0 +1,61 @@
+
+{% extends "Capstone/layout.html" %}
+{% load static %}
+{% block body %}
+
+<div class="container mt-3" >
+
+  <div class="d-flex p-1 bg-secondary text-white flex-grow">
+    <div class="bg-info col-sm-3 mx-5 pr-5 shadow-lg ">
+      <div class=form-group">
+
+<form id="addresses">
+<div>
+<label for="input start">Departure Address</label>
+  <input type="text" class="form-control" id="dep">
+
+</div>
+<div>
+  <label for="input finish">Destination Address</label>
+  <input type="text" class="form-control" id="dest">
+
+<p>
+
+    <input id ="sear" class="btn-info" type="button" value="Search"></p>
+
+
+
+</div>
+
+</form>
+          <div class="succ" > {{  msg }} </div>
+      </div>
+    </div>
+
+
+    <div class="bg-info col-sm-3 mx-5 pr-5 shadow-lg" id="sub_route">
+      <form class='validity' action="{% url 'driver' %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p}}
+
+
+
+          <p>
+    <input id ="subbtn" type="submit" value="Submit"></p>
+    </form>
+
+    </div>
+    <div class="img-fluid" id="map_pl"><img id="map"  src='#' onerror="this.style.display='none'"></div>
+
+  </div>
+</div>
+
+<div class="mt-4 p-2 bg-dark text-white text-center">
+  <p>Footer</p>
+</div>
+
+{% block script %}
+    <script src="{% static 'Capstone/map7.js' %}"></script>
+
+{% endblock script %}
+{% endblock %}

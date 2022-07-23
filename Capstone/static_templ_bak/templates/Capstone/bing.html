@@ -1,0 +1,54 @@
+{% extends "Capstone/layout.html" %}
+{% load static %}
+{% block body %}
+
+
+<div class="container">
+<div class="row">
+  <div class="col-md-6">
+     <div class="col-md-12 bg-secondary">
+<span id="subbtn" class="btn btn-primary"  onclick="return false" title="SUBMIT" >SUBMIT</span>
+     </div>
+  </div>
+  <div class="col-md-6">
+     <div class="col-md-12 bg-secondary">
+
+<form id="adresses">
+<div>
+<label for="input start">Departure Address</label>
+  <input type="text" class="form-control" id="dep">
+
+</div>
+<div>
+  <label for="input finish">Destination Address</label>
+  <input type="text" class="form-control" id="dest">
+
+<p>
+
+    <input id ="sear" class="btn-info" type="button" value="Search"></p>
+</p>
+
+     </div>
+  </div>
+</div>
+
+<!--Seattle,WA;64;-->
+
+   <div class="col-md-6">
+     <div class="col-md-12 bg-secondary">
+
+         <div> <img id="map" src='#'>
+     </div>
+     </div>
+  </div>
+
+<div class="mt-5 p-4 bg-dark text-white text-center">
+  <p>Footer</p>
+</div>
+
+{% block script %}
+    <script src="{% static 'Capstone/map3.js' %}"></script>
+
+
+{% endblock script %}
+{% endblock %}

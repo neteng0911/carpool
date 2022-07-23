@@ -1,0 +1,355 @@
+
+        {% load qr_code %}
+
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>{% block title %}CarPooling{% endblock %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link href="{% static 'Capstone/styles.css' %}" rel="stylesheet">
+                <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js" integrity="sha384-SlE991lGASHoBfWbelyBPLsUlwY1GwNDJo3jSJO04KZ33K2bwfV9YBauFfnzvynJ" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="style.css">
+    </head>
+
+<style type="text/css">az
+   body { background: black !important; } /* Adding !important forces the browser to overwrite the default style applied by Bootstrap */
+</style>
+
+    <body>
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-dark sticky-top">
+            <a class="navbar-brand text-warning" href="{% url 'index' %}">CarPooling</a>
+
+            <div>
+              <ul class="navbar-nav mr-auto ">
+                {% if user.is_authenticated %}
+                    <li class="nav-item"></li>
+
+
+                {% endif %}
+
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link text-warning" href="{% url 'profile' user.id %}">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-warning" href="{% url 'logout' %}">Log Out</a>
+                    </li>
+                    <li class="nav-item">
+                        <b class="nav-link text-warning" >Hello {{user}}</b>
+                    </li>
+                  <li class="nav-item">
+                        <a  class="text-warning" style='position:absolute; right:100px;' href="{% url 'valid_trips' %}" ><strong> Show Valid Trips </strong></a>
+                  </li>
+                  <form class="d-flex" method="POST" action="{% url 'passenger' %}">
+                    {% csrf_token %}
+                  <input class = 'form-control-sm' type="search" style='position:absolute; right:320px' name="searched" placeholder="Search..">
+                  <button class="btn btn-outline-secondary" style='position:absolute; right:230px' type="Submit">Search</button>
+
+                  </form>
+                {% else %}
+
+                    <li class="nav-item">
+                        <a class="nav-link text-warning" href="{% url 'login' %}">Log In</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-warning" href="{% url 'register' %}">Register</a>
+                    </li>
+
+                {% endif %}
+              </ul>
+            </div>
+          </nav>
+
+        <div class="body">
+            {% block body %}
+
+            {% endblock %}
+        </div>
+
+    </body>
+</html>
+
+
+
+
+
+
+
+
+<p class="text-warning">Total Trips:<strong>{{routes_count}}</strong></p>
+
+  <!-- trip start-->
+{% for ro in  page.object_list %}
+
+
+<div class="container-xxl">
+
+
+  <div class="media-body">
+      <div class="prof">
+    <h5 class="bg-info col-md-auto mx-1 pr-5 shadow-lg "></h5>
+          <div class="container-fluid" data-fin="{{ro.fin}}" data-fin_set="{{ro.fin_set}}" data-fin_p="{{ro.fin_p}}">
+        <h5> <strong><a href="{% url 'webload_route' ro.id %}" > Trip No:{{ro.id}} </a></strong> </h5>
+             {% if ro.fin or ro.fin_set or ro.fin_p %} <h5 id='closed_{{ro.id}}' style='color:red;'> 'Trip Closed'</h5>{% endif %}
+
+          <h5 class='closedjs' id = 'closedjs_{{ro.id}}' style='color:red;'> 'Trip Closed'</h5><p id="fin_{{ro.id}}" hidden>{{ro.fin}}</p>
+    <h6> From </h6> {{ro.departure}}
+    <h6> To </h6> {{ro.destination}}
+    <h6> Leaving On </h6> {{ro.date_orig}}
+    <h6> Leaving at </h6> {{ro.time_orig}}
+    <h6> Returning on</h6> {{ro.date_ret}}
+    <h6> Returning at </h6> {{ro.time_dep}}
+    <h6> Distance </h6> {{ro.dist}}Km
+
+
+    <h6> The Driver is </h6>   <a href="{% url 'profile' ro.thedriver.id %}" ><strong> {{ro.thedriver}} </strong></a>
+    <p hidden id="cost_{{ro.id}}"><h6>Initial cost per passenger {{ro.cost}} $</h6>
+    <h6> Expected cost per passenger <strong id="costpp_{{ro.id}}">{{ro.costpp}}$</strong></h6>
+         {% if ro.d_a %}
+          <h6> Disabled access <i class="fa fa-wheelchair" aria-hidden="true"></i>
+</h6>
+          {% endif %}
+          <img  class="img-fluid" src="{{ ro.map_pic }}" alt="map_img">
+      </div>
+
+<!--{% if user.is_authenticated %}
+                              {% if ro.fin or ro.fin_set  %}
+
+                        {% if request.user in ro.thepassenger.all %}
+                 <p>  {% qr_from_text qr.code size="2" image_format="png" error_correction="L" %}   {{qr.passenger}}</p>
+
+
+                        {% endif %}
+                    {% endif %}
+
+                    NO NEED FOR EVERYONE TO KNOW WHO IS ON THE TRIP
+                    -->
+
+
+        {% if ro.passengers.all.count != 0 %}
+    <p id="likes" style= "color:grey; font-size:12px;mix-blend-mode: multiply;"><img src="{% static  'Capstone/images/seat.jpg' %}" alt="seat image">
+        <span><strong id="thepassengercounter_{{ro.id}}">{{ ro.thepassenger.all.count }}</strong></span>/<span id = 'max_pass_{{ro.id}}'>{{ ro.no_pass }}</span>
+
+        {% else %}
+    <p id="likes" style= "color:grey; font-size:12px;mix-blend-mode: multiply;"><img src="{% static  'Capstone/images/seat.jpg' %}" alt="seat image">
+        <span><strong id="thepassengercounter_{{ro.id}}">0</strong></span>
+
+       {% endif %}
+<form action="{% url 'passenger' %}" method="post">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <input class="form-control"  style="margin-top:30px" type="text" name="comm_txt" placeholder="Insert your comment">
+            <input type="hidden"  name="route_id" value={{ro.id}}>
+
+        </div>
+    <input class="btn btn-primary"  id='post_btn' type="submit" name="route_reply" value="Post">
+
+                  {% ifnotequal request.user ro.thedriver %}
+
+                <div class="likes">
+                {% if not ro.fin %}
+                        {% if request.user in ro.thepassenger.all %}
+
+                        <span id="leavebtn" class="joinleave" data-id="{{ro.id}}" onclick="return false" title="Leave" >Leave</span>
+
+                    {% else %}
+                    {% if not ro.fin_set and not ro.fin  %}
+
+                        <span id="joinbtn" class="joinleave" data-id="{{ro.id}}" onclick="return false"  title="Join">Join</span>
+            {% endif%}
+            {% endif %}
+                    {% endif %}
+                </div>
+
+</form>
+
+
+
+        {% endifnotequal %}
+        {% ifequal request.user ro.thedriver %}
+          <form action="{% url 'edit_route' ro.pk %}" method="post">
+        {% csrf_token %}
+            <input class="btn btn-success" type="button"  name="load_route" value="Edit Trip"  onclick="location.href='{% url 'edit_route' ro.pk %}'"  />
+            <input type="hidden"  name="route_to_load_id" value={{ro.pk}}>
+          </form>
+        {%endifequal %}
+  </div>
+</div>
+</div>
+        {% for rep in ro.comments.all %}
+ <ul>
+
+
+
+        <div class="comms" ><p style= "color:blue; font-size:10px;"><a href="{% url 'profile' rep.owner_id %}">{{rep.owner}}</a>
+            replied on {{rep.created_date}}</p> <strong>{{rep}} </strong> </div>
+</ul>
+        {% endfor %}
+{% endif %}
+{% endfor %}
+
+<h2 class="page"> Page: {{ page.number }}</h2>
+        <div class="page-links">
+
+            {% if page.has_previous %}
+            <a href="{% url 'passenger' %}?page={{page.previous_page_number }}">Previous</a>
+
+            {% endif %}
+            {% if page.has_next %}
+            <a href="{% url 'passenger' %}?page={{page.next_page_number }}">Next</a>
+            {% endif %}
+
+        </div>
+
+
+
+
+<!-- Remove the container if you want to extend the Footer to full width. -->
+
+  <!-- Footer -->
+  <footer
+          class="text-center text-lg-start text-white"
+          style="height: 140px; background-color: #3e4551; position:flexible; bottom:0px; width:100%; font-size:10px;"
+          >
+    <!-- Grid container -->
+    <div class="container p-1 pb-0">
+      <!-- Section: Links -->
+      <section class="">
+        <!--Grid row-->
+        <div class="row">
+          <!-- Grid column -->
+          <div class="col-md-2 col-lg-3 col-sm-3 mx-auto mt-1">
+            <h6 class="text-uppercase mb-4 font-weight-bold">
+              Company name
+            </h6>
+            <p>
+              Here you can use rows and columns to organize your footer
+              content. Lorem ipsum dolor sit amet, consectetur adipisicing
+              elit.
+            </p>
+          </div>
+          <!-- Grid column -->
+
+          <hr class="w-100 clearfix d-md-none" />
+
+          <!-- Grid column -->
+          <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-1">
+            <h6 class="text-uppercase mb-4 font-weight-bold">Products</h6>
+            <p>
+              <a class="text-white">MDBootstrap</a>
+            </p>
+            <p>
+              <a class="text-white">MDWordPress</a>
+            </p>
+
+
+          </div>
+          <!-- Grid column -->
+
+          <hr class="w-100 clearfix d-md-none" />
+
+          <!-- Grid column -->
+          <hr class="w-100 clearfix d-md-none" />
+
+          <!-- Grid column -->
+          <div class="col-md-4 col-lg-3 col-sm-3 mx-auto mt-1">
+            <h6 class="text-uppercase mb-4 font-weight-bold">Contact</h6>
+            <p><i class="fas fa-home mr-3"></i> New York, NY 10012, US</p>
+            <p><i class="fas fa-envelope mr-3"></i> info@gmail.com</p>
+            <!--<p><i class="fas fa-phone mr-3"></i> + 01 234 567 88</p>-->
+
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-1">
+            <h6 class="text-uppercase mb-4 font-weight-bold">Follow us</h6>
+
+            <!-- Facebook -->
+            <a
+               class="btn btn-primary btn-floating m-1"
+               style="background-color: #3b5998"
+               href="#!"
+               role="button"
+               ><i class="fab fa-facebook-f"></i
+              ></a>
+
+            <!-- Twitter -->
+            <a
+               class="btn btn-primary btn-floating m-1"
+               style="background-color: #55acee"
+               href="#!"
+               role="button"
+               ><i class="fab fa-twitter"></i
+              ></a>
+
+            <!-- Google -->
+            <a
+               class="btn btn-primary btn-floating m-1"
+               style="background-color: #dd4b39"
+               href="#!"
+               role="button"
+               ><i class="fab fa-google"></i
+              ></a>
+
+            <!-- Instagram -->
+            <a
+               class="btn btn-primary btn-floating m-1"
+               style="background-color: #ac2bac"
+               href="#!"
+               role="button"
+               ><i class="fab fa-instagram"></i
+              ></a>
+
+            <!-- Linkedin -->
+            <a
+               class="btn btn-primary btn-floating m-1"
+               style="background-color: #0082ca"
+               href="#!"
+               role="button"
+               ><i class="fab fa-linkedin-in"></i
+              ></a>
+            <!-- Github
+            <a
+               class="btn btn-primary btn-floating m-1"
+               style="background-color: #333333"
+               href="#!"
+               role="button"
+               ><i class="fab fa-github"></i
+              ></a>-->
+          </div>
+        </div>
+        <!--Grid row-->
+      </section>
+      <!-- Section: Links -->
+    </div>
+    <!-- Grid container -->
+
+    <!-- Copyright -->
+    <div
+         class="text-center p-1"
+         style="background-color: rgba(0, 0, 0, 0.2)"
+         >
+      © 2020 Copyright:
+      <a class="text-white" href="https://mdbootstrap.com/"
+         >MDBootstrap.com</a
+        >
+    </div>
+    <!-- Copyright -->
+  </footer>
+  <!-- Footer -->
+
+<!-- End of .container -->
+
+
+
+{% block script %}
+    <script src="{% static 'Capstone/join_leave.js' %}"></script>
+
+{% endblock script %}

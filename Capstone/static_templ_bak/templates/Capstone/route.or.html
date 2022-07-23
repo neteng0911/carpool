@@ -1,0 +1,140 @@
+{% extends "Capstone/layout.html" %}
+{% load static %}
+{% block body %}
+{% load qr_code %}
+
+
+
+
+<div class="container-xxl">
+
+  <div class="media-body">
+      <div class="prof">
+    <h5 class="bg-info col-md-auto mx-1 pr-5 shadow-lg "></h5>
+          <div><h5>Trip No {{route.pk}} </h5>{% if route.fin or route.fin_set or route.fin_p  %}  <h5 style='color:red;'> 'Trip Closed'</h5>{% endif %}
+
+    <h6> From </h6> {{route.departure}}
+    <h6> To </h6> {{route.destination}}
+    <h6> On </h6> {{route.date_orig.date}}
+    <h6> Leaving at </h6> {{route.time_orig}}
+    <h6> Returning at </h6> {{route.time_dep}}
+
+    <h6> The Driver is </h6>   <a href="{% url 'profile' route.thedriver.id %}" ><strong> {{route.thedriver}} </strong></a>
+    <p hidden id="cost_{{route.id}}"><h6>Initial cost per passenger {{route.cost}} $</h6>
+    <h6> Expected cost per passenger <strong id="costpp_{{route.id}}">{{route.costpp}}$</strong></h6>
+              <p></p>
+              <img class="img-fluid" src="{{ route.map_pic }}" alt="map_img">
+</div>
+{% if user.is_authenticated %}
+          {% if route.fin or route.fin_set  %}
+
+                        {% if request.user in route.thepassenger.all  %}
+                {% qr_from_text mycode size="2" image_format="png" error_correction="L" %}
+
+
+                        {% endif %}
+                        {% ifequal  request.user route.thedriver %}
+                            {% for qr in route.qrcodes.all %}
+<p>  {% qr_from_text qr.code size="2" image_format="png" error_correction="L" %}  <a href="{% url 'profile' qr.passenger.id %}" >  {{ qr.passenger.username }}</a></p>
+                            {% endfor %}
+                        {% endifequal %}
+          {% endif %}
+
+
+
+        {% if route.passengers.all.count != 0 %}
+    <p id="likes" style= "color:grey; font-size:12px;mix-blend-mode: multiply;"><img src="{% static  'Capstone/images/seat.jpg' %}" alt="seat image">
+        <span><strong id="thepassengercounter_{{route.id}}">{{ route.thepassenger.all.count }}</strong></span>/<span id = 'max_pass_{{route.id}}'>{{ route.no_pass }}
+                 Passengers on this Trip:
+
+        {% for a in route.thepassenger.all %}
+        <strong> <a href="{% url 'profile' a.id %}" >  {{ a.username }}</a></strong>
+        {% endfor %}
+        {% else %}
+    <p id="likes" style= "color:grey; font-size:12px;mix-blend-mode: multiply;"><img src="{% static  'Capstone/images/seat.jpg' %}" alt="seat image">
+        <span><strong id="thepassengercounter_{{route.id}}">0</strong></span>
+        {% endif %}
+
+<form action="{% url 'webload_route' route.id %}" method="post">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <input class="form-control" autofocus style="margin-top:30px" type="text" name="comm_txt" placeholder="Insert your comment">
+            <input type="hidden"  name="route_id" value={{route.id}}>
+
+        </div>
+    <input class="btn btn-primary"  id='post_btn' type="submit" name="route_reply" value="Post">
+
+                  {% ifnotequal request.user route.thedriver %}
+          {% if not route.fin and not route.fin_set  %}
+                <div class="likes">
+                        {% if request.user in route.thepassenger.all %}
+
+
+                        <span id="leavebtn" class="joinleave" data-id="{{route.id}}" onclick="return false" title="Leave" >Leave</span>
+                        {% else %}
+                        <span id="joinbtn" class="joinleave" data-id="{{route.id}}" onclick="return false"  title="Join">Join</span>
+                    {% endif %}
+                        {% endif %}
+                </div>
+</form>
+
+
+
+        {% endifnotequal %}
+
+{% ifequal request.user route.thedriver %}
+          {% ifnotequal route.thepassenger.all.count 0 %}
+
+          <form  class="form-inline" action="{% url 'webload_route' route.id %}" method="post">
+    {% csrf_token %}
+    <select name="passenger" id="">
+        {% for passenger in passengers %}
+            <option id = 'pass' value="{{ passenger.id }}">{{ passenger }}</option>
+        {% endfor %}
+    </select>
+    <input class="btn btn-danger" type="submit" name = 'remove' value="remove" onclick = 'remove()'>
+                <script >
+              function remove(){
+
+              alert('Passenger removed from trip')
+              }
+
+
+
+                </script>
+ {% endifnotequal %}
+
+{% endifequal %}
+
+        {% ifequal request.user route.thedriver %}
+            <input class="btn btn-success" id = 'remove' type="button"  name="load_route" value="Edit Trip"  onclick="location.href='{% url 'edit_route' route.pk %}'"  />
+            <input type="hidden"  name="route_to_load_id" value={{route.pk}}>
+        {%endifequal %}
+  </div>
+</div>
+</div>
+</form>
+        {% for rep in route.comments.all %}
+ <ul>
+
+
+
+        <div class="comms" ><p style= "color:blue; font-size:10px;"><a href="{% url 'profile' rep.owner_id %}">{{rep.owner}}</a>
+            replied on {{rep.created_date}}</p> <strong>{{rep}} </strong> </div>
+</ul>
+        {% endfor %}
+{% endif %}
+
+
+
+
+{% block script %}
+    <script src="{% static 'Capstone/join_leave.js' %}"></script>
+
+{% endblock script %}
+
+
+
+
+{% endblock %}
