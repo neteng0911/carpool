@@ -131,13 +131,17 @@
     </style>
 
 
+
+<body>
 {% extends "Capstone/layout.html" %}
 {% load static %}
 {% block body %}
 {% load qr_code %}
 
 {% ifnotequal request.user targ_user %}
-<body>
+<div class="container-fluid">
+
+        <div class="col-lg-12">
 <h2 class="text-warning">You are viewing user: {{targ_user.username}}</h2>
 <div class= "prof1"><strong> <i class="fas fa-envelope mr-3"></i>  {{targ_user.email}}</strong>
     <p></p>
