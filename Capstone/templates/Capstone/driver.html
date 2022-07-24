@@ -35,8 +35,8 @@ img#map {
 </style>
 <div class="container mt-3" >
 
-  <div class="d-flex p-1 bg-secondary text-white flex-grow">
-    <div class="bg-info col-sm-4 mx-5 pr-5 shadow-lg ">
+  <div class="w-75 d-flex p-1 bg-secondary text-white flex-grow" >
+    <div class="bg-info col-sm-6 p-1 mr-1 shadow-lg "  >
       <div class=form-group">
 
 <form id="addresses">
@@ -58,12 +58,17 @@ img#map {
 </div>
 
 </form>
+<div >
+              <div class="img-fluid height:100%; width:100%;" id="map_pl"><img id="map"  src='#' onerror="this.style.display='none'"></div>
+
+  </div>
+
           <div class="succ" > {{  msg }} </div>
       </div>
     </div>
 
 
-    <div class="bg-info col-sm-4 mx-5 pr-5 shadow-lg" id="sub_route">
+    <div class="bg-info col-sm-6 p-1 shadow-lg" id="sub_route">
       <form class='validity' action="{% url 'driver' %}" method="post">
     {% csrf_token %}
     {{ form.as_p}}
@@ -75,11 +80,9 @@ img#map {
     </form>
 
     </div>
-    <div class="img-fluid" id="map_pl"><img id="map"  src='#' onerror="this.style.display='none'"></div>
 
-  </div>
 </div>
-
+</div>
 
 
 {% block script %}

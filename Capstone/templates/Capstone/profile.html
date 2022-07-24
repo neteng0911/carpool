@@ -221,9 +221,9 @@
         </div>
     </div>
 
-
+{% for user_route in  page.object_list %}
     <div class="col-sm">
-        {% for user_route in  page.object_list %}
+
         <div class="prof" style="top:0px">
             <div class="col-md-auto mx-3 pr-5 shadow-lg "><h5><strong><a href ="{% url 'webload_route' user_route.pk %}" >Trip No {{user_route.pk}}
             </a> </strong></h5>{% if user_route.fin or user_route.fin_set or user_route.fin_p  %}  <h5 style='color:red;'> 'Trip Closed'</h5>{% endif %}
@@ -292,7 +292,7 @@
 
         <div class="form-group">
             <input class="form-control"  style="margin-top:30px" type="text" name="comm_txt" placeholder="insert your comment">
-            <input type="hidden"  name="route_id" value={{user_route.pk}}>
+            <input type="hidden"  name="route_id" value={{user_route.id}}>
 
         </div>
     <input class="btn btn-primary" type="submit" name="route_reply" value="Post">
@@ -352,9 +352,8 @@
 
     </form>
 -->
+
     </div>
-
-
 
        {% for rep in user_route.comments.all %}
  <ul>
@@ -366,11 +365,10 @@
 </ul>
         {% endfor %}
 
-    </div>
-
-
-
 {% endfor %}
+
+
+    </div>
 <h2 class="page"> Page: {{ page.number }}</h2>
         <div class="page-links">
 
