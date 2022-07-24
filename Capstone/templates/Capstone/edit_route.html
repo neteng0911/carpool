@@ -2,10 +2,43 @@
 {% load static %}
 
 {% block body %}
+<style>
+.bg-info.col-sm-6.mx-1.pr-5.shadow-lg  > div{
+    padding:10px!important;
+}
+ .container-fluid.mt-1 {
+    display: block;
+    width: 85%!important;
+}
+.d-flex.p-1.bg-secondary.text-white.flex-grow {
+    padding: 2em!important;
+}
+div#row1-col3 {
+    margin: 0!important;
+    padding: 0!important;
+}
+div#row1-col3 > div{
+    width:99%!important;
+}
+.bg-info.col-sm-4.mx-1.pr-5.shadow-lg {
+    max-width: 98%!important;
+}
+ @media only screen and (max-width: 768px) {
+
+.bg-info.col-sm-6.mx-1.pr-5.shadow-lg {
+    max-width: 95%!important;
+}
+.d-flex.p-1.bg-secondary.text-white.flex-grow {
+    padding: 2em!important;
+    flex-direction: column;
+    width: 100%!important;
+    }
+}
+</style>
 <h3 class = 'text-warning'> {{ user }}, Here you can edit Trip no {{route.id}}</h3>
 <div class="container-fluid mt-1" >
-    <div class="d-flex p-1 bg-secondary text-white flex-grow">
-        <div class="bg-info col-md-3 mx-1 pr-5 shadow-lg ">
+    <div class="d-flex p-1 bg-secondary text-white flex-grow" id="row1-col1">
+        <div class="bg-info col-sm-4 mx-1 pr-5 shadow-lg ">
 
 
             <div  style="position:left;color:black; font-size:17px;">From: <strong>{{route.departure}}</strong>
@@ -17,7 +50,7 @@
 
 
 
-    <p  class="img-fluid"  id="map_to_load"><img style="height:300px; width:300px;" src="{{route.map_pic}}" onerror="this.style.display='none'"></p>
+    <p  class="img-fluid"  id="map_to_load"><img style="height:100%; width:100%;" src="{{route.map_pic}}" onerror="this.style.display='none'"></p>
 
 
 
@@ -37,7 +70,7 @@
      <input type="hidden"  name="route_id" value={{route.pk}}>
  </form>
         </div>
-         <div class="bg-info col-sm-3 mx-1 pr-5 shadow-lg ">
+        <div class="bg-info col-sm-4 mx-1 pr-5 shadow-lg ">
       <div class=form-group">
 
 
@@ -54,26 +87,13 @@
     <p> <input id ="sear" class="btn-info" type="button" value="Search"></p>
 
 </form>
+    <div class="img-fluid" id="map_pl"><img style="height:100%; width:100%;" id="map"  src='#' onerror="this.style.display='none'"></div>
 
-
-
+  </div>
 </div>
-
-</div>
-
-
-
-
-      </div>
-
-
-
-  <div class="d-flex p-1 bg-secondary text-white flex-grow">
-
-
-
-
-    <div class="bg-info col-md-3 mx-1 pr-5 shadow-lg" id="sub_route">
+    </div>
+<div class="d-flex p-1 bg-secondary text-white flex-grow" id="row1-col3">
+    <div class="bg-info col-sm-12 mx-1 pr-5 shadow-lg" id="sub_route">
       <form class='validity' action="{% url 'edit_route' route.pk %}" method="post">
     {% csrf_token %}
           {{ form.as_p }}
@@ -102,13 +122,12 @@ console.log(al);
 </script>-->
 
     </div>
-    <div class="img-fluid" id="map_pl"><img style="height:400px; width:400px;" id="map"  src='#' onerror="this.style.display='none'"></div>
 
-  </div>
 </div>
 
-
-
+      </div>
+</div>
+</div>
 {% block script %}
     <script src="{% static 'Capstone/edit_route.js' %}"></script>
 

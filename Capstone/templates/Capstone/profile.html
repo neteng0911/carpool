@@ -16,7 +16,7 @@
 
 </head>
 <style>
-    /* .bg-dark {
+     .bg-dark {
         background-color: #343a40 !important;
         padding: 10px 15px;
     }
@@ -105,7 +105,27 @@
         position: relative;
         display: inline-block;
         left: 40%;
-    } */
+    }
+     @media only screen and (max-width: 992px) {
+    .prof,.comms,.prof1{
+        width:50%!important;
+    }
+}
+@media only screen and (max-width: 768px) {
+    .prof,.prof1{
+        width:100%!important;
+        left: 0;
+    }
+    .comms{
+        width: 94%!important;
+        left: 0;
+        margin: -1px;
+    }
+    .col-sm {
+    left: -24%!important;
+    margin: 0!important;
+}
+}
     </style>
 <body>
     {% extends "Capstone/layout.html" %}
@@ -346,7 +366,7 @@
 </ul>
         {% endfor %}
 
-
+    </div>
 
 
 
