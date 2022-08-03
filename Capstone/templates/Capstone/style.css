@@ -1,3 +1,4 @@
+
 /*    Index.html   */
 .bg-dark {
     background-color: #343a40 !important;
@@ -810,4 +811,148 @@ a.btn.btn-primary.btn-floating.m-1 {
         width: 94% !important;
         margin: 15px;
     }
+}
+
+/**** driver.html *****/
+
+    .bg-info.col-sm-5.mx-5.pr-5.shadow-lg {
+    margin: 15px auto!important;
+    padding: 10px 20px!important;
+
+}
+.bg-info.col-sm-4.mx-5.pr-5.shadow-lg{
+    margin: 10px!important;
+}
+.ml-5, .mx-5{
+    margin: 0!important;
+}
+img#map {
+    margin: 10px!important;
+    width: 95%!important;
+}
+@media only screen and (max-width: 768px) {
+.d-flex.p-1.bg-secondary.text-white.flex-grow {
+    flex-direction: column;
+    width:100%!important;
+}
+.bg-info.col-sm-5.mx-5.pr-5.shadow-lg {
+    margin: 15px auto!important;
+    padding: 10px 20px!important;
+    max-width: 85%!important;
+}
+.bg-info.col-sm-4.mx-5.pr-5.shadow-lg {
+    max-width: 95%!important;
+}
+}
+
+/***** profile.html ******/
+ .bg-dark {
+        background-color: #343a40 !important;
+        padding: 10px 15px;
+    }
+
+    body {
+        background-color: black;
+        color: #212529;
+    }
+
+    .prof1 {
+        border: 5px solid #90bbbb;
+        background-color: #eff5f5;
+        font-size: 14px;
+        min-height: 10px;
+        width: 25%;
+        padding: 5px;
+        margin-bottom: 20px;
+        position: relative;
+        overflow: visible;
+        left: 0;
+    }
+
+    .svg-inline--fa.fa-w-16 {
+        width: 1em;
+    }
+
+    .prof {
+        border: 5px solid #90bbbb;
+        background-color: #eff5f5;
+        font-size: 14px;
+        min-height: 10px;
+        width: 30%;
+        padding: 5px;
+        margin-bottom: 20px;
+        position: relative;
+        overflow: visible;
+        left: 25%;
+    }
+
+    dl,
+    ol,
+    ul {
+        margin-top: 0;
+        margin-bottom: 1rem;
+    }
+
+    .comms {
+        border: 3px solid #adad85;
+        background-color: #ccccb3;
+        font-size: 14px;
+        min-height: 10px;
+        width: 30%;
+        padding: 5px;
+        margin-bottom: 2px;
+        position: relative;
+        overflow: visible;
+        left: 25%;
+        overflow: visible;
+    }
+
+    .mx-3 {
+        margin-right: 0rem !important;
+        margin-left: 0rem !important;
+    }
+
+    .page {
+        border: 3px solid grey;
+        background-color: lightgrey;
+        font-size: 14px;
+        min-height: 20px;
+        max-width: 60px;
+        padding: 2px;
+        margin-bottom: 10px;
+        position: relative;
+        left: 40%;
+    }
+
+    .page-links {
+        border: 3px solid grey;
+        background-color: black;
+        font-size: 14px;
+        min-height: 20px;
+        min-width: 30px;
+        padding: 2px;
+        margin-bottom: 10px;
+        position: relative;
+        display: inline-block;
+        left: 40%;
+    }
+     @media only screen and (max-width: 992px) {
+    .prof,.comms,.prof1{
+        width:50%!important;
+    }
+}
+@media only screen and (max-width: 768px) {
+    .prof,.prof1{
+        width:100%!important;
+        left: 0;
+    }
+    .comms{
+        width: 70%!important;
+        left: 0;
+        margin: -1px;
+    }
+    .col-sm {
+    left: -24%!important;
+    margin: 0!important;
+}
 }

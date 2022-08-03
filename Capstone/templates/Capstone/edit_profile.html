@@ -2,8 +2,9 @@
 {% extends "Capstone/layout.html" %}
 {% load static %}
 {% block body %}
+<style>
 
-
+</style>
 {% ifequal request.user targ_user %}
  <h3 class="text-warning">You are currenty logged in as :{{request.user.username}}</h3>
 <div class= "prof1"><strong> {{request.user.email}}</strong>
