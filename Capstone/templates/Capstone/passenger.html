@@ -15,41 +15,14 @@
     </head>
 
 <style type="text/css">
-   body { background: black !important; } /* Adding !important forces the browser to overwrite the default style applied by Bootstrap */
- /*  @media only screen and (max-width: 992px) {
-    .prof,.comms{
-        width:50%!important;
-    }
-}
-@media only screen and (max-width: 768px) {
-    .navbar{
-    padding: 0.5rem 1rem 4rem;
-}
-}
-@media only screen and (max-width: 600px) {
-    .navbar{
-    padding: 0.5rem 1rem 5rem;
-    }
-    li.nav-item > form {
-    position: relative;
-    left: 11em;
-}
-li.nav-item > a > strong {
-    position: relative;
-    top: 2.7em;
-    left: -3em;
-}
 
-    .prof{
-        width:100%!important;
-        left: 0;
-    }
-    .comms{
-        width: 94%!important;
-        left: 0;
-        margin: -1px;
-    }
-} */
+   body { background: black !important; } /* Adding !important forces the browser to overwrite the default style applied by Bootstrap */
+
+.prof{
+    display:block;
+    margin: auto;
+    left:0;
+}
 </style>
 
     <body>
@@ -76,13 +49,13 @@ li.nav-item > a > strong {
                         <b class="nav-link text-warning" >Hello {{user}}</b>
                     </li>
                   <li class="nav-item">
-                        <a  class="text-warning" style='position:absolute; right:100px;' href="{% url 'valid_trips' %}" ><strong> Show Valid Trips </strong></a>
+                        <a  class="text-warning show-valid-trips-text" style='' href="{% url 'valid_trips' %}" ><strong> Show Valid Trips </strong></a>
                   </li>
                   <li class="nav-item">
                   <form class="d-flex" method="POST" action="{% url 'passenger' %}">
                     {% csrf_token %}
-                  <input class = 'form-control-sm' type="search" style='position:absolute; right:320px' name="searched" placeholder="Search..">
-                  <button class="btn btn-outline-secondary" style='position:absolute; right:230px' type="Submit">Search</button>
+                  <input class = 'form-control-sm passenger-searchbar' type="search" style='' name="searched" placeholder="Search..">
+                  <button class="btn btn-outline-secondary passenger-searchbtn" style='' type="Submit">Search</button>
 
                   </form>
                   </li>

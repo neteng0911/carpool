@@ -261,3 +261,15 @@ display: inline-block;
     }
 }
 
+  @media screen and (min-width: 992px) {
+    .show-valid-trips-text{
+      position:absolute; right:100px;
+    }
+    .passenger-searchbar{
+      position: absolute;
+      right: 320px;
+    }
+    .passenger-searchbtn{
+      position:absolute; right:230px
+    }
+  }
