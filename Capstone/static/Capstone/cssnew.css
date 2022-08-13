@@ -1,3 +1,4 @@
+
 s.post
 {border: 3px solid grey;
 background-color: lightgrey;
@@ -71,8 +72,7 @@ position: relative;
 display: inline-block;
 
 }
-.page
-{border: 3px solid grey;
+d{border: 3px solid grey;
 background-color: lightgrey;
 font-size: 14px;
 min-height: 20px;
@@ -237,7 +237,7 @@ display: inline-block;
     }
 
     .col-sm {
-        left: -24% !important;
+/*      left: -24% !important;*/
         margin: 0 !important;
     }
 }
@@ -273,3 +273,7 @@ display: inline-block;
       position:absolute; right:230px
     }
   }
+
+  .body {
+    overflow-x: hidden!important;
+}
