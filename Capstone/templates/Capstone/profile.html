@@ -99,9 +99,12 @@
             </a> </strong></h5>{% if user_route.fin or user_route.fin_set or user_route.fin_p  %}  <h5 style='color:red;'> 'Trip Closed'</h5>{% endif %}
                   <h5 class='closedjs' id = 'closedjs_{user_{route.id}}' style='color:red;'> 'Trip Closed'</h5>
             <p id="fin_{{user_route.id}}" hidden>{{user_route.fin}}</p>
-    <p> <h6>From</h6> {{user_route.departure}} <h6>To</h6> {{user_route.destination}} </p>
-    <p> <h6>on</h6> {{user_route.date_orig.date}}</p>
-    <p> <h6>Leaving at</h6>  {{user_route.time_orig}} <h6>and returning at</h6> {{user_route.time_dep}}</p>
+    <h6>From</h6> {{user_route.departure}}
+    <h6>To</h6> {{user_route.destination}}
+    <h6>Leaving on</h6> {{user_route.date_orig}}
+    <h6>Leaving at</h6>  {{user_route.time_orig}}
+    <h6>Returning on</h6> {{user_route.date_ret}}
+    <h6>Returning at</h6> {{user_route.time_dep}}
         <p hidden id="cost_{{route.id}}"><h6>Initial cost per passenger {{user_route.cost}} $</h6>
     <h6> Expected cost per passenger <strong id="costpp_{{route.id}}">{{user_route.costpp}}$</strong></h6>
 

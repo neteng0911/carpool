@@ -15,9 +15,11 @@
 
     <h6> From </h6> {{route.departure}}
     <h6> To </h6> {{route.destination}}
-    <h6> On </h6> {{route.date_orig.date}}
+    <h6> Leaving on </h6> {{route.date_orig}}
     <h6> Leaving at </h6> {{route.time_orig}}
-    <h6> Returning at </h6> {{route.time_dep}}
+    <h6> Returning on</h6> {{route.date_ret}}</p>
+    <h6> Returning at</h6> {{route.time_dep}}</p>
+
 
     <h6> The Driver is </h6>   <a href="{% url 'profile' route.thedriver.id %}" ><strong> {{route.thedriver}} </strong></a>
     <p hidden id="cost_{{route.id}}"><h6>Initial cost per passenger {{route.cost}} $</h6>
