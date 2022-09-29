@@ -3,20 +3,18 @@
 <!DOCTYPE html>
 <head>
     <title>{% block title %}CarPooling{% endblock %}</title>
+    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js" integrity="sha384-SlE991lGASHoBfWbelyBPLsUlwY1GwNDJo3jSJO04KZ33K2bwfV9YBauFfnzvynJ" crossorigin="anonymous"></script>
-    <link href="{% static '/Capstone/cssnew.css' %}"  type="text/css" rel="stylesheet">
-
-
+    <link href="{% static '/Capstone/style.css' %}"  type="text/css" rel="stylesheet">
 </head>
 
 <style type="text/css">
-*{overflow-x: hidden!important;}
-   body { background: black !important; } /* Adding !important forces the browser to overwrite the default style applied by Bootstrap */
+    body { background: black !important; } /* Adding !important forces the browser to overwrite the default style applied by Bootstrap */
 </style>
 
-<body>
+<body">
 
 <nav class="navbar navbar-expand-lg navbar-light bg-dark sticky-top">
     <a class="navbar-brand text-warning" href="{% url 'index' %}">CarPooling</a>
@@ -54,7 +52,7 @@
 </nav>
 
 <div class="body"
-     style = "display:flex; flex-direction:column;overflow-x: hidden!important;">
+     style = "display:flex; flex-direction:column;">
     {% block body %}
 
     {% endblock %}
