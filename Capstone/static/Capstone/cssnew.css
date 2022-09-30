@@ -1,4 +1,12 @@
+body{
 
+position:relative;
+width:100% ;
+overflow-x: hidden;
+ -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+}
 s.post
 {border: 3px solid grey;
 background-color: lightgrey;
@@ -24,6 +32,7 @@ position: relative;
 overflow: visible;
 left: 25%;
 overflow: visible;
+top: 5px;
 
 }
 
@@ -84,7 +93,19 @@ position: relative;
 left: 40%;
 
 }
+.page
+{border: 3px solid grey;
+background-color: lightgrey;
+font-size: 14px;
+min-height: 20px;
+max-width: 60px;
+padding: 2px;
+margin-bottom:10px;
+position: relative;
 
+left: 40%;
+
+}
 .page-links
 {border: 3px solid grey;
 background-color: black;
@@ -274,6 +295,3 @@ display: inline-block;
     }
   }
 
-  .body {
-    overflow-x: hidden!important;
-}
