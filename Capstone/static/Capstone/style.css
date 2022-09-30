@@ -86,7 +86,8 @@ left: 40%;
 }
 
 .page-links
-{border: 3px solid grey;
+{
+#border: 3px solid grey;
 background-color: black;
 font-size: 14px;
 min-height: 20px;
