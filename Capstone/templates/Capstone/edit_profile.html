@@ -3,10 +3,7 @@
 {% load static %}
 {% block body %}
 <style>
-    footer{
-        position: absolute!important;
-        bottom: 0!important;
-      }
+
 </style>
 {% ifequal request.user targ_user %}
  <h3 class="text-warning">You are currenty logged in as :{{request.user.username}}</h3>
