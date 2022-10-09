@@ -5,17 +5,20 @@
 <style>
 
 </style>
-<h3 class = 'text-warning'> {{ user }}, Here you can edit Trip no {{route.id}}</h3>
+<h5 class = 'text-info'> {{ user }}, Here you can edit Trip no {{route.id}}</h5>
 <div class="container-fluid mt-1" >
     <div class="d-flex p-1 bg-secondary text-white flex-grow" id="row1-col1">
         <div class="bg-info col-sm-4 mx-1 pr-5 shadow-lg ">
 
 
-            <div  style="position:left;color:black; font-size:17px;">From: <strong>{{route.departure}}</strong>
-        <p>To: <strong>{{route.destination}}</strong></p>
+            <div  style="position:left;color:black; font-size:17px;">
+    <h6> From </h6> {{route.departure}}
+    <h6> To </h6> {{route.destination}}
+    <h6> Leaving on </h6> {{route.date_orig}} <b>at</b> {{route.time_orig}}
 
-                <p> On: <strong> {{route.date_orig.date}}</strong></p>
-                <p> Leaving at  <strong>{{route.time_orig}}</strong> and returning at <strong>{{route.time_dep}}</strong></p>
+    <h6> Returning on</h6> {{route.date_ret}} <b>at</b> {{route.time_dep}}
+
+
 
 
 

@@ -13,17 +13,17 @@
 </head>
 
 <style type="text/css">
-    body { background: black !important; } /* Adding !important forces the browser to overwrite the default style applied by Bootstrap */
+    body { background: #CEEAE0 !important; } /* Adding !important forces the browser to overwrite the default style applied by Bootstrap */
 </style>
 
 
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-dark sticky-top">
+<nav class="navbar navbar-expand-lg navbar-info bg-info sticky-top">
     <div class="container-fluid">
-        <a class="navbar-brand text-warning" href="{% url 'index' %}">CarPooling </a>
+        <a class="navbar-brand text-dark" href="{% url 'index' %}">CarPooling </a>
         <b class="nav-item">
             {% if user.is_authenticated %}
-            <b class="nav-link text-warning" >Hello {{user}}</b>
+            <b class="nav-link text-secondary" >Hello {{user}}</b>
          </b>
         {% endif %}
     <button class="navbar-toggler navbar-dark" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -37,10 +37,10 @@
 
             {% if user.is_authenticated %}
             <li class="nav-item">
-                <a class="nav-link text-warning" href="{% url 'profile' user.id %}">Profile</a>
+                <a class="nav-link text-dark" href="{% url 'profile' user.id %}">Profile</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-warning" href="{% url 'logout' %}">Log Out</a>
+                <a class="nav-link text-dark" href="{% url 'logout' %}">Log Out</a>
             </li>
 
 
