@@ -22,9 +22,8 @@
 
 </style>
 
-<body class="container-fluid">
-
-<nav class=" d-flex navbar navbar-expand-lg navbar-light bg-info sticky-top">
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-info sticky-top">
     <div class="container-fluid">
         <a class="navbar-brand text-dark" href="{% url 'index' %}">CarPooling </a>
         <b class="nav-item">
@@ -50,10 +49,8 @@
             <li>
                 <form class="d-flex" method="POST" action="{% url 'passenger' %}">
                     {% csrf_token %}
-            <input class = 'form-control-sm passenger-searchbar ' type="search" style='float:right;' name="searched" placeholder="Search..">
-            <button class="btn btn-outline-secondary passenger-searchbtn  " style='margin-left:1em;' type="Submit"><i class="fas fa-search"></i></button>
-
-
+            <input class = 'form-control-sm passenger-searchbar' type="search" style='' name="searched" placeholder="Search..">
+            <button class="btn btn-outline-secondary passenger-searchbtn" style='' type="Submit">Search</button>
 
                   </form>
             </li>
@@ -70,25 +67,30 @@
     </div>
 </nav>
 
+        <div class="body">
+            {% block body %}
+
+            {% endblock %}
+        </div>
+
+    </body>
 
 
 
 
 
 
-
-
-
+<div class="container-fluid">
 
 
 <p class="text-dark">Total Trips:<strong>{{routes_count}}</strong></p>
 
   <!-- trip start-->
-{% for ro in  page.object_list %}
+
   <div class="row">
 
-      <div class="col-md-auto mx-2">
-
+      <div class="col-md-auto mx-5">
+            {% for ro in  page.object_list %}
           <div class="prof">
 
 
@@ -120,7 +122,7 @@
                 <h6> Disabled access <i class="fa fa-wheelchair" aria-hidden="true"></i>
 </h6>
                     {% endif %}
-                    <img  class="img-fluid rounded mx-auto d-block border rounded border-warning border border-5" src="{{ ro.map_pic }}" alt="map_img">
+                    <img  class="img-fluid rounded mx-auto d-block border rounded" src="{{ ro.map_pic }}" alt="map_img">
 
 
 <!--{% if user.is_authenticated %}
@@ -196,19 +198,29 @@
 
 </div>
 
-  <!-- comments start-->
+</div>
 
+  <!-- comments start-->
+<div class="row">
+    <div class="col-md-auto mx-5">
 
                           {% for rep in ro.comments.all %}
 
-</div>
-        <ul class="comms mb-2 " ><p style= "color:blue; font-size:10px; margin-left:20px;"><a href="{% url 'profile' rep.owner_id %}">{{rep.owner}}</a>
+
+        <ul class="comms " ><p style= "color:blue; font-size:10px; margin-left:20px;"><a href="{% url 'profile' rep.owner_id %}">{{rep.owner}}</a>
             replied on {{rep.created_date}}</p> <strong>{{rep}} </strong> </ul>
 
         {% endfor %}
 
         {% endif %}
         {% endfor %}
+
+
+
+    </div>
+
+
+</div>
 
 
 
@@ -236,7 +248,7 @@
     </div>
     </div>
 
-    <div class="row">
+<div class="row">
 <!-- Remove the container if you want to extend the Footer to full width. -->
 
   <!-- Footer -->
@@ -381,5 +393,4 @@
 
 {% endblock script %}
 </div>
-
-</body>
+</div>

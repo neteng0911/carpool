@@ -23,7 +23,6 @@ margin-bottom:2px;
 position: relative;
 overflow: visible;
 
-overflow: visible;
 
 }
 
@@ -199,4 +198,9 @@ display: inline-block;
 
     opacity:0;
 }
+
+.trip_info h6{
+
+    display:inline;
+
 }

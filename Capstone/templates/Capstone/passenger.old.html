@@ -22,9 +22,8 @@
 
 </style>
 
-<body class="container-fluid">
-
-<nav class=" d-flex navbar navbar-expand-lg navbar-light bg-info sticky-top">
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-info sticky-top">
     <div class="container-fluid">
         <a class="navbar-brand text-dark" href="{% url 'index' %}">CarPooling </a>
         <b class="nav-item">
@@ -50,10 +49,8 @@
             <li>
                 <form class="d-flex" method="POST" action="{% url 'passenger' %}">
                     {% csrf_token %}
-            <input class = 'form-control-sm passenger-searchbar ' type="search" style='float:right;' name="searched" placeholder="Search..">
-            <button class="btn btn-outline-secondary passenger-searchbtn  " style='margin-left:1em;' type="Submit"><i class="fas fa-search"></i></button>
-
-
+            <input class = 'form-control-sm passenger-searchbar' type="search" style='' name="searched" placeholder="Search..">
+            <button class="btn btn-outline-secondary passenger-searchbtn" style='' type="Submit">Search</button>
 
                   </form>
             </li>
@@ -70,8 +67,13 @@
     </div>
 </nav>
 
+        <div class="body">
+            {% block body %}
 
+            {% endblock %}
+        </div>
 
+    </body>
 
 
 
@@ -85,22 +87,21 @@
 
   <!-- trip start-->
 {% for ro in  page.object_list %}
-  <div class="row">
-
-      <div class="col-md-auto mx-2">
-
-          <div class="prof">
 
 
-            <h5 class="bg-info col-md-auto pr-5 shadow-lg" data-fin="{{ro.fin}}" data-fin_set="{{ro.fin_set}}" data-fin_p="{{ro.fin_p}}"></h5>
+<div class="container-fluid">
 
 
-                <h5> <strong><a href="{% url 'webload_route' ro.id %}" > Trip No:{{ro.id}} </a></strong> </h5>
-                    {% if ro.fin or ro.fin_set or ro.fin_p %} <h5 id='closed_{{ro.id}}' style='color:red;'> 'Trip Closed'</h5>{% endif %}
+  <div class="media-body">
+      <div class="prof">
+    <h5 class="bg-info col-md-auto mx-1 pr-5 shadow-lg "></h5>
+          <div class="container-fluid" data-fin="{{ro.fin}}" data-fin_set="{{ro.fin_set}}" data-fin_p="{{ro.fin_p}}">
+        <h5> <strong><a href="{% url 'webload_route' ro.id %}" > Trip No:{{ro.id}} </a></strong> </h5>
+             {% if ro.fin or ro.fin_set or ro.fin_p %} <h5 id='closed_{{ro.id}}' style='color:red;'> 'Trip Closed'</h5>{% endif %}
 
-                <h5 class='closedjs' id = 'closedjs_{{ro.id}}' style='color:red;'> 'Trip Closed'</h5><p id="fin_{{ro.id}}" hidden>{{ro.fin}}</p>
+          <h5 class='closedjs' id = 'closedjs_{{ro.id}}' style='color:red;'> 'Trip Closed'</h5><p id="fin_{{ro.id}}" hidden>{{ro.fin}}</p>
 
-                    <div class="trip_info">
+        <div class="trip_info">
     <h6> From </h6> {{ro.departure}}
     <h6> To </h6> {{ro.destination}}
     <h6> Leaving on </h6> {{ro.date_orig}}
@@ -113,15 +114,15 @@
 
 
 
-                    <h6 style=display:inline;"> The Driver is </h6>   <a href="{% url 'profile' ro.thedriver.id %}" ><strong> {{ro.thedriver}} </strong></a>
-                    <p hidden id="cost_{{ro.id}}"><h6>Initial cost per passenger {{ro.cost}} $</h6>
-                <h6> Expected cost per passenger <strong id="costpp_{{ro.id}}">{{ro.costpp}}$</strong></h6>
-                        {% if ro.d_a %}
-                <h6> Disabled access <i class="fa fa-wheelchair" aria-hidden="true"></i>
+    <h6 style=display:inline;"> The Driver is </h6>   <a href="{% url 'profile' ro.thedriver.id %}" ><strong> {{ro.thedriver}} </strong></a>
+    <p hidden id="cost_{{ro.id}}"><h6>Initial cost per passenger {{ro.cost}} $</h6>
+    <h6> Expected cost per passenger <strong id="costpp_{{ro.id}}">{{ro.costpp}}$</strong></h6>
+         {% if ro.d_a %}
+          <h6> Disabled access <i class="fa fa-wheelchair" aria-hidden="true"></i>
 </h6>
-                    {% endif %}
-                    <img  class="img-fluid rounded mx-auto d-block border rounded border-warning border border-5" src="{{ ro.map_pic }}" alt="map_img">
-
+          {% endif %}
+          <img  class="img-fluid" src="{{ ro.map_pic }}" alt="map_img">
+      </div>
 
 <!--{% if user.is_authenticated %}
                               {% if ro.fin or ro.fin_set  %}
@@ -146,7 +147,7 @@
         <span><strong id="thepassengercounter_{{ro.id}}">0</strong></span>
 
        {% endif %}
-            <form action="{% url 'passenger' %}" method="post">
+<form action="{% url 'passenger' %}" method="post">
         {% csrf_token %}
 
         <div class="form-group">
@@ -168,57 +169,37 @@
                     {% if not ro.fin_set and not ro.fin  %}
 
                         <span id="joinbtn" class="joinleave" data-id="{{ro.id}}" onclick="return false"  title="Join">Join</span>
-
             {% endif%}
             {% endif %}
                     {% endif %}
-                    {% endifnotequal %}
+                </div>
+
+</form>
 
 
 
-                  {% ifequal request.user ro.thedriver %}
-            <form class="form-inline" action="{% url 'edit_route' ro.pk %}" method="post">
+        {% endifnotequal %}
+        {% ifequal request.user ro.thedriver %}
+          <form action="{% url 'edit_route' ro.pk %}" method="post">
         {% csrf_token %}
             <input class="btn btn-success" type="button"  name="load_route" value="Edit Trip"  onclick="location.href='{% url 'edit_route' ro.pk %}'"  />
             <input type="hidden"  name="route_to_load_id" value={{ro.pk}}>
-              {% endifequal %}
           </form>
-                </div>
-
-
-
-
-
-
-
-          </form>
-               </div>
-
+        {%endifequal %}
+  </div>
 </div>
-
-  <!-- comments start-->
-
-
-                          {% for rep in ro.comments.all %}
-
 </div>
-        <ul class="comms mb-2 " ><p style= "color:blue; font-size:10px; margin-left:20px;"><a href="{% url 'profile' rep.owner_id %}">{{rep.owner}}</a>
-            replied on {{rep.created_date}}</p> <strong>{{rep}} </strong> </ul>
+        {% for rep in ro.comments.all %}
+ <ul>
 
+
+
+        <div class="comms" ><p style= "color:blue; font-size:10px;"><a href="{% url 'profile' rep.owner_id %}">{{rep.owner}}</a>
+            replied on {{rep.created_date}}</p> <strong>{{rep}} </strong> </div>
+</ul>
         {% endfor %}
-
-        {% endif %}
-        {% endfor %}
-
-
-
-
-
-
-    <div class="row">
-
-
-    <div class="col">
+{% endif %}
+{% endfor %}
 
 <h2 class="page"> Page: {{ page.number }}</h2>
         <div class="page-links">
@@ -233,10 +214,9 @@
 
         </div>
 
-    </div>
-    </div>
 
-    <div class="row">
+
+
 <!-- Remove the container if you want to extend the Footer to full width. -->
 
   <!-- Footer -->
@@ -380,6 +360,3 @@
     <script src="{% static 'Capstone/join_leave.js' %}"></script>
 
 {% endblock script %}
-</div>
-
-</body>

@@ -121,7 +121,7 @@
                 {% endif %}
 
 
-                <p>   <img class = 'img-fluid rounded mx-auto d-block border rounded' src="{{ user_route.map_pic }}" alt="map"></p>
+                <p>   <img class = "img-fluid rounded mx-auto d-block border rounded border-warning border border-5" src="{{ user_route.map_pic }}" alt="map"></p>
 
 
                 <p style= "color:grey; font-size:12px;"> <strong><a href="{% url 'profile' targ_user.id %}" > {{targ_user.username}} </strong></a> wrote on: {{user_route.created_date}} </p>
@@ -217,10 +217,7 @@
         {% endfor %}
         {% endfor %}
         {% endfor %}
-    <div class="col-lg">
 
-
-    </div>
   </div>
 </div>
 
