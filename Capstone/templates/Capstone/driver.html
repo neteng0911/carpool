@@ -1,6 +1,6 @@
 
 {% extends "Capstone/layout.html" %}
-
+{% load i18n %}
 {% load static %}
 {% block body %}
 
@@ -41,7 +41,9 @@
 
     <div class="bg-info col-sm-6 p-1 shadow-lg" id="sub_route">
       <form class='validity' action="{% url 'driver' %}" method="post">
+
     {% csrf_token %}
+
     {{ form.as_p}}
 
 

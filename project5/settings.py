@@ -17,6 +17,8 @@ from pathlib import Path
 from dotenv import load_dotenv
 load_dotenv()
 
+from django.utils.translation import gettext_lazy as _
+
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -47,6 +49,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'qr_code',
+    'rosetta'
     #'cookie_consent'
 
 ]
@@ -54,6 +57,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -119,9 +123,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE ='gr' #'en-us'
 
-TIME_ZONE = 'Europe/Istanbul'
+TIME_ZONE = 'UTC' #'Europe/Istanbul'
 
 USE_I18N = True
 
@@ -160,6 +164,9 @@ EMAIL_HOST_PASSWORD = 'hsgiagloskialhak'
 EMAIL_PORT = 587
 
 EMAIL_FILE_PATH = BASE_DIR / "sent_emails"
+LOCALE_PATHS = [
+    os.path.join(BASE_DIR, 'locale')
+]
 
 django_heroku.settings(locals())
 
@@ -169,3 +176,8 @@ django_heroku.settings(locals())
 # COOKIE_CONSENT_LOG_ENABLED = True
 
 
+LANGUAGES = (
+    ('en', 'English'),
+    ('gr', 'Greek'),
+    ('fr', 'French')
+)

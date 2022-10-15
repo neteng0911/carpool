@@ -1,0 +1,79 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-10-15 15:11+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\Capstone\forms.py:23
+msgid "Departure"
+msgstr ""
+
+#: .\Capstone\forms.py:25
+msgid "Destination"
+msgstr ""
+
+#: .\Capstone\forms.py:27
+msgid "Date of departure"
+msgstr ""
+
+#: .\Capstone\forms.py:29 .\Capstone\forms.py:32
+msgid "Time of departure"
+msgstr ""
+
+#: .\Capstone\forms.py:31
+msgid "Date_of return"
+msgstr ""
+
+#: .\Capstone\forms.py:34
+msgid "cost"
+msgstr ""
+
+#: .\Capstone\forms.py:35
+msgid "Passengers"
+msgstr ""
+
+#: .\Capstone\forms.py:38
+msgid "Disabled access"
+msgstr ""
+
+#: .\Capstone\forms.py:38
+msgid "Check if at least one disabled passenger can join"
+msgstr ""
+
+#: .\Capstone\static_templ_bak\templates\cookie_consent\_cookie_group.html:12
+#: .\Capstone\templates\cookie_consent\_cookie_group.html:12
+msgid "Accepted"
+msgstr ""
+
+#: .\Capstone\static_templ_bak\templates\cookie_consent\_cookie_group.html:16
+#: .\Capstone\templates\cookie_consent\_cookie_group.html:16
+msgid "Accept"
+msgstr ""
+
+#: .\Capstone\static_templ_bak\templates\cookie_consent\_cookie_group.html:21
+#: .\Capstone\templates\cookie_consent\_cookie_group.html:21
+msgid "Declined"
+msgstr ""
+
+#: .\Capstone\static_templ_bak\templates\cookie_consent\_cookie_group.html:25
+#: .\Capstone\templates\cookie_consent\_cookie_group.html:25
+msgid "Decline"
+msgstr ""
+
+#: .\Capstone\templates\Capstone\layout.html:66
+msgid "Hello"
+msgstr ""
