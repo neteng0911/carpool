@@ -123,7 +123,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
-LANGUAGE_CODE ='gr' #'en-us'
+LANGUAGE_CODE ='el' #'en-us'
 
 TIME_ZONE = 'UTC' #'Europe/Istanbul'
 
@@ -178,6 +178,6 @@ django_heroku.settings(locals())
 
 LANGUAGES = (
     ('en', 'English'),
-    ('gr', 'Greek'),
+    ('el', 'Greek'),
     ('fr', 'French')
 )
