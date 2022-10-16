@@ -26,10 +26,10 @@ class RouteForm(forms.ModelForm):
         widget=forms.TextInput(attrs={'readonly':'readonly','class':'readonly'}))
     date_orig=forms.DateField(label=_('Date of departure'),widget=forms.DateInput(attrs={'type': 'date','min':date.today(),'format':['%y-%m-%d']}))
 
-    time_orig=forms.TimeField(widget=forms.TimeInput(attrs={'label':_('Time of departure'), 'type': 'time'}))
-    date_ret = forms.DateField(
-        widget=forms.DateInput(attrs={'label':_('Date_of return'),'type': 'date', 'min': date_orig, 'format': ['%y-%m-%d']}))
-    time_dep=forms.TimeField(widget=forms.TimeInput(attrs={'label':_('Time of departure'),'type': 'time','min':time_orig}))
+    time_orig=forms.TimeField(label=_('Time of departure'),widget=forms.TimeInput(attrs={ 'type': 'time'}))
+    date_ret = forms.DateField(label=_('Date_of return'),
+        widget=forms.DateInput(attrs={'type': 'date', 'min': date_orig, 'format': ['%y-%m-%d']}))
+    time_dep=forms.TimeField(label=_('Time of departure'),widget=forms.TimeInput(attrs={'type': 'time','min':time_orig}))
 
     cost=forms.FloatField(label=_('cost'),min_value=0.0,error_messages={'min_value': u'Cost cannot be less than 0.0'})
     no_pass = forms.IntegerField(min_value=1, label=_('Passengers'))

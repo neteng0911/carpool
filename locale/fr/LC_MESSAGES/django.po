@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-16 10:53+0300\n"
+"POT-Creation-Date: 2022-10-16 12:51+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,11 +18,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: .\Capstone\forms.py:23
+#: .\Capstone\forms.py:23 .\Capstone\templates\Capstone\driver.html:15
 msgid "Departure"
 msgstr ""
 
-#: .\Capstone\forms.py:25
+#: .\Capstone\forms.py:25 .\Capstone\templates\Capstone\driver.html:20
 msgid "Destination"
 msgstr ""
 
@@ -34,7 +34,7 @@ msgstr ""
 msgid "Time of departure"
 msgstr ""
 
-#: .\Capstone\forms.py:31
+#: .\Capstone\forms.py:30
 msgid "Date_of return"
 msgstr ""
 
@@ -74,10 +74,35 @@ msgstr ""
 msgid "Decline"
 msgstr ""
 
+#: .\Capstone\templates\Capstone\driver.html:25
+msgid "Search"
+msgstr ""
+
+#: .\Capstone\templates\Capstone\driver.html:52
+msgid "Submit"
+msgstr ""
+
+#: .\Capstone\templates\Capstone\layout.html:28
+#: .\Capstone\templates\Capstone\layout.html:107
+msgid "Hello"
+msgstr "Bonjour"
+
+#: .\Capstone\templates\Capstone\layout.html:31
+msgid "Profile"
+msgstr ""
+
 #: .\Capstone\templates\Capstone\layout.html:45
 msgid "Language"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\layout.html:106
-msgid "Hello"
-msgstr "Bonjour"
+#: .\Capstone\templates\Capstone\layout.html:72
+msgid "Log Out"
+msgstr ""
+
+#: .\Capstone\templates\Capstone\layout.html:91
+msgid "Log In"
+msgstr ""
+
+#: .\Capstone\templates\Capstone\layout.html:94
+msgid "Register"
+msgstr ""
