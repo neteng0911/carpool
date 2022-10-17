@@ -240,17 +240,11 @@
 
  function join_route(route_id)
 {
-
- var pathname = window.location.pathname; //Your page path
-    var page = pathname.slice(4); //The page name
-console.log(page)
-    /*fetch(`/join/route/${route_id}`*/
-    fetch(`/page/${route_id}`, {
+    fetch(`/join/route/${route_id}`, {
         method: "POST"
     })
     .then(response => response.json())
     .then(data => console.log(data))
-
 
 
 }
