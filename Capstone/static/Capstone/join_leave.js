@@ -1,8 +1,8 @@
 
 
    document.addEventListener('DOMContentLoaded', function() {
-        // get button by id
-        //document.getElementById('closedjs_$').style.display='none';
+
+
         var trips = document.querySelectorAll('*[id^="closedjs"]');
 
 //        trips = document.querySelectorAll('.closedjs')
@@ -61,6 +61,7 @@
                     alert(route.error)
 
         }
+
 
 
             var no_pass= parseFloat(document.querySelector(`#thepassengercounter_${route_id}`).innerHTML);
@@ -240,11 +241,22 @@
 
  function join_route(route_id)
 {
+
+
+/*owdays that's possible with native JS
+
+var href = new URL('https://google.com?q=cats');
+href.searchParams.set('q', 'dogs');
+console.log(href.toString()); // https://google.com/?q=dogs*/
+
     fetch(`/join/route/${route_id}`, {
         method: "POST"
     })
+
+
     .then(response => response.json())
     .then(data => console.log(data))
+
 
 
 }
@@ -255,7 +267,7 @@ function leave_route(route_id)
         method: "POST"
     })
     .then(response => response.json())
-    .then(data => console.log(data));
+    .then(data => console.log(data))
     }
 
 // Calculating the cost  per passenger depending on the number of passengers instantly on the page (changing innerHTML)

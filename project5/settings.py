@@ -127,7 +127,7 @@ LANGUAGE_CODE ='el' #'en-us'
 
 TIME_ZONE = 'UTC' #'Europe/Istanbul'
 
-USE_I18N = True
+USE_I18N = False
 
 USE_L10N = True
 
@@ -181,3 +181,21 @@ LANGUAGES = (
     ('el', 'Greek'),
     ('fr', 'French')
 )
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
+            'style': '{',
+        },
+        'simple': {
+            'format': '{levelname} {message}',
+            'style': '{',
+        },
+    },
+
+
+
+}
