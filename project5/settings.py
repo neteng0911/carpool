@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'qr_code',
+    'rosetta'
     #'cookie_consent'
 
 ]
@@ -54,6 +55,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -169,3 +171,9 @@ django_heroku.settings(locals())
 # COOKIE_CONSENT_LOG_ENABLED = True
 
 
+
+LANGUAGES = (
+    ('en', 'English'),
+    ('el', 'Greek'),
+    ('fr', 'French')
+)
