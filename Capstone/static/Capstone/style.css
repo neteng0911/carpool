@@ -15,14 +15,14 @@ left: 30%;
 .comms
 {border: 3px solid #adad85;
 background-color: #ccccb3;
-font-size: 14px;
+font-size: 11px;
 min-height: 10px;
-width: 30%;
+
 padding: 5px;
-margin-bottom:2px;
 position: relative;
 overflow: visible;
-left: 24%;
+margin:5px;
+
 overflow: visible;
 
 }
@@ -32,12 +32,15 @@ overflow: visible;
 background-color: #eff5f5;
 font-size: 14px;
 min-height: 10px;
-width: 30%;
+width: 70%;
 padding: 5px;
 margin-bottom:20px;
+margin-top:10px;
 position: relative;
 overflow: visible;
 left: 25%;
+
+
 
 }
 .prof1{
@@ -47,10 +50,13 @@ font-size: 14px;
 min-height: 10px;
 width: 25%;
 padding: 5px;
-margin-bottom:20px;
+margin-bottom:2px;
+margin-top: 10px;
 position: relative;
 overflow: visible;
 left: 0;
+display: inline-block;
+
 
 }
 .btn-primary,
@@ -86,8 +92,8 @@ left: 40%;
 }
 
 .page-links
-{border: 3px solid grey;
-background-color: black;
+{border: 3px #3d5c5c;
+background-color: transparent;
 font-size: 14px;
 min-height: 20px;
 min-width: 30px;
@@ -100,8 +106,8 @@ left: 40%;
 }
 
 .page {
-border: 3px solid grey;
-background-color: lightgrey;
+border: 3px solid #94b8b8;
+background-color: #3d5c5c;
 font-size: 14px;
 min-height: 20px;
 max-width: 60px;
@@ -198,104 +204,8 @@ display: inline-block;
 
     opacity:0;
 }
+.body{
+    margin-bottom: 40px;
 
-/***** driver.html *****/
-@media only screen and (max-width: 768px) {
-    .d-flex.p-1.bg-secondary.text-white.flex-grow {
-        flex-direction: column;
-        width: 100% !important;
-    }
 
-    .bg-info.col-sm-5.mx-5.pr-5.shadow-lg {
-        margin: 15px auto !important;
-        padding: 10px 20px !important;
-        max-width: 85% !important;
-    }
-
-    .bg-info.col-sm-4.mx-5.pr-5.shadow-lg {
-        max-width: 95% !important;
-    }
-}
-
-/***** Profile.html *****/
-
-@media only screen and (max-width: 992px) {
-
-    .prof,
-    .comms,
-    .prof1 {
-        width: 50% !important;
-    }
-    .body,section {
-      overflow-x: hidden;
-  }
-}
-
-@media only screen and (max-width: 768px) {
-    .prof1 {
-        width: 90% !important;
-        left: 0;
-        display: block;
-        margin: auto;
-    }
-
-    .prof {
-        width: 100% !important;
-        left: 0;
-        display: block;
-        margin: 2em auto;
-    }
-
-    .comms {
-        width: 90% !important;
-        left: 0em;
-        margin: 1em 0px;
-        display: block;
-    }
-
-    .col-sm {
-/*      left: -24% !important;*/
-        margin: 0 !important;
-    }
-}
-
-/**** passenger ****/ 
-
-@media only screen and (max-width: 768px) {
-
-    .container-fluid.mt-1 {
-        width: 100% !important;
-    }
-
-    .bg-info.col-sm-6.mx-1.pr-5.shadow-lg {
-        max-width: 95% !important;
-    }
-
-    .d-flex.p-1.bg-secondary.text-white.flex-grow {
-        padding: 0.5em !important;
-        flex-direction: column;
-        width: 100% !important;
-    }
-}
-
-  @media screen and (min-width: 992px) {
-    .show-valid-trips-text{
-      position:absolute; right:100px;
-    }
-    .passenger-searchbar{
-      position: absolute;
-      right: 320px;
-    }
-    .passenger-searchbtn{
-      position:absolute; right:230px;
-    }
-    
-  }
-
-  /* * {
-    overflow-x: visible!important;
-} */
-.ml-3, .mx-3{
-  margin-right:0em!important;
-  margin-left:0em!important;
 }

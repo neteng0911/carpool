@@ -5,21 +5,13 @@
 {% load static %}
 {% block body %}
 {% load qr_code %}
-{% block css %}
-<style>
-@media only screen and (max-width: 768px){
-.col-sm {
-    left: -4% !important;
-    margin: 0 !important;
-}}
-</style>
-{% endblock css %}
-{% ifnotequal request.user targ_user %}
-<div class="container-fluid">
 
-        <div class="col-lg-12">
-<h2 class="text-warning">You are viewing user: {{targ_user.username}}</h2>
-<div class= "prof1"><strong> <i class="fas fa-envelope mr-3"></i>  {{targ_user.email}}</strong>
+{% ifnotequal request.user targ_user %}
+
+
+
+           <h2 class="text-warning">You are viewing user: {{targ_user.username}}</h2>
+    <div class= "prof1"><strong> <i class="fas fa-envelope mr-3"></i>  {{targ_user.email}}</strong>
     <p></p>
 
     <div  class="img-responsive thumbnail inline"><img src="{{targ_user.profile_pic.url}}" alt="img" width="79" height="88">
@@ -44,24 +36,24 @@
 
 {% ifequal request.user targ_user %}
  <!--<h2 class="text-warning">You are currenty logged in as :{{user.username}}</h2>-->
-<div class= "prof1"><strong> <i class="fas fa-envelope mr-3"></i>  {{user.email}}</strong>
+        <div class= "prof1"><strong> <i class="fas fa-envelope mr-3"></i>  {{user.email}}</strong>
     <p><strong> You are member since {{user.date_joined}}</strong></p>
     <div  class="img-responsive thumbnail inline" ><img src="{{request.user.profile_pic.url}}" alt="img" width="79" height="88">
         {% if request.user.about %}
           <i class="fas fa-quote-left fa-xs text-warning me-2" ></i>
                                 <span class="font-italic" style="background-color: #f2efcb;">{{targ_user.about}}<i class="fas fa-quote-right fa-xs text-warning me-2"></i></span>
-  </div>
+        </div>
 
     {% else %}
     {% endif %}
-
+<ul>
     {% for message in user_messages %}
     <li><strong class="text-danger" >{{ message.content }} <a href="{% url 'webload_route' message.route_id %}" >
         {{message.route_id}} </a></strong> <div style="color:blue; font-size:9px;">on {{message.created_date}}</div> </li>
 
 
     {% endfor %}
-
+</ul>
     <p> You are a passenger of {{user_passenger_count}}  trips</p>{% for route in user_passenger_list %}
 
 
@@ -85,19 +77,18 @@
           </form>
 
     {% endifequal %}
-</div>
+            </div>
 
-        </div>
-</div>
+
+
+
+
+<div class="prof">
+
 {% for user_route in  page.object_list %}
-<section>
-<ul>
-    <div class="col-sm">
-
-        <div class="prof" style="top:0px">
-            <div class="col-md-auto mx-3 pr-5 shadow-lg "><h5><strong><a href ="{% url 'webload_route' user_route.pk %}" >Trip No {{user_route.pk}}
+           <h5><strong><a href ="{% url 'webload_route' user_route.pk %}" >Trip No {{user_route.pk}}
             </a> </strong></h5>{% if user_route.fin or user_route.fin_set or user_route.fin_p  %}  <h5 style='color:red;'> 'Trip Closed'</h5>{% endif %}
-                  <h5 class='closedjs' id = 'closedjs_{user_{route.id}}' style='color:red;'> 'Trip Closed'</h5>
+                <h5 class='closedjs' id = 'closedjs_{user_{route.id}}' style='color:red;'> 'Trip Closed'</h5>
             <p id="fin_{{user_route.id}}" hidden>{{user_route.fin}}</p>
     <h6>From</h6> {{user_route.departure}}
     <h6>To</h6> {{user_route.destination}}
@@ -121,7 +112,7 @@
     {% endif %}
 
 
-     <p>   <img class = 'img-fluid' src="{{ user_route.map_pic }}" alt="map"></p>
+     <p>   <img class = 'img-fluid rounded  d-block' style="border:1px solid yellow;" src="{{ user_route.map_pic }}" alt="map"></p>
 
 
     <p style= "color:grey; font-size:12px;"> <strong><a href="{% url 'profile' targ_user.id %}" > {{targ_user.username}} </strong></a> wrote on: {{user_route.created_date}} </p>
@@ -201,25 +192,41 @@
 
     </form>
 
-</section>
-</div>
-
-       {% for rep in user_route.comments.all %}
- <ul>
 
 
 
-        <div class="comms" ><p style= "color:blue; font-size:10px;"><a href="{% url 'profile' rep.owner_id %}">{{rep.owner}}</a>
-            replied on {{rep.created_date}}</p> <strong>{{rep}} </strong> </div>
-</ul>
-        {% endfor %}
 
 
+        {% for rep in user_route.comments.all %}
 
+
+        <ul class="comms" ><p style= "color:blue; font-size:11px;"><a href="{% url 'profile' rep.owner_id %}">{{rep.owner}}</a>
+            replied on {{rep.created_date}}</p> <strong>{{rep}} </strong> </ul>
+             {% endfor %}
 
 
 {% endfor %}
-<h2 class="page"> Page: {{ page.number }}</h2>
+
+
+</div>
+
+
+
+
+
+
+
+{% block script %}
+    <script src="{% static 'Capstone/join_leave.js' %}"></script>
+
+{% endblock script %}
+
+
+
+
+
+
+    <h2 class="page"> Page: {{ page.number }}</h2>
         <div class="page-links">
 
             {% if page.has_previous %}
@@ -231,10 +238,5 @@
             {% endif %}
 
         </div>
-
-{% block script %}
-    <script src="{% static 'Capstone/join_leave.js' %}"></script>
-
-{% endblock script %}
 
 {% endblock %}
