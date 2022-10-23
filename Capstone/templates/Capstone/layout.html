@@ -2,6 +2,7 @@
 {% load i18n %}
 
 <!DOCTYPE html>
+<html class="h-100">
 <head>
     <title>{% block title %}CarPooling{% endblock %}</title>
 
@@ -18,12 +19,12 @@
 
    } }
 </style>
-<body>
-<div class="container-fluid ">
+<body class="container-fluid d-flex flex-column">
 
-<nav class=" ps-2 d-flex navbar navbar-expand-lg sticky-top" style="background-color:  #94b8b8;">
 
-        <a class="navbar-brand text-dark" href="{% url 'index' %}">CarPooling </a>
+<nav class="mx-2 ps-2 d-flex navbar navbar-expand-lg sticky-top" style="background-color:  #94b8b8; z-index:10;">
+
+        <a class="navbar-brand text-dark z-index-3" href="{% url 'index' %}">CarPooling </a>
         <b class="nav-item">
 
              {% if user.is_authenticated %}
@@ -104,10 +105,11 @@
     </div>
 </nav>
 
-
+<content class="mb-auto min-vh-100" >
     {% block body %}
 
     {% endblock %}
+        </content>
 <h1>{% trans 'Hello' %}</h1>
 
 
@@ -115,7 +117,7 @@
 
     <!-- Footer -->
 
-    <footer class="  text-center text-lg-start text-white " style="background-color: #3d5c5c;">
+    <footer class=" footer  mt-auto text-center text-lg-start text-white" style="background-color: #3d5c5c; ">
 
 
         <!-- Grid container -->
@@ -244,11 +246,7 @@
         </div>
         <!-- Copyright -->
     </footer>
-</div>
+
 </body>
 
-    <!-- Footer -->
-
-    <!-- End of .container -->
-
-
+</html>
