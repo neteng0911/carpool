@@ -180,17 +180,19 @@ def passenger(request):
             return render(request, "Capstone/searchedtrips.html", {"message":message})
         else:
             searched_routes = Route.objects.filter(Q(departure__icontains=searched) | Q(destination__icontains=searched)).order_by('-created_date')
+            print(searched_routes)
             #print('you searched for ',searched)
             #print(searched_routes)
             comments = Comment.objects.order_by('-created_date')
-            page_searched_routes = paging(request, searched_routes)
+            #page_searched_routes = paging(request, searched_routes)
             searched_routes_count=searched_routes.count()
 
             return render(request, "Capstone/searchedtrips.html", {"all_routes": searched_routes,
                                                                    "comments": comments,
-                                                                   "count": page_searched_routes.count,
-                                                                   "page": page_searched_routes,
+                                                                   "count": searched_routes.count,
+                                                                   "page": searched_routes,
                                                                     "searched":searched,
+                                                                   "searched_routes":searched_routes,
                           "searched_routes_count":searched_routes_count})
 
 
