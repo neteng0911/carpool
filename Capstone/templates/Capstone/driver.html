@@ -3,16 +3,12 @@
 
 {% load static %}
 {% block body %}
-<style>
-  footer{
-      position: absolute!important;
-      bottom: 0!important;
-    }
-</style>
-<div class="container mt-3" >
 
-  <div class="w-75 d-flex p-1 bg-secondary text-white flex-grow" >
-    <div class="bg-info col-sm-6 p-1 mr-1 shadow-lg "  >
+<div class="container-fluid" >
+    <div class="row">
+
+        <div class="col-sm" >
+    <div class="bg-info p-1 mr-1 shadow-lg "  >
       <div class=form-group">
 
 <form id="addresses">
@@ -35,17 +31,21 @@
 
 </form>
 <div >
-              <div class="img-fluid height:100%; width:100%;" id="map_pl"><img id="map"  src='#' onerror="this.style.display='none'"></div>
+        </div>
 
   </div>
+         <div class='img-fluid rounded d-block' style="border:1px solid yellow;" id="map_pl"><img id="map"  src='#' onerror="this.style.display='none'"></div>
+
 
           <div class="succ" > {{  msg }} </div>
       </div>
-    </div>
 
 
-    <div class="bg-info col-sm-6 p-1 shadow-lg" id="sub_route">
-      <form class='validity' action="{% url 'driver' %}" method="post">
+</div>
+        <div class="col-sm">
+
+    <div class="bg-info p-1 shadow-lg" id="sub_route">
+      <form class='form-control bg-info ' action="{% url 'driver' %}" method="post">
     {% csrf_token %}
     {{ form.as_p}}
 
@@ -58,11 +58,10 @@
     </div>
 
 </div>
-</div>
-
-
+    </div>
 {% block script %}
     <script src="{% static 'Capstone/map7.js' %}"></script>
+</div>
 
 {% endblock script %}
 {% endblock %}

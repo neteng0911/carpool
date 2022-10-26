@@ -4,17 +4,19 @@
 {% block body %}
 {% load qr_code %}
 
+
+ <a  class="text-secondary" style='position:absolute; right:100px;' href="{% url 'passenger' %}" ><strong> Show All Trips </strong></a>
 {% if message %}
 
-       <p class="text-warning"><strong>{{message}}</strong></p>
+       <p class="text-danger"><strong>{{message}}</strong></p>
 {% else %}
 
 
-        <a  class="text-warning" style='position:absolute; right:100px;' href="{% url 'passenger' %}" ><strong> Show All Trips </strong></a>
-        {% if searched_routes %}
-            <p class="text-warning">Total Trips:  <strong>{{searched_routes_count}}</strong></p>
 
-            <p class="text-warning">You searched for:  <strong>{{searched}}</strong></p>
+        {% if searched_routes %}
+            <p class="text-secondary">Total Trips:  <strong>{{searched_routes_count}}</strong></p>
+
+            <p class="text-secondary">You searched for:  <strong>{{searched}}</strong></p>
             {% for ro in  searched_routes %}
 
                 <div class="prof ">
