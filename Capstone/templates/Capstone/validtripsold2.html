@@ -5,19 +5,13 @@
 {% load qr_code %}
 
 
- <a  class="text-secondary" style='position:absolute; right:100px;' href="{% url 'passenger' %}" ><strong> Show All Trips </strong></a>
-{% if message %}
 
-       <p class="text-danger"><strong>{{message}}</strong></p>
-{% else %}
+        <a  class="text-warning" style='position:absolute; right:100px;' href="{% url 'passenger' %}" ><strong> Show All Trips </strong></a>
+        {% if page.object_list %}
+            <p class="text-warning">Total Trips:  <strong>{{searched_routes_count}}</strong></p>
 
-
-
-        {% if valid_trips %}
-            <p class="text-secondary">Total Trips:  <strong>{{routes_count}}</strong></p>
-
-
-            {% for ro in  valid_trips %}
+            <p class="text-warning">You searched for:  <strong>{{searched}}</strong></p>
+            {% for ro in  page.object_list %}
 
                 <div class="prof ">
                 <h5 class="bg-info col-md-auto mx-1 pr-5 shadow-lg"></h5>
@@ -137,7 +131,18 @@
 
 
 
+<h2 class="page"> Page: {{ page.number }}</h2>
+        <div class="page-links">
 
+            {% if page.has_previous %}
+            <a href="{% url 'valid_trips' %}?page={{page.previous_page_number }}">Previous</a>
+
+            {% endif %}
+            {% if page.has_next %}
+            <a href="{% url 'valid_trips' %}?page={{page.next_page_number }}">Next</a>
+            {% endif %}
+
+        </div>
 
 
 
@@ -145,7 +150,7 @@
             <p class="text-warning"><strong> Sorry no Trips found!</strong></p>
 
         {% endif %}
-{% endif %}
+
 {% block script %}
     <script src="{% static 'Capstone/join_leave.js' %}"></script>
 

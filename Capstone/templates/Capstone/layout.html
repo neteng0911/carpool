@@ -2,7 +2,7 @@
 {% load i18n %}
 
 <!DOCTYPE html>
-<html class="h-100">
+<html>
 <head>
     <title>{% block title %}CarPooling{% endblock %}</title>
 
@@ -19,15 +19,15 @@
 
    } }
 </style>
-<body class="container-fluid d-flex flex-column">
+<body class="container-fluid d-flex flex-column  h-100">
 
 
 <nav class="mx-2 ps-2 d-flex navbar navbar-expand-lg sticky-top" style="background-color:  #94b8b8; z-index:10;">
 
         <a class="navbar-brand text-dark z-index-3" href="{% url 'index' %}">CarPooling </a>
+         {% if user.is_authenticated %}
         <b class="nav-item">
 
-             {% if user.is_authenticated %}
          <b class="nav-link text-secondary" >{% trans 'Hello' %} {{user}}</b>
          </b>
 
@@ -40,7 +40,9 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <a class="nav-item"></a>
                              <b class="nav-item">
-                <a class="nav-link text-dark ms-2" href="{% url 'profile' user.id %}">{% trans 'Profile' %}</a>
+                                 {% if user.is_authenticated %}
+                                 <a class="nav-link text-dark ms-2" href="{% url 'profile' user.id %}">{% trans 'Profile' %}</a>
+                                 {% endif %}
             </b>
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 
@@ -105,19 +107,20 @@
     </div>
 </nav>
 
-<content class="mb-auto min-vh-100" >
+<div class='wrapper'>
     {% block body %}
 
     {% endblock %}
-        </content>
-<h1>{% trans 'Hello' %}</h1>
+    <div class="push"></div>
+        </div>
+
 
 
     <!-- Remove the container if you want to extend the Footer to full width. -->
 
     <!-- Footer -->
 
-    <footer class=" footer  mt-auto text-center text-lg-start text-white" style="background-color: #3d5c5c; ">
+    <footer class=" footer mt-auto py-3 text-center text-lg-start text-white" style="background-color: #3d5c5c;">
 
 
         <!-- Grid container -->
@@ -145,10 +148,10 @@
                     <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-1">
                         <h6 class="text-uppercase mb-4 font-weight-bold">{% trans 'Products' %}</h6>
                         <p>
-                            <a class="text-white"><a href="{% url 'terms' %}">{% trans  'Terms and Conditions' %}</a></a>
+                            <a class="text-white" href="{% url 'terms' %}">{% trans  'Terms and Conditions' %}</a>
                         </p>
                         <p>
-                            <a class="text-white"><a href="https://youtu.be/MCKvUuhOBEQ"> {% trans 'Instructions' %}</a></a>
+                            <a class="text-white" href="https://youtu.be/MCKvUuhOBEQ"> {% trans 'Instructions' %}</a>
                         </p>
 
 
@@ -227,24 +230,26 @@
                            ><i class="fab fa-github"></i
                           ></a>-->
                     </div>
+
                 </div>
                 <!--Grid row-->
-          
+
             <!-- Section: Links -->
 
         <!-- Grid container -->
 
         <!-- Copyright -->
-        <div
-                class="text-center p-1"
-                style=" background-color: rgba(0, 0, 0, 0.2)"
+
+        <!-- Copyright -->
+                                    <div
+                class="mx-auto text-center p-1"
+                style=" background-color: rgba(0, 0, 0, 0.2); margin-top: 0px;"
         >
             © 2022 Copyright:
             <a class="text-white" href=""
             >Carpooling</a
             >
         </div>
-        <!-- Copyright -->
     </footer>
 
 </body>

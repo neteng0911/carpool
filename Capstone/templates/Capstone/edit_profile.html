@@ -2,33 +2,31 @@
 {% extends "Capstone/layout.html" %}
 {% load static %}
 {% block body %}
-<style>
-    footer{
-        position: absolute!important;
-        bottom: 0!important;
-      }
-</style>
-{% ifequal request.user targ_user %}
- <h3 class="text-warning">You are currenty logged in as :{{request.user.username}}</h3>
-<div class= "prof1"><strong> {{request.user.email}}</strong>
-    <p><strong> You are member since {{request.user.date_joined}}</strong></p>
-    <p  class="img-responsive thumbnail"><img src="{{request.user.profile_pic.url}}" alt="img" width="79" height="88"></p>
-   <i class="fa-regular fa-comment-dots"></i>
-{% if messages %}
-<div class="messages">
-    {% for message in messages %}
-    <a class=" {{ message.tags }}  text-success"> {% if message.tags %}  {% endif %} {{ message }} </a>
-    {% endfor %}
-</div>
-{% endif %}
-    <div class="form-group">
-            <form method="POST" action="" enctype="multipart/form-data">
+
+<div class="container-fluid">
+    <div class="raw">
+        <div class="col">
+            {% ifequal request.user targ_user %}
+                <h3 class="text-dark">You are currenty logged in as :{{request.user.username}}</h3>
+                    <div class= "prof1"><strong> {{request.user.email}}</strong>
+                        <p><strong> You are member since {{request.user.date_joined}}</strong></p>
+                        <p  class="img-responsive thumbnail"><img src="{{request.user.profile_pic.url}}" alt="img" width="79" height="88"></p>
+                            <i class="fa-regular fa-comment-dots"></i>
+            {% if messages %}
+            <div class="messages">
+            {% for message in messages %}
+            <a class=" {{ message.tags }}  text-success"> {% if message.tags %}  {% endif %} {{ message }} </a>
+            {% endfor %}
+            </div>
+            {% endif %}
+            <div class="form-group">
+                <form method="POST" action="" enctype="multipart/form-data">
 
                 {% csrf_token %}
                 {{form.as_p}}
                 <input class = 'btn btn-primary' type="submit" name="Update" value="Update">
-            </form>
-        </div>
+                </form>
+            </div>
 
 
 
@@ -36,10 +34,13 @@
     <h3 class = 'text-danger' > You are not allowed to edit other user's profile!</h3>
 
 
-
-<p>
     {% endifequal %}
-</div>
+                </div>
 
+
+
+            </div>
+    </div>
+</div>
 
 {% endblock %}

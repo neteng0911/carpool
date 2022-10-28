@@ -2,7 +2,7 @@
 
 {% block body %}
 
-    <h2 class="text-warning"> Register</h2>
+    <h2 class="text-dark"> Register</h2>
 
     {% if message %}
         <div style = 'color:red'>{{ message }}</div>
@@ -22,11 +22,11 @@
         <div class="form-group">
             <input class="form-control" autofocus type="text" name="surname" placeholder="surname">
         </div>
-        <div class="form-group"><p class="text-warning">Date of Birth</p>
+        <div class="form-group"><p class="text-dark">Date of Birth</p>
             <input class="form-control" autofocus type="date" name="dob" placeholder="date of birth">
         </div>
         <div class="form-group">
-            <input class="form-control" type="password" name="password" placeholder="Password">
+            <input class="form-control" type="password" name="password" placeholder="Password" value="">
         </div>
         <div class="form-group">
             <input class="form-control" type="password" name="confirmation" placeholder="Confirm Password">
@@ -34,8 +34,8 @@
         <input class="btn btn-primary" type="submit" value="Register">
     </form>
 <div class="inline">
-<a class="text-info">Already have an account? </a><a href="{% url 'login' %}">Log In here.</a>
-<a class="text-info">By registering you agree to our </a><a href="{% url 'terms' %}">Terms and Conditions</a>
+<b class="text-info">Already have an account? </b><a href="{% url 'login' %}">Log In here.</a>
+<b class="text-info">By registering you agree to our </b><a href="{% url 'terms' %}">Terms and Conditions</a>
 </div>
 
 {% endblock %}

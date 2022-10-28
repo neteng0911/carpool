@@ -649,11 +649,11 @@ def find_valid_trips(request):
 
     print('valid trips', valid_trips)
     routes_count = len(valid_trips)
-    page_valid_trips = paging(request, valid_trips)
+
 
     return render(request, "Capstone/validtrips.html", {"all_routes": valid_trips,
-                                                        "comments": comments, "count": page_valid_trips.count,
-                                                        "page": page_valid_trips,
+                                                        "comments": comments, "count": valid_trips.count,
+                                                        "valid_trips": valid_trips,
                                                         'routes_count': routes_count})
 
 @login_required
