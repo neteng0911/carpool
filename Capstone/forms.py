@@ -5,13 +5,14 @@ from django.core.exceptions import ValidationError
 from datetime import date, datetime
 from .models import Route, User
 from django.utils.timezone import make_aware
+from django.utils.translation import gettext_lazy as _
 
 
 
 now_t=datetime.now().time().strftime("%H:%M")
 
 
-                     
+
 
 
 class RouteForm(forms.ModelForm):
@@ -19,22 +20,24 @@ class RouteForm(forms.ModelForm):
     required_css_class = 'required-field'
 
 
-    departure = forms.CharField(
-        widget=forms.TextInput(attrs={'placeholder': 'Departure','readonly':'readonly','class':'readonly'}))
-    destination = forms.CharField(
-        widget=forms.TextInput(attrs={'placeholder': 'Destination','readonly':'readonly','class':'readonly'}))
-    date_orig=forms.DateField(widget=forms.DateInput(attrs={'type': 'date','min':date.today(),'format':['%y-%m-%d']}))
+    departure = forms.CharField(label=_('Departure'),
+         widget=forms.TextInput(attrs={'readonly':'readonly','class':'readonly'}))
+    destination = forms.CharField(label=_('Destination'),
+        widget=forms.TextInput(attrs={'readonly':'readonly','class':'readonly'}))
+    date_orig=forms.DateField(label=_('Date of departure'),widget=forms.DateInput(attrs={'type': 'date','min':date.today(),'format':['%y-%m-%d']}))
 
-    time_orig=forms.TimeField(widget=forms.TimeInput(attrs={'type': 'time'}))
-    date_ret = forms.DateField(
+    time_orig=forms.TimeField(label=_('Time of departure'),
+         widget=forms.TimeInput(attrs={ 'type': 'time'}))
+    date_ret = forms.DateField(label=_('Date of return'),
         widget=forms.DateInput(attrs={'type': 'date', 'min': date_orig, 'format': ['%y-%m-%d']}))
-    time_dep=forms.TimeField(widget=forms.TimeInput(attrs={'type': 'time','min':time_orig}))
+    time_dep=forms.TimeField(label=_('Time of departure'),
+        widget=forms.TimeInput(attrs={'type': 'time','min':time_orig}))
 
-    cost=forms.FloatField(min_value=0.0,error_messages={'min_value': u'Cost cannot be less than 0.0'})
-    no_pass = forms.IntegerField(min_value=1, label='Passengers')
+    cost=forms.FloatField(label=_('cost'),min_value=0.0,error_messages={'min_value': u'Cost cannot be less than 0.0'})
+    no_pass = forms.IntegerField(min_value=1, label=_('Passengers'))
     map_pic=forms.CharField(widget=forms.HiddenInput())
     dist = forms.FloatField(widget=forms.HiddenInput())
-    d_a = forms.BooleanField(label='Disabled access',help_text='Check if at least one disabled passenger can join',required=False,
+    d_a = forms.BooleanField(label=_('Disabled access'),help_text=_('Check if at least one disabled passenger can join'),required=False,
                              initial=False)
 
 
@@ -42,11 +45,7 @@ class RouteForm(forms.ModelForm):
     class Meta:
         model = Route
         fields = ['departure','destination','date_orig','time_orig','date_ret', 'time_dep', 'cost', 'no_pass', 'map_pic','dist']
-        # help_texts = {
-        #     'd_a': ('Check if at least one disabled passenger can join'),
-        # }
-        #labels ={'time_dep':'Return Time'}
-#validators regarding date and time
+
 
     def clean(self):
         cleaned_data = super().clean()

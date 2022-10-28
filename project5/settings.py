@@ -175,5 +175,4 @@ django_heroku.settings(locals())
 LANGUAGES = (
     ('en', 'English'),
     ('el', 'Greek'),
-    ('fr', 'French')
 )
