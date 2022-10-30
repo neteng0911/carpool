@@ -22,8 +22,6 @@ from django.conf.urls.i18n import i18n_patterns
 from django.utils.translation import gettext_lazy as _
 
 
-urlpatterns1=(path("join/route/<int:route_id>", auth_views.join_route, name="join_route"),
-    path("leave/route/<int:route_id>", auth_views.leave_route, name="leave_route")),
 urlpatterns =i18n_patterns(
 
     path('admin/', admin.site.urls),

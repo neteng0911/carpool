@@ -2,77 +2,80 @@
 {% load static %}
 
 {% block body %}
-<style>
-
-</style>
-<h3 class = 'text-warning'> {{ user }}, Here you can edit Trip no {{route.id}}</h3>
-<div class="container-fluid mt-1" >
-    <div class="d-flex p-1 bg-secondary text-white flex-grow" id="row1-col1">
-        <div class="bg-info col-sm-4 mx-1 pr-5 shadow-lg ">
 
 
-            <div  style="position:left;color:black; font-size:17px;">From: <strong>{{route.departure}}</strong>
-        <p>To: <strong>{{route.destination}}</strong></p>
+<div class="container-fluid">
 
-                <p> On: <strong> {{route.date_orig.date}}</strong></p>
-                <p> Leaving at  <strong>{{route.time_orig}}</strong> and returning at <strong>{{route.time_dep}}</strong></p>
+    <div class="row">
+        <div class="col-4 bg-info mx-1 mt-2 shadow-lg">
 
 
 
+                <h4 class = 'text-success border border-light mt-1'> {{ user }}, Here you can edit Trip no {{route.id}}</h4>
+                    <div  style="position:left;color:black; font-size:17px;">From: <strong>{{route.departure}}</strong>
+                        <p>To: <strong>{{route.destination}}</strong></p>
 
-    <p  class="img-fluid"  id="map_to_load"><img style="height:100%; width:100%;" src="{{route.map_pic}}" onerror="this.style.display='none'"></p>
+                        <p> Leaving on  <strong>{{route.date_orig}}</strong> at  <strong>{{route.time_orig}}</strong></p>
 
+                        <p> Returning on <strong>{{route.date_ret}}</strong> at <strong>{{route.time_dep}}</strong></p>
 
-
-
-   <p style= "color:grey; font-size:12px;"> <strong>Created by<a href="{% url 'profile' route.thedriver_id %}" >
-
-
-       {{ route.thedriver}} </strong></a>  on: {{ route.created_date}} </p>
-
-    </div>
+                        <p> Distance  <strong>{{route.dist}}Km</strong></p>
 
 
 
-<form action="{% url 'edit_route' route.pk %}" method="post">
-    {% csrf_token %}
-     <input class="btn btn-danger" name="del_route" type="submit" value="Delete Trip" >
-     <input type="hidden"  name="route_id" value={{route.pk}}>
- </form>
+
+                        <p  class="img-fluid rounded d-block map_pl"  id="map_to_load"><img style="border:1px solid yellow;" src="{{route.map_pic}}" onerror="this.style.display='none'"></p>
+                        <form action="{% url 'edit_route' route.pk %}" method="post">
+                            {% csrf_token %}
+                            <input class="btn btn-danger" name="del_route" type="submit" value="Delete Trip" >
+                            <input type="hidden"  name="route_id" value={{route.pk}}>
+                        </form>
+                        <p style= "color:grey; font-size:12px;"> <strong>Created by<a href="{% url 'profile' route.thedriver_id %}" >
+
+
+                        {{ route.thedriver}} </strong></a>  on: {{ route.created_date}} </p>
+
+                    </div>
+
         </div>
-        <div class="bg-info col-sm-4 mx-1 pr-5 shadow-lg ">
-      <div class=form-group">
 
-
-<form id="addresses">
-
-<div>
-<label for="input start">Departure Address</label>
-  <input type="text" class="form-control" id="dep" value="{{route.departure}}">
+        <div class="col-2 sm-2 bg-info mx-1 mt-2 shadow-lg">
 
 
 
-  <label for="input finish">Destination Address</label>
-  <input type="text" class="form-control" id="dest" value="{{route.destination}}">
-    <p> <input id ="sear" class="btn-info" type="button" value="Search"></p>
 
-</form>
-    <div class="img-fluid" id="map_pl"><img style="height:100%; width:100%;" id="map"  src='#' onerror="this.style.display='none'"></div>
+                <div class=form-group">
 
-  </div>
-</div>
-    </div>
-<div class="d-flex p-1 bg-secondary text-white flex-grow" id="row1-col3">
-    <div class="bg-info col-sm-12 mx-1 pr-5 shadow-lg" id="sub_route">
-      <form class='validity' action="{% url 'edit_route' route.pk %}" method="post">
-    {% csrf_token %}
-          {{ form.as_p }}
 
-          <p>
-              <input class ='btn-info' id ="editbt" name="edit_route" type="submit" value="Submit"></p>
-          </form>
-        <div style="color:red"> {{msger}}</div>
-        <div class="succ" > {{ msg }} </div>
+                    <form id="addresses">
+
+
+                    <label for="input start">Departure Address</label>
+                    <input type="text" class="form-control" id="dep" value="{{route.departure}}">
+
+
+
+                    <label for="input finish">Destination Address</label>
+                    <input type="text" class="form-control" id="dest" value="{{route.destination}}">
+                    <p> <input id ="sear" class="btn-info" type="button" value="Search"></p>
+
+                    </form>
+                        <div class="img-fluid rounded d-block" ><img style="border: 1px solid yellow;" id="map"  src='#' onerror="this.style.display='none'"></div>
+
+                </div>
+            </div>
+
+        <div class="col p-1 mt-2  mx-1 bg-info shadow-lg text-white" >
+            <div  id="sub_route">
+              <form class='validity' action="{% url 'edit_route' route.pk %}" method="post">
+                        {% csrf_token %}
+                  {{ form.as_p }}
+
+                  <p>
+                  <input class ='btn-info' id ="editbt" name="edit_route" type="submit" value="Submit"></p>
+              </form>
+                <div class="danger"> {{msger}}</div>
+                <div class="success" > {{ msg }} </div>
 <!--<script>
 document.getElementById("editbt").addEventListener("click", myFunction);
 
@@ -91,13 +94,14 @@ console.log(al);
 }
 </script>-->
 
+                </div>
+            </div>
+
     </div>
 
+
 </div>
 
-      </div>
-</div>
-</div>
 {% block script %}
     <script src="{% static 'Capstone/edit_route.js' %}"></script>
 

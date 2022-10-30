@@ -240,9 +240,20 @@
 
  function join_route(route_id)
 {
-    fetch(`/join/route/${route_id}`, {
+    var host = window.location.host;
+    var url = `/join/route/${route_id}`;
+    var paths = url.split("/");
+    console.log(paths);
+    var fetch_url = 'http://'+ host + paths.join('/');
+    console.log(fetch_url);
+
+
+    fetch ((`/fetch_url`),{
+
+    method: 'POST'})
+    /*fetch(`/join/route/${route_id}`, {
         method: "POST"
-    })
+    }) */
     .then(response => response.json())
     .then(data => console.log(data))
 
