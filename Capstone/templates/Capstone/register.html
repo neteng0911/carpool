@@ -1,8 +1,8 @@
 {% extends "Capstone/layout.html" %}
-
+{% load i18n %}
 {% block body %}
 
-    <h2 class="text-dark"> Register</h2>
+    <h2 class="text-dark"> {% trans 'Register' %}</h2>
 
     {% if message %}
         <div style = 'color:red'>{{ message }}</div>
@@ -11,31 +11,31 @@
     <form action="{% url 'register' %}" method="post">
         {% csrf_token %}
         <div class="form-group">
-            <input class="form-control" autofocus type="text" name="username" placeholder="Username">
+            <input class="form-control" autofocus type="text" name="username" placeholder={% trans "Username"%}>
         </div>
         <div class="form-group">
-            <input class="form-control" type="email" name="email" placeholder="Email Address">
+            <input class="form-control" type="email" name="email" placeholder={% trans "Email Address"%}>
         </div>
         <div class="form-group">
-            <input class="form-control" autofocus type="text" name="name" placeholder="name">
+            <input class="form-control" autofocus type="text" name="name" placeholder={% trans "name"%}>
         </div>
         <div class="form-group">
-            <input class="form-control" autofocus type="text" name="surname" placeholder="surname">
+            <input class="form-control" autofocus type="text" name="surname" placeholder={% trans "surname"%}>
         </div>
         <div class="form-group"><p class="text-dark">Date of Birth</p>
-            <input class="form-control" autofocus type="date" name="dob" placeholder="date of birth">
+            <input class="form-control" autofocus type="date" name="dob" placeholder={% trans "date of birth"%}>
         </div>
         <div class="form-group">
-            <input class="form-control" type="password" name="password" placeholder="Password" value="">
+            <input class="form-control" type="password" name="password" placeholder={% trans "Password"%}>
         </div>
         <div class="form-group">
-            <input class="form-control" type="password" name="confirmation" placeholder="Confirm Password">
+            <input class="form-control" type="password" name="confirmation" placeholder={% trans "Confirm Password"%}>
         </div>
-        <input class="btn btn-primary" type="submit" value="Register">
+        <input class="btn btn-primary" type="submit" value={% trans "Register"%}>
     </form>
 <div class="inline">
-<b class="text-info">Already have an account? </b><a href="{% url 'login' %}">Log In here.</a>
-<b class="text-info">By registering you agree to our </b><a href="{% url 'terms' %}">Terms and Conditions</a>
+<b class="text-info">{% trans 'Already have an account?'%} </b><a href="{% url 'login' %}">{% trans 'Log In here'%}.</a>
+<b class="text-info">{% trans 'By registering you agree to our' %} </b><a href="{% url 'terms' %}">{% trans 'Terms and Conditions' %}</a>
 </div>
 
 {% endblock %}

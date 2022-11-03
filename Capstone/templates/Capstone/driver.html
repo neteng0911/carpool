@@ -13,18 +13,18 @@
 
 <form id="addresses">
 <div>
-<label for="input start">Departure Address</label>
+<label for="input start">{% trans 'Departure Address' %}</label>
   <input type="text" class="form-control" id="dep">
 
 </div>
 <div>
-  <label for="input finish">Destination Address</label>
+  <label for="input finish">{% trans 'Destination Address' %}</label>
   <input type="text" class="form-control" id="dest">
 
 <p>
 
 
-    <input id ="sear" class="btn-info pt-1 mt-1" type="button" value="Search"></p>
+    <input id ="sear" class="btn-info pt-1 mt-1" type="button" value={% trans "Search" %}></p>
 
 
 
@@ -53,7 +53,7 @@
 
 
           <p>
-    <input id ="subbtn" type="submit" value="Submit"></p>
+    <input id ="subbtn" type="submit" value={% trans "Submit" %}></p>
     </form>
 
     </div>

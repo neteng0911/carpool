@@ -1,5 +1,5 @@
 {% extends "Capstone/layout.html" %}
-
+{% load i18n %}
 {% block body %}
 <div class="container-fluid">
     <div class="raw">
@@ -13,16 +13,16 @@
                 <form action="{% url 'login' %}" method="post">
                 {% csrf_token %}
                     <div class="form-group">
-                        <input autofocus class="form-control" type="text" name="username" placeholder="Username">
+                        <input autofocus class="form-control" type="text" name="username" placeholder={% trans "Username" %}>
                     </div>
                     <div class="form-group">
-                        <input class="form-control" type="password" name="password" placeholder="Password">
+                        <input class="form-control" type="password" name="password" placeholder={% trans "Password" %}>
                     </div>
-                        <input class="btn btn-primary" type="submit" value="Login">
+                        <input class="btn btn-primary" type="submit" value={% trans "Login" %}>
                 </form>
 
-                <b class="text-info">Don't have an account? </b><a href="{% url 'register' %}">Register here.</a>
-                <b class="text-info">Forgot password? </b><a href="{% url 'reset_password' %}">Reset Password.</a>
+                <b class="text-info">{% trans 'No account?' %} </b><a href="{% url 'register' %}">{% trans 'Register here'.%}</a>
+                <b class="text-info">{% trans 'Forgot password?' %} </b><a href="{% url 'reset_password' %}">{% trans 'Reset Password'%}.</a>
             </div>
     </div>
 </div>

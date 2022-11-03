@@ -2,6 +2,7 @@
 {% load static %}
 {% block body %}
 {% load qr_code %}
+{% load i18n %}
 <div class="container-fluid">
     <div class="row">
 
@@ -11,7 +12,7 @@
 
 
             {% ifnotequal request.user targ_user %}
-    <h2 class="text-dark">You are viewing user: {{targ_user.username}}</h2>
+    <h2 class="text-dark">{% trans 'You are viewing user' %}: {{targ_user.username}}</h2>
 <div class= "prof1"><strong> <i class="fas fa-envelope mr-3"></i>  {{targ_user.email}}</strong>
     <p></p>
 
@@ -43,7 +44,7 @@
 
  <!--<h2 class="text-warning">You are currenty logged in as :{{user.username}}</h2>-->
 <div class= "prof1"><strong> <i class="fas fa-envelope mr-3"></i>  {{user.email}}</strong>
-    <p><strong> You are member since {{user.date_joined}}</strong></p>
+    <p><strong> {% trans 'You are member since' %} {{user.date_joined}}</strong></p>
     <div  class="img-responsive thumbnail inline" ><img src="{{request.user.profile_pic.url}}" alt="img" width="79" height="88">
         {% if request.user.about %}
           <i class="fas fa-quote-left fa-xs text-warning me-2" ></i>
@@ -61,7 +62,7 @@
 
     {% endfor %}
 
-    <p> You are a passenger of {{user_passenger_count}}  trips</p>{% for route in user_passenger_list %}
+    <p> {% trans 'You are a passenger of' %} {{user_passenger_count}}  {% trans 'trips' %}</p>{% for route in user_passenger_list %}
 
 
 
@@ -73,13 +74,13 @@
 
 
 
-<p>Total Trips as a driver:<strong>{{user_routes_count}}</strong></p>
+<p>{% trans 'Total Trips as a driver' %}:<strong>{{user_routes_count}}</strong></p>
 
 
           <form action="{% url 'edit_profile' request.user.id %}" method="post">
         {% csrf_token %}
             <input class="btn btn-success" type="button"  name="edit_profile"
-                   value="Edit Your Profile"  onclick="location.href='{% url 'edit_profile' request.user.id %}'"  />
+                   value={% trans 'Edit Your Profile' %}  onclick="location.href='{% url 'edit_profile' request.user.id %}'"  />
 
           </form>
 
@@ -99,17 +100,17 @@
         <div class="col-lg-7">
         {% for user_route in  page.object_list %}
         <div class="prof" style="top:0px">
-            <div class="col-md-auto mx-3 pr-5 shadow-lg "><h5><strong><a href ="{% url 'webload_route' user_route.pk %}" >Trip No {{user_route.pk}}
-            </a> </strong></h5>{% if user_route.fin or user_route.fin_set or user_route.fin_p  %}  <h5 style='color:red;'> 'Trip Closed'</h5>{% endif %}
+            <div class="col-md-auto mx-3 pr-5 shadow-lg "><h5><strong><a href ="{% url 'webload_route' user_route.pk %}" >{% trans 'Trip No' %} {{user_route.pk}}
+            </a> </strong></h5>{% if user_route.fin or user_route.fin_set or user_route.fin_p  %}  <h5 style='color:red;'> {% trans 'Trip Closed' %}</h5>{% endif %}
                   <h5 class='closedjs' id = 'closedjs_{user_{route.id}}' style='color:red;'> 'Trip Closed'</h5>
             <p id="fin_{{user_route.id}}" hidden>{{user_route.fin}}</p>
 
 
-    <p> <h6>From</h6> {{user_route.departure}} <h6>To</h6> {{user_route.destination}} </p>
-    <p> <h6>Leaving on</h6> {{user_route.date_orig}}</p>
-    <p> <h6>Leaving at</h6>  {{user_route.time_orig}} <h6>and returning on</h6> {{user_route.date_ret}}<h6>and returning at</h6> {{user_route.time_dep}}</p>
-        <p hidden id="cost_{{route.id}}"><h6>Initial cost per passenger {{user_route.cost}} $</h6>
-    <h6> Expected cost per passenger <strong id="costpp_{{route.id}}">{{user_route.costpp}}$</strong></h6>
+    <p> <h6>{% trans 'From' %}</h6> {{user_route.departure}} <h6>{% trans 'To' %}</h6> {{user_route.destination}} </p>
+    <p> <h6>{% trans 'Leaving on' %}</h6> {{user_route.date_orig}}</p>
+    <p> <h6>{% trans 'Leaving at' %}</h6>  {{user_route.time_orig}} <h6>{% trans 'and returning on' %}</h6> {{user_route.date_ret}}<h6>{% trans 'and returning at' %}</h6> {{user_route.time_dep}}</p>
+        <p hidden id="cost_{{route.id}}"><h6>{% trans 'Initial cost per passenger' %} {{user_route.cost}} $</h6>
+    <h6> {% trans 'Expected cost per passenger' %} <strong id="costpp_{{route.id}}">{{user_route.costpp}}$</strong></h6>
 
    <!-- {% if user_route.fin or user_route.fin_set or user_route.fin_p  %}
                 {% ifequal request.user user_route.the_driver %}
@@ -135,13 +136,13 @@
 </div>
 
 
-    <p style= "color:grey; font-size:12px;"> <strong><a href="{% url 'profile' targ_user.id %}" > {{targ_user.username}} </strong></a> created on: {{user_route.created_date}} </p>
+    <p style= "color:grey; font-size:12px;"> <strong><a href="{% url 'profile' targ_user.id %}" > {{targ_user.username}} </strong></a> {% trans 'created on' %}: {{user_route.created_date}} </p>
 
         {% if user_route.thepassenger.all.count != 0 %}
     <!--<p id="likes" style= "color:grey; font-size:12px;mix-blend-mode: multiply;"><img src="{% static  'Capstone/images/seat.jpg' %}" alt="seat image">-->
             <i class="fa-thin fa-chair"></i>
         <span><strong id="thepassengercounter_{{user_route.id}}">{{ user_route.thepassenger.all.count }}</strong></span>/{{ user_route.no_pass }}
-       Passengers on this Trip:
+       {% trans 'Passengers on this Trip'%}:
 
         {% for a in user_route.thepassenger.all %}
         <strong> <a href="{% url 'profile' a.id %}" >  {{ a.username }}</a></strong>
@@ -156,7 +157,7 @@
 
     <!--<p id="likes" style= "color:grey; font-size:12px;mix-blend-mode: multiply;"><img src="{% static  'Capstone/images/seat.jpg' %}" alt="seat image">-->
             <i class="fa-thin fa-chair"></i>
-        <span><strong id="thepassengercounter_{{user_route.id}}">0</strong></span> Passengers on this trip
+        <span><strong id="thepassengercounter_{{user_route.id}}">0</strong></span>{% trans  'Passengers on this trip' %}
 
 
         {% endif %}
@@ -165,18 +166,18 @@
 
 
         <div class="form-group">
-            <input class="form-control"  style="margin-top:30px" type="text" name="comm_txt" placeholder="Insert your comment">
+            <input class="form-control"  style="margin-top:30px" type="text" name="comm_txt" placeholder={% trans "Insert your comment"%}>
             <input type="hidden"  name="route_id" value={{user_route.id}}>
 
         </div>
-    <input class="btn btn-primary" type="submit" name="route_reply" value="Post">
+    <input class="btn btn-primary" type="submit" name="route_reply" value={% trans "Post"%}>
         {% ifnotequal targ_user user_route.thedriver %}
                 <div class="likes">
                         {% if request.user in user_route.thepassenger.all %}
 
-                        <span id="leavebtn" class="joinleave" data-id="{{user_route.id}}" onclick="return false" title="Leave" >Leave</span>
+                        <span id="leavebtn" class="joinleave" data-id="{{user_route.id}}" onclick="return false" title="Leave" >{% trans 'Leave'%}</span>
                         {% else %}
-                        <span id="joinbtn" class="joinleave" data-id="{{user_route.id}}" onclick="return false"  title="Join">Join</span>
+                        <span id="joinbtn" class="joinleave" data-id="{{user_route.id}}" onclick="return false"  title="Join">{% trans 'Join' %}</span>
                         {% endif %}
 
                 </div>
@@ -236,7 +237,7 @@
 
 
         <div class="comms" ><p style= "color:blue; font-size:10px;"><a href="{% url 'profile' rep.owner_id %}">{{rep.owner}}</a>
-            replied on {{rep.created_date}}</p> <strong>{{rep}} </strong> </div>
+            {% trans 'commented on' %} {{rep.created_date}}</p> <strong>{{rep}} </strong> </div>
 </ul>
         {% endfor %}
 
@@ -249,11 +250,11 @@
         <div class="page-links">
 
             {% if page.has_previous %}
-            <a href="{% url 'profile' targ_user.id %}?page={{page.previous_page_number }}">Previous</a>
+            <a href="{% url 'profile' targ_user.id %}?page={{page.previous_page_number }}">{% trans 'Previous' %}</a>
 
             {% endif %}
             {% if page.has_next %}
-            <a href="{% url 'profile' targ_user.id %}?page={{page.next_page_number }}">Next</a>
+            <a href="{% url 'profile' targ_user.id %}?page={{page.next_page_number }}">{% trans 'Next' %}</a>
             {% endif %}
 
         </div>

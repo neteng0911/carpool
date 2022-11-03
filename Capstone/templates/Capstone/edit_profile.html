@@ -9,7 +9,7 @@
             {% ifequal request.user targ_user %}
                 <h3 class="text-dark">You are currenty logged in as :{{request.user.username}}</h3>
                     <div class= "prof1"><strong> {{request.user.email}}</strong>
-                        <p><strong> You are member since {{request.user.date_joined}}</strong></p>
+                        <p><strong> {% trans You are member since %} {{request.user.date_joined}}</strong></p>
                         <p  class="img-responsive thumbnail"><img src="{{request.user.profile_pic.url}}" alt="img" width="79" height="88"></p>
                             <i class="fa-regular fa-comment-dots"></i>
             {% if messages %}
@@ -24,14 +24,14 @@
 
                 {% csrf_token %}
                 {{form.as_p}}
-                <input class = 'btn btn-primary' type="submit" name="Update" value="Update">
+                <input class = 'btn btn-primary' type="submit" name="Update" value={% trans "Update" %}>
                 </form>
             </div>
 
 
 
 {% else %}
-    <h3 class = 'text-danger' > You are not allowed to edit other user's profile!</h3>
+    <h3 class = 'text-danger' > {% trans 'You are not allowed to edit other user's profile!' %}</h3>
 
 
     {% endifequal %}

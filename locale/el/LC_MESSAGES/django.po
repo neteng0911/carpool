@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-03 08:28+0200\n"
-"PO-Revision-Date: 2022-11-03 08:18+0000\n"
+"POT-Creation-Date: 2022-11-03 08:36+0200\n"
+"PO-Revision-Date: 2022-11-03 08:37+0000\n"
 "Last-Translator:   <admin@sde.df>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -40,47 +40,57 @@ msgstr "Ημ/νια Επιστροφής"
 
 #: .\Capstone\forms.py:36
 msgid "cost"
-msgstr ""
+msgstr "Κόστος"
 
 #: .\Capstone\forms.py:37
 msgid "Passengers"
-msgstr ""
+msgstr "Επιβάτες"
 
 #: .\Capstone\forms.py:40
 msgid "Disabled access"
-msgstr ""
+msgstr "ΑΜΕΑ"
 
 #: .\Capstone\forms.py:40
 msgid "Check if at least one disabled passenger can join"
-msgstr ""
+msgstr "Επιλέξτε αν υπάρχει θέση για ΑΜΕΑ"
 
 #: .\Capstone\static_templ_bak\templates\cookie_consent\_cookie_group.html:12
 #: .\Capstone\templates\cookie_consent\_cookie_group.html:12
 #: .\static_templ\templates\cookie_consent\_cookie_group.html:12
 msgid "Accepted"
-msgstr ""
+msgstr "Αποδεκτό"
 
 #: .\Capstone\static_templ_bak\templates\cookie_consent\_cookie_group.html:16
 #: .\Capstone\templates\cookie_consent\_cookie_group.html:16
 #: .\static_templ\templates\cookie_consent\_cookie_group.html:16
 msgid "Accept"
-msgstr ""
+msgstr "Αποδοχή"
 
 #: .\Capstone\static_templ_bak\templates\cookie_consent\_cookie_group.html:21
 #: .\Capstone\templates\cookie_consent\_cookie_group.html:21
 #: .\static_templ\templates\cookie_consent\_cookie_group.html:21
 msgid "Declined"
-msgstr ""
+msgstr "Μη αποδεκτό"
 
 #: .\Capstone\static_templ_bak\templates\cookie_consent\_cookie_group.html:25
 #: .\Capstone\templates\cookie_consent\_cookie_group.html:25
 #: .\static_templ\templates\cookie_consent\_cookie_group.html:25
 msgid "Decline"
-msgstr ""
+msgstr "Άρνηση"
 
-#: .\Capstone\templates\Capstone\driver.html:29
+#: .\Capstone\templates\Capstone\driver.html:16
 msgid "Departure Address"
 msgstr "Αφετηρία"
+
+#: .\Capstone\templates\Capstone\driver.html:21
+#, fuzzy
+#| msgid "Destination"
+msgid "Destination Address"
+msgstr "Προορισμός"
+
+#: .\Capstone\templates\Capstone\driver.html:56
+msgid "Submit"
+msgstr "Υποβολή"
 
 #: .\Capstone\templates\Capstone\layout.html:31
 msgid "Hello"
@@ -88,7 +98,7 @@ msgstr "Γεια σου"
 
 #: .\Capstone\templates\Capstone\layout.html:44
 msgid "Profile"
-msgstr ""
+msgstr "Προφίλ"
 
 #: .\Capstone\templates\Capstone\layout.html:53
 msgid "Language"
@@ -96,35 +106,35 @@ msgstr "Γλώσσα"
 
 #: .\Capstone\templates\Capstone\layout.html:80
 msgid "Log Out"
-msgstr ""
+msgstr "Αποσύνδεση"
 
 #: .\Capstone\templates\Capstone\layout.html:99
 msgid "Log In"
-msgstr ""
+msgstr "Σύνδεση"
 
 #: .\Capstone\templates\Capstone\layout.html:102
 msgid "Register"
-msgstr ""
+msgstr "Εγγραφή"
 
 #: .\Capstone\templates\Capstone\layout.html:149
 msgid "Products"
-msgstr ""
+msgstr "Προϊόντα"
 
 #: .\Capstone\templates\Capstone\layout.html:151
 msgid "Terms and Conditions"
-msgstr ""
+msgstr "Όροι και Περιορισμοί"
 
 #: .\Capstone\templates\Capstone\layout.html:154
 msgid "Instructions"
-msgstr ""
+msgstr "Οδηγίες"
 
 #: .\Capstone\templates\Capstone\layout.html:168
 msgid "Contact"
-msgstr ""
+msgstr "Επικοινωνία"
 
 #: .\Capstone\templates\Capstone\layout.html:178
 msgid "Follow us"
-msgstr ""
+msgstr "Ακολουθήστε μας"
 
 #~ msgid "d_orig"
 #~ msgstr "Ημ/νια αναχώρησης"

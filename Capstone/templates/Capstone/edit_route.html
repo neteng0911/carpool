@@ -1,6 +1,6 @@
 {% extends "Capstone/layout.html" %}
 {% load static %}
-
+{% load i18n %}
 {% block body %}
 
 
@@ -11,15 +11,15 @@
 
 
 
-                <h4 class = 'text-success border border-light mt-1'> {{ user }}, Here you can edit Trip no {{route.id}}</h4>
+                <h4 class = 'text-success border border-light mt-1'> {{ user }}, {% trans 'Here you can edit Trip no' %} {{route.id}}</h4>
                     <div  style="position:left;color:black; font-size:17px;">From: <strong>{{route.departure}}</strong>
-                        <p>To: <strong>{{route.destination}}</strong></p>
+                        <p>{% trans 'To': %} <strong>{{route.destination}}</strong></p>
 
-                        <p> Leaving on  <strong>{{route.date_orig}}</strong> at  <strong>{{route.time_orig}}</strong></p>
+                        <p> {% trans 'Leaving on' %}  <strong>{{route.date_orig}}</strong> {% trans 'at' %} <strong>{{route.time_orig}}</strong></p>
 
-                        <p> Returning on <strong>{{route.date_ret}}</strong> at <strong>{{route.time_dep}}</strong></p>
+                        <p> {% trans 'Returning on' %} <strong>{{route.date_ret}}</strong> {% trans 'at' %} <strong>{{route.time_dep}}</strong></p>
 
-                        <p> Distance  <strong>{{route.dist}}Km</strong></p>
+                        <p> {% trans 'Distance' %}  <strong>{{route.dist}}Km</strong></p>
 
 
 
@@ -27,13 +27,13 @@
                         <p  class="img-fluid rounded d-block "  id="map_to_load"><img style="border:1px solid yellow;" src="{{route.map_pic}}" onerror="this.style.display='none'"></p>
                         <form action="{% url 'edit_route' route.pk %}" method="post">
                             {% csrf_token %}
-                            <input class="btn btn-danger" name="del_route" type="submit" value="Delete Trip" >
+                            <input class="btn btn-danger" name="del_route" type="submit" value={% trans "Delete Trip" %} >
                             <input type="hidden"  name="route_id" value={{route.pk}}>
                         </form>
-                        <p style= "color:grey; font-size:12px;"> <strong>Created by<a href="{% url 'profile' route.thedriver_id %}" >
+                        <p style= "color:grey; font-size:12px;"> <strong>{% trans 'Created by'  %}<a href="{% url 'profile' route.thedriver_id %}" >
 
 
-                        {{ route.thedriver}} </strong></a>  on: {{ route.created_date}} </p>
+                        {{ route.thedriver}} </strong></a>  {% trans 'on' %}: {{ route.created_date}} </p>
 
                     </div>
 
@@ -50,14 +50,14 @@
                     <form id="addresses">
 
 
-                    <label for="input start">Departure Address</label>
+                    <label for="input start">{% trans 'Departure Address' %}</label>
                     <input type="text" class="form-control" id="dep" value="{{route.departure}}">
 
 
 
-                    <label for="input finish">Destination Address</label>
+                    <label for="input finish">{% trans Destination Address %}</label>
                     <input type="text" class="form-control" id="dest" value="{{route.destination}}">
-                    <p> <input id ="sear" class="btn-info" type="button" value="Search"></p>
+                    <p> <input id ="sear" class="btn-info" type="button" value={% trans "Search" %}></p>
 
                     </form>
                         <div class="img-fluid rounded d-block" id='map_pl' >  <img style="border: 1px solid yellow;" id="map"  src='#' onerror="this.style.display='none'"></div>
@@ -72,7 +72,7 @@
                   {{ form.as_p }}
 
                   <p>
-                  <input class ='btn-info' id ="editbt" name="edit_route" type="submit" value="Submit"></p>
+                  <input class ='btn-info' id ="editbt" name="edit_route" type="submit" value={% trans "Submit" %}></p>
               </form>
                 <div class="danger"> {{msger}}</div>
                 <div class="success" > {{ msg }} </div>
