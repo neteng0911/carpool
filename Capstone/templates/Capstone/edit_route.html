@@ -24,7 +24,7 @@
 
 
 
-                        <p  class="img-fluid rounded d-block map_pl"  id="map_to_load"><img style="border:1px solid yellow;" src="{{route.map_pic}}" onerror="this.style.display='none'"></p>
+                        <p  class="img-fluid rounded d-block "  id="map_to_load"><img style="border:1px solid yellow;" src="{{route.map_pic}}" onerror="this.style.display='none'"></p>
                         <form action="{% url 'edit_route' route.pk %}" method="post">
                             {% csrf_token %}
                             <input class="btn btn-danger" name="del_route" type="submit" value="Delete Trip" >
@@ -60,7 +60,7 @@
                     <p> <input id ="sear" class="btn-info" type="button" value="Search"></p>
 
                     </form>
-                        <div class="img-fluid rounded d-block" ><img style="border: 1px solid yellow;" id="map"  src='#' onerror="this.style.display='none'"></div>
+                        <div class="img-fluid rounded d-block" id='map_pl' >  <img style="border: 1px solid yellow;" id="map"  src='#' onerror="this.style.display='none'"></div>
 
                 </div>
             </div>

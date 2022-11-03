@@ -24,12 +24,12 @@ class RouteForm(forms.ModelForm):
          widget=forms.TextInput(attrs={'readonly':'readonly','class':'readonly'}))
     destination = forms.CharField(label=_('Destination'),
         widget=forms.TextInput(attrs={'readonly':'readonly','class':'readonly'}))
-    date_orig=forms.DateField(label=_('Date of departure'),widget=forms.DateInput(attrs={'type': 'date','min':date.today(),'format':['%y-%m-%d']}))
+    date_orig=forms.DateField(label=_('Date of departure'),widget=forms.DateInput(attrs={'type': 'date','min':date.today()}))
 
     time_orig=forms.TimeField(label=_('Time of departure'),
          widget=forms.TimeInput(attrs={ 'type': 'time'}))
     date_ret = forms.DateField(label=_('Date of return'),
-        widget=forms.DateInput(attrs={'type': 'date', 'min': date_orig, 'format': ['%y-%m-%d']}))
+        widget=forms.DateInput(attrs={'type': 'date', 'min': date_orig}))
     time_dep=forms.TimeField(label=_('Time of departure'),
         widget=forms.TimeInput(attrs={'type': 'time','min':time_orig}))
 

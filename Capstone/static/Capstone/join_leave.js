@@ -248,12 +248,10 @@
     console.log(fetch_url);
 
 
-    fetch ((`/fetch_url`),{
 
-    method: 'POST'})
-    /*fetch(`/join/route/${route_id}`, {
+    fetch(`/join/route/${route_id}`, {
         method: "POST"
-    }) */
+    })
     .then(response => response.json())
     .then(data => console.log(data))
 

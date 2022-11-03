@@ -32,6 +32,9 @@ from django.core.exceptions import ValidationError
 
 
 
+
+
+
 from .forms import RouteForm, UserForm
 from .models import User, Route, Comment, Message, Qrcode
 
@@ -476,6 +479,7 @@ def edit_route(request, route_id):
 
 @csrf_exempt
 @login_required
+
 def join_route(request, route_id):
     # Query for requested route
     try:

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-28 19:50+0300\n"
+"POT-Creation-Date: 2022-11-03 08:28+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -76,6 +76,10 @@ msgstr ""
 #: .\Capstone\templates\cookie_consent\_cookie_group.html:25
 #: .\static_templ\templates\cookie_consent\_cookie_group.html:25
 msgid "Decline"
+msgstr ""
+
+#: .\Capstone\templates\Capstone\driver.html:29
+msgid "Departure Address"
 msgstr ""
 
 #: .\Capstone\templates\Capstone\layout.html:31
