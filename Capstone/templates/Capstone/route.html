@@ -11,8 +11,9 @@
   <div class="media-body">
       <div class="prof">
     <h5 class="bg-info col-md-auto mx-1 pr-5 shadow-lg "></h5>
-          <div><h5>{% trans 'Trip No' %} {{route.pk}} </h5>{% if route.fin or route.fin_set or route.fin_p  %}  <h5 style='color:red;'> {% trans'Trip Closed'%}</h5>{% endif %}
-
+          <div><h5>{% trans 'Trip No' %} {{route.pk}} </h5>
+              {% if route.fin or route.fin_set or route.fin_p %} <h5 id='closed_{{route.id}}' style='color:red;'> {% trans 'Trip Closed'%}</h5>{% endif %}
+<h5 class='closedjs' id = 'closedjs_{{route.id}}' style='color:red;'> {% trans 'Trip Closed'%} </h5><p id="fin_{{route.id}}" hidden>{{route.fin}}</p>
     <h6> {% trans 'From' %} </h6> {{route.departure}}
     <h6> {% trans 'To' %} </h6> {{route.destination}}
     <h6> {% trans 'Leaving on' %} </h6> {{route.date_orig}}

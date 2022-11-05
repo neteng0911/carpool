@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-05 23:13+0200\n"
-"PO-Revision-Date: 2022-11-05 23:10+0000\n"
+"POT-Creation-Date: 2022-11-05 23:14+0200\n"
+"PO-Revision-Date: 2022-11-05 23:17+0000\n"
 "Last-Translator:   <admin@sde.df>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -354,6 +354,11 @@ msgstr "Οδηγός"
 msgid "Initial cost per passenger"
 msgstr "Αρχικό κόστος ανά επιβάτη"
 
+#: .\Capstone\templates\Capstone\passenger.html:56
+#: .\Capstone\templates\Capstone\passenger.html:57
+msgid "$"
+msgstr "€"
+
 #: .\Capstone\templates\Capstone\passenger.html:57
 #: .\Capstone\templates\Capstone\profile.html:113
 #: .\Capstone\templates\Capstone\route.html:26
@@ -445,9 +450,7 @@ msgstr "τώρα"
 msgid ""
 "Hello, %(user.username)s\n"
 "\n"
-"We received a request to reset the password for your account for this email "
-"address. To initiate the password reset process for your account, click the "
-"link below."
+"We received a request to reset the password for your account for this email address. To initiate the password reset process for your account, click the link below."
 msgstr ""
 "Γεια σας,  λάβαμε μια εντολή για επαναφορά του κωδικού σας από αυτή την "
 "ηλεκτρονική διεύθυνση. Για να ξεκινήσει η διαδικασία ακολουθήστε των "
@@ -458,8 +461,8 @@ msgid ""
 "This link can only be used once. If you need to reset your password again, "
 "please visit"
 msgstr ""
-"Ο σύνδεσμος μπορεί να χρησιμοποιηθεί μία φορά. Αν χρειαστείτε να επαναφέρετε "
-"τον κωδικό σας πάλι, παρακαλώ ακολουθήστε"
+"Ο σύνδεσμος μπορεί να χρησιμοποιηθεί μία φορά. Αν χρειαστείτε να επαναφέρετε"
+" τον κωδικό σας πάλι, παρακαλώ ακολουθήστε"
 
 #: .\Capstone\templates\Capstone\password\password_reset_email.txt:9
 msgid "and request another reset"
@@ -499,7 +502,7 @@ msgstr "επιστροφή στις"
 
 #: .\Capstone\templates\Capstone\profile.html:139
 msgid "created on"
-msgstr ""
+msgstr "δημιουργήθηκε την"
 
 #: .\Capstone\templates\Capstone\profile.html:145
 #: .\Capstone\templates\Capstone\route.html:50
@@ -522,11 +525,11 @@ msgstr "Προορισμός"
 
 #: .\Capstone\templates\Capstone\register.html:20
 msgid "name"
-msgstr ""
+msgstr "όνομα"
 
 #: .\Capstone\templates\Capstone\register.html:23
 msgid "surname"
-msgstr ""
+msgstr "επώνυμο"
 
 #: .\Capstone\templates\Capstone\register.html:26
 #, fuzzy
@@ -536,11 +539,11 @@ msgstr "Ημ/νια Επιστροφής"
 
 #: .\Capstone\templates\Capstone\register.html:32
 msgid "Confirm Password"
-msgstr ""
+msgstr "Επιβεβαίωση Κωδικού"
 
 #: .\Capstone\templates\Capstone\register.html:37
 msgid "Already have an account?"
-msgstr ""
+msgstr "Έχετε ήδη λογαριασμό;"
 
 #: .\Capstone\templates\Capstone\register.html:37
 #, fuzzy
@@ -550,21 +553,21 @@ msgstr "Σύνδεση"
 
 #: .\Capstone\templates\Capstone\register.html:38
 msgid "By registering you agree to our"
-msgstr ""
+msgstr "Με την εγγραφή σας συμφωνείτε με"
 
 #: .\Capstone\templates\Capstone\route.html:98
 msgid "remove"
-msgstr ""
+msgstr "αφαίρεση"
 
 #: .\Capstone\templates\Capstone\route.html:113
 #: .\Capstone\templates\Capstone\searchedtrips.html:108
 #: .\Capstone\templates\Capstone\validtrips.html:109
 msgid "Edit Trip"
-msgstr ""
+msgstr "Επεξεργασία διαδρομής"
 
 #: .\Capstone\templates\Capstone\searchedtrips.html:8
 msgid "Show All Trips"
-msgstr ""
+msgstr "Όλες οι διαδρομές"
 
 #: .\Capstone\templates\Capstone\searchedtrips.html:19
 msgid "You searched for"
@@ -585,20 +588,13 @@ msgstr "Δεν βρέθηκε καμία διαδρομή!"
 
 #: .\Capstone\templates\Capstone\terms.html:18
 msgid ""
-" By accessing this website, you agree to be bound by these terms of use, all "
-"current laws and regulations,\n"
-"and you agree to be responsible for compliance with any current local laws. "
-"If you do not agree to any of these terms,\n"
-"do not use this website. Any claim regarding the the use of this website "
-"will be rulled by the laws of Greece.\n"
-"The owner of this website makes no warranty that the materials contained are "
-"suitable\n"
-"or available for use in all countries or regions, and access to products or "
-"services in countries or territories where\n"
-"their use is illegal is prohibited. . The omission of terms or restrictions "
-"mentioned in these terms of use does not\n"
-"constitute a waiver of the rights of the owner of this website nor do they "
-"restrict the owner of this website from using these rights or restrictions\n"
+" By accessing this website, you agree to be bound by these terms of use, all current laws and regulations,\n"
+"and you agree to be responsible for compliance with any current local laws. If you do not agree to any of these terms,\n"
+"do not use this website. Any claim regarding the the use of this website will be rulled by the laws of Greece.\n"
+"The owner of this website makes no warranty that the materials contained are suitable\n"
+"or available for use in all countries or regions, and access to products or services in countries or territories where\n"
+"their use is illegal is prohibited. . The omission of terms or restrictions mentioned in these terms of use does not\n"
+"constitute a waiver of the rights of the owner of this website nor do they restrict the owner of this website from using these rights or restrictions\n"
 "in the future."
 msgstr ""
 
@@ -610,27 +606,18 @@ msgstr ""
 msgid ""
 "Drivers-Passengers</h6>\n"
 "\n"
-"The owner of this website is not responsible for any driver record, ability, "
-"certification or insurance check, nor safety checks,\n"
+"The owner of this website is not responsible for any driver record, ability, certification or insurance check, nor safety checks,\n"
 "inspections or maintenance\n"
-"of the vehicles used. The owner of this website isn't responsible for any "
-"background checks of the drivers nor the passengers of the carpool trip.\n"
-"By deciding to participate on a trip voluntarily either as a driver or as a "
-"passenger, you agree that you are entirely and solely responsible\n"
-"    for your safety during the trip. <p><b>Minors are prohibited to use this "
-"website. </b></p>\n"
+"of the vehicles used. The owner of this website isn't responsible for any background checks of the drivers nor the passengers of the carpool trip.\n"
+"By deciding to participate on a trip voluntarily either as a driver or as a passenger, you agree that you are entirely and solely responsible\n"
+"    for your safety during the trip. <p><b>Minors are prohibited to use this website. </b></p>\n"
 "\n"
-"Users of this website should not accept or give rides to complete strangers "
-"ans should be extremely cautious when accepting passengers or joining "
-"trips.\n"
+"Users of this website should not accept or give rides to complete strangers ans should be extremely cautious when accepting passengers or joining trips.\n"
 "The carpooling trip is a private agreement among the users.\n"
-"The passenger of a trip is responsible of declining a trip due to unsafe "
-"vehicle, or for any reason that makes him/her feel uncomfortable\n"
+"The passenger of a trip is responsible of declining a trip due to unsafe vehicle, or for any reason that makes him/her feel uncomfortable\n"
 "or unsafe.\n"
-"The driver of a trip is responsible of declining a trip if he/she for any "
-"reason that that makes him/her feel uncomfortable or unsafe.\n"
-"   <p> <b>The users of this website are participating in carpooling trips at "
-"their own risk.</b></p>"
+"The driver of a trip is responsible of declining a trip if he/she for any reason that that makes him/her feel uncomfortable or unsafe.\n"
+"   <p> <b>The users of this website are participating in carpooling trips at their own risk.</b></p>"
 msgstr ""
 
 #: .\Capstone\templates\Capstone\terms.html:48
@@ -639,9 +626,7 @@ msgstr ""
 
 #: .\Capstone\templates\Capstone\terms.html:49
 msgid ""
-" The owner of this website takes no responsibility for any personal "
-"injuries, death, property damages, financial losses, or any other kind of "
-"liability that\n"
+" The owner of this website takes no responsibility for any personal injuries, death, property damages, financial losses, or any other kind of liability that\n"
 "    may result from sharing a trip through this website with another person."
 msgstr ""
 
@@ -651,13 +636,9 @@ msgstr ""
 
 #: .\Capstone\templates\Capstone\terms.html:60
 msgid ""
-"The materials on the websites of the owner of this website are provided “as "
-"they are” and their guarantees are provided by the manufacturers or their\n"
-"    representatives. the owner of this website does not provide or imply "
-"that it provides any additional warranty. The calculation od CO2 emissions "
-"is\n"
-"an approximation and depends on the car manufacture, the driving habits, the "
-"kind of fuel etc. "
+"The materials on the websites of the owner of this website are provided “as they are” and their guarantees are provided by the manufacturers or their\n"
+"    representatives. the owner of this website does not provide or imply that it provides any additional warranty. The calculation od CO2 emissions is\n"
+"an approximation and depends on the car manufacture, the driving habits, the kind of fuel etc. "
 msgstr ""
 
 #: .\Capstone\templates\Capstone\terms.html:66
@@ -666,18 +647,13 @@ msgstr ""
 
 #: .\Capstone\templates\Capstone\terms.html:68
 msgid ""
-" In any case, the owner of this website or its suppliers are not liable for "
-"damages resulting from lost information or interruptions due to system\n"
-"or product failures, even if the owner of this website has been notified "
-"orally or written for the possibility of such losses.\n"
+" In any case, the owner of this website or its suppliers are not liable for damages resulting from lost information or interruptions due to system\n"
+"or product failures, even if the owner of this website has been notified orally or written for the possibility of such losses.\n"
 "\n"
 "Revisions and typographical errors\n"
-"The materials appearing on the websites of the owner of this website may "
-"include technical, typographical or photographic errors.\n"
-"the owner of this website does not guarantee that all information published "
-"on its website is accurate, complete and in accordance\n"
-"    with current conditions. the owner of this website may make changes to "
-"the content of its websites at any time without prior notice."
+"The materials appearing on the websites of the owner of this website may include technical, typographical or photographic errors.\n"
+"the owner of this website does not guarantee that all information published on its website is accurate, complete and in accordance\n"
+"    with current conditions. the owner of this website may make changes to the content of its websites at any time without prior notice."
 msgstr ""
 
 #: .\Capstone\templates\Capstone\terms.html:76
@@ -686,10 +662,8 @@ msgstr ""
 
 #: .\Capstone\templates\Capstone\terms.html:78
 msgid ""
-"The owner of this website may change the terms of use of its websites "
-"without prior notice.\n"
-"    Using any of the websites of the owner of this website agrees to its "
-"current Terms of Use. "
+"The owner of this website may change the terms of use of its websites without prior notice.\n"
+"    Using any of the websites of the owner of this website agrees to its current Terms of Use. "
 msgstr ""
 
 #: .\Capstone\templates\Capstone\terms.html:81
@@ -698,12 +672,9 @@ msgstr ""
 
 #: .\Capstone\templates\Capstone\terms.html:83
 msgid ""
-"Any information or other material delivered or published by users, on the "
-"owner of this website is considered non-confidential\n"
-"and non-privately owned. the owner of this website reserves the right to use "
-"this information, protecting privacy rules.\n"
-"    The publication of illegal, bulling, pornographic, satirical, defamatory "
-"or other content contrary to the law is prohibited."
+"Any information or other material delivered or published by users, on the owner of this website is considered non-confidential\n"
+"and non-privately owned. the owner of this website reserves the right to use this information, protecting privacy rules.\n"
+"    The publication of illegal, bulling, pornographic, satirical, defamatory or other content contrary to the law is prohibited."
 msgstr ""
 
 #: .\Capstone\templates\Capstone\terms.html:88
@@ -713,14 +684,10 @@ msgstr ""
 #: .\Capstone\templates\Capstone\terms.html:90
 msgid ""
 "The owner of this website may contain links to third party websites.\n"
-"Such websites are operated by other companies or persons or agents and the "
-"links to such websites are provided by the owner of this website\n"
-"only for the convenience of its users. These websites are not under the "
-"control of the owner of this website\n"
-"and the owner of this website is not responsible for the accuracy of the "
-"information published in them. the owner of this website\n"
-"reserves the right to terminate the connection to any third party website "
-"without notice."
+"Such websites are operated by other companies or persons or agents and the links to such websites are provided by the owner of this website\n"
+"only for the convenience of its users. These websites are not under the control of the owner of this website\n"
+"and the owner of this website is not responsible for the accuracy of the information published in them. the owner of this website\n"
+"reserves the right to terminate the connection to any third party website without notice."
 msgstr ""
 
 #: .\Capstone\templates\Capstone\validtrips.html:36

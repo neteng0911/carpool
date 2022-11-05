@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-05 23:13+0200\n"
+"POT-Creation-Date: 2022-11-05 23:14+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -344,6 +344,11 @@ msgstr ""
 #: .\Capstone\templates\Capstone\searchedtrips.html:39
 #: .\Capstone\templates\Capstone\validtrips.html:40
 msgid "Initial cost per passenger"
+msgstr ""
+
+#: .\Capstone\templates\Capstone\passenger.html:56
+#: .\Capstone\templates\Capstone\passenger.html:57
+msgid "$"
 msgstr ""
 
 #: .\Capstone\templates\Capstone\passenger.html:57
