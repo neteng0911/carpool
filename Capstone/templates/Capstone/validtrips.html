@@ -3,9 +3,10 @@
 {% load static %}
 {% block body %}
 {% load qr_code %}
+{% load i18n %}
 
 
- <a  class="text-secondary" style='position:absolute; right:100px;' href="{% url 'passenger' %}" ><strong> Show All Trips </strong></a>
+ <a  class="text-secondary" style='position:absolute; right:100px;' href="{% url 'passenger' %}" ><strong> (% trans 'Show All Trips' %} </strong></a>
 {% if message %}
 
        <p class="text-danger"><strong>{{message}}</strong></p>
@@ -14,7 +15,7 @@
 
 
         {% if valid_trips %}
-            <p class="text-secondary">Total Trips:  <strong>{{routes_count}}</strong></p>
+            <p class="text-secondary">{% trans 'Total Trips'%}:  <strong>{{routes_count}}</strong></p>
 
 
             {% for ro in  valid_trips %}
@@ -23,23 +24,23 @@
                 <h5 class="bg-info col-md-auto mx-1 pr-5 shadow-lg"></h5>
                 <div data-fin="{{ro.fin}}" data-fin_set="{{ro.fin_set}}" data-fin_p="{{ro.fin_p}}">
                 <h5> <strong><a href="{% url 'webload_route' ro.id %}" > Trip No:{{ro.id}} </a></strong> </h5>
-                     {% if ro.fin or ro.fin_set or ro.fin_p %} <h5 id='closed_{{ro.id}}' style='color:red;'> 'Trip Closed'</h5>{% endif %}
+                     {% if ro.fin or ro.fin_set or ro.fin_p %} <h5 id='closed_{{ro.id}}' style='color:red;'> {% trans 'Trip Closed'%}</h5>{% endif %}
 
-                <h5 class='closedjs' id = 'closedjs_{{ro.id}}' style='color:red;'> 'Trip Closed'</h5><p id="fin_{{ro.id}}" hidden>{{ro.fin}}</p>
-                <h6> From </h6> {{ro.departure}}
-                <h6> To </h6> {{ro.destination}}
-                <h6> Leaving on </h6> {{ro.date_orig}}
-                <h6> Leaving at </h6> {{ro.time_orig}}
-                <h6> Returning on</h6> {{ro.date_ret}}
-                <h6> Returning at </h6> {{ro.time_dep}}
-                <h6> Distance </h6> {{ro.dist}}Km
+                <h5 class='closedjs' id = 'closedjs_{{ro.id}}' style='color:red;'> {% trans 'Trip Closed'%}</h5><p id="fin_{{ro.id}}" hidden>{{ro.fin}}</p>
+                <h6> {% trans 'From' %} </h6> {{ro.departure}}
+                <h6> {% trans 'To' %} </h6> {{ro.destination}}
+                <h6> {% trans 'Leaving on' %} </h6> {{ro.date_orig}}
+                <h6> {% trans 'Leaving at' %} </h6> {{ro.time_orig}}
+                <h6> {% trans 'Returning on' %}</h6> {{ro.date_ret}}
+                <h6> {% trans 'Returning at' %} </h6> {{ro.time_dep}}
+                <h6> {% trans 'Distance' %} </h6> {{ro.dist}}{% trans 'Km' %}
 
 
-                <h6> The Driver is </h6>   <a href="{% url 'profile' ro.thedriver.id %}" ><strong> {{ro.thedriver}} </strong></a>
-                <p hidden id="cost_{{ro.id}}"><h6>Initial cost per passenger {{ro.cost}} $</h6>
-                <h6> Expected cost per passenger <strong id="costpp_{{ro.id}}">{{ro.costpp}}$</strong></h6>
+                <h6> {% trans 'The Driver is' %} </h6>   <a href="{% url 'profile' ro.thedriver.id %}" ><strong> {{ro.thedriver}} </strong></a>
+                <p hidden id="cost_{{ro.id}}"><h6>{% trans 'Initial cost per passenger' %} {{ro.cost}} $</h6>
+                <h6> {% trans 'Expected cost per passenger %} <strong id="costpp_{{ro.id}}">{{ro.costpp}}$</strong></h6>
                     {% if ro.d_a %}
-                    <h6> Disabled access <i class="fa fa-wheelchair" aria-hidden="true"></i></h6>
+                    <h6> {% trans 'Disabled access' %} <i class="fa fa-wheelchair" aria-hidden="true"></i></h6>
                     {% endif %}
                     <img  class='img-fluid rounded d-block' style="border:1px solid yellow;" src="{{ ro.map_pic }}" alt="map_img">
 
@@ -72,11 +73,11 @@
                                     {% csrf_token %}
 
                         <div class="form-group">
-                            <input class="form-control"  style="margin-top:30px" type="text" name="comm_txt" placeholder="Insert your comment">
+                            <input class="form-control"  style="margin-top:30px" type="text" name="comm_txt" placeholder={% trans "Insert your comment"%}>
                             <input type="hidden"  name="route_id" value={{ro.id}}>
 
                         </div>
-                        <input class="btn btn-primary"  id='post_btn' type="submit" name="route_reply" value="Post">
+                        <input class="btn btn-primary"  id='post_btn' type="submit" name="route_reply" value={% trans "Post"%}>
 
                                 {% ifnotequal request.user ro.thedriver %}
 
@@ -84,12 +85,12 @@
                                         {% if not ro.fin %}
                                             {% if request.user in ro.thepassenger.all %}
 
-                                        <span id="leavebtn" class="joinleave" data-id="{{ro.id}}" onclick="return false" title="Leave" >Leave</span>
+                                        <span id="leavebtn" class="joinleave" data-id="{{ro.id}}" onclick="return false" title="Leave" >{% trans 'Leave' %}</span>
 
                                             {% else %}
                                                 {% if not ro.fin_set and not ro.fin  %}
 
-                                            <span id="joinbtn" class="joinleave" data-id="{{ro.id}}" onclick="return false"  title="Join">Join</span>
+                                            <span id="joinbtn" class="joinleave" data-id="{{ro.id}}" onclick="return false"  title="Join">{% trans 'Join' %}</span>
                                                 {% endif%}
                                             {% endif %}
                                         {% endif %}
@@ -105,7 +106,7 @@
                                 {% ifequal request.user ro.thedriver %}
                                   <form action="{% url 'edit_route' ro.pk %}" method="post">
                                 {% csrf_token %}
-                                    <input class="btn btn-success" type="button"  name="load_route" value="Edit Trip"  onclick="location.href='{% url 'edit_route' ro.pk %}'"  />
+                                    <input class="btn btn-success" type="button"  name="load_route" value={% trans "Edit Trip"%}  onclick="location.href='{% url 'edit_route' ro.pk %}'"  />
                                     <input type="hidden"  name="route_to_load_id" value={{ro.pk}}>
                                   </form>
                                 {%endifequal %}
@@ -126,7 +127,7 @@
 
 
         <div class="comms "><p style= "color:blue; font-size:10px; "><a href="{% url 'profile' rep.owner_id %}">{{rep.owner}}</a>
-            replied on {{rep.created_date}}</p> <strong>{{rep}} </strong>
+            {% trans 'commented on' %} {{rep.created_date}}</p> <strong>{{rep}} </strong>
 
 </ul>
                             {% endfor %}
@@ -142,7 +143,7 @@
 
 
         {% else %}
-            <p class="text-warning"><strong> Sorry no Trips found!</strong></p>
+            <p class="text-warning"><strong> {% trans 'Sorry no Trips found!' %}</strong></p>
 
         {% endif %}
 {% endif %}
