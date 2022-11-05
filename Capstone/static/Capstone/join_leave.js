@@ -295,11 +295,11 @@ fetch(`/route/${route_id}`)
        //console.log(no_passengers);
        if (no_passengers ===0){
        var cost=init_cost;
-       document.querySelector(`#costpp_${route_id}`).innerHTML = cost+'$';
+       document.querySelector(`#costpp_${route_id}`).innerHTML = cost;
 }
        else{
        var cost =(init_cost/no_passengers).toFixed(2);
-       document.querySelector(`#costpp_${route_id}`).innerHTML = cost+'$';
+       document.querySelector(`#costpp_${route_id}`).innerHTML = cost;
 
 
 }
