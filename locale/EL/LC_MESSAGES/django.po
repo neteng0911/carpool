@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-05 23:14+0200\n"
-"PO-Revision-Date: 2022-11-05 23:17+0000\n"
+"POT-Creation-Date: 2023-01-21 20:38+0200\n"
+"PO-Revision-Date: 2023-01-21 20:39+0000\n"
 "Last-Translator:   <admin@sde.df>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -105,6 +105,7 @@ msgstr "Ευχαριστούμε για την επιβεβαίωση του η�
 
 #: .\Capstone\templates\Capstone\confirm_email_success.html:10
 #: .\Capstone\templates\Capstone\layout.html:99
+#: .\Capstone\templates\Capstone\layoutold.html:99
 msgid "Log In"
 msgstr "Σύνδεση"
 
@@ -114,8 +115,6 @@ msgid "Departure Address"
 msgstr "Αφετηρία"
 
 #: .\Capstone\templates\Capstone\driver.html:21
-#, fuzzy
-#| msgid "Destination"
 msgid "Destination Address"
 msgstr "Προορισμός"
 
@@ -130,12 +129,18 @@ msgstr "Αναζήτηση"
 msgid "Submit"
 msgstr "Υποβολή"
 
-#: .\Capstone\templates\Capstone\edit_profile.html:27
+#: .\Capstone\templates\Capstone\edit_profile.html:15
+#: .\Capstone\templates\Capstone\profile.html:47
+msgid "You are member since"
+msgstr "Είστε μέλος από "
+
+#: .\Capstone\templates\Capstone\edit_profile.html:31
 msgid "Update"
 msgstr "Ενημέρωση"
 
-#: .\Capstone\templates\Capstone\edit_profile.html:34
-msgid "You are not allowed to edit other user"
+#: .\Capstone\templates\Capstone\edit_profile.html:38
+#| msgid "You are not allowed to edit other user"
+msgid "You are not allowed to edit other user profile!"
 msgstr "Δεν έχετε το δικαίωμα να επεξεργαστείτε προφίλ διαφορετικού χρήστη"
 
 #: .\Capstone\templates\Capstone\edit_route.html:14
@@ -145,7 +150,7 @@ msgstr "Εδώ μπορείτε να επεξεργαστείτε την δια�
 #: .\Capstone\templates\Capstone\edit_route.html:16
 #: .\Capstone\templates\Capstone\passenger.html:47
 #: .\Capstone\templates\Capstone\profile.html:109
-#: .\Capstone\templates\Capstone\route.html:17
+#: .\Capstone\templates\Capstone\route.html:18
 #: .\Capstone\templates\Capstone\searchedtrips.html:30
 #: .\Capstone\templates\Capstone\validtrips.html:31
 msgid "To"
@@ -154,7 +159,7 @@ msgstr "Προς"
 #: .\Capstone\templates\Capstone\edit_route.html:18
 #: .\Capstone\templates\Capstone\passenger.html:48
 #: .\Capstone\templates\Capstone\profile.html:110
-#: .\Capstone\templates\Capstone\route.html:18
+#: .\Capstone\templates\Capstone\route.html:19
 #: .\Capstone\templates\Capstone\searchedtrips.html:31
 #: .\Capstone\templates\Capstone\validtrips.html:32
 msgid "Leaving on"
@@ -167,7 +172,7 @@ msgstr "στις"
 
 #: .\Capstone\templates\Capstone\edit_route.html:20
 #: .\Capstone\templates\Capstone\passenger.html:50
-#: .\Capstone\templates\Capstone\route.html:20
+#: .\Capstone\templates\Capstone\route.html:21
 #: .\Capstone\templates\Capstone\searchedtrips.html:33
 #: .\Capstone\templates\Capstone\validtrips.html:34
 msgid "Returning on"
@@ -197,8 +202,6 @@ msgid "By using this site you agree to our"
 msgstr "Χρησιμοποιώντας την εφαρμογή, συμφωνείτε με τους"
 
 #: .\Capstone\templates\Capstone\index.html:20
-#, fuzzy
-#| msgid "Terms and Conditions"
 msgid "Terms and conditions"
 msgstr "Όροι και Περιορισμοί"
 
@@ -211,45 +214,53 @@ msgid "these before using this site"
 msgstr "πριν την χρήση της εφαρμογής"
 
 #: .\Capstone\templates\Capstone\layout.html:31
+#: .\Capstone\templates\Capstone\layoutold.html:31
 msgid "Hello"
 msgstr "Γεια σου"
 
 #: .\Capstone\templates\Capstone\layout.html:44
+#: .\Capstone\templates\Capstone\layoutold.html:44
 msgid "Profile"
 msgstr "Προφίλ"
 
 #: .\Capstone\templates\Capstone\layout.html:53
+#: .\Capstone\templates\Capstone\layoutold.html:53
 msgid "Language"
 msgstr "Γλώσσα"
 
 #: .\Capstone\templates\Capstone\layout.html:80
+#: .\Capstone\templates\Capstone\layoutold.html:80
 msgid "Log Out"
 msgstr "Αποσύνδεση"
 
 #: .\Capstone\templates\Capstone\layout.html:102
+#: .\Capstone\templates\Capstone\layoutold.html:102
 #: .\Capstone\templates\Capstone\register.html:5
 #: .\Capstone\templates\Capstone\register.html:34
 msgid "Register"
 msgstr "Εγγραφή"
 
-#: .\Capstone\templates\Capstone\layout.html:149
+#: .\Capstone\templates\Capstone\layout.html:203
+#: .\Capstone\templates\Capstone\layoutold.html:149
 msgid "Products"
 msgstr "Προϊόντα"
 
-#: .\Capstone\templates\Capstone\layout.html:151
+#: .\Capstone\templates\Capstone\layout.html:205
+#: .\Capstone\templates\Capstone\layoutold.html:151
 #: .\Capstone\templates\Capstone\register.html:38
 msgid "Terms and Conditions"
 msgstr "Όροι και Περιορισμοί"
 
-#: .\Capstone\templates\Capstone\layout.html:154
+#: .\Capstone\templates\Capstone\layout.html:208
+#: .\Capstone\templates\Capstone\layoutold.html:154
 msgid "Instructions"
 msgstr "Οδηγίες"
 
-#: .\Capstone\templates\Capstone\layout.html:168
+#: .\Capstone\templates\Capstone\layoutold.html:168
 msgid "Contact"
 msgstr "Επικοινωνία"
 
-#: .\Capstone\templates\Capstone\layout.html:178
+#: .\Capstone\templates\Capstone\layoutold.html:178
 msgid "Follow us"
 msgstr "Ακολουθήστε μας"
 
@@ -272,9 +283,8 @@ msgid "No account?"
 msgstr "Δεν έχετε λογαριασμό;"
 
 #: .\Capstone\templates\Capstone\login.html:24
-#, fuzzy
-#| msgid "Register"
-msgid "Register here"
+#| msgid "Register here"
+msgid "You can register here"
 msgstr "Εγγραφή"
 
 #: .\Capstone\templates\Capstone\login.html:25
@@ -309,6 +319,8 @@ msgstr "Διαδρομή Νο"
 #: .\Capstone\templates\Capstone\passenger.html:43
 #: .\Capstone\templates\Capstone\passenger.html:45
 #: .\Capstone\templates\Capstone\profile.html:104
+#: .\Capstone\templates\Capstone\route.html:15
+#: .\Capstone\templates\Capstone\route.html:16
 #: .\Capstone\templates\Capstone\searchedtrips.html:26
 #: .\Capstone\templates\Capstone\searchedtrips.html:28
 #: .\Capstone\templates\Capstone\validtrips.html:27
@@ -318,7 +330,7 @@ msgstr "Διαδρομή οριστικοποιημένη"
 
 #: .\Capstone\templates\Capstone\passenger.html:46
 #: .\Capstone\templates\Capstone\profile.html:109
-#: .\Capstone\templates\Capstone\route.html:16
+#: .\Capstone\templates\Capstone\route.html:17
 #: .\Capstone\templates\Capstone\searchedtrips.html:29
 #: .\Capstone\templates\Capstone\validtrips.html:30
 msgid "From"
@@ -326,21 +338,21 @@ msgstr "Από"
 
 #: .\Capstone\templates\Capstone\passenger.html:49
 #: .\Capstone\templates\Capstone\profile.html:111
-#: .\Capstone\templates\Capstone\route.html:19
+#: .\Capstone\templates\Capstone\route.html:20
 #: .\Capstone\templates\Capstone\searchedtrips.html:32
 #: .\Capstone\templates\Capstone\validtrips.html:33
 msgid "Leaving at"
 msgstr "Αναχώρηση στις"
 
 #: .\Capstone\templates\Capstone\passenger.html:51
-#: .\Capstone\templates\Capstone\route.html:21
+#: .\Capstone\templates\Capstone\route.html:22
 #: .\Capstone\templates\Capstone\searchedtrips.html:34
 #: .\Capstone\templates\Capstone\validtrips.html:35
 msgid "Returning at"
 msgstr "Επιστροφή στις"
 
 #: .\Capstone\templates\Capstone\passenger.html:55
-#: .\Capstone\templates\Capstone\route.html:24
+#: .\Capstone\templates\Capstone\route.html:25
 #: .\Capstone\templates\Capstone\searchedtrips.html:38
 #: .\Capstone\templates\Capstone\validtrips.html:39
 msgid "The Driver is"
@@ -348,7 +360,7 @@ msgstr "Οδηγός"
 
 #: .\Capstone\templates\Capstone\passenger.html:56
 #: .\Capstone\templates\Capstone\profile.html:112
-#: .\Capstone\templates\Capstone\route.html:25
+#: .\Capstone\templates\Capstone\route.html:26
 #: .\Capstone\templates\Capstone\searchedtrips.html:39
 #: .\Capstone\templates\Capstone\validtrips.html:40
 msgid "Initial cost per passenger"
@@ -361,14 +373,15 @@ msgstr "€"
 
 #: .\Capstone\templates\Capstone\passenger.html:57
 #: .\Capstone\templates\Capstone\profile.html:113
-#: .\Capstone\templates\Capstone\route.html:26
+#: .\Capstone\templates\Capstone\route.html:27
 #: .\Capstone\templates\Capstone\searchedtrips.html:40
+#: .\Capstone\templates\Capstone\validtrips.html:41
 msgid "Expected cost per passenger"
 msgstr "Αναμενόμενο κόστος ανά επιβάτη"
 
 #: .\Capstone\templates\Capstone\passenger.html:93
 #: .\Capstone\templates\Capstone\profile.html:169
-#: .\Capstone\templates\Capstone\route.html:64
+#: .\Capstone\templates\Capstone\route.html:65
 #: .\Capstone\templates\Capstone\searchedtrips.html:75
 #: .\Capstone\templates\Capstone\validtrips.html:76
 msgid "Insert your comment"
@@ -376,7 +389,7 @@ msgstr "Σχολιάστε"
 
 #: .\Capstone\templates\Capstone\passenger.html:97
 #: .\Capstone\templates\Capstone\profile.html:173
-#: .\Capstone\templates\Capstone\route.html:68
+#: .\Capstone\templates\Capstone\route.html:69
 #: .\Capstone\templates\Capstone\searchedtrips.html:79
 #: .\Capstone\templates\Capstone\validtrips.html:80
 msgid "Post"
@@ -384,7 +397,7 @@ msgstr "Δημοσίευση"
 
 #: .\Capstone\templates\Capstone\passenger.html:105
 #: .\Capstone\templates\Capstone\profile.html:178
-#: .\Capstone\templates\Capstone\route.html:76
+#: .\Capstone\templates\Capstone\route.html:77
 #: .\Capstone\templates\Capstone\searchedtrips.html:87
 #: .\Capstone\templates\Capstone\validtrips.html:88
 msgid "Leave"
@@ -392,15 +405,15 @@ msgstr "Αποχώρηση"
 
 #: .\Capstone\templates\Capstone\passenger.html:110
 #: .\Capstone\templates\Capstone\profile.html:180
-#: .\Capstone\templates\Capstone\route.html:78
+#: .\Capstone\templates\Capstone\route.html:79
 #: .\Capstone\templates\Capstone\searchedtrips.html:92
 #: .\Capstone\templates\Capstone\validtrips.html:93
 msgid "Join"
 msgstr "Συμμετοχή"
 
 #: .\Capstone\templates\Capstone\passenger.html:144
-#: .\Capstone\templates\Capstone\profile.html:240
-#: .\Capstone\templates\Capstone\route.html:126
+#: .\Capstone\templates\Capstone\profile.html:198
+#: .\Capstone\templates\Capstone\route.html:127
 #: .\Capstone\templates\Capstone\validtrips.html:130
 msgid "commented on"
 msgstr "σχολιάστηκε την"
@@ -410,12 +423,10 @@ msgid "Page"
 msgstr "Σελίδα"
 
 #: .\Capstone\templates\Capstone\passenger.html:163
-#: .\Capstone\templates\Capstone\profile.html:253
 msgid "Previous"
 msgstr "Προηγούμενη"
 
 #: .\Capstone\templates\Capstone\passenger.html:167
-#: .\Capstone\templates\Capstone\profile.html:257
 msgid "Next"
 msgstr "Επόμενη"
 
@@ -424,8 +435,6 @@ msgid "Forgotten your password? Enter your email address below, and we"
 msgstr "Ξεχάσατε τον κωδικό σας; Εισάγετε την ηλεκτρονική σας διεύθυνση και "
 
 #: .\Capstone\templates\Capstone\password\password_reset.html:15
-#, fuzzy
-#| msgid "Instructions"
 msgid "Send me instructions"
 msgstr "Οδηγίες"
 
@@ -472,10 +481,6 @@ msgstr "και ζητήστε νέα επαναφορά"
 msgid "You are viewing user"
 msgstr "Βλέπετε το προφίλ του χρήστη"
 
-#: .\Capstone\templates\Capstone\profile.html:47
-msgid "You are member since"
-msgstr "Είστε μέλος από "
-
 #: .\Capstone\templates\Capstone\profile.html:65
 msgid "You are a passenger of"
 msgstr "Είστε επιβάτης σε"
@@ -505,21 +510,15 @@ msgid "created on"
 msgstr "δημιουργήθηκε την"
 
 #: .\Capstone\templates\Capstone\profile.html:145
-#: .\Capstone\templates\Capstone\route.html:50
-#, fuzzy
-#| msgid "Passengers"
+#: .\Capstone\templates\Capstone\route.html:51
 msgid "Passengers on this Trip"
 msgstr "Επιβάτες"
 
 #: .\Capstone\templates\Capstone\profile.html:160
-#, fuzzy
-#| msgid "Passengers"
 msgid "Passengers on this trip"
 msgstr "Επιβάτες"
 
 #: .\Capstone\templates\Capstone\register.html:17
-#, fuzzy
-#| msgid "Destination"
 msgid "Email Address"
 msgstr "Προορισμός"
 
@@ -532,8 +531,6 @@ msgid "surname"
 msgstr "επώνυμο"
 
 #: .\Capstone\templates\Capstone\register.html:26
-#, fuzzy
-#| msgid "Date of return"
 msgid "date of birth"
 msgstr "Ημ/νια Επιστροφής"
 
@@ -546,8 +543,6 @@ msgid "Already have an account?"
 msgstr "Έχετε ήδη λογαριασμό;"
 
 #: .\Capstone\templates\Capstone\register.html:37
-#, fuzzy
-#| msgid "Log In"
 msgid "Log In here"
 msgstr "Σύνδεση"
 
@@ -555,23 +550,24 @@ msgstr "Σύνδεση"
 msgid "By registering you agree to our"
 msgstr "Με την εγγραφή σας συμφωνείτε με"
 
-#: .\Capstone\templates\Capstone\route.html:98
+#: .\Capstone\templates\Capstone\route.html:99
 msgid "remove"
 msgstr "αφαίρεση"
 
-#: .\Capstone\templates\Capstone\route.html:113
+#: .\Capstone\templates\Capstone\route.html:114
 #: .\Capstone\templates\Capstone\searchedtrips.html:108
 #: .\Capstone\templates\Capstone\validtrips.html:109
 msgid "Edit Trip"
 msgstr "Επεξεργασία διαδρομής"
 
 #: .\Capstone\templates\Capstone\searchedtrips.html:8
+#: .\Capstone\templates\Capstone\validtrips.html:9
 msgid "Show All Trips"
 msgstr "Όλες οι διαδρομές"
 
 #: .\Capstone\templates\Capstone\searchedtrips.html:19
 msgid "You searched for"
-msgstr ""
+msgstr "Αναζητήσατε"
 
 #: .\Capstone\templates\Capstone\searchedtrips.html:25
 msgid " Trip No"
@@ -586,31 +582,72 @@ msgstr "απάντησε την"
 msgid "Sorry no Trips found!"
 msgstr "Δεν βρέθηκε καμία διαδρομή!"
 
+#: .\Capstone\templates\Capstone\terms.html:14
+msgid "Company name"
+msgstr "Carpool"
+
 #: .\Capstone\templates\Capstone\terms.html:18
+#| msgid ""
+#| " By accessing this website, you agree to be bound by these terms of use, all current laws and regulations,\n"
+#| "and you agree to be responsible for compliance with any current local laws. If you do not agree to any of these terms,\n"
+#| "do not use this website. Any claim regarding the the use of this website will be rulled by the laws of Greece.\n"
+#| "The owner of this website makes no warranty that the materials contained are suitable\n"
+#| "or available for use in all countries or regions, and access to products or services in countries or territories where\n"
+#| "their use is illegal is prohibited. . The omission of terms or restrictions mentioned in these terms of use does not\n"
+#| "constitute a waiver of the rights of the owner of this website nor do they restrict the owner of this website from using these rights or restrictions\n"
+#| "in the future."
 msgid ""
 " By accessing this website, you agree to be bound by these terms of use, all current laws and regulations,\n"
 "and you agree to be responsible for compliance with any current local laws. If you do not agree to any of these terms,\n"
-"do not use this website. Any claim regarding the the use of this website will be rulled by the laws of Greece.\n"
-"The owner of this website makes no warranty that the materials contained are suitable\n"
-"or available for use in all countries or regions, and access to products or services in countries or territories where\n"
-"their use is illegal is prohibited. . The omission of terms or restrictions mentioned in these terms of use does not\n"
+"do not use this website. Any claim regarding the the use of this website will be ruled by the laws of Greece.\n"
+"The owner of this website makes no warranty that the services provided by the users of this website are suitable\n"
+"or available for use in all countries or regions. The omission of terms or restrictions mentioned in these terms of use does not\n"
 "constitute a waiver of the rights of the owner of this website nor do they restrict the owner of this website from using these rights or restrictions\n"
 "in the future."
 msgstr ""
+"Με την πρόσβαση σε αυτόν τον ιστότοπο, συμφωνείτε να δεσμεύεστε από αυτούς τους όρους χρήσης, όλους τους ισχύοντες νόμους και κανονισμούς,\n"
+"και συμφωνείτε να είστε υπεύθυνοι για τη συμμόρφωση με τυχόν ισχύοντες τοπικούς νόμους. Εάν δεν συμφωνείτε με κάποιους από αυτούς τους όρους,\n"
+"μην χρησιμοποιείτε αυτόν τον ιστότοπο. Οποιαδήποτε αξίωση σχετικά με τη χρήση αυτού του ιστότοπου θα διέπεται από τους νόμους της Ελλάδας.\n"
+"Ο ιδιοκτήτης αυτού του ιστότοπου δεν παρέχει καμία εγγύηση ότι οι υπηρεσίες που παρέχονται από τους χρήστες του. Η παράλειψη όρων ή περιορισμών που αναφέρονται στους παρόντες όρους χρήσης δεν το κάνει\n"
+"συνιστούν παραίτηση από τα δικαιώματα του κατόχου αυτού του ιστότοπου ούτε περιορίζουν τον κάτοχο αυτού του ιστότοπου από τη χρήση αυτών των δικαιωμάτων ή περιορισμών στο μέλλον."
 
-#: .\Capstone\templates\Capstone\terms.html:27
+#: .\Capstone\templates\Capstone\terms.html:26
 msgid "Copyright and trademark information and instructions"
 msgstr ""
+"Πληροφορίες και οδηγίες πνευματικών δικαιωμάτων και εμπορικών σημάτων."
 
-#: .\Capstone\templates\Capstone\terms.html:32
+#: .\Capstone\templates\Capstone\terms.html:28
+msgid ""
+"The code and logos contained in this website are protected by current "
+"copyright and trademark laws."
+msgstr ""
+"Ο κωδικός και τα λογότυπα που περιέχονται σε αυτόν τον ιστότοπο "
+"προστατεύονται από τους ισχύοντες νόμους περί πνευματικών δικαιωμάτων και "
+"εμπορικών σημάτων."
+
+#: .\Capstone\templates\Capstone\terms.html:31
+#| msgid ""
+#| "Drivers-Passengers</h6>\n"
+#| "\n"
+#| "The owner of this website is not responsible for any driver record, ability, certification or insurance check, nor safety checks,\n"
+#| "inspections or maintenance\n"
+#| "of the vehicles used. The owner of this website isn't responsible for any background checks of the drivers nor the passengers of the carpool trip.\n"
+#| "By deciding to participate on a trip voluntarily either as a driver or as a passenger, you agree that you are entirely and solely responsible\n"
+#| "    for your safety during the trip. <p><b>Minors are prohibited to use this website. </b></p>\n"
+#| "\n"
+#| "Users of this website should not accept or give rides to complete strangers ans should be extremely cautious when accepting passengers or joining trips.\n"
+#| "The carpooling trip is a private agreement among the users.\n"
+#| "The passenger of a trip is responsible of declining a trip due to unsafe vehicle, or for any reason that makes him/her feel uncomfortable\n"
+#| "or unsafe.\n"
+#| "The driver of a trip is responsible of declining a trip if he/she for any reason that that makes him/her feel uncomfortable or unsafe.\n"
+#| "   <p> <b>The users of this website are participating in carpooling trips at their own risk.</b></p>"
 msgid ""
 "Drivers-Passengers</h6>\n"
 "\n"
 "The owner of this website is not responsible for any driver record, ability, certification or insurance check, nor safety checks,\n"
 "inspections or maintenance\n"
 "of the vehicles used. The owner of this website isn't responsible for any background checks of the drivers nor the passengers of the carpool trip.\n"
-"By deciding to participate on a trip voluntarily either as a driver or as a passenger, you agree that you are entirely and solely responsible\n"
-"    for your safety during the trip. <p><b>Minors are prohibited to use this website. </b></p>\n"
+"By deciding to participate on a trip voluntarily either as a driver or as a passenger, you agree that you are entirely and solely responsible for your safety during the trip. <p><b>Minors are prohibited to use this website. </b></p>\n"
 "\n"
 "Users of this website should not accept or give rides to complete strangers ans should be extremely cautious when accepting passengers or joining trips.\n"
 "The carpooling trip is a private agreement among the users.\n"
@@ -619,76 +656,145 @@ msgid ""
 "The driver of a trip is responsible of declining a trip if he/she for any reason that that makes him/her feel uncomfortable or unsafe.\n"
 "   <p> <b>The users of this website are participating in carpooling trips at their own risk.</b></p>"
 msgstr ""
+"Ο ιδιοκτήτης αυτού του ιστότοπου δεν είναι υπεύθυνος για τον οδηγό, την ικανότητα, πιστοποίηση ή έλεγχο ασφάλισης, ούτε για ελέγχους ασφαλείας, επιθεωρήσεις ή συντήρηση\n"
+"των χρησιμοποιούμενων οχημάτων. Ο ιδιοκτήτης αυτού του ιστότοπου δεν είναι υπεύθυνος για τυχόν ελέγχους ιστορικού των οδηγών ή των επιβατών του ταξιδιού με συνεπιβατισμό.\n"
+"Αποφασίζοντας να συμμετάσχετε σε ένα ταξίδι εθελοντικά είτε ως οδηγός είτε ως επιβάτης, συμφωνείτε ότι είστε εξ ολοκλήρου και αποκλειστικά υπεύθυνοι για την ασφάλειά σας κατά τη διάρκεια του ταξιδιού.Οι ανήλικοι απαγορεύεται να χρησιμοποιούν αυτόν τον ιστότοπο. \n"
+"\n"
+"Οι χρήστες αυτού του ιστότοπου δεν πρέπει να δέχονται ή να κάνουν βόλτες σε εντελώς αγνώστους και θα πρέπει να είναι εξαιρετικά προσεκτικοί όταν δέχονται επιβάτες ή συμμετέχουν σε ταξίδια.\n"
+"Το ταξίδι carpooling είναι μια ιδιωτική συμφωνία μεταξύ των χρηστών.\n"
+"Ο επιβάτης ενός ταξιδιού είναι υπεύθυνος για την απόρριψη ενός ταξιδιού λόγω μη ασφαλούς οχήματος ή για οποιονδήποτε λόγο που τον/την κάνει να αισθάνεται άβολα ή μη ασφαλής.\n"
+"Ο οδηγός ενός ταξιδιού είναι υπεύθυνος για την απόρριψη ενός ταξιδιού εάν για οποιονδήποτε λόγο που τον κάνει να νιώθει άβολα ή ανασφαλής.\n"
+"Οι χρήστες αυτού του ιστότοπου συμμετέχουν σε ταξίδια συνεπιβατισμού με δική τους ευθύνη."
 
-#: .\Capstone\templates\Capstone\terms.html:48
+#: .\Capstone\templates\Capstone\terms.html:46
 msgid "Waiver of Claims"
-msgstr ""
+msgstr "Παραίτηση από αξιώσεις"
 
-#: .\Capstone\templates\Capstone\terms.html:49
+#: .\Capstone\templates\Capstone\terms.html:47
 msgid ""
 " The owner of this website takes no responsibility for any personal injuries, death, property damages, financial losses, or any other kind of liability that\n"
 "    may result from sharing a trip through this website with another person."
 msgstr ""
+"Ο ιδιοκτήτης αυτού του ιστότοπου δεν φέρει καμία ευθύνη για τυχόν σωματικές βλάβες, θάνατο, υλικές ζημιές, οικονομικές απώλειες ή οποιοδήποτε άλλο είδος ευθύνης που\n"
+"μπορεί να προκύψει από τον συνεπιβατισμό μέσω αυτού του ιστότοπου με άλλο άτομο."
+
+#: .\Capstone\templates\Capstone\terms.html:51
+msgid "Abusive accounts"
+msgstr "Καταχρηστικοί λογαριασμοί"
 
 #: .\Capstone\templates\Capstone\terms.html:53
-msgid "Abusive accounts"
-msgstr ""
-
-#: .\Capstone\templates\Capstone\terms.html:60
 msgid ""
-"The materials on the websites of the owner of this website are provided “as they are” and their guarantees are provided by the manufacturers or their\n"
-"    representatives. the owner of this website does not provide or imply that it provides any additional warranty. The calculation od CO2 emissions is\n"
+"'The owner of this website reserves the right to remove abusive accounts e.g. programmatic access through spiders, robots, crawlers, scrapers etc., spam, hacked\n"
+"    accounts, or any kind of abusive behaviour."
+msgstr ""
+"Ο κάτοχος αυτού του ιστότοπου διατηρεί το δικαίωμα να αφαιρέσει "
+"καταχρηστικούς λογαριασμούς π.χ. πρόσβαση μέσω προγραμματισμού μέσω ,( "
+"ρομπότ, (crawlers), ανιχνευτών, ξύστρων κ.λπ., ανεπιθύμητων μηνυμάτων, "
+"χακαρισμένους λογαριασμούς ή κάθε είδους καταχρηστική συμπεριφορά."
+
+#: .\Capstone\templates\Capstone\terms.html:56
+msgid "Disclaimer of guarantees"
+msgstr "Αποποίηση εγγυήσεων"
+
+#: .\Capstone\templates\Capstone\terms.html:58
+#| msgid ""
+#| "The materials on the websites of the owner of this website are provided “as they are” and their guarantees are provided by the manufacturers or their\n"
+#| "    representatives. the owner of this website does not provide or imply that it provides any additional warranty. The calculation od CO2 emissions is\n"
+#| "an approximation and depends on the car manufacture, the driving habits, the kind of fuel etc. "
+msgid ""
+"The material on the website of this website is provided “as it is”. The calculation of CO2 emissions is\n"
 "an approximation and depends on the car manufacture, the driving habits, the kind of fuel etc. "
 msgstr ""
+"Το υλικό του ιστότοπου  «ως έχει».\n"
+" Ο υπολογισμός των εκπομπών CO2 είναι κατά προσέγγιση και εξαρτάται από την κατασκευή του αυτοκινήτου, τις συνήθειες οδήγησης, το είδος του καυσίμου κ.λπ"
 
-#: .\Capstone\templates\Capstone\terms.html:66
+#: .\Capstone\templates\Capstone\terms.html:63
 msgid "Limitation of Liability"
-msgstr ""
+msgstr "Περιορισμός ευθύνης"
 
-#: .\Capstone\templates\Capstone\terms.html:68
+#: .\Capstone\templates\Capstone\terms.html:65
 msgid ""
 " In any case, the owner of this website or its suppliers are not liable for damages resulting from lost information or interruptions due to system\n"
-"or product failures, even if the owner of this website has been notified orally or written for the possibility of such losses.\n"
+"or product failures, even if the owner of this website has been notified orally or written for the possibility of such losses."
+msgstr ""
+"Σε κάθε περίπτωση, ο ιδιοκτήτης αυτού του ιστότοπου ή οι προμηθευτές του δεν"
+" ευθύνονται για ζημίες που προκύπτουν από απώλεια πληροφοριών ή διακοπές "
+"λόγω συστήματος ή αποτυχίες προϊόντων, ακόμη και αν ο ιδιοκτήτης αυτού του "
+"ιστότοπου έχει ειδοποιηθεί προφορικά ή γραπτά για την πιθανότητα τέτοιων "
+"απωλειών."
+
+#: .\Capstone\templates\Capstone\terms.html:69
+msgid "Revisions and typographical errors"
+msgstr "Αναθεωρήσεις και τυπογραφικά λάθη"
+
+#: .\Capstone\templates\Capstone\terms.html:71
+#| msgid ""
+#| " In any case, the owner of this website or its suppliers are not liable for damages resulting from lost information or interruptions due to system\n"
+#| "or product failures, even if the owner of this website has been notified orally or written for the possibility of such losses.\n"
+#| "\n"
+#| "Revisions and typographical errors\n"
+#| "The materials appearing on the websites of the owner of this website may include technical, typographical or photographic errors.\n"
+#| "the owner of this website does not guarantee that all information published on its website is accurate, complete and in accordance\n"
+#| "    with current conditions. the owner of this website may make changes to the content of its websites at any time without prior notice."
+msgid ""
+"The material appearing on the websites of the owner of this website may include technical, typographical or photographic errors.\n"
+"Τhe owner of this website does not guarantee that all information published on its website is accurate, complete and in accordance\n"
+"    with current conditions. Τhe owner of this website may make changes to the content of its websites at any time without prior notice."
+msgstr ""
+"Σε κάθε περίπτωση, ο ιδιοκτήτης αυτού του ιστότοπου ή οι προμηθευτές του δεν ευθύνονται για ζημίες που προκύπτουν από απώλεια πληροφοριών ή διακοπές λόγω συστήματος\n"
+"ή αποτυχίες προϊόντων, ακόμη και αν ο ιδιοκτήτης αυτού του ιστότοπου έχει ειδοποιηθεί προφορικά ή γραπτά για την πιθανότητα τέτοιων απωλειών.\n"
 "\n"
-"Revisions and typographical errors\n"
-"The materials appearing on the websites of the owner of this website may include technical, typographical or photographic errors.\n"
-"the owner of this website does not guarantee that all information published on its website is accurate, complete and in accordance\n"
-"    with current conditions. the owner of this website may make changes to the content of its websites at any time without prior notice."
-msgstr ""
+"Αναθεωρήσεις και τυπογραφικά λάθη.\n"
+"Το υλικό που εμφανίζεται στους ιστότοπους του κατόχου αυτού του ιστότοπου ενδέχεται να περιλαμβάνει τεχνικά, τυπογραφικά ή φωτογραφικά λάθη.\n"
+"Ο ιδιοκτήτης αυτού του ιστότοπου δεν εγγυάται ότι όλες οι πληροφορίες που δημοσιεύονται στον ιστότοπό του είναι ακριβείς, πλήρεις και σύμφωνες με τις σημερινές συνθήκες. Ο ιδιοκτήτης αυτού του ιστότοπου μπορεί να κάνει αλλαγές στο περιεχόμενο των ιστοσελίδων του ανά πάσα στιγμή χωρίς προηγούμενη ειδοποίηση"
 
-#: .\Capstone\templates\Capstone\terms.html:76
+#: .\Capstone\templates\Capstone\terms.html:75
 msgid "Change of Terms of Use"
-msgstr ""
+msgstr "Τροποποίηση των Όρων Χρήσης"
 
-#: .\Capstone\templates\Capstone\terms.html:78
+#: .\Capstone\templates\Capstone\terms.html:77
+#| msgid ""
+#| "The owner of this website may change the terms of use of its websites without prior notice.\n"
+#| "    Using any of the websites of the owner of this website agrees to its current Terms of Use. "
 msgid ""
 "The owner of this website may change the terms of use of its websites without prior notice.\n"
-"    Using any of the websites of the owner of this website agrees to its current Terms of Use. "
+"    The user of any of the websites of the owner of this website agrees to its current Terms of Use. "
 msgstr ""
+"Ο ιδιοκτήτης αυτού του ιστότοπου μπορεί να αλλάξει τους όρους χρήσης των ιστοσελίδων του χωρίς προηγούμενη ειδοποίηση.\n"
+"Ο χρήστης οποιουδήποτε από τους ιστότοπους του κατόχου αυτού του ιστότοπου συμφωνεί με τους τρέχοντες Όρους Χρήσης του."
 
-#: .\Capstone\templates\Capstone\terms.html:81
+#: .\Capstone\templates\Capstone\terms.html:80
 msgid "Users’ Data"
-msgstr ""
+msgstr "Δεδομένα χρήστη"
 
-#: .\Capstone\templates\Capstone\terms.html:83
+#: .\Capstone\templates\Capstone\terms.html:82
 msgid ""
 "Any information or other material delivered or published by users, on the owner of this website is considered non-confidential\n"
 "and non-privately owned. the owner of this website reserves the right to use this information, protecting privacy rules.\n"
 "    The publication of illegal, bulling, pornographic, satirical, defamatory or other content contrary to the law is prohibited."
 msgstr ""
+"Οποιαδήποτε πληροφορία ή άλλο υλικό που παραδίδεται ή δημοσιεύεται από τους χρήστες, στον κάτοχο αυτού του ιστότοπου θεωρείται μη εμπιστευτικά και μη ιδιόκτητα. Ο ιδιοκτήτης αυτού του ιστότοπου διατηρεί το δικαίωμα να χρησιμοποιήσει αυτές τις πληροφορίες, προστατεύοντας τους κανόνες απορρήτου.\n"
+"Απαγορεύεται η δημοσίευση παράνομου, εκφοβισμού, πορνογραφικού, σατυρικού, δυσφημιστικού ή άλλου περιεχομένου που αντίκειται στο νόμο."
 
-#: .\Capstone\templates\Capstone\terms.html:88
+#: .\Capstone\templates\Capstone\terms.html:87
 msgid "Links"
-msgstr ""
+msgstr "Σύνδεσμοι"
 
-#: .\Capstone\templates\Capstone\terms.html:90
+#: .\Capstone\templates\Capstone\terms.html:89
+#| msgid ""
+#| "The owner of this website may contain links to third party websites.\n"
+#| "Such websites are operated by other companies or persons or agents and the links to such websites are provided by the owner of this website\n"
+#| "only for the convenience of its users. These websites are not under the control of the owner of this website\n"
+#| "and the owner of this website is not responsible for the accuracy of the information published in them. the owner of this website\n"
+#| "reserves the right to terminate the connection to any third party website without notice."
 msgid ""
 "The owner of this website may contain links to third party websites.\n"
 "Such websites are operated by other companies or persons or agents and the links to such websites are provided by the owner of this website\n"
-"only for the convenience of its users. These websites are not under the control of the owner of this website\n"
-"and the owner of this website is not responsible for the accuracy of the information published in them. the owner of this website\n"
-"reserves the right to terminate the connection to any third party website without notice."
+"only for the convenience of its users. These websites are not under the control of the owner of this website and the owner of this website is not responsible for the accuracy of the information published in them.\n"
+"    Τhe owner of this website reserves the right to terminate the connection to any third party website without notice."
 msgstr ""
+"Ο κάτοχος αυτού του ιστότοπου μπορεί να περιέχει συνδέσμους προς ιστότοπους τρίτων.\n"
+"Τέτοιοι ιστότοποι διαχειρίζονται άλλες εταιρείες ή πρόσωπα ή αντιπρόσωπος και οι σύνδεσμοι προς αυτούς τους ιστότοπους παρέχονται από τον ιδιοκτήτη αυτού του ιστότοπου μόνο για τη διευκόλυνση των χρηστών του. Αυτοί οι ιστότοποι δεν βρίσκονται υπό τον έλεγχο του κατόχου αυτού του ιστότοπου και ο ιδιοκτήτης αυτού του ιστότοπου δεν ευθύνεται για την ακρίβεια των πληροφοριών που δημοσιεύονται σε αυτούς. Ο ιδιοκτήτης αυτού του ιστότοπου διατηρεί το δικαίωμα να τερματίσει τη σύνδεση με οποιονδήποτε ιστότοπο τρίτων χωρίς προειδοποίηση."
 
 #: .\Capstone\templates\Capstone\validtrips.html:36
 msgid "Km"
