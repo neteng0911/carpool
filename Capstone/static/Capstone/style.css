@@ -102,8 +102,8 @@ left: 40%;
 }
 
 .page {
-border: 3px solid #94b8b8;
-background-color: #3d5c5c;
+border: 3px solid grey;
+background-color: #94b8b8;
 font-size: 14px;
 min-height: 20px;
 max-width: 80px;

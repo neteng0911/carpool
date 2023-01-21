@@ -184,48 +184,6 @@
     </form>
         {% endifnotequal %}
 
-   <!-- {% ifequal user user_route.thedriver %}
-
-    {% if not user_route.fin and not user_route.fin_set and not user_route.fin_p   %}
-<form class = 'form-inline' action="{% url 'profile' targ_user.id %}" method="post">
-        {% csrf_token %}
-
-
-        <div class="form-group">
-
-            <input type="hidden"  name="route_to_load_id" value={{user_route.pk}}>
-
-        </div>
-    <input class="btn btn-primary" type="submit" name="finalise_trip" value="Finalise trip">
-
-    {% endif %}
-    {% if user_route.fin_set %}
-<form class = 'form-inline' action="{% url 'profile' targ_user.id %}" method="post">
-        {% csrf_token %}
-
-
-        <div class="form-group">
-
-            <input type="hidden"  name="route_to_load_id" value={{user_route.pk}}>
-
-        </div>
-    <input class="btn btn-primary" type="submit" name="unfinalise_trip" value="Unfinalise trip">
-
-    {% endif %}
-
-     <input class="btn btn-success" type="button"  name="load_route" value="Edit Trip" onclick="location.href='{% url 'edit_route' user_route.pk %}'"  />
-     <input type="hidden"  name="route_to_load_id" value={{user_route.pk}}>
-        {% ifnotequal user_route.thepassenger.all.count 0 %}
-     <input class="btn btn-danger" type="button"   value="Remove passenger" onclick="location.href='{% url 'webload_route' user_route.pk %}'"  />
-     <input type="hidden"  name="route_to_load_id" value={{user_route.pk}}>
-
-        {%endifnotequal %}
-
-    {%endifequal %}
-
-
-
-    </form>
 -->
     </div>
 
@@ -246,18 +204,7 @@
 
 
 {% endfor %}
-<h2 class="page"> Page: {{ page.number }}</h2>
-        <div class="page-links">
 
-            {% if page.has_previous %}
-            <a href="{% url 'profile' targ_user.id %}?page={{page.previous_page_number }}">{% trans 'Previous' %}</a>
-
-            {% endif %}
-            {% if page.has_next %}
-            <a href="{% url 'profile' targ_user.id %}?page={{page.next_page_number }}">{% trans 'Next' %}</a>
-            {% endif %}
-
-        </div>
 
     </div>
 
