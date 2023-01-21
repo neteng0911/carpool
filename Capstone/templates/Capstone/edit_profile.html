@@ -2,6 +2,9 @@
 {% extends "Capstone/layout.html" %}
 {% load static %}
 {% block body %}
+{% load i18n %}
+
+
 
 <div class="container-fluid">
     <div class="raw">
@@ -9,16 +12,17 @@
             {% ifequal request.user targ_user %}
                 <h3 class="text-dark">You are currenty logged in as :{{request.user.username}}</h3>
                     <div class= "prof1"><strong> {{request.user.email}}</strong>
-                        <p><strong> {% trans You are member since %} {{request.user.date_joined}}</strong></p>
+                        <p><strong> {% trans 'You are member since' %} {{request.user.date_joined}}</strong></p>
                         <p  class="img-responsive thumbnail"><img src="{{request.user.profile_pic.url}}" alt="img" width="79" height="88"></p>
                             <i class="fa-regular fa-comment-dots"></i>
-            {% if messages %}
-            <div class="messages">
-            {% for message in messages %}
-            <a class=" {{ message.tags }}  text-success"> {% if message.tags %}  {% endif %} {{ message }} </a>
-            {% endfor %}
-            </div>
-            {% endif %}
+                {% if messages %}
+                    <div class="messages">
+                    {% for message in messages %}
+                        <a class=" {{ message.tags }}  text-success"> {% if message.tags %}  {% endif %} {{ message }} </a>
+                    {% endfor %}
+                        </div>
+                {% endif %}
+
             <div class="form-group">
                 <form method="POST" action="" enctype="multipart/form-data">
 
@@ -30,11 +34,11 @@
 
 
 
-{% else %}
-    <h3 class = 'text-danger' > {% trans 'You are not allowed to edit other user's profile!' %}</h3>
+        {% else %}
+            <h3 class = 'text-danger' > {% trans 'You are not allowed to edit other user profile!' %}</h3>
 
 
-    {% endifequal %}
+        {% endifequal %}
                 </div>
 
 

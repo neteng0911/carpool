@@ -6,7 +6,7 @@
 {% load i18n %}
 
 
- <a  class="text-secondary" style='position:absolute; right:100px;' href="{% url 'passenger' %}" ><strong> (% trans 'Show All Trips' %} </strong></a>
+ <a  class="text-secondary" style='position:absolute; right:100px;' href="{% url 'passenger' %}" ><strong> {% trans 'Show All Trips' %} </strong></a>
 {% if message %}
 
        <p class="text-danger"><strong>{{message}}</strong></p>
@@ -38,7 +38,7 @@
 
                 <h6> {% trans 'The Driver is' %} </h6>   <a href="{% url 'profile' ro.thedriver.id %}" ><strong> {{ro.thedriver}} </strong></a>
                 <p hidden id="cost_{{ro.id}}"><h6>{% trans 'Initial cost per passenger' %} {{ro.cost}} $</h6>
-                <h6> {% trans 'Expected cost per passenger %} <strong id="costpp_{{ro.id}}">{{ro.costpp}}$</strong></h6>
+                <h6> {% trans 'Expected cost per passenger' %} <strong id="costpp_{{ro.id}}">{{ro.costpp}}$</strong></h6>
                     {% if ro.d_a %}
                     <h6> {% trans 'Disabled access' %} <i class="fa fa-wheelchair" aria-hidden="true"></i></h6>
                     {% endif %}
