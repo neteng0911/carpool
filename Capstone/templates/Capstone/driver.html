@@ -7,7 +7,7 @@
 <div class="container-fluid" >
     <div class="row">
 
-        <div class="col-sm" >
+        <div class="col-sm " >
     <div class="bg-info p-1 mr-1 shadow-lg "  >
       <div class=form-group">
 
@@ -43,9 +43,9 @@
 
 
 </div>
-        <div class="col-sm">
+        <div class="col-sm ">
 
-    <div class="bg-info p-1 shadow-lg" id="sub_route">
+    <div class="bg-info p-1 shadow-lg" id="sub_route" style="display: block; height:100%;">
       <form class='form-control bg-info ' action="{% url 'driver' %}" method="post">
     {% csrf_token %}
     {{ form.as_p}}
