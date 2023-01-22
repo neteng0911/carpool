@@ -27,6 +27,8 @@ from django.utils import timezone
 from datetime import date, datetime, timedelta
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
+from .forms import ContactForm
+from django.core.mail import send_mail, BadHeaderError
 
 
 
@@ -691,3 +693,28 @@ def terms(request):
 #     # add cookie
 #     cc = get_cookie_value_from_request(request, "mycookies", "mycookie1")
 
+def contact(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            subject = "Website Inquiry"
+            email=form.cleaned_data['email_address']
+            body = {
+                'first_name': form.cleaned_data['first_name'],
+                'last_name': form.cleaned_data['last_name'],
+                'email': form.cleaned_data['email_address'],
+                'message': form.cleaned_data['message'],
+            }
+            message = "\n".join(body.values())
+            to_email=email
+
+            try:
+                email = EmailMessage(subject,message,to=[to_email])
+                email.send()
+
+            except BadHeaderError:
+                return HttpResponse('Invalid header found.')
+            return HttpResponseRedirect(reverse("index"))
+
+    form = ContactForm()
+    return render(request, "Capstone/contact.html", {'form': form})

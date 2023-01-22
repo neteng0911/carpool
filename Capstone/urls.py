@@ -25,6 +25,7 @@ urlpatterns = [
         views.activate, name='activate'),
     path("terms", views.terms, name="terms"),
     path("edit_profile/<int:user_id>", views.edit_profile, name="edit_profile"),
+    path("contact", views.contact, name="contact"),
 
 
 
