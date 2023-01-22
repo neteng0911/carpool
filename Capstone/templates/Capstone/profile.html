@@ -8,7 +8,7 @@
 
 
         <div class="col-lg-5 ">
-                   <div class="sticky-top " style="padding-top:50px; z-index: 0;">
+                   <div class="" style="padding-top:50px; z-index: 0;">
 
 
             {% ifnotequal request.user targ_user %}
@@ -97,7 +97,7 @@
 
   </div>
 
-        <div class="col-lg-7">
+        <div class="col-lg">
         {% for user_route in  page.object_list %}
         <div class="prof" style="top:0px">
             <div class="col-md-auto mx-3 pr-5 shadow-lg "><h5><strong><a href ="{% url 'webload_route' user_route.pk %}" >{% trans 'Trip No' %} {{user_route.pk}}
@@ -184,7 +184,7 @@
     </form>
         {% endifnotequal %}
 
--->
+
     </div>
 
 
