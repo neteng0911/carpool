@@ -1,16 +1,12 @@
-{% extends "Capstone/layout.html" %}
+<!DOCTYPE html>
 {% load static %}
-{% block body %}
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
 
-<div class="container">
-<div class="row">
-  <div class="col-md-6">
-     <div class="col-md-12 bg-secondary">
-<span id="subbtn" class="btn btn-primary"  onclick="return false" title="SUBMIT" >SUBMIT</span>
-     </div>
-  </div>
-  <div class="col-md-6">
-     <div class="col-md-12 bg-secondary">
+</head>
+<body>
 
 <form id="adresses">
 <div>
@@ -24,30 +20,17 @@
 
 <p>
 
-    <input id ="sear" class="btn-info" type="button" value="Search"></p>
+
 
 
      </div>
-  </div>
-</div>
 
-<!--Seattle,WA;64;-->
-
-   <div class="col-md-6">
-     <div class="col-md-12 bg-secondary">
-
-         <div> <img id="map" src='#'>
-     </div>
-     </div>
-  </div>
-
-<div class="mt-5 p-4 bg-dark text-white text-center">
-  <p>Footer</p>
-</div>
-
+    <input type="button" onClick="geocode()" value="Search" /><br />
+    <div id="output"></div>
+</body>
 {% block script %}
-    <script src="{% static 'Capstone/map3.js' %}"></script>
+    <script src="{% static 'Capstone/mapinter2.js' %}"></script>
 
 
 {% endblock script %}
-{% endblock %}
+</html>
