@@ -13,7 +13,7 @@
 
                 <h4 class = 'text-success border border-light mt-1'> {{ user }}, {% trans 'Here you can edit Trip no' %} {{route.id}}</h4>
                     <div  style="position:left;color:black; font-size:17px;">From: <strong>{{route.departure}}</strong>
-                        <p>{% trans 'To': %} <strong>{{route.destination}}</strong></p>
+                        <p>{% trans 'To' %} <strong>{{route.destination}}</strong></p>
 
                         <p> {% trans 'Leaving on' %}  <strong>{{route.date_orig}}</strong> {% trans 'at' %} <strong>{{route.time_orig}}</strong></p>
 
@@ -55,7 +55,7 @@
 
 
 
-                    <label for="input finish">{% trans Destination Address %}</label>
+                    <label for="input finish">{% trans 'Destination Address' %}</label>
                     <input type="text" class="form-control" id="dest" value="{{route.destination}}">
                     <p> <input id ="sear" class="btn-info" type="button" value={% trans "Search" %}></p>
 

@@ -10,15 +10,6 @@
 
 
 
-        var url = window.location.href;
-
-        var paths = url.split("/");
-            console.log(paths);
-        var lang = paths[3];
-            console.log(lang);
-
-
-
 
 
         // checking if current passengers >= max passengers so changing Join btn to Closed
@@ -110,9 +101,7 @@
                 document.querySelector(`#thepassengercounter_${route_id}`).innerHTML++;
                 document.querySelector(`#closedjs_${route_id}`).style.display='block';
 
-
-                translatejoin(co2,lang)
-                //alert("Congrats you just saved "+(co2.toFixed(2))+' kg of CO2 by Carpooling')
+                alert("Congrats you just saved "+(co2.toFixed(2))+' kg of CO2 by Carpooling')
                 join_route(route_id);
                 est_cost(route_id);
 
@@ -142,11 +131,9 @@
                 element.title="Leave";
                 element.innerHTML="Leave";
                 document.querySelector(`#thepassengercounter_${route_id}`).innerHTML++;
-                var action = 'join'
-                translatejoin(co2,lang)
 
 
-                //alert("Congrats you just saved "+(co2.toFixed(2))+' kg of CO2 by Carpooling')
+                alert("Congrats you just saved "+(co2.toFixed(2))+' kg of CO2 by Carpooling')
                 join_route(route_id);
                 est_cost(route_id);
 
@@ -167,8 +154,6 @@
                 element.style.border = "1px solid  #228B22";
                 document.querySelector(`#thepassengercounter_${route_id}`).innerHTML--;
                 leave_route(route_id);
-
-                translateleave(co2,lang)
                 est_cost(route_id);
                 document.querySelector(`#closedjs_${route_id}`).style.display='none';
                 document.querySelector(`#closed_${route_id}`).style.display='none';
@@ -255,7 +240,12 @@
 
  function join_route(route_id)
 {
-
+    var host = window.location.host;
+    var url = `/join/route/${route_id}`;
+    var paths = url.split("/");
+    console.log(paths);
+    var fetch_url = 'http://'+ host + paths.join('/');
+    console.log(fetch_url);
 
 
 
@@ -323,40 +313,6 @@ fetch(`/route/${route_id}`)
 
     }
 
-function translatejoin(co2,lang){
-
-console.log('η γλώσσα είναι', lang);
-
-
-messagesDictionary = {
-    en: {
-    message:'Congrats you just saved'+(co2.toFixed(2))+ 'kg of CO2 by Carpooling'
-    },
-
-    el: {
-    message:'Συγχαρητήρια μειώσατε τις εκπομπές CO2 κατά '+(co2.toFixed(2))+' κιλά'
-    }
-
-}
-
-alert( messagesDictionary[lang]['message'] );
-}
-
-function translateleave(co2,lang){
-
-console.log('η γλώσσα είναι', lang);
 
 
 
-messagesDictionary = {
-    en: {
-    message:'You just left the trip'
-    },
-
-    el: {
-    message:'Αποχωρήσατε από τη διαδρομή'
-    }
-
-}
-alert( messagesDictionary[lang]['message'] );
-}
