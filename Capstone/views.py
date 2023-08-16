@@ -118,21 +118,18 @@ def register(request):
         user.save()
         current_site = get_current_site(request)
         mail_subject = 'Activate your Carpooling registration'
-        message = render_to_string('Capstone/acc_activate_email.html',{'user':user,'domain':current_site.domain,'uid':urlsafe_base64_encode(force_bytes(user.pk)),
-                                                                  'token':account_activation_token.make_token(user)})
+        message = render_to_string('Capstone/acc_activate_email.html',
+            {'user':user,'domain':current_site.domain,
+             'uid':urlsafe_base64_encode(force_bytes(user.pk)),
+              'token':account_activation_token.make_token(user)})
         to_email = email
         email = EmailMessage(mail_subject,message,to=[to_email])
         email.send()
-        return render(request, 'Capstone/confirm_email.html',{'user':user})
-        #return HttpResponse('Please confirm your email address to complete registration')
-
-
-
-
-
+        #return render(request, 'Capstone/confirm_email.html',{'user':user})
+        return HttpResponse('Please confirm your email address to complete registration')
 
         #login(request, user)
-        #return HttpResponseRedirect(reverse("index"))
+        
     else:
         return render(request, "Capstone/register.html")
 
@@ -147,8 +144,8 @@ def activate (request, uidb64, token):
         user.save()
         login(request, user)
         # return redirect('home')
-        return render(request, 'Capstone/confirm_email_success.html', {'user': user})
-        #return HttpResponse('Thank you for your email confirmation. Now you can login your account.')
+        #return render(request, 'Capstone/confirm_email_success.html', {'user': user})
+        return HttpResponse('Thank you for your email confirmation. Now you can login to your account. ')
     else:
         return HttpResponse('Activation link is invalid!')
 @login_required(login_url='login')

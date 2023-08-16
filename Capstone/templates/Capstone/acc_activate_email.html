@@ -1,13 +1,12 @@
-{% extends "Capstone/layout.html" %}
-{% load static %}
+
 {% load i18n %}
 
 
-{% block body %}
+
 {% autoescape off %}
 {% trans 'Hi' %} {{ user.username }}
-{% trans 'Please click on the link to confirm your registration for the Carpooling Project,'%}
+{% trans 'Please click on the link sent to your email to confirm your registration for the Carpooling Project'%}
 http://{{ domain }}{% url 'activate' uidb64=uid token=token %}
 {% endautoescape %}
 
-{% endblock %}
+

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-21 20:26+0200\n"
+"POT-Creation-Date: 2023-08-16 16:43+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,439 +18,446 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: .\Capstone\forms.py:23
+#: Capstone/forms.py:23
 msgid "Departure"
 msgstr ""
 
-#: .\Capstone\forms.py:25
+#: Capstone/forms.py:25
 msgid "Destination"
 msgstr ""
 
-#: .\Capstone\forms.py:27
+#: Capstone/forms.py:27
 msgid "Date of departure"
 msgstr ""
 
-#: .\Capstone\forms.py:29 .\Capstone\forms.py:33
+#: Capstone/forms.py:29 Capstone/forms.py:33
 msgid "Time of departure"
 msgstr ""
 
-#: .\Capstone\forms.py:31
+#: Capstone/forms.py:31
 msgid "Date of return"
 msgstr ""
 
-#: .\Capstone\forms.py:36
+#: Capstone/forms.py:36
 msgid "cost"
 msgstr ""
 
-#: .\Capstone\forms.py:37
+#: Capstone/forms.py:37
 msgid "Passengers"
 msgstr ""
 
-#: .\Capstone\forms.py:40 .\Capstone\templates\Capstone\passenger.html:59
-#: .\Capstone\templates\Capstone\searchedtrips.html:42
-#: .\Capstone\templates\Capstone\validtrips.html:43
+#: Capstone/forms.py:40 Capstone/templates/Capstone/passenger.html:59
+#: Capstone/templates/Capstone/searchedtrips.html:42
+#: Capstone/templates/Capstone/validtrips.html:43
 msgid "Disabled access"
 msgstr ""
 
-#: .\Capstone\forms.py:40
+#: Capstone/forms.py:40
 msgid "Check if at least one disabled passenger can join"
 msgstr ""
 
-#: .\Capstone\static_templ_bak\templates\cookie_consent\_cookie_group.html:12
-#: .\Capstone\templates\cookie_consent\_cookie_group.html:12
-#: .\static_templ\templates\cookie_consent\_cookie_group.html:12
+#: Capstone/static_templ_bak/templates/cookie_consent/_cookie_group.html:12
+#: Capstone/templates/cookie_consent/_cookie_group.html:12
+#: static_templ/templates/cookie_consent/_cookie_group.html:12
 msgid "Accepted"
 msgstr ""
 
-#: .\Capstone\static_templ_bak\templates\cookie_consent\_cookie_group.html:16
-#: .\Capstone\templates\Capstone\index.html:21
-#: .\Capstone\templates\cookie_consent\_cookie_group.html:16
-#: .\static_templ\templates\cookie_consent\_cookie_group.html:16
+#: Capstone/static_templ_bak/templates/cookie_consent/_cookie_group.html:16
+#: Capstone/templates/Capstone/index.html:21
+#: Capstone/templates/cookie_consent/_cookie_group.html:16
+#: static_templ/templates/cookie_consent/_cookie_group.html:16
 msgid "Accept"
 msgstr ""
 
-#: .\Capstone\static_templ_bak\templates\cookie_consent\_cookie_group.html:21
-#: .\Capstone\templates\cookie_consent\_cookie_group.html:21
-#: .\static_templ\templates\cookie_consent\_cookie_group.html:21
+#: Capstone/static_templ_bak/templates/cookie_consent/_cookie_group.html:21
+#: Capstone/templates/cookie_consent/_cookie_group.html:21
+#: static_templ/templates/cookie_consent/_cookie_group.html:21
 msgid "Declined"
 msgstr ""
 
-#: .\Capstone\static_templ_bak\templates\cookie_consent\_cookie_group.html:25
-#: .\Capstone\templates\cookie_consent\_cookie_group.html:25
-#: .\static_templ\templates\cookie_consent\_cookie_group.html:25
+#: Capstone/static_templ_bak/templates/cookie_consent/_cookie_group.html:25
+#: Capstone/templates/cookie_consent/_cookie_group.html:25
+#: static_templ/templates/cookie_consent/_cookie_group.html:25
 msgid "Decline"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\acc_activate_email.html:8
-#: .\Capstone\templates\Capstone\confirm_email.html:10
-#: .\Capstone\templates\Capstone\confirm_email_success.html:9
+#: Capstone/templates/Capstone/acc_activate_email.html:7
+#: Capstone/templates/Capstone/confirm_email.html:10
+#: Capstone/templates/Capstone/confirm_email_success.html:9
 msgid "Hi"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\acc_activate_email.html:9
-msgid ""
-"Please click on the link to confirm your registration for the Carpooling "
-"Project,"
-msgstr ""
-
-#: .\Capstone\templates\Capstone\confirm_email.html:11
+#: Capstone/templates/Capstone/confirm_email.html:11
 msgid "Please confirm your email address to complete registration"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\confirm_email_success.html:10
+#: Capstone/templates/Capstone/confirm_email_success.html:10
 msgid "Thank you for your email confirmation. Please"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\confirm_email_success.html:10
-#: .\Capstone\templates\Capstone\layout.html:99
-#: .\Capstone\templates\Capstone\layoutold.html:99
+#: Capstone/templates/Capstone/confirm_email_success.html:10
+#: Capstone/templates/Capstone/layout.html:99
+#: Capstone/templates/Capstone/layoutold.html:99
 msgid "Log In"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\driver.html:16
-#: .\Capstone\templates\Capstone\edit_route.html:53
+#: Capstone/templates/Capstone/driver.html:16
+#: Capstone/templates/Capstone/edit_route.html:53
 msgid "Departure Address"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\driver.html:21
+#: Capstone/templates/Capstone/driver.html:21
+#: Capstone/templates/Capstone/edit_route.html:58
 msgid "Destination Address"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\driver.html:27
-#: .\Capstone\templates\Capstone\edit_route.html:60
-#: .\Capstone\templates\Capstone\passenger.html:31
+#: Capstone/templates/Capstone/driver.html:27
+#: Capstone/templates/Capstone/edit_route.html:60
+#: Capstone/templates/Capstone/passenger.html:31
 msgid "Search"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\driver.html:56
-#: .\Capstone\templates\Capstone\edit_route.html:75
+#: Capstone/templates/Capstone/driver.html:56
+#: Capstone/templates/Capstone/edit_route.html:75
 msgid "Submit"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\edit_profile.html:15
-#: .\Capstone\templates\Capstone\profile.html:47
+#: Capstone/templates/Capstone/edit_profile.html:15
+#: Capstone/templates/Capstone/profile.html:47
 msgid "You are member since"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\edit_profile.html:31
+#: Capstone/templates/Capstone/edit_profile.html:31
 msgid "Update"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\edit_profile.html:38
+#: Capstone/templates/Capstone/edit_profile.html:38
 msgid "You are not allowed to edit other user profile!"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\edit_route.html:14
+#: Capstone/templates/Capstone/edit_route.html:14
 msgid "Here you can edit Trip no"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\edit_route.html:16
-#: .\Capstone\templates\Capstone\passenger.html:47
-#: .\Capstone\templates\Capstone\profile.html:109
-#: .\Capstone\templates\Capstone\route.html:18
-#: .\Capstone\templates\Capstone\searchedtrips.html:30
-#: .\Capstone\templates\Capstone\validtrips.html:31
+#: Capstone/templates/Capstone/edit_route.html:16
+#: Capstone/templates/Capstone/passenger.html:47
+#: Capstone/templates/Capstone/profile.html:109
+#: Capstone/templates/Capstone/route.html:18
+#: Capstone/templates/Capstone/searchedtrips.html:30
+#: Capstone/templates/Capstone/validtrips.html:31
 msgid "To"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\edit_route.html:18
-#: .\Capstone\templates\Capstone\passenger.html:48
-#: .\Capstone\templates\Capstone\profile.html:110
-#: .\Capstone\templates\Capstone\route.html:19
-#: .\Capstone\templates\Capstone\searchedtrips.html:31
-#: .\Capstone\templates\Capstone\validtrips.html:32
+#: Capstone/templates/Capstone/edit_route.html:18
+#: Capstone/templates/Capstone/passenger.html:48
+#: Capstone/templates/Capstone/profile.html:110
+#: Capstone/templates/Capstone/route.html:19
+#: Capstone/templates/Capstone/searchedtrips.html:31
+#: Capstone/templates/Capstone/validtrips.html:32
 msgid "Leaving on"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\edit_route.html:18
-#: .\Capstone\templates\Capstone\edit_route.html:20
+#: Capstone/templates/Capstone/edit_route.html:18
+#: Capstone/templates/Capstone/edit_route.html:20
 msgid "at"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\edit_route.html:20
-#: .\Capstone\templates\Capstone\passenger.html:50
-#: .\Capstone\templates\Capstone\route.html:21
-#: .\Capstone\templates\Capstone\searchedtrips.html:33
-#: .\Capstone\templates\Capstone\validtrips.html:34
+#: Capstone/templates/Capstone/edit_route.html:20
+#: Capstone/templates/Capstone/passenger.html:50
+#: Capstone/templates/Capstone/route.html:21
+#: Capstone/templates/Capstone/searchedtrips.html:33
+#: Capstone/templates/Capstone/validtrips.html:34
 msgid "Returning on"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\edit_route.html:22
-#: .\Capstone\templates\Capstone\passenger.html:52
-#: .\Capstone\templates\Capstone\searchedtrips.html:35
-#: .\Capstone\templates\Capstone\validtrips.html:36
+#: Capstone/templates/Capstone/edit_route.html:22
+#: Capstone/templates/Capstone/passenger.html:52
+#: Capstone/templates/Capstone/searchedtrips.html:35
+#: Capstone/templates/Capstone/validtrips.html:36
 msgid "Distance"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\edit_route.html:30
+#: Capstone/templates/Capstone/edit_route.html:30
 msgid "Delete Trip"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\edit_route.html:33
+#: Capstone/templates/Capstone/edit_route.html:33
 msgid "Created by"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\edit_route.html:36
+#: Capstone/templates/Capstone/edit_route.html:36
 msgid "on"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\index.html:20
+#: Capstone/templates/Capstone/index.html:20
 msgid "By using this site you agree to our"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\index.html:20
+#: Capstone/templates/Capstone/index.html:20
 msgid "Terms and conditions"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\index.html:21
+#: Capstone/templates/Capstone/index.html:21
 msgid "Please"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\index.html:21
+#: Capstone/templates/Capstone/index.html:21
 msgid "these before using this site"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\layout.html:31
-#: .\Capstone\templates\Capstone\layoutold.html:31
+#: Capstone/templates/Capstone/layout.html:31
+#: Capstone/templates/Capstone/layoutold.html:31
 msgid "Hello"
 msgstr "Bonjour"
 
-#: .\Capstone\templates\Capstone\layout.html:44
-#: .\Capstone\templates\Capstone\layoutold.html:44
+#: Capstone/templates/Capstone/layout.html:44
+#: Capstone/templates/Capstone/layoutold.html:44
 msgid "Profile"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\layout.html:53
-#: .\Capstone\templates\Capstone\layoutold.html:53
+#: Capstone/templates/Capstone/layout.html:53
+#: Capstone/templates/Capstone/layoutold.html:53
 msgid "Language"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\layout.html:80
-#: .\Capstone\templates\Capstone\layoutold.html:80
+#: Capstone/templates/Capstone/layout.html:80
+#: Capstone/templates/Capstone/layoutold.html:80
 msgid "Log Out"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\layout.html:102
-#: .\Capstone\templates\Capstone\layoutold.html:102
-#: .\Capstone\templates\Capstone\register.html:5
-#: .\Capstone\templates\Capstone\register.html:34
+#: Capstone/templates/Capstone/layout.html:102
+#: Capstone/templates/Capstone/layoutold.html:102
+#: Capstone/templates/Capstone/register.html:5
+#: Capstone/templates/Capstone/register.html:34
 msgid "Register"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\layout.html:203
-#: .\Capstone\templates\Capstone\layoutold.html:149
+#: Capstone/templates/Capstone/layout.html:170
+msgid ""
+"If you have understood that the climate crisis is real, if you feel like "
+"doing something about this, use this application"
+msgstr ""
+
+#: Capstone/templates/Capstone/layout.html:202
+#: Capstone/templates/Capstone/layoutold.html:149
 msgid "Products"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\layout.html:205
-#: .\Capstone\templates\Capstone\layoutold.html:151
-#: .\Capstone\templates\Capstone\register.html:38
+#: Capstone/templates/Capstone/layout.html:204
+#: Capstone/templates/Capstone/layoutold.html:151
+#: Capstone/templates/Capstone/register.html:38
 msgid "Terms and Conditions"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\layout.html:208
-#: .\Capstone\templates\Capstone\layoutold.html:154
+#: Capstone/templates/Capstone/layout.html:207
+#: Capstone/templates/Capstone/layoutold.html:154
 msgid "Instructions"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\layoutold.html:168
+#: Capstone/templates/Capstone/layout.html:227
+msgid "email us here"
+msgstr ""
+
+#: Capstone/templates/Capstone/layoutold.html:168
 msgid "Contact"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\layoutold.html:178
+#: Capstone/templates/Capstone/layoutold.html:178
 msgid "Follow us"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\login.html:16
-#: .\Capstone\templates\Capstone\register.html:14
+#: Capstone/templates/Capstone/login.html:16
+#: Capstone/templates/Capstone/register.html:14
 msgid "Username"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\login.html:19
-#: .\Capstone\templates\Capstone\register.html:29
+#: Capstone/templates/Capstone/login.html:19
+#: Capstone/templates/Capstone/register.html:29
 msgid "Password"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\login.html:21
+#: Capstone/templates/Capstone/login.html:21
 msgid "Login"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\login.html:24
+#: Capstone/templates/Capstone/login.html:24
 msgid "No account?"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\login.html:24
+#: Capstone/templates/Capstone/login.html:24
 msgid "You can register here"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\login.html:25
+#: Capstone/templates/Capstone/login.html:25
 msgid "Forgot password?"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\login.html:25
-#: .\Capstone\templates\Capstone\password\password_reset.html:9
+#: Capstone/templates/Capstone/login.html:25
+#: Capstone/templates/Capstone/password/password_reset.html:10
 msgid "Reset Password"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\passenger.html:20
-#: .\Capstone\templates\Capstone\searchedtrips.html:17
-#: .\Capstone\templates\Capstone\validtrips.html:18
+#: Capstone/templates/Capstone/passenger.html:20
+#: Capstone/templates/Capstone/searchedtrips.html:17
+#: Capstone/templates/Capstone/validtrips.html:18
 msgid "Total Trips"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\passenger.html:22
+#: Capstone/templates/Capstone/passenger.html:22
 msgid "Show Valid Trips"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\passenger.html:30
+#: Capstone/templates/Capstone/passenger.html:30
 msgid "Search.."
 msgstr ""
 
-#: .\Capstone\templates\Capstone\passenger.html:42
-#: .\Capstone\templates\Capstone\profile.html:103
-#: .\Capstone\templates\Capstone\route.html:14
+#: Capstone/templates/Capstone/passenger.html:42
+#: Capstone/templates/Capstone/profile.html:103
+#: Capstone/templates/Capstone/route.html:14
 msgid "Trip No"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\passenger.html:43
-#: .\Capstone\templates\Capstone\passenger.html:45
-#: .\Capstone\templates\Capstone\profile.html:104
-#: .\Capstone\templates\Capstone\route.html:15
-#: .\Capstone\templates\Capstone\route.html:16
-#: .\Capstone\templates\Capstone\searchedtrips.html:26
-#: .\Capstone\templates\Capstone\searchedtrips.html:28
-#: .\Capstone\templates\Capstone\validtrips.html:27
-#: .\Capstone\templates\Capstone\validtrips.html:29
+#: Capstone/templates/Capstone/passenger.html:43
+#: Capstone/templates/Capstone/passenger.html:45
+#: Capstone/templates/Capstone/profile.html:104
+#: Capstone/templates/Capstone/route.html:15
+#: Capstone/templates/Capstone/route.html:16
+#: Capstone/templates/Capstone/searchedtrips.html:26
+#: Capstone/templates/Capstone/searchedtrips.html:28
+#: Capstone/templates/Capstone/validtrips.html:27
+#: Capstone/templates/Capstone/validtrips.html:29
 msgid "Trip Closed"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\passenger.html:46
-#: .\Capstone\templates\Capstone\profile.html:109
-#: .\Capstone\templates\Capstone\route.html:17
-#: .\Capstone\templates\Capstone\searchedtrips.html:29
-#: .\Capstone\templates\Capstone\validtrips.html:30
+#: Capstone/templates/Capstone/passenger.html:46
+#: Capstone/templates/Capstone/profile.html:109
+#: Capstone/templates/Capstone/route.html:17
+#: Capstone/templates/Capstone/searchedtrips.html:29
+#: Capstone/templates/Capstone/validtrips.html:30
 msgid "From"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\passenger.html:49
-#: .\Capstone\templates\Capstone\profile.html:111
-#: .\Capstone\templates\Capstone\route.html:20
-#: .\Capstone\templates\Capstone\searchedtrips.html:32
-#: .\Capstone\templates\Capstone\validtrips.html:33
+#: Capstone/templates/Capstone/passenger.html:49
+#: Capstone/templates/Capstone/profile.html:111
+#: Capstone/templates/Capstone/route.html:20
+#: Capstone/templates/Capstone/searchedtrips.html:32
+#: Capstone/templates/Capstone/validtrips.html:33
 msgid "Leaving at"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\passenger.html:51
-#: .\Capstone\templates\Capstone\route.html:22
-#: .\Capstone\templates\Capstone\searchedtrips.html:34
-#: .\Capstone\templates\Capstone\validtrips.html:35
+#: Capstone/templates/Capstone/passenger.html:51
+#: Capstone/templates/Capstone/route.html:22
+#: Capstone/templates/Capstone/searchedtrips.html:34
+#: Capstone/templates/Capstone/validtrips.html:35
 msgid "Returning at"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\passenger.html:55
-#: .\Capstone\templates\Capstone\route.html:25
-#: .\Capstone\templates\Capstone\searchedtrips.html:38
-#: .\Capstone\templates\Capstone\validtrips.html:39
+#: Capstone/templates/Capstone/passenger.html:55
+#: Capstone/templates/Capstone/route.html:25
+#: Capstone/templates/Capstone/searchedtrips.html:38
+#: Capstone/templates/Capstone/validtrips.html:39
 msgid "The Driver is"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\passenger.html:56
-#: .\Capstone\templates\Capstone\profile.html:112
-#: .\Capstone\templates\Capstone\route.html:26
-#: .\Capstone\templates\Capstone\searchedtrips.html:39
-#: .\Capstone\templates\Capstone\validtrips.html:40
+#: Capstone/templates/Capstone/passenger.html:56
+#: Capstone/templates/Capstone/profile.html:112
+#: Capstone/templates/Capstone/route.html:26
+#: Capstone/templates/Capstone/searchedtrips.html:39
+#: Capstone/templates/Capstone/validtrips.html:40
 msgid "Initial cost per passenger"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\passenger.html:56
-#: .\Capstone\templates\Capstone\passenger.html:57
+#: Capstone/templates/Capstone/passenger.html:56
+#: Capstone/templates/Capstone/passenger.html:57
 msgid "$"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\passenger.html:57
-#: .\Capstone\templates\Capstone\profile.html:113
-#: .\Capstone\templates\Capstone\route.html:27
-#: .\Capstone\templates\Capstone\searchedtrips.html:40
-#: .\Capstone\templates\Capstone\validtrips.html:41
+#: Capstone/templates/Capstone/passenger.html:57
+#: Capstone/templates/Capstone/profile.html:113
+#: Capstone/templates/Capstone/route.html:27
+#: Capstone/templates/Capstone/searchedtrips.html:40
+#: Capstone/templates/Capstone/validtrips.html:41
 msgid "Expected cost per passenger"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\passenger.html:93
-#: .\Capstone\templates\Capstone\profile.html:169
-#: .\Capstone\templates\Capstone\route.html:65
-#: .\Capstone\templates\Capstone\searchedtrips.html:75
-#: .\Capstone\templates\Capstone\validtrips.html:76
+#: Capstone/templates/Capstone/passenger.html:93
+#: Capstone/templates/Capstone/profile.html:169
+#: Capstone/templates/Capstone/route.html:65
+#: Capstone/templates/Capstone/searchedtrips.html:75
+#: Capstone/templates/Capstone/validtrips.html:76
 msgid "Insert your comment"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\passenger.html:97
-#: .\Capstone\templates\Capstone\profile.html:173
-#: .\Capstone\templates\Capstone\route.html:69
-#: .\Capstone\templates\Capstone\searchedtrips.html:79
-#: .\Capstone\templates\Capstone\validtrips.html:80
+#: Capstone/templates/Capstone/passenger.html:97
+#: Capstone/templates/Capstone/profile.html:173
+#: Capstone/templates/Capstone/route.html:69
+#: Capstone/templates/Capstone/searchedtrips.html:79
+#: Capstone/templates/Capstone/validtrips.html:80
 msgid "Post"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\passenger.html:105
-#: .\Capstone\templates\Capstone\profile.html:178
-#: .\Capstone\templates\Capstone\route.html:77
-#: .\Capstone\templates\Capstone\searchedtrips.html:87
-#: .\Capstone\templates\Capstone\validtrips.html:88
+#: Capstone/templates/Capstone/passenger.html:105
+#: Capstone/templates/Capstone/profile.html:178
+#: Capstone/templates/Capstone/route.html:77
+#: Capstone/templates/Capstone/searchedtrips.html:87
+#: Capstone/templates/Capstone/validtrips.html:88
 msgid "Leave"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\passenger.html:110
-#: .\Capstone\templates\Capstone\profile.html:180
-#: .\Capstone\templates\Capstone\route.html:79
-#: .\Capstone\templates\Capstone\searchedtrips.html:92
-#: .\Capstone\templates\Capstone\validtrips.html:93
+#: Capstone/templates/Capstone/passenger.html:110
+#: Capstone/templates/Capstone/profile.html:180
+#: Capstone/templates/Capstone/route.html:79
+#: Capstone/templates/Capstone/searchedtrips.html:92
+#: Capstone/templates/Capstone/validtrips.html:93
 msgid "Join"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\passenger.html:144
-#: .\Capstone\templates\Capstone\profile.html:198
-#: .\Capstone\templates\Capstone\route.html:127
-#: .\Capstone\templates\Capstone\validtrips.html:130
+#: Capstone/templates/Capstone/passenger.html:144
+#: Capstone/templates/Capstone/profile.html:198
+#: Capstone/templates/Capstone/route.html:127
+#: Capstone/templates/Capstone/validtrips.html:130
 msgid "commented on"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\passenger.html:159
+#: Capstone/templates/Capstone/passenger.html:159
 msgid "Page"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\passenger.html:163
+#: Capstone/templates/Capstone/passenger.html:163
 msgid "Previous"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\passenger.html:167
+#: Capstone/templates/Capstone/passenger.html:167
 msgid "Next"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\password\password_reset.html:11
-msgid "Forgotten your password? Enter your email address below, and we"
+#: Capstone/templates/Capstone/password/password_reset.html:12
+msgid ""
+" 'Forgotten your password? Enter your email address below, \n"
+"\t\t\tand we will email instructions for setting a new one' "
 msgstr ""
 
-#: .\Capstone\templates\Capstone\password\password_reset.html:15
+#: Capstone/templates/Capstone/password/password_reset.html:17
 msgid "Send me instructions"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\password\password_reset_complete.html:5
+#: Capstone/templates/Capstone/password/password_reset_complete.html:5
 msgid "Password reset complete!"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\password\password_reset_complete.html:6
+#: Capstone/templates/Capstone/password/password_reset_complete.html:6
 msgid "Your password has been set. You may go ahead and"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\password\password_reset_complete.html:6
+#: Capstone/templates/Capstone/password/password_reset_complete.html:6
 msgid "log in"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\password\password_reset_complete.html:6
+#: Capstone/templates/Capstone/password/password_reset_complete.html:6
 msgid "now"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\password\password_reset_email.txt:3
+#: Capstone/templates/Capstone/password/password_reset_email.txt:3
 #, python-format
 msgid ""
 "Hello, %(user.username)s\n"
@@ -460,126 +467,126 @@ msgid ""
 "link below."
 msgstr ""
 
-#: .\Capstone\templates\Capstone\password\password_reset_email.txt:9
+#: Capstone/templates/Capstone/password/password_reset_email.txt:9
 msgid ""
 "This link can only be used once. If you need to reset your password again, "
 "please visit"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\password\password_reset_email.txt:9
+#: Capstone/templates/Capstone/password/password_reset_email.txt:9
 msgid "and request another reset"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\profile.html:15
+#: Capstone/templates/Capstone/profile.html:15
 msgid "You are viewing user"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\profile.html:65
+#: Capstone/templates/Capstone/profile.html:65
 msgid "You are a passenger of"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\profile.html:65
+#: Capstone/templates/Capstone/profile.html:65
 msgid "trips"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\profile.html:77
+#: Capstone/templates/Capstone/profile.html:77
 msgid "Total Trips as a driver"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\profile.html:83
+#: Capstone/templates/Capstone/profile.html:83
 msgid "Edit Your Profile"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\profile.html:111
+#: Capstone/templates/Capstone/profile.html:111
 msgid "and returning on"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\profile.html:111
+#: Capstone/templates/Capstone/profile.html:111
 msgid "and returning at"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\profile.html:139
+#: Capstone/templates/Capstone/profile.html:139
 msgid "created on"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\profile.html:145
-#: .\Capstone\templates\Capstone\route.html:51
+#: Capstone/templates/Capstone/profile.html:145
+#: Capstone/templates/Capstone/route.html:51
 msgid "Passengers on this Trip"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\profile.html:160
+#: Capstone/templates/Capstone/profile.html:160
 msgid "Passengers on this trip"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\register.html:17
+#: Capstone/templates/Capstone/register.html:17
 msgid "Email Address"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\register.html:20
+#: Capstone/templates/Capstone/register.html:20
 msgid "name"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\register.html:23
+#: Capstone/templates/Capstone/register.html:23
 msgid "surname"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\register.html:26
+#: Capstone/templates/Capstone/register.html:26
 msgid "date of birth"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\register.html:32
+#: Capstone/templates/Capstone/register.html:32
 msgid "Confirm Password"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\register.html:37
+#: Capstone/templates/Capstone/register.html:37
 msgid "Already have an account?"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\register.html:37
+#: Capstone/templates/Capstone/register.html:37
 msgid "Log In here"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\register.html:38
+#: Capstone/templates/Capstone/register.html:38
 msgid "By registering you agree to our"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\route.html:99
+#: Capstone/templates/Capstone/route.html:99
 msgid "remove"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\route.html:114
-#: .\Capstone\templates\Capstone\searchedtrips.html:108
-#: .\Capstone\templates\Capstone\validtrips.html:109
+#: Capstone/templates/Capstone/route.html:114
+#: Capstone/templates/Capstone/searchedtrips.html:108
+#: Capstone/templates/Capstone/validtrips.html:109
 msgid "Edit Trip"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\searchedtrips.html:8
-#: .\Capstone\templates\Capstone\validtrips.html:9
+#: Capstone/templates/Capstone/searchedtrips.html:8
+#: Capstone/templates/Capstone/validtrips.html:9
 msgid "Show All Trips"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\searchedtrips.html:19
+#: Capstone/templates/Capstone/searchedtrips.html:19
 msgid "You searched for"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\searchedtrips.html:25
+#: Capstone/templates/Capstone/searchedtrips.html:25
 msgid " Trip No"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\searchedtrips.html:129
+#: Capstone/templates/Capstone/searchedtrips.html:129
 msgid "replied on"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\searchedtrips.html:145
-#: .\Capstone\templates\Capstone\validtrips.html:146
+#: Capstone/templates/Capstone/searchedtrips.html:145
+#: Capstone/templates/Capstone/validtrips.html:146
 msgid "Sorry no Trips found!"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\terms.html:14
+#: Capstone/templates/Capstone/terms.html:14
 msgid "Company name"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\terms.html:18
+#: Capstone/templates/Capstone/terms.html:18
 msgid ""
 " By accessing this website, you agree to be bound by these terms of use, all "
 "current laws and regulations,\n"
@@ -596,17 +603,17 @@ msgid ""
 "in the future."
 msgstr ""
 
-#: .\Capstone\templates\Capstone\terms.html:26
+#: Capstone/templates/Capstone/terms.html:26
 msgid "Copyright and trademark information and instructions"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\terms.html:28
+#: Capstone/templates/Capstone/terms.html:28
 msgid ""
 "The code and logos contained in this website are protected by current "
 "copyright and trademark laws."
 msgstr ""
 
-#: .\Capstone\templates\Capstone\terms.html:31
+#: Capstone/templates/Capstone/terms.html:31
 msgid ""
 "Drivers-Passengers</h6>\n"
 "\n"
@@ -633,11 +640,11 @@ msgid ""
 "their own risk.</b></p>"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\terms.html:46
+#: Capstone/templates/Capstone/terms.html:46
 msgid "Waiver of Claims"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\terms.html:47
+#: Capstone/templates/Capstone/terms.html:47
 msgid ""
 " The owner of this website takes no responsibility for any personal "
 "injuries, death, property damages, financial losses, or any other kind of "
@@ -645,11 +652,11 @@ msgid ""
 "    may result from sharing a trip through this website with another person."
 msgstr ""
 
-#: .\Capstone\templates\Capstone\terms.html:51
+#: Capstone/templates/Capstone/terms.html:51
 msgid "Abusive accounts"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\terms.html:53
+#: Capstone/templates/Capstone/terms.html:53
 msgid ""
 "'The owner of this website reserves the right to remove abusive accounts e."
 "g. programmatic access through spiders, robots, crawlers, scrapers etc., "
@@ -657,23 +664,23 @@ msgid ""
 "    accounts, or any kind of abusive behaviour."
 msgstr ""
 
-#: .\Capstone\templates\Capstone\terms.html:56
+#: Capstone/templates/Capstone/terms.html:56
 msgid "Disclaimer of guarantees"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\terms.html:58
+#: Capstone/templates/Capstone/terms.html:58
 msgid ""
 "The material on the website of this website is provided “as it is”. The "
-"calculation od CO2 emissions is\n"
+"calculation of CO2 emissions is\n"
 "an approximation and depends on the car manufacture, the driving habits, the "
 "kind of fuel etc. "
 msgstr ""
 
-#: .\Capstone\templates\Capstone\terms.html:63
+#: Capstone/templates/Capstone/terms.html:63
 msgid "Limitation of Liability"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\terms.html:65
+#: Capstone/templates/Capstone/terms.html:65
 msgid ""
 " In any case, the owner of this website or its suppliers are not liable for "
 "damages resulting from lost information or interruptions due to system\n"
@@ -681,11 +688,11 @@ msgid ""
 "orally or written for the possibility of such losses."
 msgstr ""
 
-#: .\Capstone\templates\Capstone\terms.html:69
+#: Capstone/templates/Capstone/terms.html:69
 msgid "Revisions and typographical errors"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\terms.html:71
+#: Capstone/templates/Capstone/terms.html:71
 msgid ""
 "The material appearing on the websites of the owner of this website may "
 "include technical, typographical or photographic errors.\n"
@@ -695,11 +702,11 @@ msgid ""
 "the content of its websites at any time without prior notice."
 msgstr ""
 
-#: .\Capstone\templates\Capstone\terms.html:75
+#: Capstone/templates/Capstone/terms.html:75
 msgid "Change of Terms of Use"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\terms.html:77
+#: Capstone/templates/Capstone/terms.html:77
 msgid ""
 "The owner of this website may change the terms of use of its websites "
 "without prior notice.\n"
@@ -707,11 +714,11 @@ msgid ""
 "its current Terms of Use. "
 msgstr ""
 
-#: .\Capstone\templates\Capstone\terms.html:80
+#: Capstone/templates/Capstone/terms.html:80
 msgid "Users’ Data"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\terms.html:82
+#: Capstone/templates/Capstone/terms.html:82
 msgid ""
 "Any information or other material delivered or published by users, on the "
 "owner of this website is considered non-confidential\n"
@@ -721,11 +728,11 @@ msgid ""
 "or other content contrary to the law is prohibited."
 msgstr ""
 
-#: .\Capstone\templates\Capstone\terms.html:87
+#: Capstone/templates/Capstone/terms.html:87
 msgid "Links"
 msgstr ""
 
-#: .\Capstone\templates\Capstone\terms.html:89
+#: Capstone/templates/Capstone/terms.html:89
 msgid ""
 "The owner of this website may contain links to third party websites.\n"
 "Such websites are operated by other companies or persons or agents and the "
@@ -737,6 +744,6 @@ msgid ""
 "to any third party website without notice."
 msgstr ""
 
-#: .\Capstone\templates\Capstone\validtrips.html:36
+#: Capstone/templates/Capstone/validtrips.html:36
 msgid "Km"
 msgstr ""
