@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-16 16:54+0000\n"
-"PO-Revision-Date: 2023-08-16 16:54+0000\n"
+"POT-Creation-Date: 2023-08-16 17:18+0000\n"
+"PO-Revision-Date: 2023-08-16 17:20+0000\n"
 "Last-Translator:   <assw@sss.ss>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -88,9 +88,6 @@ msgid "Hi"
 msgstr "Γεια σου"
 
 #: Capstone/templates/Capstone/acc_activate_email.html:8
-#| msgid ""
-#| "Please click on the link to confirm your registration for the Carpooling "
-#| "Project,"
 msgid ""
 "Please click on the link sent to your email to confirm your registration for"
 " the Carpooling Project"
@@ -113,6 +110,21 @@ msgstr "Ευχαριστούμε για την επιβεβαίωση του η�
 #: Capstone/templates/Capstone/layoutold.html:99
 msgid "Log In"
 msgstr "Σύνδεση"
+
+#: Capstone/templates/Capstone/contact.html:16
+msgid "Contact us directly if you have any questions"
+msgstr "Επικοινωνήστε μαζί μας για οποιαδήποτε απορία"
+
+#: Capstone/templates/Capstone/contact.html:17
+msgid ""
+" 'Please write your name, email address and a \n"
+"      message below if you have any questions.\n"
+"\t\t\tOne of our staff members will be happy to contact you directly\n"
+"       and answer your questions as soon as possible.' "
+msgstr ""
+"Παρακαλούμε γράψτε το όνομά σας, την διεύθυνση του ηλ. ταχυδρομείου σας και "
+"το μήνυμά σας. Κάποι@ συνεργάτ@ θα επικοινωνίσει άμεσα μαζί σας και θα "
+"απαντήσει στο ερώτημά σας."
 
 #: Capstone/templates/Capstone/driver.html:16
 #: Capstone/templates/Capstone/edit_route.html:53

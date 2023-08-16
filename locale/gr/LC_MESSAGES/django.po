@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-16 16:43+0000\n"
+"POT-Creation-Date: 2023-08-16 17:03+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -84,6 +84,12 @@ msgstr ""
 #: Capstone/templates/Capstone/confirm_email.html:10
 #: Capstone/templates/Capstone/confirm_email_success.html:9
 msgid "Hi"
+msgstr ""
+
+#: Capstone/templates/Capstone/acc_activate_email.html:8
+msgid ""
+"Please click on the link sent to your email to confirm your registration for "
+"the Carpooling Project"
 msgstr ""
 
 #: Capstone/templates/Capstone/confirm_email.html:11
