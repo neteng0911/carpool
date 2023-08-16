@@ -10,8 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 import os
-import django_heroku
-import dj_database_url
+#import django_heroku
+#import dj_database_url
 from decouple import config
 from pathlib import Path
 from dotenv import load_dotenv
@@ -88,12 +88,25 @@ AUTH_USER_MODEL = "Capstone.User"
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASES = {
+""" DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+ """
+
+DATABASES = {
+    "default": {
+        "ENGINE": os.environ.get("SQL_ENGINE", "django.db.backends.sqlite3"),
+        "NAME": os.environ.get("SQL_DATABASE", BASE_DIR / "db.sqlite3"),
+        "USER": os.environ.get("SQL_USER", "user"),
+        "PASSWORD": os.environ.get("SQL_PASSWORD", "password"),
+        "HOST": os.environ.get("SQL_HOST", "localhost"),
+        "PORT": os.environ.get("SQL_PORT", "5432"),
+    }
+}
+
 
 
 # Password validation
@@ -140,7 +153,7 @@ STATIC_URL = '/static/'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_URL = '/images/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'Capstone/static/Capstone/images')
+STATIC_ROOT = os.path.join(BASE_DIR, 'Capstone/static/Capstone/images')
 
 LOCALE_PATHS = [
     BASE_DIR / 'locale/',
@@ -165,7 +178,7 @@ EMAIL_PORT = 587
 
 EMAIL_FILE_PATH = BASE_DIR / "sent_emails"
 
-django_heroku.settings(locals())
+#django_heroku.settings(locals())
 
 #
 # COOKIE_CONSENT_NAME = "cookie_consent"
