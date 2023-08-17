@@ -80,6 +80,7 @@
             var fin = document.querySelector(`#fin_${route_id}`).innerHTML;
             var diff_p = max_pass-no_pass
             var fin_p = document.querySelector('[data-id="fin_p${route_id"]');
+            
 
 
             //console.log(route_id);
@@ -111,8 +112,9 @@
                 element.innerHTML="Leave";
                 document.querySelector(`#thepassengercounter_${route_id}`).innerHTML++;
                 document.querySelector(`#closedjs_${route_id}`).style.display='none';
-                document.querySelector(`#closedjsp_${route_id}`).style.display='block';
-                document.querySelector(`#fin_p${route_id}`).innerHTML='True';
+                //document.querySelector(`#closedjs_p_${route_id}`).style.display='block';
+                //document.querySelector(`#fin_p${route_id}`).innerHTML='True';
+                
 
 
                 translatejoin(co2,lang)
@@ -162,7 +164,7 @@
         if (fin === 'False'){
 
         if (element.title == "Leave"){
-               //console.log(element);
+               console.log(element);
 
 
                 element.title="Join";
@@ -175,8 +177,10 @@
                 translateleave(co2,lang)
                 est_cost(route_id);
                 document.querySelector(`#closedjs_${route_id}`).style.display='none';
-                document.querySelector(`#closedjsp_${route_id}`).style.display='none';
-                document.querySelector(`#closedjsp_${route_id}`).style.display='none';
+                document.querySelector(`#closedp_${route_id}`).style.display='none';
+                document.querySelector(`#fin_p${route_id}`).innerHTML='False';
+                
+                
 
 
                 }

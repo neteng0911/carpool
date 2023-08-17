@@ -34,39 +34,41 @@
        </div>
             </div>
       <div class="col-sm  order-sm-2">
-{% for ro in  page.object_list %}
+
+        <!--TRIP STARTS HERE-->
+{% for route in  page.object_list %}
 
       <div class="prof ">
     <h5 class="bg-info col-md-auto mx-1 pr-5 shadow-lg"></h5>
-          <div data-fin="{{ro.fin}}" data-fin_set="{{ro.fin_set}}" data-fin_p="{{ro.fin_p}}">
-        <h5> <strong><a href="{% url 'webload_route' ro.id %}" > {% trans 'Trip No' %}:{{ro.id}} </a></strong> </h5>
-             {% if ro.fin or ro.fin_set  %} <h5 id='closed_{{ro.id}}' style='color:red;'> {% trans 'Trip Closed'%}</h5>{% endif %}
-              {% if ro.fin_p %} <h5 id='closedp_{{ro.id}}' style='color:red;'> {% trans 'No empty seats'%}</h5>{% endif %}
-              <h5 class='closedjs_p' id = 'closedjsp_{{ro.id}}' style='color:red;'> {% trans 'No empty seats'%} </h5><p id="fin_p{{ro.id}}" hidden>{{ro.fin_p}}</p>
-          <h5 class='closedjs' id = 'closedjs_{{ro.id}}' style='color:red;'> {% trans 'Trip Closed'%} </h5><p id="fin_{{ro.id}}" hidden>{{ro.fin}}</p>
-    <h6> {% trans 'From' %}</h6> {{ro.departure}}
-    <h6> {% trans 'To' %}</h6> {{ro.destination}}
-    <h6> {% trans 'Leaving on' %} </h6> {{ro.date_orig}}
-    <h6> {% trans 'Leaving at' %} </h6> {{ro.time_orig}}
-    <h6> {% trans 'Returning on' %}</h6> {{ro.date_ret}}
-    <h6> {% trans 'Returning at' %} </h6> {{ro.time_dep}}
-    <h6> {% trans 'Distance' %} </h6> {{ro.dist}}Km
+          <div data-fin="{{route.fin}}" data-fin_set="{{route.fin_set}}" data-fin_p="{{route.fin_p}}">
+        <h5> <strong><a href="{% url 'webload_route' route.id %}" > {% trans 'Trip No' %}:{{route.id}} </a></strong> </h5>
+             {% if route.fin or route.fin_set  %} <h5 id='closed_{{route.id}}' style='color:red;'> {% trans 'Trip Closed'%}</h5>{% endif %}
+              {% if route.fin_p %} <h5 id='closedp_{{route.id}}' style='color:red;'> {% trans 'No empty seats'%}</h5>{% endif %}
+              <h5 class='closedjs_p' id = 'closedjsp_{{route.id}}' style='color:red;'> {% trans 'No empty seats'%} </h5><p id="fin_p{{route.id}}" hidden>{{route.fin_p}}</p>
+          <h5 class='closedjs' id = 'closedjs_{{route.id}}' style='color:red;'> {% trans 'Trip Closed'%} </h5><p id="fin_{{route.id}}" hidden>{{route.fin}}</p>
+    <h6> {% trans 'From' %}</h6> {{route.departure}}
+    <h6> {% trans 'To' %}</h6> {{route.destination}}
+    <h6> {% trans 'Leaving on' %} </h6> {{route.date_orig}}
+    <h6> {% trans 'Leaving at' %} </h6> {{route.time_orig}}
+    <h6> {% trans 'Returning on' %}</h6> {{route.date_ret}}
+    <h6> {% trans 'Returning at' %} </h6> {{route.time_dep}}
+    <h6> {% trans 'Distance' %} </h6> {{route.dist}}Km
 
 
-    <h6> {% trans 'The Driver is' %} </h6>   <a href="{% url 'profile' ro.thedriver.id %}" ><strong> {{ro.thedriver}} </strong></a>
-    <p hidden id="cost_{{ro.id}}"><h6>{% trans 'Initial cost per passenger' %} {{ro.cost}} {%trans '$' %}</h6>
-    <h6> {% trans 'Expected cost per passenger' %}  <strong id="costpp_{{ro.id}}">{{ro.costpp}}{%trans '$' %}</strong></h6>
-         {% if ro.d_a %}
+    <h6> {% trans 'The Driver is' %} </h6>   <a href="{% url 'profile' route.thedriver.id %}" ><strong> {{route.thedriver}} </strong></a>
+    <p hidden id="cost_{{route.id}}"><h6>{% trans 'Initial cost per passenger' %} {{route.cost}} {%trans '$' %}</h6>
+    <h6> {% trans 'Expected cost per passenger' %}  <strong id="costpp_{{route.id}}">{{route.costpp}}{%trans '$' %}</strong></h6>
+         {% if route.d_a %}
           <h6> {% trans 'Disabled access' %} <i class="fa fa-wheelchair" aria-hidden="true"></i>
 </h6>
           {% endif %}
-          <img  class='img-fluid rounded d-block' style="border:1px solid yellow;" src="{{ ro.map_pic }}" alt="map_img">
+          <img  class='img-fluid rounded d-block' style="border:1px solid yellow;" src="{{ route.map_pic }}" alt="map_img">
 
 
 <!--{% if user.is_authenticated %}
-                              {% if ro.fin or ro.fin_set  %}
+                              {% if route.fin or route.fin_set  %}
 
-                        {% if request.user in ro.thepassenger.all %}
+                        {% if request.user in route.thepassenger.all %}
                  <p>  {% qr_from_text qr.code size="2" image_format="png" error_correction="L" %}   {{qr.passenger}}</p>
 
 
@@ -77,13 +79,13 @@
                     -->
 
 
-        {% if ro.passengers.all.count != 0 %}
+        {% if route.passengers.all.count != 0 %}
     <p id="likes" style= "color:grey; font-size:12px;mix-blend-mode: multiply;"><img src="{% static  'Capstone/images/seat.jpg' %}" alt="seat image">
-        <span><strong id="thepassengercounter_{{ro.id}}">{{ ro.thepassenger.all.count }}</strong></span>/<span id = 'max_pass_{{ro.id}}'>{{ ro.no_pass }}</span>
+        <span><strong id="thepassengercounter_{{route.id}}">{{ route.thepassenger.all.count }}</strong></span>/<span id = 'max_pass_{{route.id}}'>{{ route.no_pass }}</span>
 
         {% else %}
     <p id="likes" style= "color:grey; font-size:12px;mix-blend-mode: multiply;"><img src="{% static  'Capstone/images/seat.jpg' %}" alt="seat image">
-        <span><strong id="thepassengercounter_{{ro.id}}">0</strong></span>
+        <span><strong id="thepassengercounter_{{route.id}}">0</strong></span>
 
        {% endif %}
               </div>
@@ -92,25 +94,25 @@
 
         <div class="form-group">
             <input class="form-control"  style="margin-top:30px" type="text" name="comm_txt" placeholder={% trans "Insert your comment"%}>
-            <input type="hidden"  name="route_id" value={{ro.id}}>
+            <input type="hidden"  name="route_id" value={{route.id}}>
 
         </div>
     <input class="btn btn-primary"  id='post_btn' type="submit" name="route_reply" value={% trans "Post"%}>
 
-                  {% ifnotequal request.user ro.thedriver %}
+                  {% ifnotequal request.user route.thedriver %}
 
                 <div class="likes">
-                {% if not ro.fin %}
-                        {% if request.user in ro.thepassenger.all %}
+                  {% if not route.fin and not route.fin_set  %}
+                        {% if request.user in route.thepassenger.all %}
 
-                        <span id="leavebtn" class="joinleave" data-id="{{ro.id}}" onclick="return false" title="Leave" >{% trans 'Leave' %}</span>
+                        <span id="leavebtn" class="joinleave" data-id="{{route.id}}" onclick="return false" title="Leave" >{% trans 'Leave' %}</span>
 
                     {% else %}
-                    {% if not ro.fin_set and not ro.fin  %}
+                    
 
-                        <span id="joinbtn" class="joinleave" data-id="{{ro.id}}" onclick="return false"  title="Join">{% trans 'Join' %}</span>
+                        <span id="joinbtn" class="joinleave" data-id="{{route.id}}" onclick="return false"  title="Join">{% trans 'Join' %}</span>
             {% endif%}
-            {% endif %}
+            
                     {% endif %}
                 </div>
 
@@ -119,11 +121,11 @@
 
 
         {% endifnotequal %}
-        {% ifequal request.user ro.thedriver %}
-          <form action="{% url 'edit_route' ro.pk %}" method="post">
+        {% ifequal request.user route.thedriver %}
+          <form action="{% url 'edit_route' route.pk %}" method="post">
         {% csrf_token %}
-            <input class="btn btn-success" type="button"  name="load_route" value="Edit Trip"  onclick="location.href='{% url 'edit_route' ro.pk %}'"  />
-            <input type="hidden"  name="route_to_load_id" value={{ro.pk}}>
+            <input class="btn btn-success" type="button"  name="load_route" value="Edit Trip"  onclick="location.href='{% url 'edit_route' route.pk %}'"  />
+            <input type="hidden"  name="route_to_load_id" value={{route.pk}}>
           </form>
         {%endifequal %}
 
@@ -136,7 +138,7 @@
 
 
   </div>
-                            {% for rep in ro.comments.all %}
+                            {% for rep in route.comments.all %}
  <ul style="ιmargin-left:130px;">
 
 

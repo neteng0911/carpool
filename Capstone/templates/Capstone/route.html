@@ -10,13 +10,13 @@
 
   <div class="media-body">
       <div class="prof">
-    <h5 class="bg-info col-md-auto mx-1 pr-5 shadow-lg "></h5>
-          <div><h5>{% trans 'Trip No' %} {{route.pk}} </h5>
-              {% if route.fin or route.fin_set %} <h5 id='closed_{{route.id}}' style='color:red;'> {% trans 'Trip Closed'%}</h5>{% endif %}
-              {% if route.fin_p %} <h5 id='closed_{{route.id}}' style='color:red;'> {% trans 'No empty seats'%}</h5>{% endif %}
-<h5 class='closedjs' id = 'closedjs_{{route.id}}' style='color:red;'> {% trans 'Trip Closed'%} </h5><p id="fin_{{route.id}}" hidden>{{route.fin}} 
-id="fin_set_{{route.id}}" hidden>{{route.fin_set}}</p>
+    <div><h5>{% trans 'Trip No' %} {{route.pk}} </h5>
+        <div data-fin="{{route.fin}}" data-fin_set="{{route.fin_set}}" data-fin_p="{{route.fin_p}}">
 
+                 {% if route.fin or route.fin_set  %} <h5 id='closed_{{route.id}}' style='color:red;'> {% trans 'Trip Closed'%}</h5>{% endif %}
+                  {% if route.fin_p %} <h5 id='closedp_{{route.id}}' style='color:red;'> {% trans 'No empty seats'%}</h5>{% endif %}
+                  <h5 class='closedjs_p' id = 'closedjsp_{{route.id}}' style='color:red;'> {% trans 'No empty seats'%} </h5><p id="fin_p{{route.id}}" hidden>{{route.fin_p}}</p>
+              <h5 class='closedjs' id = 'closedjs_{{route.id}}' style='color:red;'> {% trans 'Trip Closed'%} </h5><p id="fin_{{route.id}}" hidden>{{route.fin}}</p>
     <h6> {% trans 'From' %} </h6> {{route.departure}}
     <h6> {% trans 'To' %} </h6> {{route.destination}}
     <h6> {% trans 'Leaving on' %} </h6> {{route.date_orig}}
@@ -110,10 +110,8 @@ id="fin_set_{{route.id}}" hidden>{{route.fin_set}}</p>
 
                 </script>
  {% endifnotequal %}
-
-{% endifequal %}
-
-        {% ifequal request.user route.thedriver %}
+ {% endifequal %}
+ {% ifequal request.user route.thedriver %}
             <input class="btn btn-success" id = 'edit' type="button"  name="edit_route" value={% blocktrans %}'Edit Trip' {% endblocktrans %}  onclick="location.href='{% url 'edit_route' route.pk %}'"  />
             <input type="hidden"  name="route_to_load_id" value={{route.pk}}>
                 {% if route.fin_set %}

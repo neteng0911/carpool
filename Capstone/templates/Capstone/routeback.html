@@ -12,8 +12,13 @@
       <div class="prof">
     <h5 class="bg-info col-md-auto mx-1 pr-5 shadow-lg "></h5>
           <div><h5>{% trans 'Trip No' %} {{route.pk}} </h5>
-              {% if route.fin or route.fin_set or route.fin_p %} <h5 id='closed_{{route.id}}' style='color:red;'> {% trans 'Trip Closed'%}</h5>{% endif %}
-<h5 class='closedjs' id = 'closedjs_{{route.id}}' style='color:red;'> {% trans 'Trip Closed'%} </h5><p id="fin_{{route.id}}" hidden>{{route.fin}}</p>
+            {% if route.fin or route.fin_set  %} <h5 id='closed_{{route_reply.id}}' style='color:red;'> {% trans 'Trip Closed'%}</h5>{% endif %}
+            {% if route.fin_p %} <h5 id='closedp_{{route_id.id}}' style='color:red;'> {% trans 'No empty seats'%}</h5>{% endif %}
+            <h5 class='closedjs_p' id = 'closedjsp_{{route.id}}' style='color:red;'> {% trans 'No empty seats'%} </h5><p id="fin_p{{route.id}}" hidden>{{route.fin_p}}</p>
+        <h5 class='closedjs' id = 'closedjs_{{route.id}}' style='color:red;'> {% trans 'Trip Closed'%} </h5>
+        <p id="fin_{{route.id}}" hidden>Εχει ξεκινήσει η δια{{route.fin}}
+            id="fin_set_{{route.id}}" hidden>{{route.fin_set}}</p>
+
     <h6> {% trans 'From' %} </h6> {{route.departure}}
     <h6> {% trans 'To' %} </h6> {{route.destination}}
     <h6> {% trans 'Leaving on' %} </h6> {{route.date_orig}}
@@ -25,6 +30,10 @@
     <h6> {% trans 'The Driver is' %} </h6>   <a href="{% url 'profile' route.thedriver.id %}" ><strong> {{route.thedriver}} </strong></a>
     <p hidden id="cost_{{route.id}}"><h6>{% trans 'Initial cost per passenger' %} {{route.cost}} $</h6>
     <h6> {% trans 'Expected cost per passenger' %} <strong id="costpp_{{route.id}}">{{route.costpp}}$</strong></h6>
+    {% if route.d_a %}
+          <h6> {% trans 'Disabled access' %} <i class="fa fa-wheelchair" aria-hidden="true"></i>
+</h6>
+          {% endif %}
               <p></p>
               <img class="img-fluid" src="{{ route.map_pic }}" alt="map_img">
 </div>
@@ -68,17 +77,20 @@
         </div>
     <input class="btn btn-primary"  id='post_btn' type="submit" name="route_reply" value={% trans "Post" %}>
 
-                  {% ifnotequal request.user route.thedriver %}
-          {% if not route.fin and not route.fin_set  %}
-                <div class="likes">
-                        {% if request.user in route.thepassenger.all %}
+            {% ifnotequal request.user route.thedriver %}
+    <div class="likes">
+                        {% if not route.fin and not route.fin_set  %}
+                
+                            {% if request.user in route.thepassenger.all %}
 
 
                         <span id="leavebtn" class="joinleave" data-id="{{route.id}}" onclick="return false" title="Leave" >{% trans 'Leave' %}</span>
                         {% else %}
+                            
                         <span id="joinbtn" class="joinleave" data-id="{{route.id}}" onclick="return false"  title="Join">{% trans 'Join' %}</span>
-                    {% endif %}
                         {% endif %}
+                          
+            {% endif %}            
                 </div>
 </form>
 
@@ -111,8 +123,16 @@
 {% endifequal %}
 
         {% ifequal request.user route.thedriver %}
-            <input class="btn btn-success" id = 'remove' type="button"  name="load_route" value={% trans "Edit Trip" %}  onclick="location.href='{% url 'edit_route' route.pk %}'"  />
+            <input class="btn btn-success" id = 'edit' type="button"  name="edit_route" value={% blocktrans %}'Edit Trip' {% endblocktrans %}  onclick="location.href='{% url 'edit_route' route.pk %}'"  />
             <input type="hidden"  name="route_to_load_id" value={{route.pk}}>
+                {% if route.fin_set %}
+            <input class="btn btn-success" type="submit" name="unfinalise_trip" value={% blocktrans %}'Unfinalise Trip' {% endblocktrans %} id = 'unfinalise' onclick="location.href='{% url 'webload_route' route.pk %}'">  
+
+            <input type="hidden"  name="route_to_load_id" value={{route.pk}}>
+                {% else %}
+            <input class="btn btn-success" type="submit" name="finalise_trip" value={% blocktrans %} "Finalise Trip" {% endblocktrans %} id = 'finalise' onclick="location.href='{% url 'webload_route' route.pk %}'"</button>  
+            <input type="hidden"  name="route_to_load_id" value={{route.pk}}>
+                {% endif %}
         {%endifequal %}
   </div>
 </div>
