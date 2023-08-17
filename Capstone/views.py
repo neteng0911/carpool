@@ -515,7 +515,8 @@ def leave_route(request, route_id):
     if request.method == "POST":
         route = Route.objects.get(id=route_id)
         route.thepassenger.remove(request.user)
-        Qrcode.objects.get(passenger=request.user, trip=route).delete()
+        #Qrcode.objects.get(passenger=request.user, trip=route).delete()
+        Qrcode.objects.filter(passenger=request.user,trip=route).delete()
         print("You left trip no ", route.id)
 
         return JsonResponse({"message": "You left trip successfully."}, status=201)

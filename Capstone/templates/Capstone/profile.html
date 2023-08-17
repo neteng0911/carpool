@@ -101,7 +101,8 @@
         {% for user_route in  page.object_list %}
         <div class="prof" style="top:0px">
             <div class="col-md-auto mx-3 pr-5 shadow-lg "><h5><strong><a href ="{% url 'webload_route' user_route.pk %}" >{% trans 'Trip No' %} {{user_route.pk}}
-            </a> </strong></h5>{% if user_route.fin or user_route.fin_set or user_route.fin_p  %}  <h5 style='color:red;'> {% trans 'Trip Closed' %}</h5>{% endif %}
+            </a> </strong></h5>{% if user_route.fin or user_route.fin_set  %}  <h5 style='color:red;'> {% trans 'Trip Closed' %}</h5>{% endif %}
+            {% if user_route.fin_p %}<h5 style='color:red;'> {% trans 'No empty seats' %}</h5>{% endif %}
                   <h5 class='closedjs' id = 'closedjs_{user_{route.id}}' style='color:red;'> 'Trip Closed'</h5>
             <p id="fin_{{user_route.id}}" hidden>{{user_route.fin}}</p>
 

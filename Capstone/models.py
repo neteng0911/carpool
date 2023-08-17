@@ -86,9 +86,12 @@ class Route(models.Model):
             return False
 
 
-    def fin_p(self):
+    def fin_p(self): # if the vehicle has no empty seats
         if self.no_pass == self.thepassenger.count():
-            return True
+            return True        
+        else:
+            return False
+
 
 
 
@@ -176,7 +179,7 @@ class Message(models.Model):
 
 
 
-class Qrcode(models.Model):
+class Qrcode(models.Model): # is constituted by a random 12 length random string plus the 
     code = models.CharField(max_length=12, default = random_string)
     passenger = models.ForeignKey(User, on_delete=models.CASCADE, null="TRUE", blank="TRUE", related_name='code')
     trip = models.ManyToManyField(Route, related_name='qrcodes')

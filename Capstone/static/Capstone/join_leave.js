@@ -79,6 +79,7 @@
             var co2=dist*2.40*2;
             var fin = document.querySelector(`#fin_${route_id}`).innerHTML;
             var diff_p = max_pass-no_pass
+            var fin_p = document.querySelector('[data-id="fin_p${route_id"]');
 
 
             //console.log(route_id);
@@ -86,6 +87,7 @@
             console.log('current passengers ', no_pass);
             console.log('is date or time passed? ', fin);
             console.log('diff pass ', diff_p);
+            console.log('fin_p ', fin_p);
 
 
             //console.log(dist)
@@ -108,7 +110,9 @@
                 element.title="Leave";
                 element.innerHTML="Leave";
                 document.querySelector(`#thepassengercounter_${route_id}`).innerHTML++;
-                document.querySelector(`#closedjs_${route_id}`).style.display='block';
+                document.querySelector(`#closedjs_${route_id}`).style.display='none';
+                document.querySelector(`#closedjsp_${route_id}`).style.display='block';
+                document.querySelector(`#fin_p${route_id}`).innerHTML='True';
 
 
                 translatejoin(co2,lang)
@@ -171,7 +175,8 @@
                 translateleave(co2,lang)
                 est_cost(route_id);
                 document.querySelector(`#closedjs_${route_id}`).style.display='none';
-                document.querySelector(`#closed_${route_id}`).style.display='none';
+                document.querySelector(`#closedjsp_${route_id}`).style.display='none';
+                document.querySelector(`#closedjsp_${route_id}`).style.display='none';
 
 
                 }
