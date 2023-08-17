@@ -292,9 +292,10 @@ def profile(request, user_id):
     user_messages = current_user.messages.all()
     user_passenger_list = current_user.thepassengers.all()
     user_passenger_count = user_passenger_list.count()
+    comments = Comment.objects.order_by('-created_date')
 
 
-    if request.method == "POST" and "edit_profile" in request.POST:
+    """     if request.method == "POST" and "edit_profile" in request.POST:
 
         edit_profile(request,request.user_id)
 
@@ -310,26 +311,10 @@ def profile(request, user_id):
 
         for t in mycode:
             passen = t.passenger
-            print(passen)
+            print(passen) """
 
 
-
-
-
-
-    comments = Comment.objects.order_by('-created_date')
-
-    if request.method == "POST" and "route_reply" in request.POST:
-        comm_txt = request.POST["comm_txt"]
-        route_id = request.POST.get("route_id")
-
-        comment(request, comm_txt, route_id)
-        return render(request, "Capstone/profile.html", {"targ_user": targ_user,'comments':comments,
-                                                         'user_routes':user_routes,'page':page,
-                                                         'user_routes_count': user_routes_count,
-                                                         'user_passenger_list':user_passenger_list, 'user_passenger_count':user_passenger_count})
-
-    if request.method == "POST" and "load_route" in request.POST:
+    """     if request.method == "POST" and "edit_route" in request.POST:
         route_to_load_id = request.POST.get("route_to_load_id")
 
         route_to_load = Route.objects.get(pk=route_to_load_id)
@@ -346,13 +331,13 @@ def profile(request, user_id):
         message_cl="Passenger list completed"
         #print(message_cl)
 
-        route_to_load.save()
-        return render(request, "Capstone/profile.html", {"targ_user": targ_user, "count": page.count, "page": page,
+        route_to_load.save() 
+    return render(request, "Capstone/profile.html", {"targ_user": targ_user, "count": page.count, "page": page,
                                                          'user_routes_count': user_routes_count,'message_cl':message_cl
                                                          ,'user_passenger_list':user_passenger_list, 'user_passenger_count':user_passenger_count})
 
 
-
+    
     if request.method == "POST" and "unfinalise_trip" in request.POST:
         route_to_load_id = request.POST.get("route_to_load_id")
 
@@ -366,6 +351,22 @@ def profile(request, user_id):
                                                          'user_routes_count': user_routes_count,'message_cl':message_cl
                                                          ,'user_passenger_list':user_passenger_list, 'user_passenger_count':user_passenger_count})
 
+                    """ 
+
+
+
+
+    
+
+    if request.method == "POST" and "route_reply" in request.POST:
+        comm_txt = request.POST["comm_txt"]
+        route_id = request.POST.get("route_id")
+
+        comment(request, comm_txt, route_id)
+        return render(request, "Capstone/profile.html", {"targ_user": targ_user,'comments':comments,
+                                                         'user_routes':user_routes,'page':page,
+                                                         'user_routes_count': user_routes_count,
+                                                         'user_passenger_list':user_passenger_list, 'user_passenger_count':user_passenger_count})
 
 
     else:
@@ -418,6 +419,7 @@ def edit_route(request, route_id):
             route.destination = request.POST["destination"]
             route.date_orig = request.POST["date_orig"]
             route.time_orig = request.POST["time_orig"]
+            route.date_dep = request.POST["date_dep"]
             route.time_dep = request.POST["time_dep"]
             route.cost = request.POST["cost"]
             route.no_pass = request.POST["no_pass"]
@@ -555,9 +557,9 @@ def load_route(request, route_id):
 # load route in web view
 @login_required
 def webload_route(request, route_id):
-
+    route = Route.objects.get(pk=route_id)
     try:
-        route = Route.objects.get(pk=route_id)
+        route
     except Route.DoesNotExist:
         return JsonResponse({"error": "trip not found."}, status=404)
 
@@ -579,14 +581,14 @@ def webload_route(request, route_id):
         #print(mycode)
 
     if request.method == "POST" and "finalise_trip" in request.POST:
-        route_to_load_id = request.POST.get("route_to_load_id")
-
-        route_to_load = Route.objects.get(pk=route_to_load_id)
-        route_to_load.fin_set = True
+        #route_to_load_id = request.POST.get("route_to_load_id")
+       
+        #route_to_load = Route.objects.get(pk=route_id)
+        route.fin_set = True
         message_cl = "Passenger list completed"
-        # print(message_cl)
+        print(message_cl)
 
-        route_to_load.save()
+        route.save()
 
         created_date = timezone.now()
         content = 'Attention! Driver finalised trip '
