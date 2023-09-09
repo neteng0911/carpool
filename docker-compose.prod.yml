@@ -2,14 +2,16 @@ version: '3.8'
 
 services:
   web:
-    build: .
-    command: python manage.py runserver 0.0.0.0:8000
+    build:
+      context: ./app
+      dockerfile: Dockerfile.prod
+    command: gunicorn project5.wsgi:application --bind 0.0.0.0:8000
     volumes:
       - ./:/usr/src/
     ports:
       - 8000:8000
     env_file:
-      - ./.env.dev
+      - ./.env.prod
     depends_on:
       - db
   db:
@@ -17,16 +19,19 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     environment:
+
       - POSTGRES_USER=hello_django
       - POSTGRES_PASSWORD=hello_django
-      - POSTGRES_DB=hello_django_dev
+      - POSTGRES_DB=hello_django_prod
+
   pgadmin:
-    container_name: pgadmin4_container
+    container_name: pgadmin4_container_prod
     image: dpage/pgadmin4
     restart: always
     environment:
-      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
-      - PGADMIN_DEFAULT_PASSWORD=admin
+      - ./.env.prod.db
+
+
     ports:
       - "5050:80"
 volumes:

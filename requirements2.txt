@@ -1,4 +1,0 @@
-pip install django-crispy-forms
-pip install django-qrcodes
-pip install django-utils-six
-pip install python-dotenv

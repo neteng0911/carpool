@@ -32,7 +32,7 @@ class User(AbstractUser):
 
     def __str__(self):
         return f"{self.username}"
-        #return f"{self.username}, {self.email}"
+        # return f"{self.username}, {self.email}"
 
 
 
