@@ -149,34 +149,38 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / "staticfiles"
+#STATIC_ROOT = os.path.join(BASE_DIR, 'Capstone/static/Capstone/images')
+
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_URL = '/images/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'Capstone/static/Capstone/images')
+CSRF_TRUSTED_ORIGINS = ["http://localhost:1337"]
 
 LOCALE_PATHS = [
     BASE_DIR / 'locale/',
 ]
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-# EMAIL_USE_TLS = str(os.getenv('EMAIL_USE_TLS'))
-# EMAIL_HOST = str(os.getenv('EMAIL_HOST'))
-# EMAIL_HOST_USER = str(os.getenv('EMAIL_HOST_USER'))
+EMAIL_USE_TLS = str(os.getenv('EMAIL_USE_TLS'))
+EMAIL_HOST = str(os.getenv('EMAIL_HOST'))
+EMAIL_HOST_USER = str(os.getenv('EMAIL_HOST_USER'))
 #
-# EMAIL_HOST_PASSWORD = str(os.getenv('EMAIL_HOST_PASSWORD'))
-# EMAIL_PORT = str(os.getenv('EMAIL_PORT'))
-#SMTP_SSL = True
+MAIL_HOST_PASSWORD = str(os.getenv('EMAIL_HOST_PASSWORD'))
+EMAIL_PORT = str(os.getenv('EMAIL_PORT'))
+SMTP_SSL = str(os.getenv('SMTP_SSL'))
 
 
-EMAIL_USE_TLS = True
+'''EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'vehpool@gmail.com'
 
 EMAIL_HOST_PASSWORD = 'hsgiagloskialhak'
 EMAIL_PORT = 587
+'''
 
-EMAIL_FILE_PATH = BASE_DIR / "sent_emails"
+EMAIL_FILE_PATH = BASE_DIR / "sent_emails"###
 
 #django_heroku.settings(locals())
 
